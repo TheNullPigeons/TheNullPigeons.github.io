@@ -33,7 +33,7 @@ export const HomePage: React.FC = () => {
         </p>
         <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
           <span className="text-amber-400">TheNullPigeons</span>
-          <span className="block text-white text-xl md:text-2xl mt-3 font-normal text-slate-200">
+          <span className="block text-white text-xl md:text-2xl mt-3 font-normal text-slate-200 tracking-normal">
             A custom offensive environment for people who don&apos;t like black boxes.
           </span>
         </h1>
