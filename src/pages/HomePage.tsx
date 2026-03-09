@@ -27,6 +27,13 @@ export const HomePage: React.FC = () => {
       {/* Hero — centré, sans faux terminal */}
       <section className="relative text-center max-w-3xl mx-auto">
         <div className="absolute inset-0 bg-gradient-to-b from-amber-500/5 via-transparent to-transparent pointer-events-none rounded-full blur-3xl" aria-hidden />
+        <div className="flex justify-center mb-6">
+          <img
+            src="/assets/thenullpigeonslogo.png"
+            alt="TheNullPigeons"
+            className="h-20 w-20 md:h-24 md:w-24 object-contain drop-shadow-[0_0_20px_rgba(251,191,36,0.15)]"
+          />
+        </div>
         <p className="inline-flex items-center rounded-full border border-slate-600 bg-slate-900/80 px-3 py-1.5 text-xs text-slate-400 mb-6">
           <span className="mr-2 h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
           Transparent by design. Offensive by nature.
