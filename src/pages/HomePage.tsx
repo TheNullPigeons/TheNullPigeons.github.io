@@ -182,6 +182,17 @@ export const HomePage: React.FC = () => {
         <div className="max-w-3xl mx-auto space-y-2">
           <details className="group rounded-xl border border-slate-700/80 bg-slate-900/50 overflow-hidden hover:border-amber-500/20 transition-colors">
             <summary className="faq-summary flex items-center justify-between gap-3 cursor-pointer p-5 font-medium text-white select-none">
+              What is Nihil?
+              <span className="flex-shrink-0 w-5 h-5 text-amber-400 transition-transform duration-200 group-open:rotate-180" aria-hidden>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+              </span>
+            </summary>
+            <p className="text-sm text-slate-400 leading-relaxed px-5 pb-5 pt-0">
+              Nihil is an offensive security environment built by TheNullPigeons. It ships as Arch-based Docker images paired with a Python CLI that handles everything — pulling images, creating containers, managing workspaces and VPN sessions. No hidden config, no telemetry, no black box.
+            </p>
+          </details>
+          <details className="group rounded-xl border border-slate-700/80 bg-slate-900/50 overflow-hidden hover:border-amber-500/20 transition-colors">
+            <summary className="faq-summary flex items-center justify-between gap-3 cursor-pointer p-5 font-medium text-white select-none">
               Is it Docker only?
               <span className="flex-shrink-0 w-5 h-5 text-amber-400 transition-transform duration-200 group-open:rotate-180" aria-hidden>
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
