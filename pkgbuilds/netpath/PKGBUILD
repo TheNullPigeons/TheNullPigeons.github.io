@@ -1,0 +1,36 @@
+# Maintainer: 0xbbuddha & Goultarde
+pkgname=netpath
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="Network Attack Path Discovery Engine - Intelligent network reconnaissance and attack path generation"
+arch=('any')
+url="https://github.com/0xbbuddha/netpath"
+license=('MIT')
+depends=('python>=3.12' 'gum')
+makedepends=('python-setuptools' 'python-pip')
+source=("git+https://github.com/0xbbuddha/netpath.git")
+sha256sums=('SKIP')
+
+package() {
+    cd "$srcdir/netpath"
+    
+    # Install using pip in a venv (standard pipx-like approach)
+    install -d "$pkgdir/opt/pipx/venvs"
+    python -m venv "$pkgdir/opt/pipx/venvs/netpath"
+    
+    # Install the package
+    "$pkgdir/opt/pipx/venvs/netpath/bin/pip" install .
+    
+    # Cleanup
+    "$pkgdir/opt/pipx/venvs/netpath/bin/pip" cache purge
+    find "$pkgdir/opt/pipx/venvs/netpath" -name "__pycache__" -exec rm -rf {} +
+    
+    # Fix paths (relocation)
+    local _pkgdir_escaped=$(echo "$pkgdir" | sed 's/\//\\\//g')
+    sed -i "s/$_pkgdir_escaped//g" "$pkgdir/opt/pipx/venvs/netpath/bin/"*
+    sed -i "s/$_pkgdir_escaped//g" "$pkgdir/opt/pipx/venvs/netpath/pyvenv.cfg"
+    
+    # Create symlinks in /usr/bin
+    install -d "$pkgdir/usr/bin"
+    ln -s "/opt/pipx/venvs/netpath/bin/netpath" "$pkgdir/usr/bin/netpath"
+}

@@ -8,3 +8,7 @@ pkgbuilds/*/*.log
 
 # Repository database backups
 x86_64/*.old
+
+# Site build
+node_modules/
+dist/
