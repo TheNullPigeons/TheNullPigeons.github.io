@@ -8,8 +8,8 @@ export const BlogPage: React.FC = () => {
   return (
     <div className="space-y-12 max-w-3xl mx-auto">
       <header className="space-y-3">
-        <h1 className="font-display text-3xl md:text-4xl font-bold tracking-tight text-white">
-          Blog
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
+          <span className="text-amber-400">Blog</span>
         </h1>
         <p className="text-slate-400 text-lg">
           Notes, write-ups and thoughts from TheNullPigeons.
