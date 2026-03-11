@@ -45,7 +45,7 @@ export const HomePage: React.FC = () => {
           </span>
         </h1>
         <p className="text-slate-400 mt-6 max-w-xl mx-auto leading-relaxed">
-          Our tool <span className="text-amber-400/90 font-medium">Nihil</span> — hand-crafted Docker images and scripts for real-world offensive work — from Windows and 
+          Our tool <span className="text-amber-400/90 font-medium">Nihil</span>: hand-crafted Docker images and a CLI for real-world offensive work, from Windows and
           network infra to web. No magic, just good pigeons with better opsec.
         </p>
         <div className="flex flex-wrap gap-3 justify-center mt-8">
@@ -132,8 +132,7 @@ export const HomePage: React.FC = () => {
               <h3 className="font-semibold text-white">Transparent by design</h3>
             </div>
             <p className="text-sm text-slate-400 leading-relaxed">
-              All images and scripts live on GitHub. No hidden install scripts, no mystery layers —
-              just Bash, Python, and a lot of caffeine.
+              All images and scripts live on GitHub. No hidden install scripts, no mystery layers. Just Bash, Python, and a lot of caffeine.
             </p>
           </div>
           <div className="rounded-2xl border border-slate-700/80 bg-slate-900/50 p-6 space-y-3 hover:border-amber-500/30 hover:bg-slate-900/70 transition-all duration-200">
@@ -142,7 +141,7 @@ export const HomePage: React.FC = () => {
               <h3 className="font-semibold text-white">Built for offensive work</h3>
             </div>
             <p className="text-sm text-slate-400 leading-relaxed">
-              AD enumeration, network recon, web testing — BloodHound, NetExec, Metasploit, and
+              AD enumeration, network recon, web testing: BloodHound, NetExec, Metasploit, and
               more. Tools picked for real engagements, not to pad a readme.
             </p>
           </div>
@@ -195,7 +194,7 @@ export const HomePage: React.FC = () => {
               </span>
             </summary>
             <p className="text-sm text-slate-400 leading-relaxed px-5 pb-5 pt-0">
-              Nihil is an offensive security environment built by TheNullPigeons. It ships as Arch-based Docker images paired with a Python CLI that handles everything — pulling images, creating containers, managing workspaces and VPN sessions. No hidden config, no telemetry, no black box.
+              Nihil is an offensive security environment built by TheNullPigeons. It ships as Arch-based Docker images paired with a Python CLI that handles everything: pulling images, creating containers, managing workspaces and VPN sessions. No hidden config, no telemetry, no black box.
             </p>
           </details>
           <details className="group rounded-xl border border-slate-700/80 bg-slate-900/50 overflow-hidden hover:border-amber-500/20 transition-colors">
@@ -217,7 +216,7 @@ export const HomePage: React.FC = () => {
               </span>
             </summary>
             <p className="text-sm text-slate-400 leading-relaxed px-5 pb-5 pt-0">
-              Rolling updates, minimal footprint, and we like having full control over what goes in. We're both long-time Arch users, and it gives Nihil a slightly different flavor compared to Nihil&apos;s Debian base. Everything is in the Dockerfiles — fork and tweak as you like.
+              Rolling updates, minimal footprint, and we like having full control over what goes in. We're both long-time Arch users, and it keeps the base lean and up-to-date without waiting for distro packaging cycles. Everything is in the Dockerfiles, fork and tweak as you like.
             </p>
           </details>
           <details className="group rounded-xl border border-slate-700/80 bg-slate-900/50 overflow-hidden hover:border-amber-500/20 transition-colors">
@@ -228,7 +227,7 @@ export const HomePage: React.FC = () => {
               </span>
             </summary>
             <p className="text-sm text-slate-400 leading-relaxed px-5 pb-5 pt-0">
-              On GitHub Container Registry (ghcr.io). You can also build them yourself from the repo — no account required to build, no pull limit for public images.
+              On GitHub Container Registry (ghcr.io). You can also build them yourself from the repo, no account required, no pull limit for public images.
             </p>
           </details>
           <details className="group rounded-xl border border-slate-700/80 bg-slate-900/50 overflow-hidden hover:border-amber-500/20 transition-colors">
@@ -244,13 +243,13 @@ export const HomePage: React.FC = () => {
           </details>
           <details className="group rounded-xl border border-slate-700/80 bg-slate-900/50 overflow-hidden hover:border-amber-500/20 transition-colors">
             <summary className="faq-summary flex items-center justify-between gap-3 cursor-pointer p-5 font-medium text-white select-none">
-              How does this compare to Nihil?
+              How does it compare to other pentest environments?
               <span className="flex-shrink-0 w-5 h-5 text-amber-400 transition-transform duration-200 group-open:rotate-180" aria-hidden>
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
               </span>
             </summary>
             <p className="text-sm text-slate-400 leading-relaxed px-5 pb-5 pt-0">
-              We love Nihil. Nihil is our own take: same spirit of a ready-to-use offensive environment, but fully open and maintained by us. No SaaS, no paywall — just images and scripts you can audit and customize.
+              Nihil is our own take on a ready-to-use offensive environment: Arch-based, fully open, no SaaS, no paywall. Just images and a CLI wrapper you control entirely.
             </p>
           </details>
         </div>

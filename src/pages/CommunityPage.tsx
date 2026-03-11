@@ -84,7 +84,7 @@ export const CommunityPage: React.FC = () => {
           <span className="text-amber-400">Community</span>
         </h1>
         <p className="text-slate-400 max-w-2xl mx-auto text-base md:text-lg">
-          A small team of practitioners. No SaaS, no paywall — just open code and feedback from the field.
+          A small team of practitioners. No SaaS, no paywall, just open code and feedback from the field.
         </p>
       </section>
 
@@ -93,26 +93,26 @@ export const CommunityPage: React.FC = () => {
         <div className="text-center max-w-2xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-semibold text-white">Who is Nihil for?</h2>
           <p className="text-slate-400 text-sm mt-2">
-            Built for people who work in offensive security — at any level.
+            Built for people who work in offensive security, at any level.
           </p>
         </div>
         <div className="grid gap-4 sm:grid-cols-2 max-w-4xl mx-auto">
           {[
             {
               title: 'Pentesters & Red Teamers',
-              desc: 'Use Nihil as a ready-to-deploy offensive environment for real engagements — AD attacks, network recon, web testing. Reproducible, auditable, and yours to customize.',
+              desc: 'Use Nihil as a ready-to-deploy offensive environment for real engagements: AD attacks, network recon, web testing. Reproducible, auditable, and yours to customize.',
             },
             {
               title: 'CTF Players',
-              desc: "Spin up a fully loaded container in seconds and get straight to the challenge. No setup overhead, no missing tools — just nihil start ctf and you're in.",
+              desc: "Spin up a fully loaded container in seconds and get straight to the challenge. No setup overhead, no missing tools, just nihil start ctf and you're in.",
             },
             {
               title: 'Security Students',
-              desc: 'Learn offensive techniques in a clean, transparent environment. Every tool, every script is visible on GitHub — no magic, no black box to get lost in.',
+              desc: 'Learn offensive techniques in a clean, transparent environment. Every tool, every script is visible on GitHub. No magic, no black box to get lost in.',
             },
             {
               title: 'Security Researchers',
-              desc: 'Isolate your work in dedicated containers per project. Arch-based images with full control over what goes in — fork, tweak, and rebuild as you need.',
+              desc: 'Isolate your work in dedicated containers per project. Arch-based images with full control over what goes in. Fork, tweak, and rebuild as you need.',
             },
           ].map(({ title, desc }) => (
             <div
@@ -204,7 +204,7 @@ export const CommunityPage: React.FC = () => {
           {[
             {
               title: 'Transparency first',
-              desc: 'Everything lives on GitHub — Dockerfiles, scripts, CLI. No hidden layers, no mystery install. You can read, audit, and fork every line.',
+              desc: 'Everything lives on GitHub: Dockerfiles, scripts, CLI. No hidden layers, no mystery install. You can read, audit, and fork every line.',
             },
             {
               title: 'No bloat',
@@ -253,7 +253,7 @@ export const CommunityPage: React.FC = () => {
       <section className="rounded-2xl border border-dashed border-slate-700 bg-slate-950/60 p-6 text-sm text-slate-400 space-y-2 max-w-3xl mx-auto">
         <p>
           Found a bug or have an idea? Open an issue or a PR. If TheNullPigeons helped on an engagement,
-          we&apos;d love to hear it — especially if something broke in a fun way.
+          we&apos;d love to hear it, especially if something broke in a fun way.
         </p>
       </section>
     </div>

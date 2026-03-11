@@ -14,6 +14,9 @@ import { UsagePage } from './docs/UsagePage';
 import { CompletionPage } from './docs/CompletionPage';
 import { HistoryPage } from './docs/HistoryPage';
 import { FaqPage } from './docs/FaqPage';
+import { AboutPage } from './docs/AboutPage';
+import { BlogPage } from './BlogPage';
+import { BlogPostPage } from './BlogPostPage';
 
 export const App: React.FC = () => {
   return (
@@ -61,6 +64,14 @@ export const App: React.FC = () => {
           path="/docs/faq"
           element={<DocsLayout><FaqPage /></DocsLayout>}
         />
+        <Route
+          path="/docs/about"
+          element={<DocsLayout><AboutPage /></DocsLayout>}
+        />
+
+        {/* Blog */}
+        <Route path="/blog" element={<BlogPage />} />
+        <Route path="/blog/:slug" element={<BlogPostPage />} />
       </Routes>
     </Layout>
   );

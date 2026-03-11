@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
 const PROMPT = 'nihil-demo ~ $ ';
-const WELCOME = `Nihil demo — try commands without installing. Nothing is executed on your machine.
+const WELCOME = `Nihil demo. Try commands without installing. Nothing is executed on your machine.
 
 Type 'nihil --help' to see all commands. Use ↑↓ to navigate history, or click a suggestion below.
 `;
@@ -467,7 +467,7 @@ export const TryItPage: React.FC = () => {
           <span className="text-amber-400">Try Nihil</span>
         </h1>
         <p className="text-slate-400 mt-3 text-sm md:text-base">
-          Interactive demo. Type commands below — nothing runs on your machine.
+          Interactive demo. Type commands below, nothing runs on your machine.
         </p>
         <p className="text-slate-500 text-xs mt-2">
           Real install: <Link to="/docs" className="text-amber-400 hover:underline">Get started</Link>

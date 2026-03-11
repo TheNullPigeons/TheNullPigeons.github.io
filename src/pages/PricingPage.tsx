@@ -19,9 +19,9 @@ const tiers = [
   {
     name: 'Enterprise Pigeon',
     subtitle: 'Contact sales*',
-    price: '—',
+    price: 'N/A',
     period: '',
-    description: '*We don’t have sales. This is a joke. We love Nihil, but we don’t sell subscriptions.',
+    description: "*We don’t have sales. This is a joke. Everything is free, always.",
     features: [
       'Same as Free',
       'You maintain it yourself',

@@ -27,6 +27,7 @@ const sections = [
     title: 'More',
     items: [
       { label: 'FAQ', to: '/docs/faq' },
+      { label: 'About', to: '/docs/about' },
     ],
   },
 ];

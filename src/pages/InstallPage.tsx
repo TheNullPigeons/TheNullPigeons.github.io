@@ -21,7 +21,7 @@ pipx install git+https://github.com/TheNullPigeons/nihil.git
 # Or from a clone
 git clone https://github.com/TheNullPigeons/nihil.git && cd nihil
 pip install -e .`,
-    note: 'Requires Python 3.12+ and Docker. The CLI will pull images from GitHub Container Registry — no manual docker build.',
+    note: 'Requires Python 3.12+ and Docker. The CLI will pull images from GitHub Container Registry, no manual docker build needed.',
   },
   {
     title: 'Pull an image (optional)',
@@ -44,7 +44,7 @@ nihil start lab --image active-directory`,
   },
   {
     title: 'Useful commands',
-    note: 'nihil info — list images and containers. nihil doctor — check Docker and config. Inside the container, Ctrl+R in zsh to search tool names (bloodhound, netexec, etc.) in history.',
+    note: 'nihil info: list images and containers. nihil doctor: check Docker and config. Inside the container, Ctrl+R in zsh to search tool names (bloodhound, netexec, etc.) in history.',
   },
 ];
 
@@ -80,7 +80,7 @@ export const InstallPage: React.FC = () => {
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
           <span className="text-amber-400">Discover our tool</span>
           <span className="block text-white text-xl md:text-2xl mt-2 font-normal text-slate-200">
-            Nihil — our offensive environment, directly on your host.
+            Nihil, our offensive environment, directly on your host.
           </span>
         </h1>
         <p className="text-slate-300 text-lg max-w-2xl mx-auto">

@@ -4,6 +4,7 @@ import { FlyingPigeons } from './FlyingPigeons';
 
 const navLinks = [
   { to: '/', label: 'Overview', end: true },
+  { to: '/blog', label: 'Blog' },
   { to: '/community', label: 'Community' },
   { to: '/pricing', label: 'Pricing' },
   { to: '/docs', label: 'Docs' },
