@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { GITHUB_USERNAMES } from '../config/teamAvatars';
 
 const team = [
@@ -35,29 +36,6 @@ async function fetchGitHubAvatar(username: string): Promise<string | null> {
   }
 }
 
-const communityLinks = [
-  {
-    title: 'GitHub',
-    description: 'Repos, issues, PRs. Tout le code est ici.',
-    href: 'https://github.com/TheNullPigeons',
-    icon: (
-      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-      </svg>
-    ),
-  },
-  {
-    title: 'Nihil',
-    description: "Docker images & install scripts for your offensive lab (infra, Windows, web).",
-    href: 'https://github.com/TheNullPigeons/nihil',
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-        <polyline points="4 17 10 11 4 5" />
-        <line x1="12" y1="19" x2="20" y2="19" />
-      </svg>
-    ),
-  },
-];
 
 export const CommunityPage: React.FC = () => {
   const [avatarUrls, setAvatarUrls] = useState<Record<string, string>>({});
@@ -79,13 +57,41 @@ export const CommunityPage: React.FC = () => {
 
   return (
     <div className="space-y-20">
-      <section className="text-center space-y-5 pt-4">
+      <section className="text-center space-y-6 pt-4">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
           <span className="text-amber-400">Community</span>
         </h1>
         <p className="text-slate-400 max-w-2xl mx-auto text-base md:text-lg">
           A small team of practitioners. No SaaS, no paywall, just open code and feedback from the field.
         </p>
+        <div className="flex flex-wrap justify-center gap-4 pt-2">
+          <Link
+            to="/source-code"
+            className="inline-flex items-center gap-3 px-6 py-3 rounded-xl border border-slate-700/80 bg-slate-900/50 hover:bg-slate-800/60 hover:border-amber-500/30 transition-all duration-200 group"
+          >
+            <svg className="w-6 h-6 text-slate-400 group-hover:text-amber-400 transition-colors" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0C5.372 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.6.111.793-.261.793-.578 0-.285-.011-1.04-.016-2.04-3.338.726-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.73.083-.73 1.205.085 1.84 1.237 1.84 1.237 1.07 1.835 2.807 1.305 3.492.998.108-.776.418-1.305.76-1.605-2.665-.305-5.467-1.334-5.467-5.93 0-1.31.468-2.382 1.236-3.22-.124-.303-.536-1.524.116-3.176 0 0 1.008-.322 3.3 1.23.957-.266 1.984-.399 3.004-.404 1.02.005 2.047.138 3.005.404 2.292-1.552 3.298-1.23 3.298-1.23.653 1.652.24 2.873.118 3.176.77.838 1.235 1.91 1.235 3.22 0 4.61-2.807 5.624-5.48 5.92.43.372.814 1.103.814 2.222 0 1.604-.015 2.896-.015 3.29 0 .319.192.694.8.576C20.565 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+            </svg>
+            <div className="text-left">
+              <span className="font-semibold text-white block">GitHub</span>
+              <span className="text-xs text-slate-400">Repos, issues & PRs</span>
+            </div>
+          </Link>
+          <a
+            href="https://discord.gg/YzjaNpRRPX"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-3 px-6 py-3 rounded-xl border border-slate-700/80 bg-slate-900/50 hover:bg-slate-800/60 hover:border-amber-500/30 transition-all duration-200 group"
+          >
+            <svg className="w-6 h-6 text-slate-400 group-hover:text-amber-400 transition-colors" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z" />
+            </svg>
+            <div className="text-left">
+              <span className="font-semibold text-white block">Discord</span>
+              <span className="text-xs text-slate-400">Chat & support</span>
+            </div>
+          </a>
+        </div>
       </section>
 
       {/* Who is Nihil for */}
@@ -222,30 +228,6 @@ export const CommunityPage: React.FC = () => {
               <h3 className="font-semibold text-amber-400">{title}</h3>
               <p className="text-sm text-slate-400 leading-relaxed">{desc}</p>
             </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="space-y-8">
-        <h2 className="text-2xl md:text-3xl font-semibold text-white text-center">
-          Join & contribute
-        </h2>
-        <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-          {communityLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-5 p-6 rounded-2xl border border-slate-700/80 bg-slate-900/50 hover:bg-slate-800/60 hover:border-amber-500/30 transition-all duration-200 group"
-            >
-              <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center text-slate-400 group-hover:text-amber-400 transition-colors">
-                {link.icon}
-              </div>
-              <div>
-                <h3 className="font-semibold text-white">{link.title}</h3>
-              </div>
-            </a>
           ))}
         </div>
       </section>

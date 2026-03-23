@@ -17,6 +17,7 @@ import { FaqPage } from './docs/FaqPage';
 import { AboutPage } from './docs/AboutPage';
 import { BlogPage } from './BlogPage';
 import { BlogPostPage } from './BlogPostPage';
+import { SourceCodePage } from './SourceCodePage';
 
 export const App: React.FC = () => {
   return (
@@ -25,6 +26,7 @@ export const App: React.FC = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/community" element={<CommunityPage />} />
         <Route path="/pricing" element={<PricingPage />} />
+        <Route path="/source-code" element={<SourceCodePage />} />
         <Route path="/try" element={<TryItPage />} />
 
         {/* Legacy redirects */}
