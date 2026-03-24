@@ -1,8 +1,9 @@
 import React from 'react';
+import { SectionToc } from '../../components/SectionToc';
 
 export const CompletionPage: React.FC = () => {
   return (
-    <div className="space-y-8 max-w-4xl">
+    <div className="space-y-8 w-full">
       <header className="space-y-3">
         <p className="text-xs uppercase tracking-[0.2em] text-slate-500">
           Docs / <span className="text-amber-400">Shell Completion</span>
@@ -15,7 +16,7 @@ export const CompletionPage: React.FC = () => {
         </p>
       </header>
 
-      <div className="grid md:grid-cols-[1fr,200px] gap-8 items-start">
+      <div className="grid sm:grid-cols-[minmax(0,_1fr)_180px] gap-8 items-start">
         <div className="space-y-10 min-w-0">
 
           <section id="prereqs" className="space-y-3">
@@ -119,16 +120,15 @@ compinit`}
           </section>
         </div>
 
-        <aside className="space-y-3 text-sm sticky top-24 hidden md:block">
-          <p className="text-slate-500 font-medium">On this page</p>
-          <nav className="space-y-1">
-            <a href="#prereqs" className="block text-slate-400 hover:text-amber-300 text-xs">Prerequisites</a>
-            <a href="#bash" className="block text-slate-400 hover:text-amber-300 text-xs">Bash</a>
-            <a href="#zsh" className="block text-slate-400 hover:text-amber-300 text-xs">Zsh</a>
-            <a href="#test" className="block text-slate-400 hover:text-amber-300 text-xs">Test it</a>
-            <a href="#troubleshoot" className="block text-slate-400 hover:text-amber-300 text-xs">Troubleshooting</a>
-          </nav>
-        </aside>
+        <SectionToc
+          items={[
+            { id: 'prereqs', label: 'Prerequisites' },
+            { id: 'bash', label: 'Bash' },
+            { id: 'zsh', label: 'Zsh' },
+            { id: 'test', label: 'Test it' },
+            { id: 'troubleshoot', label: 'Troubleshooting' },
+          ]}
+        />
       </div>
     </div>
   );

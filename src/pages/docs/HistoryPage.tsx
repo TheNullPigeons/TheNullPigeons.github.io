@@ -1,8 +1,9 @@
 import React from 'react';
+import { SectionToc } from '../../components/SectionToc';
 
 export const HistoryPage: React.FC = () => {
   return (
-    <div className="space-y-8 max-w-4xl">
+    <div className="space-y-8 w-full">
       <header className="space-y-3">
         <p className="text-xs uppercase tracking-[0.2em] text-slate-500">
           Docs / <span className="text-amber-400">Command History</span>
@@ -15,7 +16,7 @@ export const HistoryPage: React.FC = () => {
         </p>
       </header>
 
-      <div className="grid md:grid-cols-[1fr,200px] gap-8 items-start">
+      <div className="grid sm:grid-cols-[minmax(0,_1fr)_180px] gap-8 items-start">
         <div className="space-y-10 min-w-0">
 
           <section id="location" className="space-y-3">
@@ -78,15 +79,14 @@ mv ~/.config/nihil/history.log.tmp ~/.config/nihil/history.log`}
 
         </div>
 
-        <aside className="space-y-3 text-sm sticky top-24 hidden md:block">
-          <p className="text-slate-500 font-medium">On this page</p>
-          <nav className="space-y-1">
-            <a href="#location" className="block text-slate-400 hover:text-amber-300 text-xs">Location</a>
-            <a href="#format" className="block text-slate-400 hover:text-amber-300 text-xs">Format</a>
-            <a href="#usage" className="block text-slate-400 hover:text-amber-300 text-xs">Usage</a>
-            <a href="#cleanup" className="block text-slate-400 hover:text-amber-300 text-xs">Cleanup</a>
-          </nav>
-        </aside>
+        <SectionToc
+          items={[
+            { id: 'location', label: 'Location' },
+            { id: 'format', label: 'Format' },
+            { id: 'usage', label: 'Usage' },
+            { id: 'cleanup', label: 'Cleanup' },
+          ]}
+        />
       </div>
     </div>
   );

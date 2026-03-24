@@ -2,7 +2,7 @@ import React from 'react';
 
 export const InstallMacosPage: React.FC = () => {
   return (
-    <div className="space-y-8 max-w-4xl">
+    <div className="space-y-8 w-full">
       <header className="space-y-3">
         <p className="text-xs uppercase tracking-[0.2em] text-slate-500">
           Docs / Getting Started / <span className="text-amber-400">macOS</span>

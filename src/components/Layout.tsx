@@ -33,7 +33,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
     <div className="min-h-screen bg-black text-slate-100 flex flex-col relative">
       <FlyingPigeons />
       <header className="sticky top-0 z-50 border-b border-slate-800/80 bg-black/85 backdrop-blur-xl">
-        <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+        <div className="max-w-[96rem] mx-auto px-4 py-3 flex items-center justify-between gap-4">
 
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
@@ -111,11 +111,11 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
       </header>
 
       <main className="flex-1">
-        <div className="max-w-6xl mx-auto px-4 py-10">{children}</div>
+        <div className="max-w-[96rem] mx-auto px-4 py-10">{children}</div>
       </main>
 
       <footer className="border-t border-slate-800 bg-black/90 text-xs text-slate-500">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-2">
+        <div className="max-w-[96rem] mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-2">
           <span>
             Built by{' '}
             <a href="https://github.com/0xbbuddha" target="_blank" rel="noreferrer"

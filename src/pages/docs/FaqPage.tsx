@@ -1,4 +1,5 @@
 import React from 'react';
+import { SectionToc } from '../../components/SectionToc';
 
 const Q: React.FC<{ q: string; children: React.ReactNode }> = ({ q, children }) => (
   <div className="space-y-2">
@@ -9,7 +10,7 @@ const Q: React.FC<{ q: string; children: React.ReactNode }> = ({ q, children }) 
 
 export const FaqPage: React.FC = () => {
   return (
-    <div className="space-y-8 max-w-4xl">
+    <div className="space-y-8 w-full">
       <header className="space-y-3">
         <p className="text-xs uppercase tracking-[0.2em] text-slate-500">
           Docs / <span className="text-amber-400">FAQ</span>
@@ -22,7 +23,7 @@ export const FaqPage: React.FC = () => {
         </p>
       </header>
 
-      <div className="grid md:grid-cols-[1fr,200px] gap-8 items-start">
+      <div className="grid sm:grid-cols-[minmax(0,_1fr)_180px] gap-8 items-start">
         <div className="space-y-10 min-w-0">
 
           <section id="install" className="space-y-5">
@@ -143,16 +144,15 @@ nihil doctor`}
           </section>
         </div>
 
-        <aside className="space-y-3 text-sm sticky top-24 hidden md:block">
-          <p className="text-slate-500 font-medium">On this page</p>
-          <nav className="space-y-1">
-            <a href="#install" className="block text-slate-400 hover:text-amber-300 text-xs">Installation</a>
-            <a href="#usage" className="block text-slate-400 hover:text-amber-300 text-xs">Usage</a>
-            <a href="#permissions" className="block text-slate-400 hover:text-amber-300 text-xs">Permissions & Docker</a>
-            <a href="#security" className="block text-slate-400 hover:text-amber-300 text-xs">Security</a>
-            <a href="#contribute" className="block text-slate-400 hover:text-amber-300 text-xs">Contributing</a>
-          </nav>
-        </aside>
+        <SectionToc
+          items={[
+            { id: 'install', label: 'Installation' },
+            { id: 'usage', label: 'Usage' },
+            { id: 'permissions', label: 'Permissions & Docker' },
+            { id: 'security', label: 'Security' },
+            { id: 'contribute', label: 'Contributing' },
+          ]}
+        />
       </div>
     </div>
   );

@@ -1,8 +1,9 @@
 import React from 'react';
+import { SectionToc } from '../../components/SectionToc';
 
 export const UsagePage: React.FC = () => {
   return (
-    <div className="space-y-8 max-w-4xl">
+    <div className="space-y-8 w-full">
       <header className="space-y-3">
         <p className="text-xs uppercase tracking-[0.2em] text-slate-500">
           Docs / <span className="text-amber-400">CLI Commands</span>
@@ -15,7 +16,7 @@ export const UsagePage: React.FC = () => {
         </p>
       </header>
 
-      <div className="grid md:grid-cols-[1fr,200px] gap-8 items-start">
+      <div className="grid sm:grid-cols-[minmax(0,_1fr)_180px] gap-8 items-start">
         <div className="space-y-10 min-w-0">
 
           <section id="start" className="space-y-4">
@@ -225,21 +226,20 @@ nihil remove project
           </section>
         </div>
 
-        <aside className="space-y-3 text-sm sticky top-24 hidden md:block">
-          <p className="text-slate-500 font-medium">On this page</p>
-          <nav className="space-y-1">
-            <a href="#start" className="block text-slate-400 hover:text-amber-300 text-xs">nihil start</a>
-            <a href="#stop" className="block text-slate-400 hover:text-amber-300 text-xs">nihil stop</a>
-            <a href="#exec" className="block text-slate-400 hover:text-amber-300 text-xs">nihil exec</a>
-            <a href="#remove" className="block text-slate-400 hover:text-amber-300 text-xs">nihil remove</a>
-            <a href="#install" className="block text-slate-400 hover:text-amber-300 text-xs">nihil install</a>
-            <a href="#update" className="block text-slate-400 hover:text-amber-300 text-xs">nihil update</a>
-            <a href="#info" className="block text-slate-400 hover:text-amber-300 text-xs">nihil info</a>
-            <a href="#doctor" className="block text-slate-400 hover:text-amber-300 text-xs">nihil doctor</a>
-            <a href="#uninstall" className="block text-slate-400 hover:text-amber-300 text-xs">nihil uninstall</a>
-            <a href="#usecases" className="block text-slate-400 hover:text-amber-300 text-xs">Use cases</a>
-          </nav>
-        </aside>
+        <SectionToc
+          items={[
+            { id: 'start', label: 'nihil start' },
+            { id: 'stop', label: 'nihil stop' },
+            { id: 'exec', label: 'nihil exec' },
+            { id: 'remove', label: 'nihil remove' },
+            { id: 'install', label: 'nihil install' },
+            { id: 'update', label: 'nihil update' },
+            { id: 'info', label: 'nihil info' },
+            { id: 'doctor', label: 'nihil doctor' },
+            { id: 'uninstall', label: 'nihil uninstall' },
+            { id: 'usecases', label: 'Use cases' },
+          ]}
+        />
       </div>
     </div>
   );
