@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { FlyingPigeons } from './FlyingPigeons';
+import { SeoMeta } from './SeoMeta';
 
 const navLinks = [
   { to: '/', label: 'Overview', end: true },
@@ -31,6 +32,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
 
   return (
     <div className="min-h-screen bg-black text-slate-100 flex flex-col relative">
+      <SeoMeta />
       <FlyingPigeons />
       <header className="sticky top-0 z-50 border-b border-slate-800/80 bg-black/85 backdrop-blur-xl">
         <div className="max-w-[96rem] mx-auto px-4 py-3 flex items-center justify-between gap-4">
