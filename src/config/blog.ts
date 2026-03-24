@@ -4,7 +4,7 @@ export interface BlogPost {
   date: string;       // ISO format YYYY-MM-DD
   tags: string[];
   excerpt: string;
-  content: string;    // Markdown-like JSX string — rendered in BlogPostPage
+  content: string;    // Markdown-like JSX string - rendered in BlogPostPage
 }
 
 export const blogPosts: BlogPost[] = [

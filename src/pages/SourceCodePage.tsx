@@ -3,7 +3,7 @@ import React from 'react';
 const repos = [
   {
     name: 'nihil',
-    description: 'The CLI wrapper — manage your offensive containers from the terminal.',
+    description: 'The CLI wrapper: manage your offensive containers from the terminal.',
     href: 'https://github.com/TheNullPigeons/nihil',
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
@@ -14,7 +14,7 @@ const repos = [
   },
   {
     name: 'nihil-images',
-    description: 'Docker images for pentest, AD, web — Arch-based, fully open.',
+    description: 'Docker images for pentest, AD, web: Arch-based, fully open.',
     href: 'https://github.com/TheNullPigeons/nihil-images',
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
@@ -25,7 +25,7 @@ const repos = [
   },
   {
     name: 'nihil-history',
-    description: 'Persistent command history across containers — never lose a shell command.',
+    description: 'Persistent command history across containers: never lose a shell command.',
     href: 'https://github.com/TheNullPigeons/nihil-history',
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">

@@ -15,6 +15,11 @@ import { CompletionPage } from './docs/CompletionPage';
 import { HistoryPage } from './docs/HistoryPage';
 import { FaqPage } from './docs/FaqPage';
 import { AboutPage } from './docs/AboutPage';
+import { ImagesPage } from './docs/ImagesPage';
+import { NihilHistoryPage } from './docs/NihilHistoryPage';
+import { ArchitecturePage } from './docs/ArchitecturePage';
+import { ConfigurationPage } from './docs/ConfigurationPage';
+import { ContributingPage } from './docs/ContributingPage';
 import { BlogPage } from './BlogPage';
 import { BlogPostPage } from './BlogPostPage';
 import { SourceCodePage } from './SourceCodePage';
@@ -34,10 +39,10 @@ export const App: React.FC = () => {
         <Route path="/docs/linux" element={<Navigate to="/docs/installation/linux" replace />} />
         <Route path="/docs/installation" element={<Navigate to="/docs/installation/linux" replace />} />
 
-        {/* OS selector — before entering docs */}
+        {/* OS selector - before entering docs */}
         <Route path="/docs" element={<OsSelectorPage />} />
 
-        {/* Docs — all pages share the DocsLayout sidebar */}
+        {/* Docs - all pages share the DocsLayout sidebar */}
         <Route
           path="/docs/installation/linux"
           element={<DocsLayout><InstallationPage /></DocsLayout>}
@@ -61,6 +66,26 @@ export const App: React.FC = () => {
         <Route
           path="/docs/history"
           element={<DocsLayout><HistoryPage /></DocsLayout>}
+        />
+        <Route
+          path="/docs/images"
+          element={<DocsLayout><ImagesPage /></DocsLayout>}
+        />
+        <Route
+          path="/docs/nihil-history"
+          element={<DocsLayout><NihilHistoryPage /></DocsLayout>}
+        />
+        <Route
+          path="/docs/architecture"
+          element={<DocsLayout><ArchitecturePage /></DocsLayout>}
+        />
+        <Route
+          path="/docs/configuration"
+          element={<DocsLayout><ConfigurationPage /></DocsLayout>}
+        />
+        <Route
+          path="/docs/contributing"
+          element={<DocsLayout><ContributingPage /></DocsLayout>}
         />
         <Route
           path="/docs/faq"

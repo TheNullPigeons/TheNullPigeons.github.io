@@ -24,7 +24,7 @@ export const HomePage: React.FC = () => {
 
   return (
     <div className="space-y-24">
-      {/* Hero — centré, sans faux terminal */}
+      {/* Hero - centré, sans faux terminal */}
       <section className="relative text-center max-w-3xl mx-auto">
         <div className="absolute inset-0 bg-gradient-to-b from-amber-500/5 via-transparent to-transparent pointer-events-none rounded-full blur-3xl" aria-hidden />
         <div className="flex justify-center mb-6">
@@ -69,7 +69,7 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* Vidéo — See it in action */}
+      {/* Vidéo - See it in action */}
       <section className="space-y-5">
         <div className="text-center max-w-2xl mx-auto">
           <h2 className="text-xl md:text-2xl font-semibold text-white">
@@ -115,7 +115,7 @@ export const HomePage: React.FC = () => {
         </p>
       </section>
 
-      {/* Why Nihil — 3 piliers */}
+      {/* Why Nihil - 3 piliers */}
       <section className="space-y-8">
         <div className="text-center max-w-2xl mx-auto">
           <h2 className="text-xl md:text-2xl font-semibold text-white">

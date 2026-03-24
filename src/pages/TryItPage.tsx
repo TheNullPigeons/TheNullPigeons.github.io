@@ -162,7 +162,7 @@ commands:
   [✓] Docker daemon     running
   [✓] nihil-images-ad   installed (4.12 GB)
   [✓] nihil-images      installed (2.34 GB)
-  ${webInstalled ? '[✓] nihil-images-web  installed (3.01 GB)' : "[!] nihil-images-web  not installed — run 'nihil install web'"}
+  ${webInstalled ? '[✓] nihil-images-web  installed (3.01 GB)' : "[!] nihil-images-web  not installed - run 'nihil install web'"}
 
 [✓] All critical checks passed.
 `;
@@ -234,7 +234,7 @@ commands:
     out += summary + '\n';
     out += noShell
       ? `\n[*] Started in background (--no-shell). Use 'nihil exec ${name}' to connect.\n`
-      : `\n[*] Connecting to '${name}'... (demo only — no real shell)\n`;
+      : `\n[*] Connecting to '${name}'... (demo only - no real shell)\n`;
     return out;
   }
 
@@ -264,9 +264,9 @@ commands:
     }
     const command = rest.slice(1).join(' ') || 'zsh';
     if (['zsh', 'bash', 'sh'].includes(command)) {
-      return `[*] Connecting to '${name}' (${IMAGE_META[c.image].tag})...\n[*] Opening ${command} shell\n\n[*] (demo only — no real shell is opened here)\n`;
+    return `[*] Connecting to '${name}' (${IMAGE_META[c.image].tag})...\n[*] Opening ${command} shell\n\n[*] (demo only - no real shell is opened here)\n`;
     }
-    return `[*] Executing in '${name}': ${command}\n[*] (demo only — nothing is actually run)\n`;
+    return `[*] Executing in '${name}': ${command}\n[*] (demo only - nothing is actually run)\n`;
   }
 
   // remove

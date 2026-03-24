@@ -75,7 +75,7 @@ export const InstallPage: React.FC = () => {
 
   return (
     <div className="space-y-12">
-      {/* Hero — TheNullPigeons présente son outil */}
+      {/* Hero - TheNullPigeons présente son outil */}
       <header className="text-center space-y-4">
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
           <span className="text-amber-400">Discover our tool</span>
@@ -91,7 +91,7 @@ export const InstallPage: React.FC = () => {
         </p>
       </header>
 
-      {/* Choix OS — switch simple + steps en dessous */}
+      {/* Choix OS - switch simple + steps en dessous */}
       <section className="space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div className="text-sm text-slate-400">
@@ -164,7 +164,7 @@ export const InstallPage: React.FC = () => {
         </section>
       </section>
 
-      {/* Footer — notre outil open source */}
+      {/* Footer - notre outil open source */}
       <footer className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-slate-800">
         <p className="text-slate-500 text-sm max-w-md">
           Our tool is open source. Feel free to review the code on GitHub. Use of the code is subject to the terms of the license.
