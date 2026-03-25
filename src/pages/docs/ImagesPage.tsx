@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { SectionToc } from '../../components/SectionToc';
 import { Callout, StepList, TldrBlock } from '../../components/DocsBlocks';
 
-const tabs = ['overview', 'full', 'ad', 'web'] as const;
+const tabs = ['overview', 'full', 'ad', 'web', 'ctf'] as const;
 type Tab = typeof tabs[number];
 
 const tabConfig: Record<Tab, { label: string; color: string; border: string; bg: string; glow: string }> = {
@@ -10,6 +10,7 @@ const tabConfig: Record<Tab, { label: string; color: string; border: string; bg:
   full: { label: 'Full', color: 'text-amber-300', border: 'border-amber-500/40', bg: 'bg-amber-400/15', glow: 'shadow-amber-500/10' },
   ad: { label: 'AD', color: 'text-cyan-300', border: 'border-cyan-500/40', bg: 'bg-cyan-400/15', glow: 'shadow-cyan-500/10' },
   web: { label: 'Web', color: 'text-purple-300', border: 'border-purple-500/40', bg: 'bg-purple-400/15', glow: 'shadow-purple-500/10' },
+  ctf: { label: 'CTF', color: 'text-rose-300', border: 'border-rose-500/40', bg: 'bg-rose-400/15', glow: 'shadow-rose-500/10' },
 };
 
 export const ImagesPage: React.FC = () => {
@@ -61,6 +62,7 @@ export const ImagesPage: React.FC = () => {
                   items={[
                     'Use ad for internal AD assessments.',
                     'Use web for web/API engagements.',
+                    'Use ctf for CTF workflows (pwn/reverse/web/crypto).',
                     'Use full when you need everything in one image.',
                     'Run nihil tools <image> to inspect available tools.',
                   ]}
@@ -72,7 +74,7 @@ export const ImagesPage: React.FC = () => {
                 <StepList
                   steps={[
                     { title: 'Start with interactive mode', detail: 'Run nihil install and pick the image you want.' },
-                    { title: 'Pin explicit image in scripts', detail: 'Use nihil install ad/web/full for reproducible setup.' },
+                    { title: 'Pin explicit image in scripts', detail: 'Use nihil install ad/web/ctf/full for reproducible setup.' },
                   ]}
                 />
                 <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
@@ -82,7 +84,8 @@ nihil install
 # Specific image
 nihil install full
 nihil install ad
-nihil install web`}
+nihil install web
+nihil install ctf`}
                 </pre>
               </section>
 
@@ -105,6 +108,9 @@ nihil install web`}
                         ['AD tools (netexec, impacket...)', true, true, false],
                         ['Web tools (sqlmap, nuclei...)', true, false, true],
                         ['Pwn tools (radare2, pwntools...)', true, false, false],
+                        ['Reverse tools (ghidra, pycdc...)', true, false, false],
+                        ['Crypto tools (RsaCtfTool, xortool...)', true, false, false],
+                        ['Forensics tools (volatility, stegseek...)', true, false, false],
                         ['C2 frameworks (metasploit, sliver)', true, true, false],
                         ['Network tools (nmap, netcat)', true, true, true],
                         ['Credential tools (hashcat, john)', true, true, true],
@@ -125,6 +131,11 @@ nihil install web`}
                     </tbody>
                   </table>
                 </div>
+
+                <Callout variant="note" title="CTF is specialized (not a simple intersection)">
+                  Use the dedicated <code>ctf</code> image when you want a challenge-oriented toolkit.
+                  The comparison above stays focused on Full/AD/Web; CTF gets its own tab with the practical toolset.
+                </Callout>
               </section>
 
               <section id="registries" className="space-y-4">
@@ -137,6 +148,7 @@ nihil install web`}
                     { name: 'Full', tag: 'ghcr.io/thenullpigeons/full:latest', alt: ':flock', desc: 'The whole flock', border: 'border-amber-500/20 hover:border-amber-500/40', bg: 'bg-gradient-to-r from-amber-500/5 to-transparent', accent: 'text-amber-300', dot: 'bg-amber-400' },
                     { name: 'AD', tag: 'ghcr.io/thenullpigeons/ad:latest', alt: ':nest', desc: 'Nest in their Active Directory', border: 'border-cyan-500/20 hover:border-cyan-500/40', bg: 'bg-gradient-to-r from-cyan-500/5 to-transparent', accent: 'text-cyan-300', dot: 'bg-cyan-400' },
                     { name: 'Web', tag: 'ghcr.io/thenullpigeons/web:latest', alt: ':beak', desc: 'Beak through their web apps', border: 'border-purple-500/20 hover:border-purple-500/40', bg: 'bg-gradient-to-r from-purple-500/5 to-transparent', accent: 'text-purple-300', dot: 'bg-purple-400' },
+                    { name: 'CTF', tag: 'ghcr.io/thenullpigeons/ctf:latest', alt: ':flag', desc: 'Capture the flag, no fluff', border: 'border-rose-500/20 hover:border-rose-500/40', bg: 'bg-gradient-to-r from-rose-500/5 to-transparent', accent: 'text-rose-300', dot: 'bg-rose-400' },
                   ].map((img) => (
                     <div key={img.name} className={`flex items-start gap-3 p-4 rounded-xl border ${img.border} ${img.bg} transition-colors`}>
                       <div className={`w-2.5 h-2.5 rounded-full ${img.dot} mt-1 shrink-0 opacity-80`} />
@@ -156,9 +168,10 @@ nihil install web`}
                   {[
                     { q: 'Internal pentest / AD audit', a: 'ad', reason: 'Impacket, BloodHound, NetExec, Responder, and the full AD kill chain.', color: 'cyan', border: 'border-cyan-500/20 hover:border-cyan-500/40', bg: 'from-cyan-500/5' },
                     { q: 'Web application pentest', a: 'web', reason: 'SQLMap, Nuclei, Burp helpers, ffuf, and all the web arsenal.', color: 'purple', border: 'border-purple-500/20 hover:border-purple-500/40', bg: 'from-purple-500/5' },
+                    { q: 'CTF / challenge workflow', a: 'ctf', reason: 'Pwn/reverse/web/crypto focus without AD/C2 overhead.', color: 'rose', border: 'border-rose-500/20 hover:border-rose-500/40', bg: 'from-rose-500/5' },
                     { q: 'Not sure / want everything', a: 'full', reason: 'All modules combined. Larger download, but nothing missing.', color: 'amber', border: 'border-amber-500/20 hover:border-amber-500/40', bg: 'from-amber-500/5' },
                   ].map((item) => {
-                    const accent: Record<string, string> = { cyan: 'text-cyan-300', purple: 'text-purple-300', amber: 'text-amber-300' };
+                    const accent: Record<string, string> = { cyan: 'text-cyan-300', purple: 'text-purple-300', rose: 'text-rose-300', amber: 'text-amber-300' };
                     return (
                       <div key={item.a} className={`p-4 rounded-xl border ${item.border} bg-gradient-to-r ${item.bg} to-transparent transition-colors space-y-1`}>
                         <p className="text-sm font-medium text-white">{item.q}</p>
@@ -170,7 +183,7 @@ nihil install web`}
                   })}
                 </div>
                 <Callout variant="tip" title="Simple decision rule">
-                  If you spend most time on Windows internals choose <code>ad</code>, on HTTP/API choose <code>web</code>, and for mixed engagements choose <code>full</code>.
+                  If you spend most time on Windows internals choose <code>ad</code>, on HTTP/API choose <code>web</code>, on challenge workflows choose <code>ctf</code>, and for mixed engagements choose <code>full</code>.
                 </Callout>
               </section>
 
@@ -184,7 +197,10 @@ nihil tools full
 nihil tools ad --category redteam_ad
 
 # Web tools only
-nihil tools web --category redteam_web`}
+nihil tools web --category redteam_web
+
+# CTF focused categories
+nihil tools ctf --category redteam_pwn`}
                 </pre>
               </section>
             </div>
@@ -312,6 +328,53 @@ nihil tools web --category redteam_web`}
 
               <ToolTable title="All Web tools" tools={webTools} />
               <ToolTable title="Core tools" tools={coreTools} />
+              <ToolTable title="Network tools" tools={networkTools} />
+              <ToolTable title="Credential tools" tools={credentialTools} />
+            </div>
+          )}
+
+          {/* CTF image tab */}
+          {activeTab === 'ctf' && (
+            <div className="space-y-8">
+              <section className="space-y-3">
+                <div className="p-5 rounded-2xl bg-gradient-to-br from-rose-500/10 via-rose-500/5 to-transparent border border-rose-500/20">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-3 h-3 rounded-full bg-rose-400 shadow-lg shadow-rose-400/30" />
+                    <h2 className="text-xl font-bold text-rose-300">CTF image</h2>
+                    <span className="text-xs text-rose-700 italic">Capture the flag, no fluff</span>
+                  </div>
+                  <code className="text-xs text-slate-300 font-mono block mb-2">ghcr.io/thenullpigeons/ctf:latest</code>
+                  <p className="text-slate-400 text-sm">
+                    Purpose-built for challenge workflows: pwn, reverse, web, network, credential, and misc essentials without AD/C2 overhead.
+                  </p>
+                  <div className="flex flex-wrap gap-1.5 mt-3">
+                    {['core_tools', 'redteam_pwn', 'redteam_web', 'redteam_network', 'redteam_credential', 'redteam_misc'].map((m) => (
+                      <span key={m} className="text-[10px] px-2 py-0.5 rounded-full bg-rose-400/10 text-rose-300/80 border border-rose-500/15 font-mono">{m}</span>
+                    ))}
+                  </div>
+                </div>
+              </section>
+
+              <section className="space-y-3">
+                <h3 className="text-lg font-medium text-white">Key tools by category</h3>
+                <div className="space-y-4">
+                  {[
+                    { cat: 'Pwn/Reverse', tools: 'pwntools, ROPgadget, radare2, strace, ltrace, ghidra' },
+                    { cat: 'Web', tools: 'ffuf, nuclei, sqlmap, nikto, dirsearch, jwt-tool' },
+                    { cat: 'Network', tools: 'nmap, netcat, socat, wireshark-cli' },
+                    { cat: 'Credential', tools: 'hashcat, john, binwalk, secLists' },
+                  ].map((row) => (
+                    <div key={row.cat} className="p-3 rounded-xl bg-gradient-to-r from-rose-500/5 to-transparent border border-rose-500/20">
+                      <p className="text-sm font-medium text-rose-300">{row.cat}</p>
+                      <p className="text-xs text-slate-400 mt-1 font-mono">{row.tools}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              <ToolTable title="Core tools" tools={coreTools} />
+              <ToolTable title="Pwn tools" tools={pwnTools} />
+              <ToolTable title="Web tools" tools={webTools} />
               <ToolTable title="Network tools" tools={networkTools} />
               <ToolTable title="Credential tools" tools={credentialTools} />
             </div>

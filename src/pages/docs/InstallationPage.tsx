@@ -24,7 +24,7 @@ export const InstallationPage: React.FC = () => {
               items={[
                 'Use pipx for a clean install.',
                 'Run nihil doctor before first use.',
-                'Pull image with nihil install (full/ad/web).',
+                'Pull image with nihil install (full/ad/web/ctf).',
                 'Start with nihil start <name> --workspace <path>.',
               ]}
             />
@@ -78,7 +78,8 @@ pipx install -e .`}
 {`nihil install
 nihil install full
 nihil install ad
-nihil install web`}
+nihil install web
+nihil install ctf`}
             </pre>
           </section>
 

@@ -111,8 +111,8 @@ const FlowDiagram: React.FC = () => (
       <g>
         <rect x="600" y="170" width="170" height="80" rx="14" fill="url(#gPurple)" stroke="#a855f7" strokeWidth="1" />
         <text x="685" y="198" textAnchor="middle" fill="#c084fc" fontSize="10" fontWeight="bold" fontFamily="monospace">ghcr.io/thenullpigeons</text>
-        <text x="685" y="218" textAnchor="middle" fill="#7e22ce" fontSize="8" fontFamily="system-ui">full:latest | ad:latest | web:latest</text>
-        <text x="685" y="234" textAnchor="middle" fill="#7e22ce" fontSize="7" fontFamily="system-ui" opacity="0.6">:flock | :nest | :beak</text>
+        <text x="685" y="218" textAnchor="middle" fill="#7e22ce" fontSize="8" fontFamily="system-ui">full:latest | ad:latest | web:latest | ctf:latest</text>
+        <text x="685" y="234" textAnchor="middle" fill="#7e22ce" fontSize="7" fontFamily="system-ui" opacity="0.6">:flock | :nest | :beak | :flag</text>
       </g>
       <path d="M535,185 L590,195" fill="none" stroke="#a855f7" strokeWidth="1" strokeDasharray="4,3" opacity="0.6" />
 
@@ -148,7 +148,7 @@ const FlowDiagram: React.FC = () => (
 /* ── SVG diagram: Build pipeline ── */
 const BuildDiagram: React.FC = () => (
   <div className="relative overflow-x-auto py-2">
-    <svg viewBox="0 0 800 300" className="w-full min-w-[600px]" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 800 360" className="w-full min-w-[600px]" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="gBuild" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.12" />
@@ -173,6 +173,7 @@ const BuildDiagram: React.FC = () => (
         { y: 45, label: 'Dockerfile', sub: 'full', color: '#f59e0b' },
         { y: 105, label: 'Dockerfile.ad', sub: 'ad', color: '#22d3ee' },
         { y: 165, label: 'Dockerfile.web', sub: 'web', color: '#a855f7' },
+        { y: 225, label: 'Dockerfile.ctf', sub: 'ctf', color: '#f43f5e' },
       ].map((d) => (
         <g key={d.label}>
           <rect x="30" y={d.y} width="140" height="45" rx="10" fill="url(#gBuild)" stroke={d.color} strokeWidth="1" />
@@ -182,27 +183,30 @@ const BuildDiagram: React.FC = () => (
       ))}
 
       {/* Arrows to modules */}
-      {[67, 127, 187].map((y) => (
+      {[67, 127, 187, 247].map((y) => (
         <path key={y} d={`M170,${y} L225,${y}`} fill="none" stroke="#64748b" strokeWidth="1" strokeDasharray="4,3" markerEnd="url(#aRight)" />
       ))}
 
       {/* Modules column */}
       <text x="320" y="24" textAnchor="middle" fill="#64748b" fontSize="9" fontWeight="bold" fontFamily="system-ui" letterSpacing="2">MODULES</text>
-      <rect x="235" y="38" width="170" height="195" rx="12" fill="url(#gReg)" stroke="#06b6d4" strokeWidth="1" />
+      <rect x="235" y="38" width="170" height="245" rx="12" fill="url(#gReg)" stroke="#06b6d4" strokeWidth="1" />
       {[
         'base.sh',
         'core_tools.sh',
-        'redteam_ad.sh',
-        'redteam_web.sh',
-        'redteam_pwn.sh',
-        'redteam_network.sh',
-        'redteam_credential.sh',
-        'redteam_misc.sh',
-        'redteam_c2.sh',
+        'mod_ad.sh',
+        'mod_web.sh',
+        'mod_pwn.sh',
+        'mod_network.sh',
+        'mod_credential.sh',
+        'mod_reverse.sh',
+        'mod_crypto.sh',
+        'mod_forensics.sh',
+        'mod_c2.sh',
+        'mod_ctf.sh',
       ].map((m, i) => (
         <g key={m}>
-          <rect x="248" y={52 + i * 25} width="144" height="20" rx="4" fill="#0f172a" stroke="#1e293b" strokeWidth="0.5" />
-          <text x="320" y={66 + i * 25} textAnchor="middle" fill="#94a3b8" fontSize="8" fontFamily="monospace">{m}</text>
+          <rect x="248" y={52 + i * 18} width="144" height="16" rx="4" fill="#0f172a" stroke="#1e293b" strokeWidth="0.5" />
+          <text x="320" y={63 + i * 18} textAnchor="middle" fill="#94a3b8" fontSize="7.5" fontFamily="monospace">{m}</text>
         </g>
       ))}
 
@@ -211,7 +215,7 @@ const BuildDiagram: React.FC = () => (
 
       {/* Registries */}
       <text x="550" y="24" textAnchor="middle" fill="#64748b" fontSize="9" fontWeight="bold" fontFamily="system-ui" letterSpacing="2">REGISTRIES</text>
-      <rect x="465" y="38" width="170" height="195" rx="12" fill="url(#gReg)" stroke="#06b6d4" strokeWidth="1" />
+      <rect x="465" y="38" width="170" height="220" rx="12" fill="url(#gReg)" stroke="#06b6d4" strokeWidth="1" />
       {[
         { name: 'pacman', color: '#fbbf24' },
         { name: 'AUR', color: '#fbbf24' },
@@ -219,6 +223,7 @@ const BuildDiagram: React.FC = () => (
         { name: 'pipx-git', color: '#22d3ee' },
         { name: 'go', color: '#34d399' },
         { name: 'cargo', color: '#fb923c' },
+        { name: 'gem', color: '#f43f5e' },
         { name: 'git / curl', color: '#a78bfa' },
       ].map((r, i) => (
         <g key={r.name}>
@@ -237,6 +242,7 @@ const BuildDiagram: React.FC = () => (
         { y: 45, label: 'full:latest', tag: ':flock', color: '#f59e0b' },
         { y: 105, label: 'ad:latest', tag: ':nest', color: '#22d3ee' },
         { y: 165, label: 'web:latest', tag: ':beak', color: '#a855f7' },
+        { y: 225, label: 'ctf:latest', tag: ':flag', color: '#f43f5e' },
       ].map((d) => (
         <g key={d.label}>
           <rect x="675" y={d.y} width="115" height="45" rx="10" fill="url(#gOut)" stroke="#10b981" strokeWidth="1" />
@@ -246,9 +252,9 @@ const BuildDiagram: React.FC = () => (
       ))}
 
       {/* Bottom: health check */}
-      <rect x="235" y="250" width="400" height="35" rx="8" fill="url(#gOut)" stroke="#10b981" strokeWidth="1" strokeDasharray="4,2" />
-      <text x="435" y="272" textAnchor="middle" fill="#6ee7b7" fontSize="10" fontWeight="bold" fontFamily="system-ui">healthcheck.sh validates tools.json</text>
-      <path d="M435,233 L435,248" fill="none" stroke="#10b981" strokeWidth="1" strokeDasharray="3,3" opacity="0.5" />
+      <rect x="235" y="305" width="400" height="35" rx="8" fill="url(#gOut)" stroke="#10b981" strokeWidth="1" strokeDasharray="4,2" />
+      <text x="435" y="327" textAnchor="middle" fill="#6ee7b7" fontSize="10" fontWeight="bold" fontFamily="system-ui">healthcheck.sh validates tools.json</text>
+      <path d="M435,285 L435,303" fill="none" stroke="#10b981" strokeWidth="1" strokeDasharray="3,3" opacity="0.5" />
     </svg>
   </div>
 );
@@ -276,7 +282,7 @@ export const ArchitecturePage: React.FC = () => {
                 'CLI parses args and dispatches command handlers.',
                 'Manager orchestrates Docker lifecycle and mounts.',
                 'Images are built from modular install scripts.',
-                'CI publishes full/ad/web variants to GHCR.',
+                'CI publishes full/ad/web/ctf variants to GHCR.',
               ]}
             />
           </section>
@@ -378,7 +384,7 @@ export const ArchitecturePage: React.FC = () => {
           <section id="registries" className="space-y-4">
             <h2 className="text-xl font-semibold text-white">Installation registries</h2>
             <p className="text-slate-400 text-sm">
-              8 installation methods are used in the build system. Post-install behavior differs by method, and tools metadata comes from <code>tools.json</code>.
+              9 installation methods are used in the build system. Post-install behavior differs by method, and tools metadata comes from <code>tools.json</code>.
             </p>
             <div className="grid sm:grid-cols-2 gap-2">
               {[
@@ -388,6 +394,7 @@ export const ArchitecturePage: React.FC = () => {
                 { name: 'pipx-git', fn: 'install_pipx_tool_git', desc: 'Python from Git repos', color: '#22d3ee' },
                 { name: 'go', fn: 'install_go_tool', desc: 'Go packages', color: '#34d399' },
                 { name: 'cargo', fn: 'install_cargo_tool', desc: 'Rust packages', color: '#fb923c' },
+                { name: 'gem', fn: 'install_gem_tool', desc: 'Ruby gems', color: '#f43f5e' },
                 { name: 'git', fn: 'install_git_tool', desc: 'Clone + venv/symlink', color: '#a78bfa' },
                 { name: 'curl', fn: 'install_tar_tool', desc: 'Direct binary downloads', color: '#a78bfa' },
               ].map((r) => (
@@ -409,13 +416,14 @@ export const ArchitecturePage: React.FC = () => {
           <section id="ci" className="space-y-4">
             <h2 className="text-xl font-semibold text-white">CI/CD</h2>
             <p className="text-slate-400 text-sm">
-              GitHub Actions builds and publishes all three images in parallel.
+              GitHub Actions builds and publishes all four images in parallel.
             </p>
             <div className="flex flex-wrap gap-3">
               {[
                 { img: 'full', tag: ':flock', color: 'border-amber-500/30 bg-amber-500/5', text: 'text-amber-300' },
                 { img: 'ad', tag: ':nest', color: 'border-cyan-500/30 bg-cyan-500/5', text: 'text-cyan-300' },
                 { img: 'web', tag: ':beak', color: 'border-purple-500/30 bg-purple-500/5', text: 'text-purple-300' },
+                { img: 'ctf', tag: ':flag', color: 'border-rose-500/30 bg-rose-500/5', text: 'text-rose-300' },
               ].map((b) => (
                 <div key={b.img} className={`flex-1 min-w-[140px] p-3 rounded-xl border ${b.color} text-center`}>
                   <p className={`text-sm font-bold font-mono ${b.text}`}>{b.img}</p>

@@ -61,6 +61,7 @@ nihil stop my-pentest`}
             <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
 {`nihil install
 nihil install ad
+nihil install ctf
 nihil update
 nihil update web
 nihil upgrade
