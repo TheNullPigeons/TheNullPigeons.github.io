@@ -1,5 +1,6 @@
 import React from 'react';
 import { SectionToc } from '../../components/SectionToc';
+import { Callout, TldrBlock } from '../../components/DocsBlocks';
 
 export const HistoryPage: React.FC = () => {
   return (
@@ -18,6 +19,15 @@ export const HistoryPage: React.FC = () => {
 
       <div className="grid sm:grid-cols-[minmax(0,_1fr)_180px] gap-8 items-start">
         <div className="space-y-10 min-w-0">
+          <section id="tldr">
+            <TldrBlock
+              items={[
+                'Nihil logs executed commands automatically.',
+                'Use grep/fzf to recover previous workflows quickly.',
+                'Rotate file periodically if engagement volume is high.',
+              ]}
+            />
+          </section>
 
           <section id="location" className="space-y-3">
             <h2 className="text-xl font-semibold text-white">Location</h2>
@@ -46,27 +56,18 @@ nihil remove my-pentest --force`}
             <div className="space-y-3">
               <p className="text-slate-300 text-sm font-medium">Browse the history:</p>
               <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
-{`# Show all
-cat ~/.config/nihil/history.log
-
-# Last 20 entries
-tail -20 ~/.config/nihil/history.log
-
-# Search for a keyword
-grep "start" ~/.config/nihil/history.log
-grep "privileged" ~/.config/nihil/history.log`}
+{`tail -20 ~/.config/nihil/history.log
+grep "start" ~/.config/nihil/history.log`}
               </pre>
               <p className="text-slate-300 text-sm font-medium">Interactive search with fzf:</p>
               <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
 {`cat ~/.config/nihil/history.log | fzf`}
               </pre>
-              <p className="text-slate-300 text-sm font-medium">Extract all start commands into a script:</p>
-              <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
-{`grep "^nihil start" ~/.config/nihil/history.log > start_commands.sh
-chmod +x start_commands.sh`}
-              </pre>
             </div>
           </section>
+          <Callout variant="note" title="Operational hygiene">
+            Avoid storing sensitive raw secrets in shell command arguments when possible.
+          </Callout>
 
           <section id="cleanup" className="space-y-4">
             <h2 className="text-xl font-semibold text-white">Cleanup</h2>
@@ -81,6 +82,7 @@ mv ~/.config/nihil/history.log.tmp ~/.config/nihil/history.log`}
 
         <SectionToc
           items={[
+            { id: 'tldr', label: 'TL;DR' },
             { id: 'location', label: 'Location' },
             { id: 'format', label: 'Format' },
             { id: 'usage', label: 'Usage' },

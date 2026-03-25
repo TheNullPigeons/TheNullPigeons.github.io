@@ -1,5 +1,6 @@
 import React from 'react';
 import { SectionToc } from '../../components/SectionToc';
+import { Callout, TldrBlock } from '../../components/DocsBlocks';
 
 /* ── SVG diagram: CLI flow ── */
 const FlowDiagram: React.FC = () => (
@@ -195,6 +196,8 @@ const BuildDiagram: React.FC = () => (
         'redteam_web.sh',
         'redteam_pwn.sh',
         'redteam_network.sh',
+        'redteam_credential.sh',
+        'redteam_misc.sh',
         'redteam_c2.sh',
       ].map((m, i) => (
         <g key={m}>
@@ -267,6 +270,16 @@ export const ArchitecturePage: React.FC = () => {
 
       <div className="grid sm:grid-cols-[minmax(0,_1fr)_180px] gap-8 items-start">
         <div className="space-y-10 min-w-0">
+          <section id="tldr">
+            <TldrBlock
+              items={[
+                'CLI parses args and dispatches command handlers.',
+                'Manager orchestrates Docker lifecycle and mounts.',
+                'Images are built from modular install scripts.',
+                'CI publishes full/ad/web variants to GHCR.',
+              ]}
+            />
+          </section>
 
           {/* Flow diagram */}
           <section id="flow" className="space-y-4">
@@ -365,7 +378,7 @@ export const ArchitecturePage: React.FC = () => {
           <section id="registries" className="space-y-4">
             <h2 className="text-xl font-semibold text-white">Installation registries</h2>
             <p className="text-slate-400 text-sm">
-              7 methods to install tools. Each one automatically creates symlinks, loads aliases and history, and registers in tools.json.
+              8 installation methods are used in the build system. Post-install behavior differs by method, and tools metadata comes from <code>tools.json</code>.
             </p>
             <div className="grid sm:grid-cols-2 gap-2">
               {[
@@ -413,15 +426,19 @@ export const ArchitecturePage: React.FC = () => {
             <div className="p-3 rounded-lg bg-emerald-500/5 border border-emerald-500/20">
               <p className="text-xs text-emerald-300">
                 <code className="font-mono text-emerald-200">healthcheck.sh</code> validates every tool in <code className="font-mono text-emerald-200">tools.json</code> after
-                installation. Failed checks are reported but don't block the build.
+                installation. Failed checks are reported and fail the build.
               </p>
             </div>
+            <Callout variant="note" title="Why this matters">
+              This architecture keeps runtime usage simple while preserving build-time transparency and reproducibility.
+            </Callout>
           </section>
 
         </div>
 
         <SectionToc
           items={[
+            { id: 'tldr', label: 'TL;DR' },
             { id: 'flow', label: 'Command flow' },
             { id: 'steps', label: 'Step by step' },
             { id: 'structure', label: 'Project structure' },

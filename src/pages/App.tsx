@@ -20,6 +20,7 @@ import { NihilHistoryPage } from './docs/NihilHistoryPage';
 import { ArchitecturePage } from './docs/ArchitecturePage';
 import { ConfigurationPage } from './docs/ConfigurationPage';
 import { ContributingPage } from './docs/ContributingPage';
+import { ServicePage } from './docs/ServicePage';
 import { BlogPage } from './BlogPage';
 import { BlogPostPage } from './BlogPostPage';
 import { SourceCodePage } from './SourceCodePage';
@@ -82,6 +83,10 @@ export const App: React.FC = () => {
         <Route
           path="/docs/configuration"
           element={<DocsLayout><ConfigurationPage /></DocsLayout>}
+        />
+        <Route
+          path="/docs/service"
+          element={<DocsLayout><ServicePage /></DocsLayout>}
         />
         <Route
           path="/docs/contributing"

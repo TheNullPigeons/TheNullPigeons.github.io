@@ -15,6 +15,7 @@ const ROUTE_META: Array<{ match: (p: string) => boolean; meta: MetaConfig }> = [
   { match: (p) => p === '/docs/nihil-history', meta: { title: 'TheNullPigeons - nihil-history', description: 'Track credentials, hosts, and access links across engagements.' } },
   { match: (p) => p === '/docs/architecture', meta: { title: 'TheNullPigeons - Architecture', description: 'Understand how nihil CLI, Docker manager, and image pipeline fit together.' } },
   { match: (p) => p === '/docs/configuration', meta: { title: 'TheNullPigeons - Configuration', description: 'Configure nihil paths, resources, env variables, and command history.' } },
+  { match: (p) => p === '/docs/service', meta: { title: 'TheNullPigeons - Services', description: 'Understand session services in nihil, including Desktop Browser UI and port behavior.' } },
   { match: (p) => p === '/docs/contributing', meta: { title: 'TheNullPigeons - Contributing', description: 'Report bugs, request tools, and contribute to the nihil ecosystem.' } },
   { match: (p) => p === '/docs/faq', meta: { title: 'TheNullPigeons - FAQ', description: 'Answers to frequent questions about nihil setup and usage.' } },
   { match: (p) => p === '/docs/about', meta: { title: 'TheNullPigeons - About', description: 'Why nihil was built and how the project is structured.' } },

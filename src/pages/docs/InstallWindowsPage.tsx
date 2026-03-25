@@ -1,4 +1,5 @@
 import React from 'react';
+import { Callout, TldrBlock } from '../../components/DocsBlocks';
 
 export const InstallWindowsPage: React.FC = () => {
   return (
@@ -14,6 +15,16 @@ export const InstallWindowsPage: React.FC = () => {
           Native Windows support is on the roadmap. For now, use WSL2 and follow the Linux guide.
         </p>
       </header>
+
+      <section id="tldr">
+        <TldrBlock
+          items={[
+            'Native Windows support is not complete yet.',
+            'Use WSL2 + Docker Desktop as interim setup.',
+            'For full feature parity, prefer Linux host.',
+          ]}
+        />
+      </section>
 
       <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-6 space-y-2">
         <p className="text-amber-300 font-medium text-sm">Work in progress</p>
@@ -33,6 +44,9 @@ export const InstallWindowsPage: React.FC = () => {
           <li>Open a WSL2 terminal and follow the <a href="/docs/installation/linux" className="text-amber-400 hover:underline">Linux install guide</a></li>
         </ol>
       </div>
+      <Callout variant="warning" title="Known limitations">
+        Some networking and privilege-sensitive workflows can differ between WSL2 and native Linux.
+      </Callout>
     </div>
   );
 };

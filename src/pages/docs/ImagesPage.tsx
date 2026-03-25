@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { SectionToc } from '../../components/SectionToc';
+import { Callout, StepList, TldrBlock } from '../../components/DocsBlocks';
 
 const tabs = ['overview', 'full', 'ad', 'web'] as const;
 type Tab = typeof tabs[number];
@@ -24,7 +25,7 @@ export const ImagesPage: React.FC = () => {
           Nihil Images
         </h1>
         <p className="text-slate-400 text-sm md:text-base max-w-2xl">
-          Pre-built Docker images loaded with offensive security tools. Pick the one that fits your engagement.
+          Pick the right image quickly, then drill into tools only when you need details.
         </p>
       </header>
 
@@ -55,8 +56,25 @@ export const ImagesPage: React.FC = () => {
           {/* Overview tab */}
           {activeTab === 'overview' && (
             <div className="space-y-8">
+              <section id="tldr">
+                <TldrBlock
+                  items={[
+                    'Use ad for internal AD assessments.',
+                    'Use web for web/API engagements.',
+                    'Use full when you need everything in one image.',
+                    'Run nihil tools <image> to inspect available tools.',
+                  ]}
+                />
+              </section>
+
               <section id="pull" className="space-y-4">
                 <h2 className="text-xl font-semibold text-white">Pull an image</h2>
+                <StepList
+                  steps={[
+                    { title: 'Start with interactive mode', detail: 'Run nihil install and pick the image you want.' },
+                    { title: 'Pin explicit image in scripts', detail: 'Use nihil install ad/web/full for reproducible setup.' },
+                  ]}
+                />
                 <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
 {`# Interactive selection
 nihil install
@@ -151,6 +169,9 @@ nihil install web`}
                     );
                   })}
                 </div>
+                <Callout variant="tip" title="Simple decision rule">
+                  If you spend most time on Windows internals choose <code>ad</code>, on HTTP/API choose <code>web</code>, and for mixed engagements choose <code>full</code>.
+                </Callout>
               </section>
 
               <section id="tools-cmd" className="space-y-4">
@@ -301,6 +322,7 @@ nihil tools web --category redteam_web`}
         {activeTab === 'overview' ? (
           <SectionToc
             items={[
+              { id: 'tldr', label: 'TL;DR' },
               { id: 'pull', label: 'Pull an image' },
               { id: 'comparison', label: 'Comparison' },
               { id: 'registries', label: 'Registry' },

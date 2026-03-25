@@ -1,5 +1,6 @@
 import React from 'react';
 import { SectionToc } from '../../components/SectionToc';
+import { Callout, TldrBlock } from '../../components/DocsBlocks';
 
 export const ConfigurationPage: React.FC = () => {
   return (
@@ -15,7 +16,7 @@ export const ConfigurationPage: React.FC = () => {
           Customize nihil: config file, my-resources, environment variables, and command history.
         </p>
         <div className="flex flex-wrap gap-2 pt-1">
-          {['config.toml', 'my-resources', 'env vars', 'history.log'].map((badge) => (
+          {['config.yml', 'my-resources', 'env vars', 'history.log'].map((badge) => (
             <span key={badge} className="text-[10px] px-2.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-300/90 font-semibold tracking-wide">
               {badge}
             </span>
@@ -25,12 +26,22 @@ export const ConfigurationPage: React.FC = () => {
 
       <div className="grid sm:grid-cols-[minmax(0,_1fr)_180px] gap-8 items-start">
         <div className="space-y-10 min-w-0">
+          <section id="tldr">
+            <TldrBlock
+              items={[
+                'config.yml controls wrapper behavior.',
+                'my-resources is mounted in every container.',
+                'history.log keeps command trace for replay.',
+                'EDITOR and DOCKER_HOST are the key runtime env vars.',
+              ]}
+            />
+          </section>
 
           {/* Config file */}
           <section id="config-file" className="space-y-4">
             <h2 className="text-xl font-semibold text-white">Config file</h2>
             <p className="text-slate-400 text-sm">
-              Nihil stores its configuration at <code className="text-xs bg-slate-900 px-1 py-0.5 rounded border border-slate-700 font-mono">~/.nihil/config.toml</code>.
+              Nihil stores its configuration at <code className="text-xs bg-slate-900 px-1 py-0.5 rounded border border-slate-700 font-mono">~/.nihil/config.yml</code>.
             </p>
             <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
 {`# View current config
@@ -66,6 +77,9 @@ nihil config --edit`}
                 These files are created automatically on first run with helpful comments. Edit them to customize your environment.
               </p>
             </div>
+            <Callout variant="tip" title="Team productivity">
+              Share a baseline <code>my-resources</code> profile across team members to standardize aliases and tooling behavior.
+            </Callout>
           </section>
 
           {/* Examples */}
@@ -80,16 +94,6 @@ nihil config --edit`}
 {`alias ll='ls -lah'
 alias serve='python3 -m http.server 8080'
 alias clip='xclip -selection clipboard'`}
-                </pre>
-              </div>
-
-              <div className="space-y-2">
-                <p className="text-sm text-slate-300 font-medium">Tmux config</p>
-                <p className="text-xs text-slate-500 font-mono">~/.nihil/my-resources/setup/tmux/tmux.conf</p>
-                <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
-{`set -g mouse on
-set -g history-limit 50000
-bind r source-file ~/.tmux.conf`}
                 </pre>
               </div>
             </div>
@@ -127,19 +131,19 @@ bind r source-file ~/.tmux.conf`}
               Nihil logs every command you run to <code className="text-xs bg-slate-900 px-1 py-0.5 rounded border border-slate-700 font-mono">~/.config/nihil/history.log</code>.
             </p>
             <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-400 font-mono">
-{`2026-03-24T14:30:00 nihil start pentest --image ad --privileged
-2026-03-24T14:35:12 nihil exec pentest`}
+{`nihil start pentest --image ad --privileged
+nihil exec pentest`}
             </pre>
-            <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
-{`# Search your history
-grep "start" ~/.config/nihil/history.log`}
-            </pre>
+            <p className="text-slate-500 text-xs">
+              Quick lookup: <code>grep "start" ~/.config/nihil/history.log</code>
+            </p>
           </section>
 
         </div>
 
         <SectionToc
           items={[
+            { id: 'tldr', label: 'TL;DR' },
             { id: 'config-file', label: 'Config file' },
             { id: 'my-resources', label: 'My Resources' },
             { id: 'examples', label: 'Examples' },

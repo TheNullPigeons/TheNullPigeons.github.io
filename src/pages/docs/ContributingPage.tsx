@@ -1,5 +1,6 @@
 import React from 'react';
 import { SectionToc } from '../../components/SectionToc';
+import { Callout, StepList, TldrBlock } from '../../components/DocsBlocks';
 
 export const ContributingPage: React.FC = () => {
   return (
@@ -25,6 +26,16 @@ export const ContributingPage: React.FC = () => {
 
       <div className="grid sm:grid-cols-[minmax(0,_1fr)_180px] gap-8 items-start">
         <div className="space-y-10 min-w-0">
+          <section id="tldr">
+            <TldrBlock
+              items={[
+                'Use issues first for bugs/tool requests.',
+                'Open PRs with reproducible steps and context.',
+                'Focus on maintainable modules + tools.json updates.',
+                'Prefer small incremental contributions.',
+              ]}
+            />
+          </section>
 
           {/* Bug reports */}
           <section id="bugs" className="space-y-4">
@@ -85,34 +96,37 @@ export const ContributingPage: React.FC = () => {
                 </p>
               </div>
             </div>
+            <Callout variant="tip" title="Fast acceptance path">
+              Small, scoped PRs (one tool or one module change) are easier to review and merge.
+            </Callout>
           </section>
 
           {/* Dev setup */}
           <section id="dev-setup" className="space-y-4">
             <h2 className="text-xl font-semibold text-white">Development setup</h2>
-
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <h3 className="text-base font-medium text-white">nihil CLI</h3>
+            <StepList
+              steps={[
+                { title: 'Clone target repo', detail: 'Pick nihil, nihil-images, or nihil-history.' },
+                { title: 'Use the repo-native workflow', detail: 'Wrapper/history use pipx editable. nihil-images uses Docker build scripts.' },
+                { title: 'Run validation before PR', detail: 'Tests for Python repos, build/check scripts for image repo.' },
+              ]}
+            />
+            <div className="space-y-3">
+              <div className="rounded-lg border border-slate-800 bg-slate-900/40 p-3">
+                <p className="text-xs text-slate-300 font-medium mb-2">nihil / nihil-history</p>
                 <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
-{`git clone https://github.com/TheNullPigeons/nihil.git
-cd nihil
+{`git clone <repo-url>
+cd <repo>
 pipx install -e .
-
-# Run tests
 pytest`}
                 </pre>
               </div>
-
-              <div className="space-y-2">
-                <h3 className="text-base font-medium text-white">nihil-history</h3>
+              <div className="rounded-lg border border-slate-800 bg-slate-900/40 p-3">
+                <p className="text-xs text-slate-300 font-medium mb-2">nihil-images</p>
                 <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
-{`git clone https://github.com/TheNullPigeons/nihil-history.git
-cd nihil-history
-pipx install -e .
-
-# Run tests
-pytest`}
+{`git clone https://github.com/TheNullPigeons/nihil-images.git
+cd nihil-images
+docker build -f Dockerfile -t nihil:full .`}
                 </pre>
               </div>
             </div>
@@ -128,16 +142,12 @@ pytest`}
                 <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
 {`git clone https://github.com/TheNullPigeons/nihil-images.git
 cd nihil-images
-
-# Full image
 docker build -f Dockerfile -t nihil:full .
-
-# AD image
-docker build -f Dockerfile.ad -t nihil:ad .
-
-# Web image
-docker build -f Dockerfile.web -t nihil:web .`}
+docker build -f Dockerfile.ad -t nihil:ad .`}
                 </pre>
+                <p className="text-slate-500 text-xs">
+                  Build only the variant you need for faster iteration.
+                </p>
               </div>
 
               <div className="space-y-2">
@@ -157,21 +167,9 @@ RUN pacman -Sy --noconfirm && \\
 
               <div className="space-y-2">
                 <h3 className="text-base font-medium text-white">Custom module</h3>
-                <p className="text-slate-400 text-xs">Create a new module for permanent tool additions:</p>
-                <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
-{`# build/modules/redteam_custom.sh
-#!/bin/bash
-SCRIPT_DIR="$(cd "$(dirname "\${BASH_SOURCE[0]}")" && pwd)"
-source "\${SCRIPT_DIR}/../lib/common.sh"
-source "\${SCRIPT_DIR}/../lib/registry/redteam_pipx.sh"
-
-function install_redteam_custom() {
-    colorecho "Installing custom tools"
-    install_pipx_tool "mytool" "mytool-package"
-    colorecho "Custom tools installed"
-}`}
-                </pre>
-                <p className="text-slate-400 text-xs">Then add to the Dockerfile:</p>
+                <p className="text-slate-400 text-xs">
+                  Add a module in <code>build/modules/</code>, call the right registry helper, then wire it into the Dockerfile.
+                </p>
                 <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
 {`RUN ./entrypoint.sh install_redteam_custom`}
                 </pre>
@@ -183,6 +181,7 @@ function install_redteam_custom() {
 
         <SectionToc
           items={[
+            { id: 'tldr', label: 'TL;DR' },
             { id: 'bugs', label: 'Report a bug' },
             { id: 'add-tool', label: 'Add a tool' },
             { id: 'dev-setup', label: 'Dev setup' },

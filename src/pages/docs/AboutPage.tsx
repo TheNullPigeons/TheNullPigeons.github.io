@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { SectionToc } from '../../components/SectionToc';
+import { Callout, TldrBlock } from '../../components/DocsBlocks';
 
 export const AboutPage: React.FC = () => {
   return (
@@ -20,6 +21,16 @@ export const AboutPage: React.FC = () => {
 
       <div className="grid sm:grid-cols-[minmax(0,_1fr)_180px] gap-8 items-start">
         <div className="space-y-10 min-w-0">
+          <section id="tldr">
+            <TldrBlock
+              items={[
+                'Nihil = curated offensive images + Python wrapper.',
+                'Designed for reproducible, transparent engagements.',
+                'No lock-in, no hidden layers, fully open source.',
+                'Built and used by practitioners at TheNullPigeons.',
+              ]}
+            />
+          </section>
 
           {/* Why */}
           <section id="why" className="space-y-4">
@@ -48,7 +59,7 @@ export const AboutPage: React.FC = () => {
               {[
                 {
                   name: 'Docker images',
-                  desc: 'Arch-based containers pre-loaded with offensive tools. Three variants: base, ad (Active Directory), and web. Built from public Dockerfiles, no mystery layers.',
+                  desc: 'Arch-based containers pre-loaded with offensive tools. Three variants: full, ad (Active Directory), and web. Built from public Dockerfiles, no mystery layers.',
                 },
                 {
                   name: 'Python wrapper (nihil CLI)',
@@ -95,6 +106,9 @@ export const AboutPage: React.FC = () => {
                 Nothing is hidden. If you don't trust something, read it.
               </p>
             </div>
+            <Callout variant="tip" title="Project philosophy">
+              Keep it operationally simple: predictable startup, explicit tooling, minimal surprise.
+            </Callout>
           </section>
 
           {/* Who */}
@@ -160,6 +174,7 @@ export const AboutPage: React.FC = () => {
 
         <SectionToc
           items={[
+            { id: 'tldr', label: 'TL;DR' },
             { id: 'why', label: 'Why we built this' },
             { id: 'components', label: 'What Nihil is' },
             { id: 'design', label: 'Design choices' },

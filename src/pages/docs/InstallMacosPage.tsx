@@ -1,4 +1,5 @@
 import React from 'react';
+import { Callout, TldrBlock } from '../../components/DocsBlocks';
 
 export const InstallMacosPage: React.FC = () => {
   return (
@@ -14,6 +15,16 @@ export const InstallMacosPage: React.FC = () => {
           macOS support is on the roadmap. In the meantime, you can run Nihil via Docker Desktop with some limitations.
         </p>
       </header>
+
+      <section id="tldr">
+        <TldrBlock
+          items={[
+            'macOS support is partial for now.',
+            'Best stability comes from Linux host.',
+            'Docker Desktop route works for basic usage.',
+          ]}
+        />
+      </section>
 
       <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-6 space-y-2">
         <p className="text-amber-300 font-medium text-sm">Work in progress</p>
@@ -36,13 +47,16 @@ cd nihil
 pipx install -e .
 
 # Pull an image and start
-nihil install base
+nihil install full
 nihil start my-pentest`}
         </pre>
         <p className="text-slate-500 text-xs">
           Note: <code className="bg-slate-900 px-1 py-0.5 rounded border border-slate-800">--network host</code> and <code className="bg-slate-900 px-1 py-0.5 rounded border border-slate-800">--privileged</code> may not work as expected on macOS.
         </p>
       </div>
+      <Callout variant="tip" title="Recommended path">
+        If you need full parity with docs and engagements, run nihil from a Linux VM or dedicated Linux host.
+      </Callout>
     </div>
   );
 };

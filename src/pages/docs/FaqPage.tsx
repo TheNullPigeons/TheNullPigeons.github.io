@@ -1,5 +1,6 @@
 import React from 'react';
 import { SectionToc } from '../../components/SectionToc';
+import { Callout, TldrBlock } from '../../components/DocsBlocks';
 
 const Q: React.FC<{ q: string; children: React.ReactNode }> = ({ q, children }) => (
   <div className="space-y-2">
@@ -25,6 +26,16 @@ export const FaqPage: React.FC = () => {
 
       <div className="grid sm:grid-cols-[minmax(0,_1fr)_180px] gap-8 items-start">
         <div className="space-y-10 min-w-0">
+          <section id="tldr">
+            <TldrBlock
+              items={[
+                'Linux is the reference platform; Windows should use WSL2.',
+                'Most runtime issues are resolved by nihil doctor + Docker checks.',
+                'Use --workspace for persistent project files.',
+                'Use --privileged only when required by tooling.',
+              ]}
+            />
+          </section>
 
           <section id="install" className="space-y-5">
             <h2 className="text-xl font-semibold text-white">Installation</h2>
@@ -34,10 +45,7 @@ export const FaqPage: React.FC = () => {
             </Q>
 
             <Q q="pipx is not available, what do I do?">
-              <p>Use <code className="text-xs bg-slate-900 px-1 py-0.5 rounded border border-slate-700">pip</code> instead:</p>
-              <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
-{`pip install -e .`}
-              </pre>
+              <p>Use <code className="text-xs bg-slate-900 px-1 py-0.5 rounded border border-slate-700">pip install -e .</code> as a fallback.</p>
             </Q>
 
             <Q q="The Docker image fails to pull, why?">
@@ -53,11 +61,9 @@ export const FaqPage: React.FC = () => {
             <h2 className="text-xl font-semibold text-white">Usage</h2>
 
             <Q q="How do I share files between my host and the container?">
-              <p>Use the <code className="text-xs bg-slate-900 px-1 py-0.5 rounded border border-slate-700">--workspace</code> option:</p>
-              <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
-{`nihil start my-pentest --workspace ~/my-files
-# Files available at /workspace inside the container`}
-              </pre>
+              <p>
+                Use <code className="text-xs bg-slate-900 px-1 py-0.5 rounded border border-slate-700">--workspace ~/my-files</code>. Your files are mounted in <code className="text-xs bg-slate-900 px-1 py-0.5 rounded border border-slate-700">/workspace</code>.
+              </p>
             </Q>
 
             <Q q="The container closes immediately, why?">
@@ -67,15 +73,13 @@ export const FaqPage: React.FC = () => {
             </Q>
 
             <Q q="How do I access the host network?">
-              <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
-{`nihil start my-pentest --network host`}
-              </pre>
+              <p>Run with <code className="text-xs bg-slate-900 px-1 py-0.5 rounded border border-slate-700">--network host</code>.</p>
             </Q>
 
             <Q q="How do I run tools that require elevated privileges?">
-              <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
-{`nihil start my-pentest --privileged --network host`}
-              </pre>
+              <p>
+                Start with <code className="text-xs bg-slate-900 px-1 py-0.5 rounded border border-slate-700">--privileged</code> (and optionally <code className="text-xs bg-slate-900 px-1 py-0.5 rounded border border-slate-700">--network host</code> if required).
+              </p>
             </Q>
           </section>
 
@@ -83,24 +87,15 @@ export const FaqPage: React.FC = () => {
             <h2 className="text-xl font-semibold text-white">Permissions & Docker</h2>
 
             <Q q='"Permission denied" with Docker'>
-              <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
-{`sudo usermod -aG docker $USER
-newgrp docker`}
-              </pre>
+              <p>Add your user to the docker group: <code className="text-xs bg-slate-900 px-1 py-0.5 rounded border border-slate-700">sudo usermod -aG docker $USER</code>, then reopen your shell.</p>
             </Q>
 
             <Q q="Container won't start">
-              <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
-{`docker logs <container-name>
-nihil doctor`}
-              </pre>
+              <p>Check container logs, then run <code className="text-xs bg-slate-900 px-1 py-0.5 rounded border border-slate-700">nihil doctor</code> for environment diagnostics.</p>
             </Q>
 
             <Q q='Error "Image not found"'>
-              <p>The image will be pulled automatically. If it fails, pull manually:</p>
-              <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
-{`nihil install`}
-              </pre>
+              <p>The image is pulled automatically. If it fails, retry with <code className="text-xs bg-slate-900 px-1 py-0.5 rounded border border-slate-700">nihil install</code>.</p>
             </Q>
           </section>
 
@@ -118,6 +113,18 @@ nihil doctor`}
                 Containers are isolated, but mounted volumes are accessible from the host. Only mount directories you trust.
               </p>
             </Q>
+          </section>
+
+          <section id="troubleshooting" className="space-y-4">
+            <h2 className="text-xl font-semibold text-white">Troubleshooting quick wins</h2>
+            <Callout variant="note" title="First command to run">
+              Always begin with <code>nihil doctor</code>. It catches the most common environment issues.
+            </Callout>
+            <ul className="list-disc list-inside text-sm text-slate-300 space-y-1">
+              <li>If Docker access fails, verify daemon status and group membership.</li>
+              <li>If image pull fails, test connectivity and retry <code>nihil install</code>.</li>
+              <li>If command is missing after install, open a new shell session.</li>
+            </ul>
           </section>
 
           <section id="contribute" className="space-y-5">
@@ -146,10 +153,12 @@ nihil doctor`}
 
         <SectionToc
           items={[
+            { id: 'tldr', label: 'TL;DR' },
             { id: 'install', label: 'Installation' },
             { id: 'usage', label: 'Usage' },
             { id: 'permissions', label: 'Permissions & Docker' },
             { id: 'security', label: 'Security' },
+            { id: 'troubleshooting', label: 'Troubleshooting' },
             { id: 'contribute', label: 'Contributing' },
           ]}
         />

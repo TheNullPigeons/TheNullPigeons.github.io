@@ -1,5 +1,6 @@
 import React from 'react';
 import { SectionToc } from '../../components/SectionToc';
+import { Callout, TldrBlock } from '../../components/DocsBlocks';
 
 export const CompletionPage: React.FC = () => {
   return (
@@ -18,26 +19,29 @@ export const CompletionPage: React.FC = () => {
 
       <div className="grid sm:grid-cols-[minmax(0,_1fr)_180px] gap-8 items-start">
         <div className="space-y-10 min-w-0">
+          <section id="tldr">
+            <TldrBlock
+              items={[
+                'Generate completion with nihil completion bash/zsh.',
+                'Load completion in shell startup file.',
+                'Reload shell and test with TAB TAB.',
+                'Use troubleshooting steps if completion does not trigger.',
+              ]}
+            />
+          </section>
 
           <section id="prereqs" className="space-y-3">
             <h2 className="text-xl font-semibold text-white">Prerequisites</h2>
             <p className="text-slate-400 text-sm">
               Shell completion relies on <code className="text-xs bg-slate-900 px-1 py-0.5 rounded border border-slate-700">argcomplete</code>, which is installed automatically with Nihil.
             </p>
-            <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
-{`pip show argcomplete`}
-            </pre>
+            <p className="text-slate-500 text-xs">Quick check: <code>pip show argcomplete</code></p>
           </section>
 
           <section id="bash" className="space-y-4">
             <h2 className="text-xl font-semibold text-white">Bash</h2>
             <div className="space-y-3">
-              <p className="text-slate-300 text-sm font-medium">System-wide (all users):</p>
-              <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
-{`nihil completion bash | sudo tee /etc/bash_completion.d/nihil
-source ~/.bashrc`}
-              </pre>
-              <p className="text-slate-300 text-sm font-medium">Current user only:</p>
+              <p className="text-slate-300 text-sm font-medium">Recommended (current user):</p>
               <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
 {`mkdir -p ~/.config/bash_completion.d
 nihil completion bash > ~/.config/bash_completion.d/nihil
@@ -46,6 +50,9 @@ nihil completion bash > ~/.config/bash_completion.d/nihil
 echo 'for f in ~/.config/bash_completion.d/*; do [ -r "$f" ] && . "$f"; done' >> ~/.bashrc
 source ~/.bashrc`}
               </pre>
+              <p className="text-slate-500 text-xs">
+                For a system-wide install, write the generated file under <code>/etc/bash_completion.d/</code>.
+              </p>
             </div>
           </section>
 
@@ -63,32 +70,20 @@ echo 'autoload -Uz compinit && compinit' >> ~/.zshrc
 
 source ~/.zshrc`}
               </pre>
-              <p className="text-slate-300 text-sm font-medium">Standard zsh:</p>
-              <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
-{`mkdir -p ~/.zfunc
-nihil completion zsh > ~/.zfunc/_nihil
-
-# Add to ~/.zshrc
-echo 'fpath+=(~/.zfunc)' >> ~/.zshrc
-echo 'autoload -Uz compinit && compinit' >> ~/.zshrc
-
-source ~/.zshrc`}
-              </pre>
+              <p className="text-slate-500 text-xs">
+                Without oh-my-zsh, use the same flow with a custom completion directory like <code>~/.zfunc</code>.
+              </p>
             </div>
           </section>
 
           <section id="test" className="space-y-4">
             <h2 className="text-xl font-semibold text-white">Test it</h2>
-            <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
-{`# List all commands
-nihil <TAB><TAB>
-
-# List options for start
-nihil start --<TAB><TAB>`}
-            </pre>
             <p className="text-slate-400 text-sm">
-              You should see subcommands: <code className="text-xs bg-slate-900 px-1 py-0.5 rounded border border-slate-700">start</code>, <code className="text-xs bg-slate-900 px-1 py-0.5 rounded border border-slate-700">stop</code>, <code className="text-xs bg-slate-900 px-1 py-0.5 rounded border border-slate-700">exec</code>, <code className="text-xs bg-slate-900 px-1 py-0.5 rounded border border-slate-700">info</code>, <code className="text-xs bg-slate-900 px-1 py-0.5 rounded border border-slate-700">install</code>, <code className="text-xs bg-slate-900 px-1 py-0.5 rounded border border-slate-700">update</code>, and more.
+              Test quickly with <code>nihil &lt;TAB&gt;&lt;TAB&gt;</code> then <code>nihil start --&lt;TAB&gt;&lt;TAB&gt;</code>. You should see commands/options suggestions.
             </p>
+            <Callout variant="tip" title="Quality of life">
+              Completion is most useful with shell history search (<code>Ctrl+R</code>) and short aliases.
+            </Callout>
           </section>
 
           <section id="troubleshoot" className="space-y-4">
@@ -104,10 +99,7 @@ nihil start --<TAB><TAB>`}
               </div>
               <div>
                 <p className="text-slate-300 text-sm font-medium mb-2">Error: command not found: register-python-argcomplete</p>
-                <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
-{`# Add user bin to PATH
-export PATH="$PATH:$(python3 -m site --user-base)/bin"`}
-                </pre>
+                <p className="text-slate-400 text-sm">Add user bin path once in your shell profile: <code>export PATH="$PATH:$(python3 -m site --user-base)/bin"</code>.</p>
               </div>
               <div>
                 <p className="text-slate-300 text-sm font-medium mb-2">Clear zsh completion cache:</p>
@@ -122,6 +114,7 @@ compinit`}
 
         <SectionToc
           items={[
+            { id: 'tldr', label: 'TL;DR' },
             { id: 'prereqs', label: 'Prerequisites' },
             { id: 'bash', label: 'Bash' },
             { id: 'zsh', label: 'Zsh' },
