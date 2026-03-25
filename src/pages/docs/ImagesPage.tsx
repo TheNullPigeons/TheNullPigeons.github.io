@@ -261,7 +261,7 @@ nihil tools ctf --category redteam_pwn`}
                 <h3 className="text-lg font-medium text-white">Key tools by category</h3>
                 <div className="space-y-4">
                   {[
-                    { cat: 'Enum/Recon', tools: 'bloodhound, netexec, ldapdomaindump, enum4linux-ng, windapsearch, pywerview, ldapsearch-ad' },
+                    { cat: 'Enum/Recon', tools: 'bloodhound, bloodhound-ce, netexec, ldapdomaindump, enum4linux-ng, windapsearch, pywerview, ldapsearch-ad' },
                     { cat: 'Exploitation', tools: 'impacket, certipy, bloodyAD, coercer, pywhisker, PetitPotam, noPac, zerologon' },
                     { cat: 'Credential', tools: 'lsassy, donpapi, pypykatz, hashcat, john, masky' },
                     { cat: 'Relay/Coercion', tools: 'responder, mitm6, krbrelayx, ShadowCoerce, DFSCoerce' },
@@ -316,7 +316,7 @@ nihil tools ctf --category redteam_pwn`}
                     { cat: 'Exploitation', tools: 'sqlmap, commix, xsstrike, tplmap, nosqlmap, graphqlmap, jwt-tool, gopherus' },
                     { cat: 'Proxy', tools: 'mitmproxy, httpie' },
                     { cat: 'SSRF/CORS', tools: 'ssrfmap, corsy, crlfuzz' },
-                    { cat: 'Resources', tools: 'PayloadsAllTheThings, SecLists' },
+                    { cat: 'Resources', tools: 'PayloadsAllTheThings, SecLists, Caido' },
                   ].map((row) => (
                     <div key={row.cat} className="p-3 rounded-xl bg-gradient-to-r from-purple-500/5 to-transparent border border-purple-500/20">
                       <p className="text-sm font-medium text-purple-300">{row.cat}</p>
@@ -457,6 +457,7 @@ const coreTools: Tool[] = [
 const adTools: Tool[] = [
   { name: 'bloodhound', cmd: 'bloodhound-python', desc: 'AD attack path visualization (ingestor)' },
   { name: 'bloodhound-ce-python', cmd: 'bloodhound-ce-python', desc: 'BloodHound CE Python ingestor' },
+  { name: 'bloodhound-ce', cmd: 'bloodhound-ce', desc: 'BloodHound CE desktop client' },
   { name: 'netexec', cmd: 'netexec', desc: 'SMB/LDAP/WinRM/SSH exploitation framework' },
   { name: 'impacket', cmd: 'secretsdump.py', desc: 'Windows protocol library (Fortra)' },
   { name: 'certipy', cmd: 'certipy', desc: 'ADCS enumeration and exploitation' },
@@ -529,6 +530,8 @@ const webTools: Tool[] = [
   { name: 'waybackurls', cmd: 'waybackurls', desc: 'Fetch URLs from Wayback Machine' },
   { name: 'droopescan', cmd: 'droopescan', desc: 'Drupal/CMS scanner' },
   { name: 'cmsmap', cmd: 'cmsmap', desc: 'CMS exploitation' },
+  { name: 'caido-desktop', cmd: 'caido', desc: 'Caido desktop security auditing toolkit (UI)' },
+  { name: 'caido-cli', cmd: 'caido-cli', desc: 'Caido command-line interface' },
 ];
 
 const networkTools: Tool[] = [

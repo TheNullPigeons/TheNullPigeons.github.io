@@ -26,6 +26,7 @@ export const ServicePage: React.FC = () => {
                 'Browser UI is an optional per-container session service.',
                 'Default Browser UI port is random in 6901-6999.',
                 'You can force a fixed port with --browser-ui-port.',
+                'BloodHound CE UI convention is port 1030 when service profile is enabled.',
               ]}
             />
           </section>
@@ -58,6 +59,23 @@ export const ServicePage: React.FC = () => {
             </Callout>
           </section>
 
+          <section id="bloodhound-ce" className="space-y-4">
+            <h2 className="text-xl font-semibold text-white">BloodHound CE (AD service profile)</h2>
+            <p className="text-slate-400 text-sm">
+              BloodHound CE usually exposes its web UI on <code>localhost:1030</code>, with backend
+              dependencies on PostgreSQL and Neo4j.
+            </p>
+            <p className="text-slate-400 text-sm">
+              Common defaults in CE-style setups: web login <code>admin</code>, first password shown on
+              first run, then changed in the UI; Neo4j on <code>7687</code>.
+            </p>
+            <Callout variant="note" title="Current nihil status">
+              The AD image currently ships the <code>bloodhound-ce</code> binary workflow. Full
+              start/stop/reset service orchestration (with managed DB lifecycle and credentials) is not
+              yet standardized like Browser UI.
+            </Callout>
+          </section>
+
           <section id="scope" className="space-y-4">
             <h2 className="text-xl font-semibold text-white">Scope and limits</h2>
             <p className="text-slate-400 text-sm">
@@ -72,6 +90,7 @@ export const ServicePage: React.FC = () => {
             { id: 'tldr', label: 'TL;DR' },
             { id: 'desktop', label: 'Desktop Browser UI' },
             { id: 'credentials', label: 'Credentials' },
+            { id: 'bloodhound-ce', label: 'BloodHound CE' },
             { id: 'scope', label: 'Scope & limits' },
           ]}
         />
