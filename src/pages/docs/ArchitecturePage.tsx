@@ -386,6 +386,9 @@ export const ArchitecturePage: React.FC = () => {
             <p className="text-slate-400 text-sm">
               9 installation methods are used in the build system. Post-install behavior differs by method, and tools metadata comes from <code>tools.json</code>.
             </p>
+            <p className="text-slate-500 text-xs">
+              Note: some tooling previously built from source (for example <code>pwndbg</code>) is now aligned on package-manager flow when available.
+            </p>
             <div className="grid sm:grid-cols-2 gap-2">
               {[
                 { name: 'pacman', fn: 'install_pacman_tool', desc: 'Arch official + Chaotic-AUR', color: '#fbbf24' },

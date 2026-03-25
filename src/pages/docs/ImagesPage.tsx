@@ -359,7 +359,7 @@ nihil tools ctf --category redteam_pwn`}
                 <h3 className="text-lg font-medium text-white">Key tools by category</h3>
                 <div className="space-y-4">
                   {[
-                    { cat: 'Pwn/Reverse', tools: 'pwntools, ROPgadget, radare2, strace, ltrace, ghidra' },
+                    { cat: 'Pwn/Reverse', tools: 'pwndbg, pwntools, ROPgadget, radare2, strace, ltrace, ghidra' },
                     { cat: 'Web', tools: 'ffuf, nuclei, sqlmap, nikto, dirsearch, jwt-tool' },
                     { cat: 'Network', tools: 'nmap, netcat, socat, wireshark-cli' },
                     { cat: 'Credential', tools: 'hashcat, john, binwalk, secLists' },
@@ -546,6 +546,7 @@ const credentialTools: Tool[] = [
 
 const pwnTools: Tool[] = [
   { name: 'radare2', cmd: 'r2', desc: 'Reverse engineering framework' },
+  { name: 'pwndbg', cmd: 'pwndbg', desc: 'GDB helper plugin (installed via pacman)' },
   { name: 'pwntools', cmd: 'pwn', desc: 'CTF/exploit development library' },
   { name: 'ROPgadget', cmd: 'ROPgadget', desc: 'ROP gadget finder' },
   { name: 'strace', cmd: 'strace', desc: 'System call tracer' },
