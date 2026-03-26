@@ -87,7 +87,7 @@ commands:
 
   // --version / version
   if (sub === '--version' || sub === '-v' || sub === 'version') {
-    return 'nihil 0.1.0\n';
+    return 'nihil 1.0.0\n';
   }
 
   // images
@@ -120,7 +120,7 @@ commands:
     }
 
     const variants = Object.keys(IMAGE_META) as ImageVariant[];
-    let out = `\n[*] Nihil version 0.1.0\n\nAVAILABLE IMAGE VARIANTS\n`;
+    let out = `\n[*] Nihil version 1.0.0\n\nAVAILABLE IMAGE VARIANTS\n`;
     out += `  ${pad('VARIANT', 10)}${pad('IMAGE', 12)}DESCRIPTION\n`;
     for (const v of variants) {
       const m = IMAGE_META[v];
