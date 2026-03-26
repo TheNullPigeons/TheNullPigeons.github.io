@@ -21,6 +21,7 @@ import { ArchitecturePage } from './docs/ArchitecturePage';
 import { ConfigurationPage } from './docs/ConfigurationPage';
 import { ContributingPage } from './docs/ContributingPage';
 import { ServicePage } from './docs/ServicePage';
+import { McpPage } from './docs/McpPage';
 import { BlogPage } from './BlogPage';
 import { BlogPostPage } from './BlogPostPage';
 import { SourceCodePage } from './SourceCodePage';
@@ -87,6 +88,10 @@ export const App: React.FC = () => {
         <Route
           path="/docs/service"
           element={<DocsLayout><ServicePage /></DocsLayout>}
+        />
+        <Route
+          path="/docs/mcp"
+          element={<DocsLayout><McpPage /></DocsLayout>}
         />
         <Route
           path="/docs/contributing"

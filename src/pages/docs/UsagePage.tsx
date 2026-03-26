@@ -116,6 +116,24 @@ nihil uninstall`}
             </p>
           </section>
 
+          <section id="x11" className="space-y-4">
+            <h2 className="text-xl font-semibold text-white">X11 / GUI support</h2>
+            <p className="text-slate-400 text-sm">
+              Use <code>--enable-x11</code> to forward your host display into the container and run GUI applications (Burp Suite, Wireshark, etc.).
+            </p>
+            <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
+{`# Allow the container to connect to your X server
+xhost +local:
+
+# Start with X11 forwarding
+nihil start gui-pentest --enable-x11`}
+            </pre>
+            <Callout variant="warning" title="xhost required">
+              You must run <code>xhost +local:</code> on the host <strong>before</strong> starting the container, otherwise GUI apps inside the container won't be able to connect to your display.
+              To make it persistent, add <code>xhost +local:</code> to your <code>~/.xinitrc</code> or desktop autostart.
+            </Callout>
+          </section>
+
           <section id="troubleshooting" className="space-y-4">
             <h2 className="text-xl font-semibold text-white">Troubleshooting</h2>
             <Callout variant="note" title="If commands fail">
@@ -132,6 +150,7 @@ nihil uninstall`}
             { id: 'images', label: 'Image lifecycle' },
             { id: 'commands', label: 'Command reference' },
             { id: 'recipes', label: 'Common recipes' },
+            { id: 'x11', label: 'X11 / GUI support' },
             { id: 'troubleshooting', label: 'Troubleshooting' },
           ]}
         />
