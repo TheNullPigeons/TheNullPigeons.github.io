@@ -43,7 +43,6 @@ const sections: SidebarSection[] = [
       { label: 'Windows', to: '/docs/installation/windows' },
       { label: 'CLI Commands', to: '/docs/usage' },
       { label: 'Configuration', to: '/docs/configuration' },
-      { label: 'Services', to: '/docs/service' },
       { label: 'Shell Completion', to: '/docs/completion' },
       { label: 'Command History', to: '/docs/history' },
     ],
@@ -58,6 +57,7 @@ const sections: SidebarSection[] = [
     items: [
       { label: 'Available Images', to: '/docs/images' },
       { label: 'Architecture', to: '/docs/architecture' },
+      { label: 'Services', to: '/docs/service' },
     ],
   },
   {

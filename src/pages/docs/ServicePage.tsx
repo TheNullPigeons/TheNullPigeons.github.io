@@ -13,7 +13,7 @@ export const ServicePage: React.FC = () => {
           Services
         </h1>
         <p className="text-slate-400 text-sm md:text-base max-w-2xl">
-          What can run as a session service in nihil, with a focus on Desktop Browser UI.
+          Session services managed by the nihil wrapper, with a focus on Desktop Browser UI.
         </p>
       </header>
 
@@ -26,7 +26,7 @@ export const ServicePage: React.FC = () => {
                 'Browser UI is an optional per-container session service.',
                 'Default Browser UI port is random in 6901-6999.',
                 'You can force a fixed port with --browser-ui-port.',
-                'BloodHound CE UI convention is port 1030 when service profile is enabled.',
+                'BloodHound CE starts PostgreSQL and Neo4j automatically — just run bloodhound-ce.',
               ]}
             />
           </section>
@@ -60,19 +60,14 @@ export const ServicePage: React.FC = () => {
           </section>
 
           <section id="bloodhound-ce" className="space-y-4">
-            <h2 className="text-xl font-semibold text-white">BloodHound CE (AD service profile)</h2>
+            <h2 className="text-xl font-semibold text-white">BloodHound CE</h2>
             <p className="text-slate-400 text-sm">
-              BloodHound CE usually exposes its web UI on <code>localhost:1030</code>, with backend
-              dependencies on PostgreSQL and Neo4j.
+              The AD image ships BloodHound CE with PostgreSQL and Neo4j. Just run{' '}
+              <code>bloodhound-ce</code> — dependencies start automatically.
             </p>
-            <p className="text-slate-400 text-sm">
-              Common defaults in CE-style setups: web login <code>admin</code>, first password shown on
-              first run, then changed in the UI; Neo4j on <code>7687</code>.
-            </p>
-            <Callout variant="note" title="Current nihil status">
-              The AD image currently ships the <code>bloodhound-ce</code> binary workflow. Full
-              start/stop/reset service orchestration (with managed DB lifecycle and credentials) is not
-              yet standardized like Browser UI.
+            <Callout variant="note" title="Default credentials">
+              BloodHound CE: <code>admin</code> / shown in the terminal on first run.
+              Neo4j: <code>neo4j</code> / <code>fly2own</code>.
             </Callout>
           </section>
 

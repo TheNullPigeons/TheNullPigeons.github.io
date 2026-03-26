@@ -276,6 +276,18 @@ nihil tools ctf --category redteam_pwn`}
                 </div>
               </section>
 
+              <section className="space-y-3">
+                <h3 className="text-lg font-medium text-white">BloodHound CE</h3>
+                <p className="text-slate-400 text-sm">
+                  The AD image ships BloodHound CE with PostgreSQL and Neo4j. Just run{' '}
+                  <code>bloodhound-ce</code> — dependencies start automatically.
+                </p>
+                <Callout variant="note" title="Default credentials">
+                  BloodHound CE: <code>admin</code> / shown in the terminal on first run.
+                  Neo4j: <code>neo4j</code> / <code>fly2own</code>.
+                </Callout>
+              </section>
+
               <ToolTable title="All AD tools" tools={adTools} />
               <ToolTable title="Core tools" tools={coreTools} />
               <ToolTable title="Network tools" tools={networkTools} />
