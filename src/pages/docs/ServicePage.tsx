@@ -67,7 +67,7 @@ export const ServicePage: React.FC = () => {
             </p>
             <Callout variant="note" title="Default credentials">
               BloodHound CE: <code>admin</code> / shown in the terminal on first run.
-              Neo4j: <code>neo4j</code> / <code>fly2own</code>.
+              Neo4j: <code>neo4j</code> / <code>fly2own1</code>.
             </Callout>
           </section>
 
