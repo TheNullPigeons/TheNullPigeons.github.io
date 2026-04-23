@@ -55,7 +55,8 @@ export const InstallationPage: React.FC = () => {
             <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
 {`python3 -m pip install --user pipx
 python3 -m pipx ensurepath
-pipx install "git+https://github.com/TheNullPigeons/nihil.git"`}
+pipx install "git+https://github.com/TheNullPigeons/nihil.git"
+echo "alias nihil='sudo -E \${echo ~/.local/bin/nihil}' >> ~/.zshrc && source ~/.zshrc"`}
             </pre>
           </section>
 
