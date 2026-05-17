@@ -110,21 +110,23 @@ nihil install ctf`}
                         ['Pwn tools (radare2, pwntools...)', true, false, false],
                         ['Reverse tools (ghidra, pycdc...)', true, false, false],
                         ['Crypto tools (RsaCtfTool, xortool...)', true, false, false],
-                        ['Forensics tools (volatility, stegseek...)', true, false, false],
+                        ['Forensics tools (volatility3, stegseek...)', true, false, false],
                         ['C2 frameworks (metasploit, sliver)', true, true, false],
-                        ['Network tools (nmap, netcat)', true, true, true],
+                        ['Network tools (nmap, socat, tshark...)', true, true, true],
                         ['Credential tools (hashcat, john)', true, true, true],
+                        ['Misc tools (searchsploit, CyberChef)', true, true, true],
+                        ['Wordlists (SecLists, rockyou)', true, true, true],
                       ].map(([feature, full, ad, web], i) => (
                         <tr key={i} className="border-b border-slate-800/60">
                           <td className="py-2 pr-4 text-slate-300 text-xs">{feature as string}</td>
                           <td className="text-center py-2 px-4">
-                            {full ? <span className="text-emerald-400">&#10003;</span> : <span className="text-slate-600">&mdash;</span>}
+                            {full ? <span className="text-emerald-400">&#10003;</span> : <span className="text-slate-600">-</span>}
                           </td>
                           <td className="text-center py-2 px-4">
-                            {ad ? <span className="text-emerald-400">&#10003;</span> : <span className="text-slate-600">&mdash;</span>}
+                            {ad ? <span className="text-emerald-400">&#10003;</span> : <span className="text-slate-600">-</span>}
                           </td>
                           <td className="text-center py-2 px-4">
-                            {web ? <span className="text-emerald-400">&#10003;</span> : <span className="text-slate-600">&mdash;</span>}
+                            {web ? <span className="text-emerald-400">&#10003;</span> : <span className="text-slate-600">-</span>}
                           </td>
                         </tr>
                       ))}
@@ -153,7 +155,7 @@ nihil install ctf`}
                     <div key={img.name} className={`flex items-start gap-3 p-4 rounded-xl border ${img.border} ${img.bg} transition-colors`}>
                       <div className={`w-2.5 h-2.5 rounded-full ${img.dot} mt-1 shrink-0 opacity-80`} />
                       <div className="min-w-0">
-                        <p className={`text-sm font-bold ${img.accent}`}>{img.name} <span className="text-slate-500 font-normal italic text-xs">&mdash; {img.desc}</span></p>
+                        <p className={`text-sm font-bold ${img.accent}`}>{img.name} <span className="text-slate-500 font-normal italic text-xs">- {img.desc}</span></p>
                         <code className="text-xs text-slate-300 font-mono">{img.tag}</code>
                         <span className="text-slate-600 text-xs ml-2">or <code className="text-xs text-slate-500 font-mono">{img.alt}</code></span>
                       </div>
@@ -176,7 +178,7 @@ nihil install ctf`}
                       <div key={item.a} className={`p-4 rounded-xl border ${item.border} bg-gradient-to-r ${item.bg} to-transparent transition-colors space-y-1`}>
                         <p className="text-sm font-medium text-white">{item.q}</p>
                         <p className="text-xs text-slate-400">
-                          Use <code className={`${accent[item.color]} font-mono font-bold`}>{item.a}</code> &mdash; {item.reason}
+                          Use <code className={`${accent[item.color]} font-mono font-bold`}>{item.a}</code> - {item.reason}
                         </p>
                       </div>
                     );
@@ -220,7 +222,7 @@ nihil tools ctf --category redteam_pwn`}
                   The complete arsenal. Every module, every tool. Largest image, but you'll never be missing anything.
                 </p>
                 <div className="flex flex-wrap gap-1.5 mt-3">
-                  {['core_tools', 'redteam_ad', 'redteam_web', 'redteam_pwn', 'redteam_network', 'redteam_credential', 'redteam_c2', 'redteam_misc'].map((m) => (
+                  {['core_tools', 'mod_ad', 'mod_web', 'mod_pwn', 'mod_reverse', 'mod_crypto', 'mod_forensics', 'mod_network', 'mod_credential', 'mod_c2', 'mod_misc', 'mod_wordlists'].map((m) => (
                     <span key={m} className="text-[10px] px-2 py-0.5 rounded-full bg-amber-400/10 text-amber-400/70 border border-amber-500/15 font-mono">{m}</span>
                   ))}
                 </div>
@@ -229,9 +231,14 @@ nihil tools ctf --category redteam_pwn`}
               <ToolTable title="AD tools" tools={adTools} />
               <ToolTable title="Web tools" tools={webTools} />
               <ToolTable title="Pwn tools" tools={pwnTools} />
+              <ToolTable title="Reverse tools" tools={reverseTools} />
+              <ToolTable title="Crypto tools" tools={cryptoTools} />
+              <ToolTable title="Forensics tools" tools={forensicsTools} />
               <ToolTable title="Network tools" tools={networkTools} />
               <ToolTable title="Credential tools" tools={credentialTools} />
               <ToolTable title="C2 frameworks" tools={c2Tools} />
+              <ToolTable title="Misc tools" tools={miscTools} />
+              <ToolTable title="Wordlists" tools={wordlistsTools} />
             </div>
           )}
 
@@ -280,7 +287,7 @@ nihil tools ctf --category redteam_pwn`}
                 <h3 className="text-lg font-medium text-white">BloodHound CE</h3>
                 <p className="text-slate-400 text-sm">
                   The AD image ships BloodHound CE with PostgreSQL and Neo4j. Just run{' '}
-                  <code>bloodhound-ce</code> — dependencies start automatically.
+                  <code>bloodhound-ce</code> -dependencies start automatically.
                 </p>
                 <Callout variant="note" title="Default credentials">
                   BloodHound CE: <code>admin</code> / shown in the terminal on first run.
@@ -293,6 +300,8 @@ nihil tools ctf --category redteam_pwn`}
               <ToolTable title="Network tools" tools={networkTools} />
               <ToolTable title="Credential tools" tools={credentialTools} />
               <ToolTable title="C2 frameworks" tools={c2Tools} />
+              <ToolTable title="Misc tools" tools={miscTools} />
+              <ToolTable title="Wordlists" tools={wordlistsTools} />
             </div>
           )}
 
@@ -342,6 +351,8 @@ nihil tools ctf --category redteam_pwn`}
               <ToolTable title="Core tools" tools={coreTools} />
               <ToolTable title="Network tools" tools={networkTools} />
               <ToolTable title="Credential tools" tools={credentialTools} />
+              <ToolTable title="Misc tools" tools={miscTools} />
+              <ToolTable title="Wordlists" tools={wordlistsTools} />
             </div>
           )}
 
@@ -360,7 +371,7 @@ nihil tools ctf --category redteam_pwn`}
                     Purpose-built for challenge workflows: pwn, reverse, web, network, credential, and misc essentials without AD/C2 overhead.
                   </p>
                   <div className="flex flex-wrap gap-1.5 mt-3">
-                    {['core_tools', 'redteam_pwn', 'redteam_web', 'redteam_network', 'redteam_credential', 'redteam_misc'].map((m) => (
+                    {['core_tools', 'mod_ctf', 'mod_wordlists'].map((m) => (
                       <span key={m} className="text-[10px] px-2 py-0.5 rounded-full bg-rose-400/10 text-rose-300/80 border border-rose-500/15 font-mono">{m}</span>
                     ))}
                   </div>
@@ -371,10 +382,14 @@ nihil tools ctf --category redteam_pwn`}
                 <h3 className="text-lg font-medium text-white">Key tools by category</h3>
                 <div className="space-y-4">
                   {[
-                    { cat: 'Pwn/Reverse', tools: 'pwndbg, pwntools, ROPgadget, radare2, strace, ltrace, ghidra' },
-                    { cat: 'Web', tools: 'ffuf, nuclei, sqlmap, nikto, dirsearch, jwt-tool' },
+                    { cat: 'Pwn', tools: 'pwndbg, pwntools, ROPgadget, radare2, one_gadget, seccomp-tools, checksec, strace, ltrace' },
+                    { cat: 'Reverse', tools: 'ghidra, angr, pycdc, uncompyle6' },
+                    { cat: 'Crypto', tools: 'RsaCtfTool, xortool, z3-solver, hashid, pycryptodome' },
+                    { cat: 'Forensics', tools: 'volatility3, foremost, exiftool, steghide, zsteg, stegseek, openstego' },
+                    { cat: 'Web', tools: 'ffuf, nuclei, sqlmap, nikto, gobuster, feroxbuster, jwt-tool' },
                     { cat: 'Network', tools: 'nmap, netcat, socat, wireshark-cli' },
-                    { cat: 'Credential', tools: 'hashcat, john, binwalk, secLists' },
+                    { cat: 'Credential', tools: 'hashcat, john, binwalk' },
+                    { cat: 'Misc', tools: 'searchsploit, CyberChef' },
                   ].map((row) => (
                     <div key={row.cat} className="p-3 rounded-xl bg-gradient-to-r from-rose-500/5 to-transparent border border-rose-500/20">
                       <p className="text-sm font-medium text-rose-300">{row.cat}</p>
@@ -386,9 +401,14 @@ nihil tools ctf --category redteam_pwn`}
 
               <ToolTable title="Core tools" tools={coreTools} />
               <ToolTable title="Pwn tools" tools={pwnTools} />
+              <ToolTable title="Reverse tools" tools={reverseTools} />
+              <ToolTable title="Crypto tools" tools={cryptoTools} />
+              <ToolTable title="Forensics tools" tools={forensicsTools} />
               <ToolTable title="Web tools" tools={webTools} />
               <ToolTable title="Network tools" tools={networkTools} />
               <ToolTable title="Credential tools" tools={credentialTools} />
+              <ToolTable title="Misc tools" tools={miscTools} />
+              <ToolTable title="Wordlists" tools={wordlistsTools} />
             </div>
           )}
 
@@ -505,6 +525,8 @@ const adTools: Tool[] = [
   { name: 'FindUncommonShares', cmd: 'FindUncommonShares', desc: 'Discover non-standard SMB shares' },
   { name: 'targetedKerberoast', cmd: 'targetedKerberoast', desc: 'Kerberoast via ACL abuse' },
   { name: 'gmsadumper', cmd: 'gmsadumper', desc: 'gMSA credential extraction' },
+  { name: 'openldap', cmd: 'ldapsearch', desc: 'LDAP command-line utilities' },
+  { name: 'smbclient', cmd: 'smbclient', desc: 'SMB command-line client' },
   { name: 'PowerShell', cmd: 'pwsh', desc: 'PowerShell 7' },
 ];
 
@@ -549,6 +571,8 @@ const webTools: Tool[] = [
 const networkTools: Tool[] = [
   { name: 'nmap', cmd: 'nmap', desc: 'Network scanner' },
   { name: 'netcat', cmd: 'nc', desc: 'Network utility (OpenBSD)' },
+  { name: 'socat', cmd: 'socat', desc: 'Multipurpose network relay' },
+  { name: 'wireshark-cli', cmd: 'tshark', desc: 'Network protocol analyzer (CLI)' },
 ];
 
 const credentialTools: Tool[] = [
@@ -556,7 +580,6 @@ const credentialTools: Tool[] = [
   { name: 'john', cmd: 'john', desc: 'Password cracker (John the Ripper)' },
   { name: 'pypykatz', cmd: 'pypykatz', desc: 'LSASS minidump parser (Python)' },
   { name: 'binwalk', cmd: 'binwalk', desc: 'Binary analysis / extraction' },
-  { name: 'SecLists', cmd: '\u2014', desc: 'Security wordlists (/usr/share/seclists)' },
 ];
 
 const pwnTools: Tool[] = [
@@ -564,6 +587,9 @@ const pwnTools: Tool[] = [
   { name: 'pwndbg', cmd: 'pwndbg', desc: 'GDB helper plugin (installed via pacman)' },
   { name: 'pwntools', cmd: 'pwn', desc: 'CTF/exploit development library' },
   { name: 'ROPgadget', cmd: 'ROPgadget', desc: 'ROP gadget finder' },
+  { name: 'one_gadget', cmd: 'one_gadget', desc: 'One-gadget RCE finder for libc' },
+  { name: 'seccomp-tools', cmd: 'seccomp-tools', desc: 'Seccomp filter analyzer' },
+  { name: 'checksec', cmd: 'checksec', desc: 'Binary security property checker' },
   { name: 'strace', cmd: 'strace', desc: 'System call tracer' },
   { name: 'ltrace', cmd: 'ltrace', desc: 'Library call tracer' },
   { name: 'cmake', cmd: 'cmake', desc: 'Build system generator' },
@@ -572,4 +598,39 @@ const pwnTools: Tool[] = [
 const c2Tools: Tool[] = [
   { name: 'metasploit', cmd: 'msfconsole', desc: 'Exploitation framework' },
   { name: 'sliver', cmd: 'sliver-server', desc: 'C2 framework' },
+];
+
+const reverseTools: Tool[] = [
+  { name: 'ghidra', cmd: 'ghidra', desc: 'NSA reverse engineering suite' },
+  { name: 'angr', cmd: 'angr', desc: 'Symbolic execution and binary analysis' },
+  { name: 'pycdc', cmd: 'pycdc', desc: 'Python bytecode decompiler' },
+  { name: 'uncompyle6', cmd: 'uncompyle6', desc: 'Python 2/3 bytecode decompiler' },
+];
+
+const cryptoTools: Tool[] = [
+  { name: 'RsaCtfTool', cmd: 'RsaCtfTool', desc: 'RSA attack automation' },
+  { name: 'xortool', cmd: 'xortool', desc: 'XOR cipher analysis' },
+  { name: 'z3-solver', cmd: 'z3-solver', desc: 'SMT constraint solver' },
+  { name: 'pycryptodome', cmd: 'pycryptodome', desc: 'Python crypto library' },
+  { name: 'hashid', cmd: 'hashid', desc: 'Hash type identifier' },
+];
+
+const forensicsTools: Tool[] = [
+  { name: 'volatility3', cmd: 'vol', desc: 'Memory forensics framework' },
+  { name: 'foremost', cmd: 'foremost', desc: 'File carving tool' },
+  { name: 'exiftool', cmd: 'exiftool', desc: 'Metadata extraction' },
+  { name: 'steghide', cmd: 'steghide', desc: 'JPEG/BMP steganography' },
+  { name: 'zsteg', cmd: 'zsteg', desc: 'PNG/BMP steganography detector' },
+  { name: 'stegseek', cmd: 'stegseek', desc: 'Steghide brute-forcer' },
+  { name: 'openstego', cmd: 'openstego', desc: 'Steganography tool' },
+];
+
+const miscTools: Tool[] = [
+  { name: 'searchsploit', cmd: 'searchsploit', desc: 'Exploit database search' },
+  { name: 'CyberChef', cmd: '/opt/tools/CyberChef', desc: 'Data transformation toolkit (offline)' },
+];
+
+const wordlistsTools: Tool[] = [
+  { name: 'SecLists', cmd: '/opt/lists/seclists', desc: 'Security wordlists collection' },
+  { name: 'rockyou', cmd: '/opt/lists/rockyou.txt', desc: 'Rockyou password list' },
 ];
