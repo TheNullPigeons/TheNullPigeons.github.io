@@ -26,7 +26,7 @@ export const ServicePage: React.FC = () => {
                 'Browser UI is an optional per-container session service.',
                 'Default Browser UI port is random in 6901-6999.',
                 'You can force a fixed port with --browser-ui-port.',
-                'BloodHound CE starts PostgreSQL and Neo4j automatically — just run bloodhound-ce.',
+                'BloodHound CE starts PostgreSQL and Neo4j automatically -just run bloodhound-ce.',
               ]}
             />
           </section>
@@ -63,7 +63,7 @@ export const ServicePage: React.FC = () => {
             <h2 className="text-xl font-semibold text-white">BloodHound CE</h2>
             <p className="text-slate-400 text-sm">
               The AD image ships BloodHound CE with PostgreSQL and Neo4j. Just run{' '}
-              <code>bloodhound-ce</code> — dependencies start automatically.
+              <code>bloodhound-ce</code> -dependencies start automatically.
             </p>
             <Callout variant="note" title="Default credentials">
               BloodHound CE: <code>admin</code> / shown in the terminal on first run.
