@@ -53,7 +53,7 @@ export const NihilHistoryPage: React.FC = () => {
                 { title: 'Hosts', desc: 'IPs, hostnames, domains, OS info' },
                 { title: 'Access matrix', desc: 'Which cred works on which host, via which protocol' },
                 { title: 'Nmap import', desc: 'Import hosts from Nmap XML scans' },
-                { title: 'NetExec sync', desc: 'Import creds and access from NXC output' },
+                { title: 'NetExec sync', desc: 'Import creds and hosts from NXC SQLite workspaces' },
                 { title: 'TUI', desc: 'Interactive terminal UI for browsing and editing' },
                 { title: 'Export', desc: 'JSON and Markdown reports' },
               ].map((f) => (
@@ -207,9 +207,11 @@ nhi env install-shell
 # Remove shell integration
 nhi env uninstall-shell`}
             </pre>
-            <p className="text-slate-400 text-sm">
-              Variables exported: <code>NIHIL_TARGET</code>, <code>NIHIL_USER</code>, <code>NIHIL_PASS</code>.
-            </p>
+            <div className="space-y-1 text-xs text-slate-400 mt-2">
+              <p><span className="text-slate-300 font-medium">From active credential:</span> <code>USER</code>, <code>PASSWORD</code>, <code>NT_HASH</code>, <code>DOMAIN</code></p>
+              <p><span className="text-slate-300 font-medium">From active host:</span> <code>TARGET</code>, <code>IP</code></p>
+              <p><span className="text-slate-300 font-medium">From DC role host:</span> <code>DC_IP</code>, <code>DC_HOST</code></p>
+            </div>
           </section>
 
           {/* Export */}
@@ -267,12 +269,17 @@ nhi env uninstall-shell`}
                     ['q', 'Quit'],
                     ['r', 'Refresh all data'],
                     ['1 / 2 / 3', 'Switch tabs'],
+                    ['Ctrl+E', 'Open engagement manager'],
                     ['a', 'Add item (credential, host, or access link)'],
                     ['e', 'Edit selected item'],
                     ['d', 'Delete selected item'],
-                    ['s', 'Set selected item as active'],
-                    ['l', 'Link credential to host (access)'],
-                    ['h', 'Show allowed values (types, protocols, statuses)'],
+                    ['s', 'Set selected item as active (exports to env)'],
+                    ['L', 'Create access link (cred → host)'],
+                    ['v', 'Enter visual selection mode (multi-delete)'],
+                    ['/', 'Search / filter items'],
+                    ['j / k', 'Navigate up/down (vi-style)'],
+                    ['g / G', 'Jump to top / bottom'],
+                    ['?', 'Show allowed protocols and statuses'],
                     ['Enter', 'Show details of selected item'],
                   ].map(([key, action]) => (
                     <tr key={key} className="border-b border-slate-800/40">
@@ -300,10 +307,17 @@ nhi env uninstall-shell`}
               nihil-history uses a local SQLite database. Each engagement has its own data.
               Stored by default at <code className="text-xs bg-slate-900 px-1 py-0.5 rounded border border-slate-700 font-mono">~/.nihil-history/history.db</code>.
             </p>
-            <div className="p-3 rounded-lg bg-emerald-500/5 border border-emerald-500/20">
-              <p className="text-xs text-emerald-300">
-                Set <code className="font-mono text-emerald-200">NIHIL_HISTORY_HOME</code> to move storage to a custom directory (shared project disk, encrypted mount, etc.).
-              </p>
+            <div className="space-y-2">
+              <div className="p-3 rounded-lg bg-emerald-500/5 border border-emerald-500/20">
+                <p className="text-xs text-emerald-300">
+                  Set <code className="font-mono text-emerald-200">NIHIL_HISTORY_HOME</code> to move storage to a custom directory (shared project disk, encrypted mount, etc.).
+                </p>
+              </div>
+              <div className="p-3 rounded-lg bg-amber-500/5 border border-amber-500/20">
+                <p className="text-xs text-amber-300">
+                  Set <code className="font-mono text-amber-200">NIHIL_HISTORY_ENCRYPTION=1</code> to enable Fernet symmetric encryption of passwords, hashes, and secrets at rest. The key is stored at <code className="font-mono text-amber-200">~/.nihil-history/secret.key</code>.
+                </p>
+              </div>
             </div>
             <section id="troubleshooting" className="space-y-2">
               <h3 className="text-base font-semibold text-white">Troubleshooting quick wins</h3>
