@@ -80,11 +80,14 @@ export const NihilHistoryPage: React.FC = () => {
 {`# Create an engagement
 nhi engagement init "client-2026"
 
-# Add a credential
+# Add a credential (password)
 nhi creds add -u admin -p 'P@ssw0rd' -d corp.local
 
+# Add a credential (NTLM hash)
+nhi creds add -u admin --hash 'aad3b435b51404eeaad3b435b51404ee:...' -d corp.local
+
 # Add a host
-nhi hosts add --ip 10.10.10.1 --hostname DC01 --domain corp.local --os "Windows Server 2022"
+nhi hosts add --ip 10.10.10.1 --hostname DC01 --domain corp.local --os "Windows Server 2022" --role DC
 
 # Link them
 nhi access link --cred-id 1 --host-id 1 --protocol smb --status valid
@@ -107,8 +110,16 @@ nhi tui`}
               Each engagement has its own isolated scope of credentials, hosts, and access links.
             </p>
             <p className="text-slate-400 text-sm">
-              Core flow: <code>nhi engagement init</code>, <code>nhi engagement list</code>, <code>nhi engagement use</code>.
+              Core commands: <code>nhi engagement init</code>, <code>nhi engagement list</code>, <code>nhi engagement use</code>, <code>nhi engagement set-workspace</code>.
             </p>
+            <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
+{`# Create and switch to an engagement
+nhi engagement init "client-2026"
+nhi engagement use "client-2026"
+
+# Link to a specific NXC workspace (if different from engagement name)
+nhi engagement set-workspace corp_local`}
+            </pre>
             <div className="p-3 rounded-lg bg-sky-500/5 border border-sky-500/20">
               <p className="text-xs text-sky-300">
                 Most commands require an active engagement. Use <code className="font-mono text-sky-200">nhi engagement use</code> to select one.
@@ -123,11 +134,14 @@ nhi tui`}
               Add credentials with <code>nhi creds add</code>, then manage with <code>list</code>, <code>set</code>, and <code>rm</code>.
             </p>
             <div className="space-y-1 text-xs text-slate-400">
-              <p><span className="text-slate-300 font-medium">Types:</span> password, hash, token</p>
-              <p><span className="text-slate-300 font-medium">Hash formats:</span> ntlm, rc4</p>
+              <p><span className="text-slate-300 font-medium">--username / -u:</span> account name</p>
+              <p><span className="text-slate-300 font-medium">--password / -p:</span> cleartext password</p>
+              <p><span className="text-slate-300 font-medium">--hash:</span> NTLM or other hash</p>
+              <p><span className="text-slate-300 font-medium">--secret / -s:</span> token, API key, or other secret</p>
+              <p><span className="text-slate-300 font-medium">--domain / -d:</span> domain or realm</p>
             </div>
-            <Callout variant="note" title="Why type + format">
-              Separate <code>type</code> and <code>format</code> prevents ambiguity and helps tooling integrations.
+            <Callout variant="note" title="creds set">
+              <code>nhi creds set --id 1</code> marks a credential as active. It will be exported by <code>nhi env print</code>.
             </Callout>
           </section>
 
@@ -155,7 +169,22 @@ nhi tui`}
           {/* Sync */}
           <section id="sync" className="space-y-4">
             <h2 className="text-xl font-semibold text-white">Sync from tools</h2>
-            <p className="text-slate-400 text-sm">Import NetExec output with <code>nhi sync nxc -f nxc_output.txt</code>.</p>
+            <p className="text-slate-400 text-sm">
+              nihil-history reads the NXC SQLite database directly from <code>~/.nxc/workspaces/</code>. No file export needed.
+            </p>
+            <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
+{`# Sync from the workspace linked to the active engagement
+nhi sync nxc
+
+# Sync from a specific workspace
+nhi sync nxc --workspace corp_local
+
+# Sync from all workspaces
+nhi sync nxc --all`}
+            </pre>
+            <Callout variant="note" title="Auto-sync">
+              NXC data is automatically imported on every <code>nhi</code> command invocation. Manual <code>nhi sync nxc</code> forces an immediate refresh.
+            </Callout>
           </section>
 
           {/* Env */}
@@ -164,8 +193,22 @@ nhi tui`}
             <p className="text-slate-400 text-sm">
               Export the selected credential and host as shell variables for use in commands.
             </p>
+            <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
+{`# Print exports inline (bash/zsh/fish)
+eval $(nhi env print --shell zsh)
+
+# Write to ~/.nihil-history/env.sh and source it persistently
+nhi env export
+source ~/.nihil-history/env.sh
+
+# Install auto-source in ~/.zshrc or ~/.bashrc
+nhi env install-shell
+
+# Remove shell integration
+nhi env uninstall-shell`}
+            </pre>
             <p className="text-slate-400 text-sm">
-              Typical flow: <code>eval $(nhi env print --shell bash)</code> then consume <code>NIHIL_TARGET</code>, <code>NIHIL_USER</code>, <code>NIHIL_PASS</code>.
+              Variables exported: <code>NIHIL_TARGET</code>, <code>NIHIL_USER</code>, <code>NIHIL_PASS</code>.
             </p>
           </section>
 
