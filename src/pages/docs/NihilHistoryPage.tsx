@@ -183,7 +183,7 @@ nhi sync nxc --workspace corp_local
 nhi sync nxc --all`}
             </pre>
             <Callout variant="note" title="Auto-sync">
-              NXC data is automatically imported on every <code>nhi</code> command invocation. Manual <code>nhi sync nxc</code> forces an immediate refresh.
+              NXC data is silently imported on every <code>nhi</code> command (from the engagement-linked workspace only). Use <code>nhi sync nxc</code> explicitly when you need verbose output, want to sync a different workspace, or use <code>--all</code> to pull from every NXC workspace at once.
             </Callout>
           </section>
 
