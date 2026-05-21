@@ -119,18 +119,20 @@ nihil uninstall`}
           <section id="x11" className="space-y-4">
             <h2 className="text-xl font-semibold text-white">X11 / GUI support</h2>
             <p className="text-slate-400 text-sm">
-              Use <code>--enable-x11</code> to forward your host display into the container and run GUI applications (Burp Suite, Wireshark, etc.).
+              X11 forwarding is <strong>enabled by default</strong>. GUI applications (Burp Suite, Wireshark, etc.) work out of the box. nihil automatically runs <code>xhost +si:localuser:root</code> when xhost is available on the host.
             </p>
             <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
-{`# Allow the container to connect to your X server
-xhost +local:
+{`# Just start -- X11 is on by default
+nihil start gui-pentest
 
-# Start with X11 forwarding
-nihil start gui-pentest --enable-x11`}
+# Force X11 even if disabled in config
+nihil start gui-pentest --enable-x11
+
+# Disable X11 permanently via config
+nihil config  # set display.x11_by_default to false`}
             </pre>
-            <Callout variant="warning" title="xhost required">
-              You must run <code>xhost +local:</code> on the host <strong>before</strong> starting the container, otherwise GUI apps inside the container won't be able to connect to your display.
-              To make it persistent, add <code>xhost +local:</code> to your <code>~/.xinitrc</code> or desktop autostart.
+            <Callout variant="note" title="macOS">
+              On macOS, XQuartz must be running. nihil will prompt you to run <code>xhost +localhost</code> manually.
             </Callout>
           </section>
 
