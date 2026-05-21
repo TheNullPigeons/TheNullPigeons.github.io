@@ -22,6 +22,9 @@ import { ConfigurationPage } from './docs/ConfigurationPage';
 import { ContributingPage } from './docs/ContributingPage';
 import { ServicePage } from './docs/ServicePage';
 import { McpPage } from './docs/McpPage';
+import { ToolsPage } from './docs/ToolsPage';
+import { ResourcesPage } from './docs/ResourcesPage';
+import { ResourcesCatalogPage } from './docs/ResourcesCatalogPage';
 import { BlogPage } from './BlogPage';
 import { BlogPostPage } from './BlogPostPage';
 import { SourceCodePage } from './SourceCodePage';
@@ -76,6 +79,18 @@ export const App: React.FC = () => {
         <Route
           path="/docs/nihil-history"
           element={<DocsLayout><NihilHistoryPage /></DocsLayout>}
+        />
+        <Route
+          path="/docs/tools"
+          element={<DocsLayout><ToolsPage /></DocsLayout>}
+        />
+        <Route
+          path="/docs/resources"
+          element={<DocsLayout><ResourcesPage /></DocsLayout>}
+        />
+        <Route
+          path="/docs/resources/catalog"
+          element={<DocsLayout><ResourcesCatalogPage /></DocsLayout>}
         />
         <Route
           path="/docs/architecture"
