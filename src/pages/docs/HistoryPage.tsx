@@ -63,6 +63,15 @@ grep "start" ~/.config/nihil/history.log`}
               <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
 {`cat ~/.config/nihil/history.log | fzf`}
               </pre>
+              <p className="text-slate-300 text-sm font-medium">Reverse search in your shell (<code className="text-amber-300">Ctrl+R</code>):</p>
+              <p className="text-slate-400 text-sm">
+                Because nihil injects executed commands into your shell history, <kbd className="px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700 text-slate-200 text-xs font-mono">Ctrl+R</kbd> works
+                natively. Type a keyword and your shell will cycle through matching nihil invocations directly in the prompt.
+              </p>
+              <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
+{`# In your terminal: press Ctrl+R then type "start"
+# your shell will surface: nihil start my-pentest --privileged`}
+              </pre>
             </div>
           </section>
           <Callout variant="note" title="Operational hygiene">

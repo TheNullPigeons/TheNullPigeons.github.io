@@ -56,8 +56,21 @@ const sections: SidebarSection[] = [
     ),
     items: [
       { label: 'Available Images', to: '/docs/images' },
+      { label: 'Tools', to: '/docs/tools' },
       { label: 'Architecture', to: '/docs/architecture' },
       { label: 'Services', to: '/docs/service' },
+    ],
+  },
+  {
+    title: 'Nihil Resources',
+    icon: (
+      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+      </svg>
+    ),
+    items: [
+      { label: 'Overview & Commands', to: '/docs/resources' },
+      { label: 'Resource Catalog', to: '/docs/resources/catalog' },
     ],
   },
   {
@@ -135,6 +148,7 @@ const SidebarSection: React.FC<{ section: SidebarSection; defaultOpen: boolean }
             <NavLink
               key={item.to}
               to={item.to}
+              end
               className={({ isActive }) =>
                 'block px-3 py-1.5 rounded-md text-[13px] transition-all duration-150 ' +
                 (isActive
