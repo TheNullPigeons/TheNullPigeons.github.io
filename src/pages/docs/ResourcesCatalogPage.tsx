@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 
-type Profile = 'full' | 'ad' | 'web' | 'ctf';
+type Profile = 'full' | 'ad' | 'web' | 'blueteam';
 type Category = 'active-directory' | 'linux' | 'windows' | 'web';
 type Kind = 'url' | 'release_asset' | 'submodule';
 
@@ -30,17 +30,17 @@ const ALL: Resource[] = [
   { id: 'powersploit',       name: 'PowerSploit',            category: 'active-directory', profiles: ['full','ad'],             target: 'active-directory/PowerSploit',                    kind: 'submodule',     enabled: true,  notes: 'Post-exploitation PowerShell framework (PowerView, PowerUp, etc.).', link: 'https://github.com/PowerShellMafia/PowerSploit' },
 
   // Linux
-  { id: 'lse',               name: 'Linux Smart Enumeration', category: 'linux',           profiles: ['full','ctf'],            target: 'linux/enum/lse.sh',                               kind: 'url',           enabled: true,  notes: 'Lightweight Linux enumeration script.',                        link: 'https://github.com/diego-treitos/linux-smart-enumeration' },
-  { id: 'linpeas',           name: 'linPEAS',                category: 'linux',            profiles: ['full','ctf'],            target: 'linux/privesc/linpeas.sh',                        kind: 'url',           enabled: true,  notes: 'Linux privesc script tracking master branch.',                 link: 'https://github.com/carlospolop/PEASS-ng' },
-  { id: 'linpeas-release',   name: 'linPEAS (latest release)', category: 'linux',          profiles: ['full','ad','ctf'],       target: 'linux/privesc/linPEAS/linpeas.sh',                kind: 'release_asset', enabled: true,  notes: 'Pinned to latest GitHub release. Preferred over the url entry.', link: 'https://github.com/carlospolop/PEASS-ng' },
-  { id: 'linenum',           name: 'LinEnum',                category: 'linux',            profiles: ['full','ad','web','ctf'], target: 'linux/enum/LinEnum.sh',                           kind: 'url',           enabled: true,  notes: 'Classic Linux enumeration script.',                            link: 'https://github.com/rebootuser/LinEnum' },
-  { id: 'deepce',            name: 'deepce',                 category: 'linux',            profiles: ['full','ad','web','ctf'], target: 'linux/privesc/deepce.sh',                         kind: 'url',           enabled: true,  notes: 'Container escape and Docker enumeration helper.',              link: 'https://github.com/stealthcopter/deepce' },
-  { id: 'linikatz',          name: 'linikatz',               category: 'linux',            profiles: ['full','ad','ctf'],       target: 'linux/privesc/linikatz.sh',                       kind: 'url',           enabled: true,  notes: 'Lightweight Linux credential extraction helper.',              link: 'https://github.com/CiscoCXSecurity/linikatz' },
-  { id: 'mimipenguin',       name: 'mimipenguin',            category: 'linux',            profiles: ['full','ad','web','ctf'], target: 'linux/enum/mimipenguin.py',                       kind: 'url',           enabled: true,  notes: 'Linux credential scraping helper.',                            link: 'https://github.com/huntergregal/mimipenguin' },
-  { id: 'http-put-server',   name: 'http-put-server',        category: 'linux',            profiles: ['full','ad','web','ctf'], target: 'linux/transfer/http-put-server.py',               kind: 'url',           enabled: true,  notes: 'Minimal Python HTTP PUT server for quick file drops.' },
-  { id: 'pspy64',            name: 'pspy64',                 category: 'linux',            profiles: ['full','ad','web','ctf'], target: 'linux/enum/pspy64',                               kind: 'url',           enabled: true,  notes: 'Monitor Linux processes without root privileges (x86_64).',    link: 'https://github.com/DominicBreuker/pspy' },
-  { id: 'pspy32',            name: 'pspy32',                 category: 'linux',            profiles: ['full','ad','web','ctf'], target: 'linux/enum/pspy32',                               kind: 'url',           enabled: true,  notes: '32-bit pspy build.',                                           link: 'https://github.com/DominicBreuker/pspy' },
-  { id: 'rustscan-linux',    name: 'RustScan (Linux x86_64)', category: 'linux',           profiles: ['full','ctf'],            target: 'linux/network/rustscan_linux_amd64.tar.gz.zip',   kind: 'release_asset', enabled: true,  notes: 'Fast port scanner. Unzip then tar -xzf to extract.',           link: 'https://github.com/RustScan/RustScan' },
+  { id: 'lse',               name: 'Linux Smart Enumeration', category: 'linux',           profiles: ['full'],            target: 'linux/enum/lse.sh',                               kind: 'url',           enabled: true,  notes: 'Lightweight Linux enumeration script.',                        link: 'https://github.com/diego-treitos/linux-smart-enumeration' },
+  { id: 'linpeas',           name: 'linPEAS',                category: 'linux',            profiles: ['full'],            target: 'linux/privesc/linpeas.sh',                        kind: 'url',           enabled: true,  notes: 'Linux privesc script tracking master branch.',                 link: 'https://github.com/carlospolop/PEASS-ng' },
+  { id: 'linpeas-release',   name: 'linPEAS (latest release)', category: 'linux',          profiles: ['full','ad'],       target: 'linux/privesc/linPEAS/linpeas.sh',                kind: 'release_asset', enabled: true,  notes: 'Pinned to latest GitHub release. Preferred over the url entry.', link: 'https://github.com/carlospolop/PEASS-ng' },
+  { id: 'linenum',           name: 'LinEnum',                category: 'linux',            profiles: ['full','ad','web'], target: 'linux/enum/LinEnum.sh',                           kind: 'url',           enabled: true,  notes: 'Classic Linux enumeration script.',                            link: 'https://github.com/rebootuser/LinEnum' },
+  { id: 'deepce',            name: 'deepce',                 category: 'linux',            profiles: ['full','ad','web'], target: 'linux/privesc/deepce.sh',                         kind: 'url',           enabled: true,  notes: 'Container escape and Docker enumeration helper.',              link: 'https://github.com/stealthcopter/deepce' },
+  { id: 'linikatz',          name: 'linikatz',               category: 'linux',            profiles: ['full','ad'],       target: 'linux/privesc/linikatz.sh',                       kind: 'url',           enabled: true,  notes: 'Lightweight Linux credential extraction helper.',              link: 'https://github.com/CiscoCXSecurity/linikatz' },
+  { id: 'mimipenguin',       name: 'mimipenguin',            category: 'linux',            profiles: ['full','ad','web'], target: 'linux/enum/mimipenguin.py',                       kind: 'url',           enabled: true,  notes: 'Linux credential scraping helper.',                            link: 'https://github.com/huntergregal/mimipenguin' },
+  { id: 'http-put-server',   name: 'http-put-server',        category: 'linux',            profiles: ['full','ad','web'], target: 'linux/transfer/http-put-server.py',               kind: 'url',           enabled: true,  notes: 'Minimal Python HTTP PUT server for quick file drops.' },
+  { id: 'pspy64',            name: 'pspy64',                 category: 'linux',            profiles: ['full','ad','web'], target: 'linux/enum/pspy64',                               kind: 'url',           enabled: true,  notes: 'Monitor Linux processes without root privileges (x86_64).',    link: 'https://github.com/DominicBreuker/pspy' },
+  { id: 'pspy32',            name: 'pspy32',                 category: 'linux',            profiles: ['full','ad','web'], target: 'linux/enum/pspy32',                               kind: 'url',           enabled: true,  notes: '32-bit pspy build.',                                           link: 'https://github.com/DominicBreuker/pspy' },
+  { id: 'rustscan-linux',    name: 'RustScan (Linux x86_64)', category: 'linux',           profiles: ['full'],            target: 'linux/network/rustscan_linux_amd64.tar.gz.zip',   kind: 'release_asset', enabled: true,  notes: 'Fast port scanner. Unzip then tar -xzf to extract.',           link: 'https://github.com/RustScan/RustScan' },
   { id: 'ligolo-ng-agent-linux',     name: 'ligolo-ng agent (Linux x86_64)', category: 'linux', profiles: ['full','ad','web'], target: 'linux/pivot/ligolo-ng',                           kind: 'release_asset', enabled: true,  notes: 'Pivoting agent, dropped on a Linux foothold.',                 link: 'https://github.com/nicocha30/ligolo-ng' },
   { id: 'ligolo-ng-agent-linux-arm64', name: 'ligolo-ng agent (Linux ARM64)', category: 'linux', profiles: ['full','ad','web'], target: 'linux/pivot/ligolo-ng/arm64',                   kind: 'release_asset', enabled: true,  notes: 'Pivoting agent, dropped on a Linux ARM64 foothold.',           link: 'https://github.com/nicocha30/ligolo-ng' },
 
@@ -65,13 +65,13 @@ const ALL: Resource[] = [
   { id: 'sharpcollection',   name: 'SharpCollection',        category: 'windows',          profiles: ['full','ad'],             target: 'windows/binaries/SharpCollection',                kind: 'submodule',     enabled: true,  notes: 'Nightly builds of common C# offensive tools.',                 link: 'https://github.com/Flangvik/SharpCollection' },
 
   // Web
-  { id: 'p0wny-shell',       name: 'p0wny-shell',            category: 'web',              profiles: ['full','web','ctf'],      target: 'web/webshells/p0wny-shell.php',                   kind: 'url',           enabled: true,  notes: 'Single-file PHP shell.',                                       link: 'https://github.com/flozz/p0wny-shell' },
-  { id: 'php-reverse-shell', name: 'php-reverse-shell',      category: 'web',              profiles: ['full','web','ctf'],      target: 'web/webshells/php-reverse-shell.php',             kind: 'url',           enabled: true,  notes: 'Classic PHP reverse shell.',                                   link: 'https://github.com/pentestmonkey/php-reverse-shell' },
-  { id: 'aspx-shell',        name: 'ASPX Shell',             category: 'web',              profiles: ['full','web','ctf'],      target: 'web/webshells/ASPX-Shell.aspx',                   kind: 'url',           enabled: true,  notes: 'Simple ASPX shell.' },
-  { id: 'cmdjsp',            name: 'cmdjsp',                 category: 'web',              profiles: ['full','web','ctf'],      target: 'web/webshells/cmdjsp.jsp',                        kind: 'url',           enabled: true,  notes: 'Minimal JSP command shell.' },
-  { id: 'devilzshell-jsp',   name: 'devilzShell JSP',        category: 'web',              profiles: ['full','web','ctf'],      target: 'web/webshells/devilzShell.jsp',                   kind: 'url',           enabled: true,  notes: 'JSP shell variant.' },
-  { id: 'write-aspx-file-ashx', name: 'write_aspx_file.ashx', category: 'web',            profiles: ['full','web','ctf'],      target: 'web/webshells/write_aspx_file.ashx',              kind: 'url',           enabled: true,  notes: 'ASHX handler that writes an ASPX shell.' },
-  { id: 'p0wny-shell-repo',  name: 'p0wny-shell (repo)',     category: 'web',              profiles: ['full','web','ctf'],      target: 'web/webshells/p0wny-shell',                       kind: 'submodule',     enabled: true,  notes: 'Full p0wny-shell repo as submodule for reproducibility.',      link: 'https://github.com/flozz/p0wny-shell' },
+  { id: 'p0wny-shell',       name: 'p0wny-shell',            category: 'web',              profiles: ['full','web'],      target: 'web/webshells/p0wny-shell.php',                   kind: 'url',           enabled: true,  notes: 'Single-file PHP shell.',                                       link: 'https://github.com/flozz/p0wny-shell' },
+  { id: 'php-reverse-shell', name: 'php-reverse-shell',      category: 'web',              profiles: ['full','web'],      target: 'web/webshells/php-reverse-shell.php',             kind: 'url',           enabled: true,  notes: 'Classic PHP reverse shell.',                                   link: 'https://github.com/pentestmonkey/php-reverse-shell' },
+  { id: 'aspx-shell',        name: 'ASPX Shell',             category: 'web',              profiles: ['full','web'],      target: 'web/webshells/ASPX-Shell.aspx',                   kind: 'url',           enabled: true,  notes: 'Simple ASPX shell.' },
+  { id: 'cmdjsp',            name: 'cmdjsp',                 category: 'web',              profiles: ['full','web'],      target: 'web/webshells/cmdjsp.jsp',                        kind: 'url',           enabled: true,  notes: 'Minimal JSP command shell.' },
+  { id: 'devilzshell-jsp',   name: 'devilzShell JSP',        category: 'web',              profiles: ['full','web'],      target: 'web/webshells/devilzShell.jsp',                   kind: 'url',           enabled: true,  notes: 'JSP shell variant.' },
+  { id: 'write-aspx-file-ashx', name: 'write_aspx_file.ashx', category: 'web',            profiles: ['full','web'],      target: 'web/webshells/write_aspx_file.ashx',              kind: 'url',           enabled: true,  notes: 'ASHX handler that writes an ASPX shell.' },
+  { id: 'p0wny-shell-repo',  name: 'p0wny-shell (repo)',     category: 'web',              profiles: ['full','web'],      target: 'web/webshells/p0wny-shell',                       kind: 'submodule',     enabled: true,  notes: 'Full p0wny-shell repo as submodule for reproducibility.',      link: 'https://github.com/flozz/p0wny-shell' },
 
 ];
 
@@ -81,7 +81,7 @@ const PROFILE_COLORS: Record<Profile, string> = {
   full: 'bg-amber-500/15 text-amber-300 border-amber-500/30',
   ad:   'bg-cyan-500/15 text-cyan-300 border-cyan-500/30',
   web:  'bg-purple-500/15 text-purple-300 border-purple-500/30',
-  ctf:  'bg-rose-500/15 text-rose-300 border-rose-500/30',
+  blueteam: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30',
 };
 
 const CATEGORY_COLORS: Record<Category, string> = {
@@ -145,7 +145,7 @@ export const ResourcesCatalogPage: React.FC = () => {
         />
 
         <div className="flex flex-wrap gap-2">
-          {(['full','ad','web','ctf'] as Profile[]).map((p) => (
+          {(['full','ad','web','blueteam'] as Profile[]).map((p) => (
             <button
               key={p}
               onClick={() => setActiveProfile(activeProfile === p ? null : p)}

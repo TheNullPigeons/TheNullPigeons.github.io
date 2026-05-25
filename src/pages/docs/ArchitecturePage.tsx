@@ -111,8 +111,8 @@ const FlowDiagram: React.FC = () => (
       <g>
         <rect x="600" y="170" width="170" height="80" rx="14" fill="url(#gPurple)" stroke="#a855f7" strokeWidth="1" />
         <text x="685" y="198" textAnchor="middle" fill="#c084fc" fontSize="10" fontWeight="bold" fontFamily="monospace">ghcr.io/thenullpigeons</text>
-        <text x="685" y="218" textAnchor="middle" fill="#7e22ce" fontSize="8" fontFamily="system-ui">full:latest | ad:latest | web:latest | ctf:latest</text>
-        <text x="685" y="234" textAnchor="middle" fill="#7e22ce" fontSize="7" fontFamily="system-ui" opacity="0.6">:flock | :nest | :beak | :flag</text>
+        <text x="685" y="218" textAnchor="middle" fill="#7e22ce" fontSize="8" fontFamily="system-ui">full:latest | ad:latest | web:latest | blueteam:latest</text>
+        <text x="685" y="234" textAnchor="middle" fill="#7e22ce" fontSize="7" fontFamily="system-ui" opacity="0.6">:flock | :nest | :beak | :coo</text>
       </g>
       <path d="M535,185 L590,195" fill="none" stroke="#a855f7" strokeWidth="1" strokeDasharray="4,3" opacity="0.6" />
 
@@ -173,7 +173,7 @@ const BuildDiagram: React.FC = () => (
         { y: 45, label: 'Dockerfile', sub: 'full', color: '#f59e0b' },
         { y: 105, label: 'Dockerfile.ad', sub: 'ad', color: '#22d3ee' },
         { y: 165, label: 'Dockerfile.web', sub: 'web', color: '#a855f7' },
-        { y: 225, label: 'Dockerfile.ctf', sub: 'ctf', color: '#f43f5e' },
+        { y: 225, label: 'Dockerfile.blueteam', sub: 'blueteam', color: '#10b981' },
       ].map((d) => (
         <g key={d.label}>
           <rect x="30" y={d.y} width="140" height="45" rx="10" fill="url(#gBuild)" stroke={d.color} strokeWidth="1" />
@@ -202,7 +202,7 @@ const BuildDiagram: React.FC = () => (
         'mod_crypto.sh',
         'mod_forensics.sh',
         'mod_c2.sh',
-        'mod_ctf.sh',
+        'mod_blueteam.sh',
       ].map((m, i) => (
         <g key={m}>
           <rect x="248" y={52 + i * 18} width="144" height="16" rx="4" fill="#0f172a" stroke="#1e293b" strokeWidth="0.5" />
@@ -242,7 +242,7 @@ const BuildDiagram: React.FC = () => (
         { y: 45, label: 'full:latest', tag: ':flock', color: '#f59e0b' },
         { y: 105, label: 'ad:latest', tag: ':nest', color: '#22d3ee' },
         { y: 165, label: 'web:latest', tag: ':beak', color: '#a855f7' },
-        { y: 225, label: 'ctf:latest', tag: ':flag', color: '#f43f5e' },
+        { y: 225, label: 'blueteam:latest', tag: ':coo', color: '#10b981' },
       ].map((d) => (
         <g key={d.label}>
           <rect x="675" y={d.y} width="115" height="45" rx="10" fill="url(#gOut)" stroke="#10b981" strokeWidth="1" />
@@ -282,7 +282,7 @@ export const ArchitecturePage: React.FC = () => {
                 'CLI parses args and dispatches command handlers.',
                 'Manager orchestrates Docker lifecycle and mounts.',
                 'Images are built from modular install scripts.',
-                'CI publishes full/ad/web/ctf variants to GHCR.',
+                'CI publishes full/ad/web/blueteam variants to GHCR.',
               ]}
             />
           </section>
@@ -426,7 +426,7 @@ export const ArchitecturePage: React.FC = () => {
                 { img: 'full', tag: ':flock', color: 'border-amber-500/30 bg-amber-500/5', text: 'text-amber-300' },
                 { img: 'ad', tag: ':nest', color: 'border-cyan-500/30 bg-cyan-500/5', text: 'text-cyan-300' },
                 { img: 'web', tag: ':beak', color: 'border-purple-500/30 bg-purple-500/5', text: 'text-purple-300' },
-                { img: 'ctf', tag: ':flag', color: 'border-rose-500/30 bg-rose-500/5', text: 'text-rose-300' },
+                { img: 'blueteam', tag: ':coo', color: 'border-emerald-500/30 bg-emerald-500/5', text: 'text-emerald-300' },
               ].map((b) => (
                 <div key={b.img} className={`flex-1 min-w-[140px] p-3 rounded-xl border ${b.color} text-center`}>
                   <p className={`text-sm font-bold font-mono ${b.text}`}>{b.img}</p>
