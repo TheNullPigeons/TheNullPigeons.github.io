@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 
-type ImageTag = 'full' | 'ad' | 'web' | 'ctf';
+type ImageTag = 'full' | 'ad' | 'web' | 'blueteam';
 type Category =
   | 'Core'
   | 'Active Directory'
@@ -11,6 +11,7 @@ type Category =
   | 'Reverse Engineering'
   | 'Crypto'
   | 'Forensics'
+  | 'Blue Team'
   | 'C2'
   | 'Misc'
   | 'Wordlists';
@@ -26,15 +27,16 @@ interface Tool {
 
 const ALL: Tool[] = [
   // Core
-  { name: 'vim',          cmd: 'vim',          desc: 'Text editor',                              category: 'Core', images: ['full','ad','web','ctf'] },
-  { name: 'nano',         cmd: 'nano',         desc: 'Text editor',                              category: 'Core', images: ['full','ad','web','ctf'] },
-  { name: 'neovim',       cmd: 'nvim',         desc: 'Text editor',                              category: 'Core', images: ['full','ad','web','ctf'], link: 'https://github.com/neovim/neovim' },
-  { name: 'tmux',         cmd: 'tmux',         desc: 'Terminal multiplexer',                     category: 'Core', images: ['full','ad','web','ctf'], link: 'https://github.com/tmux/tmux' },
-  { name: 'fzf',          cmd: 'fzf',          desc: 'Fuzzy finder',                             category: 'Core', images: ['full','ad','web','ctf'], link: 'https://github.com/junegunn/fzf' },
-  { name: 'gdb',          cmd: 'gdb',          desc: 'GNU debugger',                             category: 'Core', images: ['full','ad','web','ctf'] },
-  { name: 'asciinema',    cmd: 'asciinema',    desc: 'Terminal session recorder',                category: 'Core', images: ['full','ad','web','ctf'], link: 'https://github.com/asciinema/asciinema' },
-  { name: 'whois',        cmd: 'whois',        desc: 'WHOIS lookup',                             category: 'Core', images: ['full','ad','web','ctf'] },
-  { name: 'nihil-history',cmd: 'nhi',          desc: 'Pentest engagement knowledge manager',     category: 'Core', images: ['full','ad','web','ctf'], link: 'https://github.com/TheNullPigeons/nihil-history' },
+  { name: 'vim',          cmd: 'vim',          desc: 'Text editor',                              category: 'Core', images: ['full','ad','web','blueteam'] },
+  { name: 'nano',         cmd: 'nano',         desc: 'Text editor',                              category: 'Core', images: ['full','ad','web','blueteam'] },
+  { name: 'neovim',       cmd: 'nvim',         desc: 'Text editor',                              category: 'Core', images: ['full','ad','web','blueteam'], link: 'https://github.com/neovim/neovim' },
+  { name: 'tmux',         cmd: 'tmux',         desc: 'Terminal multiplexer',                     category: 'Core', images: ['full','ad','web','blueteam'], link: 'https://github.com/tmux/tmux' },
+  { name: 'fzf',          cmd: 'fzf',          desc: 'Fuzzy finder',                             category: 'Core', images: ['full','ad','web','blueteam'], link: 'https://github.com/junegunn/fzf' },
+  { name: 'zoxide',       cmd: 'z',            desc: 'Smart directory navigation',               category: 'Core', images: ['full','ad','web','blueteam'], link: 'https://github.com/ajeetdsouza/zoxide' },
+  { name: 'gdb',          cmd: 'gdb',          desc: 'GNU debugger',                             category: 'Core', images: ['full','ad','web','blueteam'] },
+  { name: 'asciinema',    cmd: 'asciinema',    desc: 'Terminal session recorder',                category: 'Core', images: ['full','ad','web','blueteam'], link: 'https://github.com/asciinema/asciinema' },
+  { name: 'whois',        cmd: 'whois',        desc: 'WHOIS lookup',                             category: 'Core', images: ['full','ad','web','blueteam'] },
+  { name: 'nihil-history',cmd: 'nhi',          desc: 'Pentest engagement knowledge manager',     category: 'Core', images: ['full','ad','web','blueteam'], link: 'https://github.com/TheNullPigeons/nihil-history' },
 
   // Active Directory
   { name: 'bloodhound',          cmd: 'bloodhound-python',     desc: 'AD attack path visualization (ingestor)',  category: 'Active Directory', images: ['full','ad'], link: 'https://github.com/dirkjanm/BloodHound.py' },
@@ -117,91 +119,101 @@ const ALL: Tool[] = [
   { name: 'caido-cli',     cmd: 'caido-cli',    desc: 'Caido command-line interface',               category: 'Web', images: ['full','web'], link: 'https://github.com/caido/caido' },
 
   // Network
-  { name: 'nmap',          cmd: 'nmap',         desc: 'Network scanner',                             category: 'Network', images: ['full','ad','web','ctf'], link: 'https://github.com/nmap/nmap' },
-  { name: 'netcat',        cmd: 'nc',           desc: 'Network utility (OpenBSD)',                   category: 'Network', images: ['full','ad','web','ctf'] },
-  { name: 'socat',         cmd: 'socat',        desc: 'Multipurpose network relay',                  category: 'Network', images: ['full','ad','web','ctf'] },
-  { name: 'wireshark-cli', cmd: 'tshark',       desc: 'Network protocol analyzer (CLI)',             category: 'Network', images: ['full','ad','web','ctf'], link: 'https://github.com/wireshark/wireshark' },
-  { name: 'bettercap',     cmd: 'bettercap',    desc: 'Network attack and monitoring framework',     category: 'Network', images: ['full','ad','web'], link: 'https://github.com/bettercap/bettercap' },
-  { name: 'fping',         cmd: 'fping',        desc: 'Fast ICMP host discovery',                    category: 'Network', images: ['full','ad','web'] },
-  { name: 'udpx',          cmd: 'udpx',         desc: 'Fast UDP port scanner',                       category: 'Network', images: ['full','ad','web'], link: 'https://github.com/nullt3r/udpx' },
-  { name: 'zone-dnsenum',  cmd: 'zone-dnsenum', desc: 'DNS zone transfer / enumeration',            category: 'Network', images: ['full','ad','web'], link: 'https://github.com/Goultarde/Zone-DNSenum' },
-  { name: 'ligolo-ng',     cmd: 'ligolo-ng',    desc: 'Tunneling/pivoting proxy',                   category: 'Network', images: ['full','ad','web','ctf'], link: 'https://github.com/nicocha30/ligolo-ng' },
+  { name: 'nmap',          cmd: 'nmap',         desc: 'Network scanner',                             category: 'Network', images: ['full','ad','web','blueteam'], link: 'https://github.com/nmap/nmap' },
+  { name: 'netcat',        cmd: 'nc',           desc: 'Network utility (OpenBSD)',                   category: 'Network', images: ['full','ad','web','blueteam'] },
+  { name: 'socat',         cmd: 'socat',        desc: 'Multipurpose network relay',                  category: 'Network', images: ['full','ad','web','blueteam'] },
+  { name: 'wireshark-cli', cmd: 'tshark',       desc: 'Network protocol analyzer (CLI)',             category: 'Network', images: ['full','ad','web','blueteam'], link: 'https://github.com/wireshark/wireshark' },
+  { name: 'bettercap',     cmd: 'bettercap',    desc: 'Network attack and monitoring framework',     category: 'Network', images: ['full','ad','web','blueteam'], link: 'https://github.com/bettercap/bettercap' },
+  { name: 'fping',         cmd: 'fping',        desc: 'Fast ICMP host discovery',                    category: 'Network', images: ['full','ad','web','blueteam'] },
+  { name: 'udpx',          cmd: 'udpx',         desc: 'Fast UDP port scanner',                       category: 'Network', images: ['full','ad','web','blueteam'], link: 'https://github.com/nullt3r/udpx' },
+  { name: 'zone-dnsenum',  cmd: 'zone-dnsenum', desc: 'DNS zone transfer / enumeration',            category: 'Network', images: ['full','ad','web','blueteam'], link: 'https://github.com/Goultarde/Zone-DNSenum' },
+  { name: 'ligolo-ng',     cmd: 'ligolo-ng',    desc: 'Tunneling/pivoting proxy',                   category: 'Network', images: ['full','ad','web','blueteam'], link: 'https://github.com/nicocha30/ligolo-ng' },
 
   // Credential
-  { name: 'hashcat',   cmd: 'hashcat',   desc: 'GPU password cracker',             category: 'Credential', images: ['full','ad','web','ctf'], link: 'https://github.com/hashcat/hashcat' },
-  { name: 'john',      cmd: 'john',      desc: 'Password cracker (John the Ripper)', category: 'Credential', images: ['full','ad','web','ctf'], link: 'https://github.com/openwall/john' },
-  { name: 'pypykatz',  cmd: 'pypykatz',  desc: 'LSASS minidump parser (Python)',    category: 'Credential', images: ['full','ad','web','ctf'], link: 'https://github.com/skelsec/pypykatz' },
-  { name: 'binwalk',   cmd: 'binwalk',   desc: 'Binary analysis / extraction',      category: 'Credential', images: ['full','ad','web','ctf'], link: 'https://github.com/ReFirmLabs/binwalk' },
+  { name: 'hashcat',   cmd: 'hashcat',   desc: 'GPU password cracker',             category: 'Credential', images: ['full','ad','web'], link: 'https://github.com/hashcat/hashcat' },
+  { name: 'john',      cmd: 'john',      desc: 'Password cracker (John the Ripper)', category: 'Credential', images: ['full','ad','web'], link: 'https://github.com/openwall/john' },
+  { name: 'pypykatz',  cmd: 'pypykatz',  desc: 'LSASS minidump parser (Python)',    category: 'Credential', images: ['full','ad','web'], link: 'https://github.com/skelsec/pypykatz' },
+  { name: 'binwalk',   cmd: 'binwalk',   desc: 'Binary analysis / extraction',      category: 'Credential', images: ['full','ad','web'], link: 'https://github.com/ReFirmLabs/binwalk' },
 
   // Pwn
-  { name: 'radare2',       cmd: 'r2',          desc: 'Reverse engineering framework',             category: 'Pwn', images: ['full','ctf'], link: 'https://github.com/radareorg/radare2' },
-  { name: 'pwndbg',        cmd: 'pwndbg',      desc: 'GDB helper plugin',                         category: 'Pwn', images: ['full','ctf'], link: 'https://github.com/pwndbg/pwndbg' },
-  { name: 'pwntools',      cmd: 'pwn',         desc: 'CTF/exploit development library',           category: 'Pwn', images: ['full','ctf'], link: 'https://github.com/Gallopsled/pwntools' },
-  { name: 'ROPgadget',     cmd: 'ROPgadget',   desc: 'ROP gadget finder',                         category: 'Pwn', images: ['full','ctf'], link: 'https://github.com/JonathanSalwan/ROPgadget' },
-  { name: 'one_gadget',    cmd: 'one_gadget',  desc: 'One-gadget RCE finder for libc',            category: 'Pwn', images: ['full','ctf'], link: 'https://github.com/david942j/one_gadget' },
-  { name: 'seccomp-tools', cmd: 'seccomp-tools',desc: 'Seccomp filter analyzer',                  category: 'Pwn', images: ['full','ctf'], link: 'https://github.com/david942j/seccomp-tools' },
-  { name: 'checksec',      cmd: 'checksec',    desc: 'Binary security property checker',          category: 'Pwn', images: ['full','ctf'], link: 'https://github.com/slimm609/checksec' },
-  { name: 'strace',        cmd: 'strace',      desc: 'System call tracer',                        category: 'Pwn', images: ['full','ctf'] },
-  { name: 'ltrace',        cmd: 'ltrace',      desc: 'Library call tracer',                       category: 'Pwn', images: ['full','ctf'] },
-  { name: 'cmake',         cmd: 'cmake',       desc: 'Build system generator',                    category: 'Pwn', images: ['full','ctf'] },
+  { name: 'radare2',       cmd: 'r2',          desc: 'Reverse engineering framework',             category: 'Pwn', images: ['full'], link: 'https://github.com/radareorg/radare2' },
+  { name: 'pwndbg',        cmd: 'pwndbg',      desc: 'GDB helper plugin',                         category: 'Pwn', images: ['full'], link: 'https://github.com/pwndbg/pwndbg' },
+  { name: 'pwntools',      cmd: 'pwn',         desc: 'Exploit development library',               category: 'Pwn', images: ['full'], link: 'https://github.com/Gallopsled/pwntools' },
+  { name: 'ROPgadget',     cmd: 'ROPgadget',   desc: 'ROP gadget finder',                         category: 'Pwn', images: ['full'], link: 'https://github.com/JonathanSalwan/ROPgadget' },
+  { name: 'one_gadget',    cmd: 'one_gadget',  desc: 'One-gadget RCE finder for libc',            category: 'Pwn', images: ['full'], link: 'https://github.com/david942j/one_gadget' },
+  { name: 'seccomp-tools', cmd: 'seccomp-tools',desc: 'Seccomp filter analyzer',                  category: 'Pwn', images: ['full'], link: 'https://github.com/david942j/seccomp-tools' },
+  { name: 'checksec',      cmd: 'checksec',    desc: 'Binary security property checker',          category: 'Pwn', images: ['full'], link: 'https://github.com/slimm609/checksec' },
+  { name: 'strace',        cmd: 'strace',      desc: 'System call tracer',                        category: 'Pwn', images: ['full'] },
+  { name: 'ltrace',        cmd: 'ltrace',      desc: 'Library call tracer',                       category: 'Pwn', images: ['full'] },
+  { name: 'cmake',         cmd: 'cmake',       desc: 'Build system generator',                    category: 'Pwn', images: ['full'] },
 
   // C2
   { name: 'metasploit', cmd: 'msfconsole',   desc: 'Exploitation framework',  category: 'C2', images: ['full','ad'], link: 'https://github.com/rapid7/metasploit-framework' },
   { name: 'sliver',     cmd: 'sliver-server',desc: 'C2 framework',            category: 'C2', images: ['full','ad'], link: 'https://github.com/BishopFox/sliver' },
 
   // Reverse Engineering
-  { name: 'ghidra',      cmd: 'ghidra',      desc: 'NSA reverse engineering suite',         category: 'Reverse Engineering', images: ['full','ctf'], link: 'https://github.com/NationalSecurityAgency/ghidra' },
-  { name: 'angr',        cmd: 'angr',        desc: 'Symbolic execution and binary analysis', category: 'Reverse Engineering', images: ['full','ctf'], link: 'https://github.com/angr/angr' },
-  { name: 'pycdc',       cmd: 'pycdc',       desc: 'Python bytecode decompiler',            category: 'Reverse Engineering', images: ['full','ctf'], link: 'https://github.com/zrax/pycdc' },
-  { name: 'uncompyle6',  cmd: 'uncompyle6',  desc: 'Python 2/3 bytecode decompiler',        category: 'Reverse Engineering', images: ['full','ctf'], link: 'https://github.com/rocky/python-uncompyle6' },
+  { name: 'ghidra',      cmd: 'ghidra',      desc: 'NSA reverse engineering suite',         category: 'Reverse Engineering', images: ['full'], link: 'https://github.com/NationalSecurityAgency/ghidra' },
+  { name: 'angr',        cmd: 'angr',        desc: 'Symbolic execution and binary analysis', category: 'Reverse Engineering', images: ['full'], link: 'https://github.com/angr/angr' },
+  { name: 'pycdc',       cmd: 'pycdc',       desc: 'Python bytecode decompiler',            category: 'Reverse Engineering', images: ['full'], link: 'https://github.com/zrax/pycdc' },
+  { name: 'uncompyle6',  cmd: 'uncompyle6',  desc: 'Python 2/3 bytecode decompiler',        category: 'Reverse Engineering', images: ['full'], link: 'https://github.com/rocky/python-uncompyle6' },
 
   // Crypto
-  { name: 'RsaCtfTool',    cmd: 'RsaCtfTool',  desc: 'RSA attack automation',         category: 'Crypto', images: ['full','ctf'], link: 'https://github.com/RsaCtfTool/RsaCtfTool' },
-  { name: 'xortool',       cmd: 'xortool',     desc: 'XOR cipher analysis',            category: 'Crypto', images: ['full','ctf'], link: 'https://github.com/hellman/xortool' },
-  { name: 'z3-solver',     cmd: 'z3-solver',   desc: 'SMT constraint solver',          category: 'Crypto', images: ['full','ctf'], link: 'https://github.com/Z3Prover/z3' },
-  { name: 'pycryptodome',  cmd: 'pycryptodome',desc: 'Python crypto library',          category: 'Crypto', images: ['full','ctf'], link: 'https://github.com/Legrandin/pycryptodome' },
-  { name: 'hashid',        cmd: 'hashid',      desc: 'Hash type identifier',           category: 'Crypto', images: ['full','ctf'], link: 'https://github.com/psypanda/hashID' },
+  { name: 'RsaCtfTool',    cmd: 'RsaCtfTool',  desc: 'RSA attack automation',         category: 'Crypto', images: ['full'], link: 'https://github.com/RsaCtfTool/RsaCtfTool' },
+  { name: 'xortool',       cmd: 'xortool',     desc: 'XOR cipher analysis',            category: 'Crypto', images: ['full'], link: 'https://github.com/hellman/xortool' },
+  { name: 'z3-solver',     cmd: 'z3-solver',   desc: 'SMT constraint solver',          category: 'Crypto', images: ['full'], link: 'https://github.com/Z3Prover/z3' },
+  { name: 'pycryptodome',  cmd: 'pycryptodome',desc: 'Python crypto library',          category: 'Crypto', images: ['full'], link: 'https://github.com/Legrandin/pycryptodome' },
+  { name: 'hashid',        cmd: 'hashid',      desc: 'Hash type identifier',           category: 'Crypto', images: ['full'], link: 'https://github.com/psypanda/hashID' },
 
   // Forensics
-  { name: 'volatility3', cmd: 'vol',        desc: 'Memory forensics framework',      category: 'Forensics', images: ['full','ctf'], link: 'https://github.com/volatilityfoundation/volatility3' },
-  { name: 'foremost',    cmd: 'foremost',   desc: 'File carving tool',               category: 'Forensics', images: ['full','ctf'] },
-  { name: 'exiftool',    cmd: 'exiftool',   desc: 'Metadata extraction',             category: 'Forensics', images: ['full','ctf'], link: 'https://github.com/exiftool/exiftool' },
-  { name: 'steghide',    cmd: 'steghide',   desc: 'JPEG/BMP steganography',          category: 'Forensics', images: ['full','ctf'], link: 'https://github.com/StefanoDeVuono/steghide' },
-  { name: 'zsteg',       cmd: 'zsteg',      desc: 'PNG/BMP steganography detector',  category: 'Forensics', images: ['full','ctf'], link: 'https://github.com/zed-0xff/zsteg' },
-  { name: 'stegseek',    cmd: 'stegseek',   desc: 'Steghide brute-forcer',           category: 'Forensics', images: ['full','ctf'], link: 'https://github.com/RickdeJager/stegseek' },
-  { name: 'openstego',   cmd: 'openstego',  desc: 'Steganography tool',              category: 'Forensics', images: ['full','ctf'], link: 'https://github.com/syvaidya/openstego' },
+  { name: 'volatility3', cmd: 'vol',        desc: 'Memory forensics framework',      category: 'Forensics', images: ['full','blueteam'], link: 'https://github.com/volatilityfoundation/volatility3' },
+  { name: 'foremost',    cmd: 'foremost',   desc: 'File carving tool',               category: 'Forensics', images: ['full','blueteam'] },
+  { name: 'exiftool',    cmd: 'exiftool',   desc: 'Metadata extraction',             category: 'Forensics', images: ['full','blueteam'], link: 'https://github.com/exiftool/exiftool' },
+  { name: 'steghide',    cmd: 'steghide',   desc: 'JPEG/BMP steganography',          category: 'Forensics', images: ['full','blueteam'], link: 'https://github.com/StefanoDeVuono/steghide' },
+  { name: 'zsteg',       cmd: 'zsteg',      desc: 'PNG/BMP steganography detector',  category: 'Forensics', images: ['full','blueteam'], link: 'https://github.com/zed-0xff/zsteg' },
+  { name: 'stegseek',    cmd: 'stegseek',   desc: 'Steghide brute-forcer',           category: 'Forensics', images: ['full','blueteam'], link: 'https://github.com/RickdeJager/stegseek' },
+  { name: 'openstego',   cmd: 'openstego',  desc: 'Steganography tool',              category: 'Forensics', images: ['full','blueteam'], link: 'https://github.com/syvaidya/openstego' },
+
+  // Blue Team
+  { name: 'chainsaw',   cmd: 'chainsaw',   desc: 'Windows event log threat hunting',          category: 'Blue Team', images: ['full','blueteam'], link: 'https://github.com/WithSecureLabs/chainsaw' },
+  { name: 'hayabusa',   cmd: 'hayabusa',   desc: 'Windows DFIR timeline generator',           category: 'Blue Team', images: ['full','blueteam'], link: 'https://github.com/Yamato-Security/hayabusa' },
+  { name: 'sigma-cli',  cmd: 'sigma',      desc: 'Sigma detection rule CLI',                  category: 'Blue Team', images: ['full','blueteam'], link: 'https://github.com/SigmaHQ/sigma-cli' },
+  { name: 'yara',       cmd: 'yara',       desc: 'Malware pattern matching',                  category: 'Blue Team', images: ['full','blueteam'], link: 'https://github.com/VirusTotal/yara' },
+  { name: 'capa',       cmd: 'capa',       desc: 'FLARE malware capability detection',        category: 'Blue Team', images: ['full','blueteam'], link: 'https://github.com/mandiant/capa' },
+  { name: 'loki',       cmd: 'loki',       desc: 'IOC scanner',                               category: 'Blue Team', images: ['full','blueteam'], link: 'https://github.com/Neo23x0/Loki' },
+  { name: 'sleuthkit',  cmd: 'fls',        desc: 'Disk forensics toolkit (The Sleuth Kit)',   category: 'Blue Team', images: ['full','blueteam'], link: 'https://github.com/sleuthkit/sleuthkit' },
 
   // Misc
-  { name: 'searchsploit', cmd: 'searchsploit',         desc: 'Exploit database search',             category: 'Misc', images: ['full','ad','web','ctf'], link: 'https://github.com/offensive-security/exploitdb' },
-  { name: 'CyberChef',    cmd: '/opt/tools/CyberChef', desc: 'Data transformation toolkit (offline)', category: 'Misc', images: ['full','ad','web','ctf'], link: 'https://github.com/gchq/CyberChef' },
+  { name: 'searchsploit', cmd: 'searchsploit',         desc: 'Exploit database search',             category: 'Misc', images: ['full','ad','web'], link: 'https://github.com/offensive-security/exploitdb' },
+  { name: 'CyberChef',    cmd: '/opt/tools/CyberChef', desc: 'Data transformation toolkit (offline)', category: 'Misc', images: ['full','ad','web'], link: 'https://github.com/gchq/CyberChef' },
 
   // Wordlists
-  { name: 'SecLists', cmd: '/opt/lists/seclists',  desc: 'Security wordlists collection', category: 'Wordlists', images: ['full','ad','web','ctf'], link: 'https://github.com/danielmiessler/SecLists' },
-  { name: 'rockyou',  cmd: '/opt/lists/rockyou.txt',desc: 'Rockyou password list',        category: 'Wordlists', images: ['full','ad','web','ctf'] },
+  { name: 'SecLists', cmd: '/opt/lists/seclists',  desc: 'Security wordlists collection', category: 'Wordlists', images: ['full','ad','web','blueteam'], link: 'https://github.com/danielmiessler/SecLists' },
+  { name: 'rockyou',  cmd: '/opt/lists/rockyou.txt',desc: 'Rockyou password list',        category: 'Wordlists', images: ['full','ad','web','blueteam'] },
 ];
 
 const CATEGORIES: Category[] = [
   'Core', 'Active Directory', 'Web', 'Network', 'Credential',
-  'Pwn', 'Reverse Engineering', 'Crypto', 'Forensics', 'C2', 'Misc', 'Wordlists',
+  'Pwn', 'Reverse Engineering', 'Crypto', 'Forensics', 'Blue Team', 'C2', 'Misc', 'Wordlists',
 ];
 
 const IMAGE_COLORS: Record<ImageTag, string> = {
-  full: 'bg-amber-500/15 text-amber-300 border-amber-500/30',
-  ad:   'bg-cyan-500/15 text-cyan-300 border-cyan-500/30',
-  web:  'bg-purple-500/15 text-purple-300 border-purple-500/30',
-  ctf:  'bg-rose-500/15 text-rose-300 border-rose-500/30',
+  full:      'bg-amber-500/15 text-amber-300 border-amber-500/30',
+  ad:        'bg-cyan-500/15 text-cyan-300 border-cyan-500/30',
+  web:       'bg-purple-500/15 text-purple-300 border-purple-500/30',
+  blueteam:  'bg-emerald-500/15 text-emerald-300 border-emerald-500/30',
 };
 
 const CATEGORY_COLORS: Record<Category, string> = {
   'Core':               'bg-slate-500/20 text-slate-300',
   'Active Directory':   'bg-cyan-500/15 text-cyan-300',
   'Web':                'bg-purple-500/15 text-purple-300',
-  'Network':            'bg-emerald-500/15 text-emerald-300',
+  'Network':            'bg-blue-500/15 text-blue-300',
   'Credential':         'bg-orange-500/15 text-orange-300',
   'Pwn':                'bg-red-500/15 text-red-300',
   'Reverse Engineering':'bg-yellow-500/15 text-yellow-300',
   'Crypto':             'bg-teal-500/15 text-teal-300',
   'Forensics':          'bg-indigo-500/15 text-indigo-300',
+  'Blue Team':          'bg-emerald-500/15 text-emerald-300',
   'C2':                 'bg-rose-500/15 text-rose-300',
   'Misc':               'bg-slate-500/15 text-slate-400',
   'Wordlists':          'bg-lime-500/15 text-lime-300',
@@ -245,7 +257,7 @@ export const ToolsPage: React.FC = () => {
         />
 
         <div className="flex flex-wrap gap-2">
-          {(['full','ad','web','ctf'] as ImageTag[]).map((img) => (
+          {(['full','ad','web','blueteam'] as ImageTag[]).map((img) => (
             <button
               key={img}
               onClick={() => setActiveImage(activeImage === img ? null : img)}

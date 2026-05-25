@@ -102,28 +102,37 @@ export const CommunityPage: React.FC = () => {
             Built for people who work in offensive security, at any level.
           </p>
         </div>
-        <div className="grid gap-4 sm:grid-cols-2 max-w-4xl mx-auto">
+        <div className="grid gap-4 sm:grid-cols-6 max-w-4xl mx-auto">
           {[
             {
               title: 'Pentesters & Red Teamers',
               desc: 'Use Nihil as a ready-to-deploy offensive environment for real engagements: AD attacks, network recon, web testing. Reproducible, auditable, and yours to customize.',
+              col: 'sm:col-span-2',
             },
             {
               title: 'CTF Players',
               desc: "Spin up a fully loaded container in seconds and get straight to the challenge. No setup overhead, no missing tools, just nihil start ctf and you're in.",
+              col: 'sm:col-span-2',
+            },
+            {
+              title: 'Investigators',
+              desc: 'Hunt threats, triage malware, and investigate incidents with a purpose-built image. Chainsaw, hayabusa, capa, sleuthkit - just nihil start blueteam.',
+              col: 'sm:col-span-2',
             },
             {
               title: 'Security Students',
               desc: 'Learn offensive techniques in a clean, transparent environment. Every tool, every script is visible on GitHub. No magic, no black box to get lost in.',
+              col: 'sm:col-span-2 sm:col-start-2',
             },
             {
               title: 'Security Researchers',
               desc: 'Isolate your work in dedicated containers per project. Arch-based images with full control over what goes in. Fork, tweak, and rebuild as you need.',
+              col: 'sm:col-span-2',
             },
-          ].map(({ title, desc }) => (
+          ].map(({ title, desc, col }) => (
             <div
               key={title}
-              className="rounded-2xl border border-slate-700/80 bg-slate-900/50 p-6 space-y-2 hover:border-amber-500/30 hover:bg-slate-900/70 transition-all duration-200"
+              className={`${col} rounded-2xl border border-slate-700/80 bg-slate-900/50 p-6 space-y-2 hover:border-amber-500/30 hover:bg-slate-900/70 transition-all duration-200`}
             >
               <h3 className="font-semibold text-white">{title}</h3>
               <p className="text-sm text-slate-400 leading-relaxed">{desc}</p>

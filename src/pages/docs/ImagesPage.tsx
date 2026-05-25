@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { SectionToc } from '../../components/SectionToc';
 import { Callout, StepList, TldrBlock } from '../../components/DocsBlocks';
 
-const tabs = ['overview', 'full', 'ad', 'web', 'ctf'] as const;
+const tabs = ['overview', 'full', 'ad', 'web', 'blueteam'] as const;
 type Tab = typeof tabs[number];
 
 const tabConfig: Record<Tab, { label: string; color: string; border: string; bg: string; glow: string }> = {
@@ -10,7 +10,7 @@ const tabConfig: Record<Tab, { label: string; color: string; border: string; bg:
   full: { label: 'Full', color: 'text-amber-300', border: 'border-amber-500/40', bg: 'bg-amber-400/15', glow: 'shadow-amber-500/10' },
   ad: { label: 'AD', color: 'text-cyan-300', border: 'border-cyan-500/40', bg: 'bg-cyan-400/15', glow: 'shadow-cyan-500/10' },
   web: { label: 'Web', color: 'text-purple-300', border: 'border-purple-500/40', bg: 'bg-purple-400/15', glow: 'shadow-purple-500/10' },
-  ctf: { label: 'CTF', color: 'text-rose-300', border: 'border-rose-500/40', bg: 'bg-rose-400/15', glow: 'shadow-rose-500/10' },
+  blueteam: { label: 'Blue Team', color: 'text-emerald-300', border: 'border-emerald-500/40', bg: 'bg-emerald-400/15', glow: 'shadow-emerald-500/10' },
 };
 
 export const ImagesPage: React.FC = () => {
@@ -62,7 +62,7 @@ export const ImagesPage: React.FC = () => {
                   items={[
                     'Use ad for internal AD assessments.',
                     'Use web for web/API engagements.',
-                    'Use ctf for CTF workflows (pwn/reverse/web/crypto).',
+                    'Use blueteam for SOC / DFIR workflows (threat hunting, log analysis, malware triage).',
                     'Use full when you need everything in one image.',
                     'Run nihil tools <image> to inspect available tools.',
                   ]}
@@ -74,7 +74,7 @@ export const ImagesPage: React.FC = () => {
                 <StepList
                   steps={[
                     { title: 'Start with interactive mode', detail: 'Run nihil install and pick the image you want.' },
-                    { title: 'Pin explicit image in scripts', detail: 'Use nihil install ad/web/ctf/full for reproducible setup.' },
+                    { title: 'Pin explicit image in scripts', detail: 'Use nihil install ad/web/blueteam/full for reproducible setup.' },
                   ]}
                 />
                 <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
@@ -85,7 +85,7 @@ nihil install
 nihil install full
 nihil install ad
 nihil install web
-nihil install ctf`}
+nihil install blueteam`}
                 </pre>
               </section>
 
@@ -134,9 +134,9 @@ nihil install ctf`}
                   </table>
                 </div>
 
-                <Callout variant="note" title="CTF is specialized (not a simple intersection)">
-                  Use the dedicated <code>ctf</code> image when you want a challenge-oriented toolkit.
-                  The comparison above stays focused on Full/AD/Web; CTF gets its own tab with the practical toolset.
+                <Callout variant="note" title="Blue Team is purpose-built for SOC/DFIR">
+                  Use the dedicated <code>blueteam</code> image for incident response, threat hunting, and malware triage.
+                  The comparison above focuses on the offensive images; Blue Team gets its own tab with the complete SOC toolset.
                 </Callout>
               </section>
 
@@ -150,7 +150,7 @@ nihil install ctf`}
                     { name: 'Full', tag: 'ghcr.io/thenullpigeons/full:latest', alt: ':flock', desc: 'The whole flock', border: 'border-amber-500/20 hover:border-amber-500/40', bg: 'bg-gradient-to-r from-amber-500/5 to-transparent', accent: 'text-amber-300', dot: 'bg-amber-400' },
                     { name: 'AD', tag: 'ghcr.io/thenullpigeons/ad:latest', alt: ':nest', desc: 'Nest in their Active Directory', border: 'border-cyan-500/20 hover:border-cyan-500/40', bg: 'bg-gradient-to-r from-cyan-500/5 to-transparent', accent: 'text-cyan-300', dot: 'bg-cyan-400' },
                     { name: 'Web', tag: 'ghcr.io/thenullpigeons/web:latest', alt: ':beak', desc: 'Beak through their web apps', border: 'border-purple-500/20 hover:border-purple-500/40', bg: 'bg-gradient-to-r from-purple-500/5 to-transparent', accent: 'text-purple-300', dot: 'bg-purple-400' },
-                    { name: 'CTF', tag: 'ghcr.io/thenullpigeons/ctf:latest', alt: ':flag', desc: 'Capture the flag, no fluff', border: 'border-rose-500/20 hover:border-rose-500/40', bg: 'bg-gradient-to-r from-rose-500/5 to-transparent', accent: 'text-rose-300', dot: 'bg-rose-400' },
+                    { name: 'Blue Team', tag: 'ghcr.io/thenullpigeons/blueteam:latest', alt: ':coo', desc: 'Listen before you hunt', border: 'border-emerald-500/20 hover:border-emerald-500/40', bg: 'bg-gradient-to-r from-emerald-500/5 to-transparent', accent: 'text-emerald-300', dot: 'bg-emerald-400' },
                   ].map((img) => (
                     <div key={img.name} className={`flex items-start gap-3 p-4 rounded-xl border ${img.border} ${img.bg} transition-colors`}>
                       <div className={`w-2.5 h-2.5 rounded-full ${img.dot} mt-1 shrink-0 opacity-80`} />
@@ -170,10 +170,10 @@ nihil install ctf`}
                   {[
                     { q: 'Internal pentest / AD audit', a: 'ad', reason: 'Impacket, BloodHound, NetExec, Responder, and the full AD kill chain.', color: 'cyan', border: 'border-cyan-500/20 hover:border-cyan-500/40', bg: 'from-cyan-500/5' },
                     { q: 'Web application pentest', a: 'web', reason: 'SQLMap, Nuclei, Burp helpers, ffuf, and all the web arsenal.', color: 'purple', border: 'border-purple-500/20 hover:border-purple-500/40', bg: 'from-purple-500/5' },
-                    { q: 'CTF / challenge workflow', a: 'ctf', reason: 'Pwn/reverse/web/crypto focus without AD/C2 overhead.', color: 'rose', border: 'border-rose-500/20 hover:border-rose-500/40', bg: 'from-rose-500/5' },
+                    { q: 'Incident response / SOC analysis', a: 'blueteam', reason: 'Threat hunting, log analysis, malware triage, and disk forensics for defenders.', color: 'emerald', border: 'border-emerald-500/20 hover:border-emerald-500/40', bg: 'from-emerald-500/5' },
                     { q: 'Not sure / want everything', a: 'full', reason: 'All modules combined. Larger download, but nothing missing.', color: 'amber', border: 'border-amber-500/20 hover:border-amber-500/40', bg: 'from-amber-500/5' },
                   ].map((item) => {
-                    const accent: Record<string, string> = { cyan: 'text-cyan-300', purple: 'text-purple-300', rose: 'text-rose-300', amber: 'text-amber-300' };
+                    const accent: Record<string, string> = { cyan: 'text-cyan-300', purple: 'text-purple-300', emerald: 'text-emerald-300', amber: 'text-amber-300' };
                     return (
                       <div key={item.a} className={`p-4 rounded-xl border ${item.border} bg-gradient-to-r ${item.bg} to-transparent transition-colors space-y-1`}>
                         <p className="text-sm font-medium text-white">{item.q}</p>
@@ -185,7 +185,7 @@ nihil install ctf`}
                   })}
                 </div>
                 <Callout variant="tip" title="Simple decision rule">
-                  If you spend most time on Windows internals choose <code>ad</code>, on HTTP/API choose <code>web</code>, on challenge workflows choose <code>ctf</code>, and for mixed engagements choose <code>full</code>.
+                  If you spend most time on Windows internals choose <code>ad</code>, on HTTP/API choose <code>web</code>, on IR/SOC workflows choose <code>blueteam</code>, and for mixed engagements choose <code>full</code>.
                 </Callout>
               </section>
 
@@ -201,8 +201,8 @@ nihil tools ad --category redteam_ad
 # Web tools only
 nihil tools web --category redteam_web
 
-# CTF focused categories
-nihil tools ctf --category redteam_pwn`}
+# Blue team tools
+nihil tools blueteam --category mod_blueteam`}
                 </pre>
               </section>
             </div>
@@ -356,23 +356,23 @@ nihil tools ctf --category redteam_pwn`}
             </div>
           )}
 
-          {/* CTF image tab */}
-          {activeTab === 'ctf' && (
+          {/* Blue Team image tab */}
+          {activeTab === 'blueteam' && (
             <div className="space-y-8">
               <section className="space-y-3">
-                <div className="p-5 rounded-2xl bg-gradient-to-br from-rose-500/10 via-rose-500/5 to-transparent border border-rose-500/20">
+                <div className="p-5 rounded-2xl bg-gradient-to-br from-emerald-500/10 via-emerald-500/5 to-transparent border border-emerald-500/20">
                   <div className="flex items-center gap-3 mb-2">
-                    <div className="w-3 h-3 rounded-full bg-rose-400 shadow-lg shadow-rose-400/30" />
-                    <h2 className="text-xl font-bold text-rose-300">CTF image</h2>
-                    <span className="text-xs text-rose-700 italic">Capture the flag, no fluff</span>
+                    <div className="w-3 h-3 rounded-full bg-emerald-400 shadow-lg shadow-emerald-400/30" />
+                    <h2 className="text-xl font-bold text-emerald-300">Blue Team image</h2>
+                    <span className="text-xs text-emerald-700 italic">Listen before you hunt</span>
                   </div>
-                  <code className="text-xs text-slate-300 font-mono block mb-2">ghcr.io/thenullpigeons/ctf:latest</code>
+                  <code className="text-xs text-slate-300 font-mono block mb-2">ghcr.io/thenullpigeons/blueteam:latest</code>
                   <p className="text-slate-400 text-sm">
-                    Purpose-built for challenge workflows: pwn, reverse, web, network, credential, and misc essentials without AD/C2 overhead.
+                    Purpose-built for SOC analysts and DFIR engineers: threat hunting, log analysis, malware triage, and disk forensics — without offensive overhead.
                   </p>
                   <div className="flex flex-wrap gap-1.5 mt-3">
-                    {['core_tools', 'mod_ctf', 'mod_wordlists'].map((m) => (
-                      <span key={m} className="text-[10px] px-2 py-0.5 rounded-full bg-rose-400/10 text-rose-300/80 border border-rose-500/15 font-mono">{m}</span>
+                    {['core_tools', 'mod_forensics', 'mod_network', 'mod_blueteam', 'mod_wordlists'].map((m) => (
+                      <span key={m} className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-400/10 text-emerald-300/80 border border-emerald-500/15 font-mono">{m}</span>
                     ))}
                   </div>
                 </div>
@@ -382,32 +382,25 @@ nihil tools ctf --category redteam_pwn`}
                 <h3 className="text-lg font-medium text-white">Key tools by category</h3>
                 <div className="space-y-4">
                   {[
-                    { cat: 'Pwn', tools: 'pwndbg, pwntools, ROPgadget, radare2, one_gadget, seccomp-tools, checksec, strace, ltrace' },
-                    { cat: 'Reverse', tools: 'ghidra, angr, pycdc, uncompyle6' },
-                    { cat: 'Crypto', tools: 'RsaCtfTool, xortool, z3-solver, hashid, pycryptodome' },
-                    { cat: 'Forensics', tools: 'volatility3, foremost, exiftool, steghide, zsteg, stegseek, openstego' },
-                    { cat: 'Web', tools: 'ffuf, nuclei, sqlmap, nikto, gobuster, feroxbuster, jwt-tool' },
-                    { cat: 'Network', tools: 'nmap, netcat, socat, wireshark-cli' },
-                    { cat: 'Credential', tools: 'hashcat, john, binwalk' },
-                    { cat: 'Misc', tools: 'searchsploit, CyberChef' },
+                    { cat: 'Log Analysis / Threat Hunting', tools: 'chainsaw, hayabusa, sigma-cli' },
+                    { cat: 'Malware Triage', tools: 'yara, capa, loki' },
+                    { cat: 'Disk Forensics', tools: 'sleuthkit (fls, tsk_*), foremost, exiftool' },
+                    { cat: 'Memory Forensics', tools: 'volatility3' },
+                    { cat: 'Steganography', tools: 'steghide, zsteg, stegseek, openstego' },
+                    { cat: 'Network Analysis', tools: 'wireshark-cli (tshark), nmap, bettercap, socat' },
                   ].map((row) => (
-                    <div key={row.cat} className="p-3 rounded-xl bg-gradient-to-r from-rose-500/5 to-transparent border border-rose-500/20">
-                      <p className="text-sm font-medium text-rose-300">{row.cat}</p>
+                    <div key={row.cat} className="p-3 rounded-xl bg-gradient-to-r from-emerald-500/5 to-transparent border border-emerald-500/20">
+                      <p className="text-sm font-medium text-emerald-300">{row.cat}</p>
                       <p className="text-xs text-slate-400 mt-1 font-mono">{row.tools}</p>
                     </div>
                   ))}
                 </div>
               </section>
 
-              <ToolTable title="Core tools" tools={coreTools} />
-              <ToolTable title="Pwn tools" tools={pwnTools} />
-              <ToolTable title="Reverse tools" tools={reverseTools} />
-              <ToolTable title="Crypto tools" tools={cryptoTools} />
+              <ToolTable title="Blue Team tools" tools={blueteamTools} />
               <ToolTable title="Forensics tools" tools={forensicsTools} />
-              <ToolTable title="Web tools" tools={webTools} />
               <ToolTable title="Network tools" tools={networkTools} />
-              <ToolTable title="Credential tools" tools={credentialTools} />
-              <ToolTable title="Misc tools" tools={miscTools} />
+              <ToolTable title="Core tools" tools={coreTools} />
               <ToolTable title="Wordlists" tools={wordlistsTools} />
             </div>
           )}
@@ -480,6 +473,7 @@ const coreTools: Tool[] = [
   { name: 'neovim', cmd: 'nvim', desc: 'Text editor' },
   { name: 'tmux', cmd: 'tmux', desc: 'Terminal multiplexer' },
   { name: 'fzf', cmd: 'fzf', desc: 'Fuzzy finder' },
+  { name: 'zoxide', cmd: 'z', desc: 'Smart directory navigation' },
   { name: 'gdb', cmd: 'gdb', desc: 'GNU debugger' },
   { name: 'asciinema', cmd: 'asciinema', desc: 'Terminal recorder' },
   { name: 'whois', cmd: 'whois', desc: 'WHOIS lookup' },
@@ -573,6 +567,21 @@ const networkTools: Tool[] = [
   { name: 'netcat', cmd: 'nc', desc: 'Network utility (OpenBSD)' },
   { name: 'socat', cmd: 'socat', desc: 'Multipurpose network relay' },
   { name: 'wireshark-cli', cmd: 'tshark', desc: 'Network protocol analyzer (CLI)' },
+  { name: 'bettercap', cmd: 'bettercap', desc: 'Network attack and monitoring framework' },
+  { name: 'fping', cmd: 'fping', desc: 'Fast ICMP ping tool' },
+  { name: 'udpx', cmd: 'udpx', desc: 'UDP port scanner' },
+  { name: 'zone-dnsenum', cmd: 'zone-dnsenum', desc: 'DNS zone enumeration' },
+  { name: 'ligolo-ng', cmd: 'ligolo-ng', desc: 'Tunneling/pivoting proxy' },
+];
+
+const blueteamTools: Tool[] = [
+  { name: 'chainsaw', cmd: 'chainsaw', desc: 'Windows event log threat hunting' },
+  { name: 'hayabusa', cmd: 'hayabusa', desc: 'Windows DFIR timeline generator' },
+  { name: 'sigma-cli', cmd: 'sigma', desc: 'Sigma detection rule CLI' },
+  { name: 'yara', cmd: 'yara', desc: 'Malware pattern matching' },
+  { name: 'capa', cmd: 'capa', desc: 'FLARE malware capability detection' },
+  { name: 'loki', cmd: 'loki', desc: 'IOC scanner' },
+  { name: 'sleuthkit', cmd: 'fls', desc: 'Disk forensics toolkit (The Sleuth Kit)' },
 ];
 
 const credentialTools: Tool[] = [

@@ -109,10 +109,10 @@ nihil resources install --force   # re-clone after confirmation`}
                 relevant to a specific image variant.
               </p>
               <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
-{`nihil resources sync                  # all enabled resources
-nihil resources sync --profile ad     # AD/internal only
-nihil resources sync --profile web    # web resources only
-nihil resources sync --profile ctf`}
+{`nihil resources sync                       # all enabled resources
+nihil resources sync --profile ad          # AD/internal only
+nihil resources sync --profile web         # web resources only
+nihil resources sync --profile blueteam`}
               </pre>
             </div>
 
@@ -196,7 +196,7 @@ enabled  = true`}
                     ['full', 'setup, active-directory, linux, windows, web, wordlists, cheatsheets, bin'],
                     ['ad', 'setup, active-directory, linux, windows, wordlists, cheatsheets, bin'],
                     ['web', 'setup, web, linux, wordlists, cheatsheets, bin'],
-                    ['ctf', 'setup, linux, web, wordlists, cheatsheets, bin'],
+                    ['blueteam', 'setup, linux, wordlists'],
                   ] as [string, string][]).map(([profile, cats]) => (
                     <tr key={profile} className="border-b border-slate-800/50">
                       <td className="py-2 pr-4 font-mono text-amber-300 text-xs">{profile}</td>
