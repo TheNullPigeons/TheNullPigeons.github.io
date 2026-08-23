@@ -16,8 +16,8 @@ const options = [
     label: 'macOS',
     to: '/docs/installation/macos',
     Logo: AppleLogo,
-    note: 'Coming soon. Docker Desktop has limitations (host network, devices).',
-    available: false,
+    note: 'Supported. Apple Silicon runs the amd64 images under emulation.',
+    available: true,
   },
   {
     id: 'windows',
