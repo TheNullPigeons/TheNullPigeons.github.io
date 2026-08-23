@@ -205,7 +205,7 @@ export const HomePage: React.FC = () => {
               </span>
             </summary>
             <p className="text-sm text-slate-400 leading-relaxed px-5 pb-5 pt-0">
-              Yes. Nihil ships as Docker images and a CLI that manages them. We recommend Linux for host network mode and fewer surprises; macOS and Windows (e.g. WSL2) are on the roadmap.
+              Yes. Nihil ships as Docker images and a CLI that manages them. Linux and macOS are both supported, including Apple Silicon, where the amd64 images run under emulation. We still recommend Linux when you need host network mode or USB and wireless device access. Windows (e.g. WSL2) is on the roadmap.
             </p>
           </details>
           <details className="group rounded-xl border border-slate-700/80 bg-slate-900/50 overflow-hidden hover:border-amber-500/20 transition-colors">

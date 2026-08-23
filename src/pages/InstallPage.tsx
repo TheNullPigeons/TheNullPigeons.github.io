@@ -50,8 +50,22 @@ nihil start lab --image active-directory`,
 
 const macosSteps = [
   {
-    title: 'Coming soon',
-    note: 'macOS support (Docker Desktop) is on the roadmap. We recommend Linux to avoid Docker Desktop limitations (e.g. host network mode, device sharing). For now, use a Linux host or VM.',
+    title: 'Install the Nihil CLI',
+    code: `# With pipx (recommended)
+brew install pipx && pipx ensurepath
+pipx install git+https://github.com/TheNullPigeons/nihil.git`,
+    note: 'Requires Python 3.12+ and a Docker engine with amd64 emulation: OrbStack (recommended) or Docker Desktop with Rosetta enabled.',
+  },
+  {
+    title: 'Pull an image',
+    code: `nihil doctor
+nihil install full`,
+    note: 'Our images are published for linux/amd64 only. On Apple Silicon nihil selects that platform for you and the engine runs it under emulation.',
+  },
+  {
+    title: 'Start a container',
+    code: `nihil start my-pentest --workspace ~/engagements/acme`,
+    note: 'Host network mode is unavailable on macOS, nihil falls back to the bridge network automatically. USB and wireless device passthrough are not available, and CPU-heavy tools run slower than on Linux.',
   },
 ];
 
@@ -87,7 +101,7 @@ export const InstallPage: React.FC = () => {
           We built Nihil for real-world offensive work: infra, Windows, and web. Choose your platform and follow the steps below.
         </p>
         <p className="text-slate-400 text-sm max-w-2xl mx-auto">
-          We recommend Linux to avoid Docker Desktop limitations on Windows and macOS (e.g. host network mode, device sharing).
+          Linux and macOS are documented below. We still recommend Linux when you need host network mode or USB and wireless device access.
         </p>
       </header>
 
@@ -97,7 +111,7 @@ export const InstallPage: React.FC = () => {
           <div className="text-sm text-slate-400">
             <p className="font-medium text-slate-200">Choose your platform</p>
             <p className="text-xs text-slate-500">
-              Linux is fully documented. macOS & Windows are on the roadmap.
+              Linux and macOS are fully documented. Windows is on the roadmap.
             </p>
           </div>
           <div className="inline-flex items-center rounded-full border border-slate-700 bg-slate-900/70 p-1 text-xs sm:text-sm">
@@ -126,7 +140,7 @@ export const InstallPage: React.FC = () => {
         <section className="space-y-4">
           <div className="flex items-center justify-between gap-3">
             <h2 className="text-lg md:text-xl font-semibold text-white">
-              {os === 'linux' ? 'Linux install (short version)' : os === 'macos' ? 'macOS status' : 'Windows status'}
+              {os === 'linux' ? 'Linux install (short version)' : os === 'macos' ? 'macOS install (short version)' : 'Windows status'}
             </h2>
             {os === 'linux' && (
               <Link
@@ -134,6 +148,14 @@ export const InstallPage: React.FC = () => {
                 className="text-xs font-medium text-amber-400 hover:text-amber-300 hover:underline underline-offset-2"
               >
                 Open full Linux docs
+              </Link>
+            )}
+            {os === 'macos' && (
+              <Link
+                to="/docs/installation/macos"
+                className="text-xs font-medium text-amber-400 hover:text-amber-300 hover:underline underline-offset-2"
+              >
+                Open full macOS docs
               </Link>
             )}
           </div>
