@@ -28,18 +28,18 @@ pip install -e .`,
     code: `# List available variants
 nihil images
 
-# Pull the image you need (e.g. base or active-directory)
-nihil install base
-nihil install active-directory`,
+# Pull the image you need
+nihil install full
+nihil install ad`,
     note: 'If you skip this step, nihil start will offer to pull the image when you pick a variant.',
   },
   {
     title: 'Start a container',
     code: `# Create and start a container (pulls image if needed)
-nihil start demo --image base
+nihil start demo --image full
 
 # Or use the AD image
-nihil start lab --image active-directory`,
+nihil start lab --image ad`,
     note: 'You get an interactive shell. Use --workspace, --network host, --privileged as needed (see full docs).',
   },
   {
