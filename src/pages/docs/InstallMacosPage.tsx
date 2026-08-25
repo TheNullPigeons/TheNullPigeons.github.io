@@ -127,7 +127,7 @@ nihil start my-pentest --workspace ~/engagements/acme`}
                 <strong>GUI tools need XQuartz.</strong> Install and start XQuartz, then run <code>xhost +localhost</code> on your Mac. nihil reminds you when it detects macOS with X11 enabled.
               </li>
               <li>
-                <strong>Local image builds are not supported on Apple Silicon yet.</strong> Our Dockerfiles are based on an amd64-only Arch image, so <code>nihil build</code> fails on ARM. Use the published images with <code>nihil install</code>. Tracked in <a className="text-amber-400 hover:text-amber-300 hover:underline underline-offset-2" href="https://github.com/TheNullPigeons/nihil/issues/6" target="_blank" rel="noopener noreferrer">issue #6</a>.
+                <strong>Local builds are slow.</strong> <code>nihil build</code> works on Apple Silicon, nihil passes <code>--platform linux/amd64</code> so the amd64-only Arch base resolves correctly, but every build step then runs emulated. Building a full image takes considerably longer than on a Linux host. Prefer the published images with <code>nihil install</code> unless you are actually modifying a Dockerfile.
               </li>
             </ul>
           </section>
