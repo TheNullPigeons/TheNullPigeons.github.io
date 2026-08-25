@@ -69,6 +69,34 @@ nihil uninstall`}
             </pre>
           </section>
 
+          <section id="custom-images" className="space-y-4">
+            <h2 className="text-xl font-semibold text-white">Custom image sources</h2>
+            <p className="text-slate-400 text-sm">
+              Use <code>nihil image</code> to select tools for a personal <code>nihil-images</code> branch,
+              trigger a variant build, and monitor the resulting GitHub Actions run.
+            </p>
+            <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
+{`# Inspect and select a personal image source
+nihil image status
+nihil image customize full
+
+# Reuse the remote branch if the local clone must be recreated
+nihil image customize full --git-del
+
+# Build one variant, or all variants when no variant is provided
+nihil image build full --wait
+nihil image build --wait
+
+# Switch between upstream and personal sources
+nihil image switch upstream
+nihil image switch personal`}
+            </pre>
+            <Callout variant="note" title="Build scope">
+              <code>nihil image build full</code> builds only the Full image. Running <code>nihil image build</code> without
+              a variant requests all image variants.
+            </Callout>
+          </section>
+
           <section id="commands" className="space-y-4">
             <h2 className="text-xl font-semibold text-white">Command reference (short)</h2>
             <div className="overflow-x-auto">
@@ -87,6 +115,9 @@ nihil uninstall`}
                     ['nihil remove', 'Delete container(s)'],
                     ['nihil install', 'Pull image variant'],
                     ['nihil images', 'List remote/local image variants'],
+                    ['nihil image status', 'Show configured image sources'],
+                    ['nihil image customize', 'Select tools for a personal image branch'],
+                    ['nihil image build', 'Trigger a Docker build for a selected variant'],
                     ['nihil update', 'Refresh local images'],
                     ['nihil upgrade', 'Recreate container on latest image'],
                     ['nihil info', 'Show images/containers status'],
@@ -154,6 +185,7 @@ nihil config  # set display.x11_by_default to false`}
             { id: 'tldr', label: 'TL;DR' },
             { id: 'workflow', label: 'Daily workflow' },
             { id: 'images', label: 'Image lifecycle' },
+            { id: 'custom-images', label: 'Custom image sources' },
             { id: 'commands', label: 'Command reference' },
             { id: 'recipes', label: 'Common recipes' },
             { id: 'x11', label: 'X11 / GUI support' },
