@@ -15,6 +15,7 @@ const ROUTE_META: Array<{ match: (p: string) => boolean; meta: MetaConfig }> = [
   { match: (p) => p === '/docs/tools', meta: { title: 'TheNullPigeons - Tools', description: 'Browse all offensive security tools included in nihil images by category and image variant.' } },
   { match: (p) => p === '/docs/resources', meta: { title: 'TheNullPigeons - Resources', description: 'Versioned shared resource catalog for nihil. Scripts, payloads, binaries, and wordlists mounted in every container.' } },
   { match: (p) => p === '/docs/resources/catalog', meta: { title: 'TheNullPigeons - Resource Catalog', description: 'Browse all nihil-resources entries: webshells, Windows binaries, Linux helpers, AD scripts, and wordlists.' } },
+  { match: (p) => p === '/docs/nihil-ntp', meta: { title: 'TheNullPigeons - nihil-ntp', description: 'Synchronize container time with a domain controller for reliable Kerberos authentication.' } },
   { match: (p) => p === '/docs/nihil-history', meta: { title: 'TheNullPigeons - nihil-history', description: 'Track credentials, hosts, and access links across engagements.' } },
   { match: (p) => p === '/docs/architecture', meta: { title: 'TheNullPigeons - Architecture', description: 'Understand how nihil CLI, Docker manager, and image pipeline fit together.' } },
   { match: (p) => p === '/docs/configuration', meta: { title: 'TheNullPigeons - Configuration', description: 'Configure nihil paths, resources, env variables, and command history.' } },

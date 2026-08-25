@@ -96,6 +96,17 @@ const sections: SidebarSection[] = [
     ],
   },
   {
+    title: 'Nihil NTP',
+    icon: (
+      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6v6l4 2m5-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
+    items: [
+      { label: 'Overview & Commands', to: '/docs/nihil-ntp' },
+    ],
+  },
+  {
     title: 'About',
     icon: (
       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
