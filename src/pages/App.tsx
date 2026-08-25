@@ -25,6 +25,7 @@ import { McpPage } from './docs/McpPage';
 import { ToolsPage } from './docs/ToolsPage';
 import { ResourcesPage } from './docs/ResourcesPage';
 import { ResourcesCatalogPage } from './docs/ResourcesCatalogPage';
+import { NihilNtpPage } from './docs/NihilNtpPage';
 import { BlogPage } from './BlogPage';
 import { BlogPostPage } from './BlogPostPage';
 import { SourceCodePage } from './SourceCodePage';
@@ -91,6 +92,10 @@ export const App: React.FC = () => {
         <Route
           path="/docs/resources/catalog"
           element={<DocsLayout><ResourcesCatalogPage /></DocsLayout>}
+        />
+        <Route
+          path="/docs/nihil-ntp"
+          element={<DocsLayout><NihilNtpPage /></DocsLayout>}
         />
         <Route
           path="/docs/architecture"
