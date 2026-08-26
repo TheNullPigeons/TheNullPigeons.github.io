@@ -75,6 +75,12 @@ nihil uninstall`}
               Use <code>nihil image</code> to select tools for a personal <code>nihil-images</code> branch,
               trigger a variant build, and monitor the resulting GitHub Actions run.
             </p>
+            <Callout variant="note" title="GitHub CLI required">
+              This workflow uses the GitHub CLI (<code>gh</code>) to authenticate, manage the fork, push the personal
+              branch, and dispatch GitHub Actions builds. Install <code>gh</code> and authenticate before starting:
+              <pre className="mt-2 text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">{`gh auth login
+gh auth status`}</pre>
+            </Callout>
             <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
 {`# Inspect and select a personal image source
 nihil image status
