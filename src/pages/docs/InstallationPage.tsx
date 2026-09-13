@@ -25,6 +25,7 @@ export const InstallationPage: React.FC = () => {
                 'Use pipx for a clean install.',
                 'Run nihil doctor before first use.',
                 'Pull image with nihil install (full/ad/web/blueteam).',
+                'Use nh as the short alias installed with nihil.',
                 'Start with nihil start <name> --workspace <path>.',
               ]}
             />
@@ -56,7 +57,8 @@ export const InstallationPage: React.FC = () => {
 {`python3 -m pip install --user pipx
 python3 -m pipx ensurepath
 pipx install "git+https://github.com/TheNullPigeons/nihil.git"
-echo "alias nihil='sudo -E \${echo ~/.local/bin/nihil}' >> ~/.zshrc && source ~/.zshrc"`}
+nihil --version
+nh --version`}
             </pre>
           </section>
 
@@ -74,7 +76,8 @@ echo "alias nihil='sudo -E \${echo ~/.local/bin/nihil}' >> ~/.zshrc && source ~/
             <h2 className="text-xl font-semibold text-white">Pull a Nihil image</h2>
             <p className="text-slate-400 text-sm">Pull interactively first, then pin a specific image when needed.</p>
             <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
-{`nihil install
+{`nihil images
+nihil install
 nihil install full
 nihil install ad
 nihil install web
@@ -102,7 +105,9 @@ nihil info`}</pre>
             <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
 {`nihil start my-pentest --workspace ~/projects/pentest
 nihil start network-pentest --privileged --network host
-nihil start web-pentest --image web --workspace ~/projects/pentest-web`}
+nihil start web-pentest --image web --workspace ~/projects/pentest-web
+nihil start vpn-lab --vpn ~/vpn/client.ovpn --network docker
+nihil start quick -W --tmux`}
             </pre>
             <Callout variant="tip" title="Good default">
               Always set <code>--workspace</code> so your findings persist outside the container lifecycle.
@@ -124,7 +129,11 @@ nihil update
 nihil update ad
 
 # Recreate running environment with latest image
-nihil upgrade`}
+nihil upgrade --all --pull
+nihil upgrade my-pentest --privileged --network host -W --start
+
+# Remove images unused by any container
+nihil uninstall --unused`}
               </pre>
             </div>
             <div className="space-y-2">

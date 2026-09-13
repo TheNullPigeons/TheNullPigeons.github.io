@@ -17,6 +17,8 @@ const linuxSteps = [
     title: 'Install the Nihil CLI',
     code: `# With pipx (recommended)
 pipx install git+https://github.com/TheNullPigeons/nihil.git
+nihil --version
+nh --version
 
 # Or from a clone
 git clone https://github.com/TheNullPigeons/nihil.git && cd nihil
@@ -39,8 +41,11 @@ nihil install ad`,
 nihil start demo --image full
 
 # Or use the AD image
-nihil start lab --image ad`,
-    note: 'You get an interactive shell. Use --workspace, --network host, --privileged as needed (see full docs).',
+nihil start lab --image ad
+
+# Mount current directory and open tmux
+nihil start quick -W --tmux`,
+    note: 'You get an interactive shell. Use --workspace, -W, --network, --privileged, --vpn, --disable-x11 and --disable-wayland as needed.',
   },
   {
     title: 'Useful commands',
@@ -53,7 +58,8 @@ const macosSteps = [
     title: 'Install the Nihil CLI',
     code: `# With pipx (recommended)
 brew install pipx && pipx ensurepath
-pipx install git+https://github.com/TheNullPigeons/nihil.git`,
+pipx install git+https://github.com/TheNullPigeons/nihil.git
+nihil --version`,
     note: 'Requires Python 3.12+ and a Docker engine with amd64 emulation: OrbStack (recommended) or Docker Desktop with Rosetta enabled.',
   },
   {

@@ -16,7 +16,7 @@ export const ConfigurationPage: React.FC = () => {
           Customize nihil: config file, my-resources, environment variables, and command history.
         </p>
         <div className="flex flex-wrap gap-2 pt-1">
-          {['config.yml', 'my-resources', 'env vars', 'history.log'].map((badge) => (
+          {['config.yml', 'image sources', 'display', 'resources'].map((badge) => (
             <span key={badge} className="text-[10px] px-2.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-300/90 font-semibold tracking-wide">
               {badge}
             </span>
@@ -31,8 +31,9 @@ export const ConfigurationPage: React.FC = () => {
               items={[
                 'config.yml controls wrapper behavior.',
                 'my-resources is mounted in every container.',
-                'history.log keeps command trace for replay.',
-                'EDITOR and DOCKER_HOST are the key runtime env vars.',
+                'X11 and Wayland forwarding are enabled by default for new containers.',
+                'image_sources tracks upstream and personal nihil-images clones.',
+                'EDITOR and DOCKER_HOST are useful runtime env vars.',
               ]}
             />
           </section>
@@ -48,7 +49,44 @@ export const ConfigurationPage: React.FC = () => {
 nihil config
 
 # Open in editor
-nihil config --edit`}
+nihil config --edit
+
+# Common keys
+display.x11_by_default: true
+display.wayland_by_default: true
+network.default_network: host
+image_sources.active: upstream`}
+            </pre>
+          </section>
+
+          <section id="image-sources" className="space-y-4">
+            <h2 className="text-xl font-semibold text-white">Image sources</h2>
+            <p className="text-slate-400 text-sm">
+              Nihil keeps an upstream clone of <code>nihil-images</code> and can also track a personal fork for custom images.
+              Switching sources changes which image tags and build source are considered active.
+            </p>
+            <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
+{`nihil image status
+nihil image switch upstream
+nihil image switch personal
+
+image_sources:
+  active: upstream
+  upstream_repo: TheNullPigeons/nihil-images
+  personal_repo: <owner>/nihil-images
+  personal_branch: nihil/full-custom`}
+            </pre>
+          </section>
+
+          <section id="display" className="space-y-4">
+            <h2 className="text-xl font-semibold text-white">Display forwarding</h2>
+            <p className="text-slate-400 text-sm">
+              New containers receive both X11/XWayland and Wayland socket mounts by default. Use start flags when a specific container should not receive one of them.
+            </p>
+            <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
+{`nihil start gui
+nihil start no-x11 --disable-x11
+nihil start no-wayland --disable-wayland`}
             </pre>
           </section>
 
@@ -145,6 +183,8 @@ nihil exec pentest`}
           items={[
             { id: 'tldr', label: 'TL;DR' },
             { id: 'config-file', label: 'Config file' },
+            { id: 'image-sources', label: 'Image sources' },
+            { id: 'display', label: 'Display' },
             { id: 'my-resources', label: 'My Resources' },
             { id: 'examples', label: 'Examples' },
             { id: 'env-vars', label: 'Environment variables' },
