@@ -181,7 +181,7 @@ nihil start gui-pentest
 nihil start gui-pentest --disable-x11
 nihil start gui-pentest --disable-wayland
 
-# Existing containers must be recreated to change display mounts
+# Upgrade applies the current display defaults to existing containers
 nihil upgrade gui-pentest --force`}
             </pre>
             <Callout variant="note" title="macOS">

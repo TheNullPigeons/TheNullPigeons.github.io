@@ -81,7 +81,7 @@ image_sources:
           <section id="display" className="space-y-4">
             <h2 className="text-xl font-semibold text-white">Display forwarding</h2>
             <p className="text-slate-400 text-sm">
-              New containers receive both X11/XWayland and Wayland socket mounts by default. Use start flags when a specific container should not receive one of them.
+              New containers receive both X11/XWayland and Wayland socket mounts by default. An upgrade refreshes these mounts from the current configuration, so older containers receive newly enabled display forwarding too. Use start flags when a specific new container should not receive one of them.
             </p>
             <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
 {`nihil start gui
