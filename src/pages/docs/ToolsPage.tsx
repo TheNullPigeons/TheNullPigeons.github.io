@@ -257,6 +257,7 @@ const ALL: Tool[] = [
   { name: 'pwncat-vl', cmd: 'pwncat-vl', desc: 'Maintained fork of pwncat-cs with reverse/bind shell automation', category: 'C2', images: ['full','ad'] },
   { name: 'mythic-cli', cmd: 'mythic-cli', desc: 'Mythic C2 framework management CLI', category: 'C2', images: ['full','ad'] },
   { name: 'searchsploit', cmd: 'searchsploit', desc: 'Exploit database search', category: 'Misc', images: ['full','ad','web'] },
+  { name: 'ansible', cmd: 'ansible', desc: 'Infrastructure automation and remote execution', category: 'Misc', images: ['full','ad','web'] },
   { name: 'CyberChef', cmd: '/opt/tools/CyberChef', desc: 'Data transformation toolkit (offline)', category: 'Misc', images: ['full','ad','web'] },
   { name: 'firefox', cmd: 'firefox', desc: 'Web browser', category: 'Misc', images: ['full','ad','web'] },
   { name: 'chromium', cmd: 'chromium', desc: 'Web browser (no-sandbox wrapper)', category: 'Misc', images: ['full','ad','web'] },
