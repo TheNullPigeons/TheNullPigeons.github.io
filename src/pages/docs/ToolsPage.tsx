@@ -216,6 +216,7 @@ const ALL: Tool[] = [
   { name: 'rdesktop', cmd: 'rdesktop', desc: 'Legacy RDP client', category: 'Network', images: ['full','ad','web','blueteam'] },
   { name: 'nfs-utils', cmd: 'showmount', desc: 'NFS client utilities (showmount, nfsstat, rpcinfo)', category: 'Network', images: ['full','ad','web','blueteam'] },
   { name: 'pypykatz', cmd: 'pypykatz', desc: 'LSASS minidump parser (Python)', category: 'Credential', images: ['full','ad','web'] },
+  { name: 'defaultcreds-cheat-sheet', cmd: 'creds', desc: 'Search vendor default credentials', category: 'Credential', images: ['full','ad','web'] },
   { name: 'binwalk', cmd: 'binwalk', desc: 'Binary analysis / extraction', category: 'Credential', images: ['full','ad','web'] },
   { name: 'john', cmd: 'john', desc: 'Password cracker (John the Ripper)', category: 'Credential', images: ['full','ad','web'] },
   { name: 'zip2john', cmd: 'zip2john', desc: 'Convert ZIP archives to John hashes', category: 'Credential', images: ['full','ad','web'] },
