@@ -151,6 +151,9 @@ nihil images`}
                 <p className="text-slate-400 text-sm">
                   All images are hosted on the GitHub Container Registry. The CLI checks the registry to show <code>Available</code>, <code>Update available</code>, or <code>Updated</code> in <code>nihil images</code>.
                 </p>
+                <p className="text-slate-400 text-sm">
+                  Stable images use <code>:latest</code> (also tagged <code>:main</code>). Run <code>nihil image channel dev</code> to use <code>:dev</code> for all upstream variants. A merge to main promotes the already built dev image without rebuilding it.
+                </p>
                 <div className="space-y-3">
                   {[
                     { name: 'Full', tag: 'ghcr.io/thenullpigeons/full:latest', alt: ':flock', desc: 'The whole flock', border: 'border-amber-500/20 hover:border-amber-500/40', bg: 'bg-gradient-to-r from-amber-500/5 to-transparent', accent: 'text-amber-300', dot: 'bg-amber-400' },

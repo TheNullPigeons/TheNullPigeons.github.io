@@ -55,7 +55,8 @@ nihil config --edit
 display.x11_by_default: true
 display.wayland_by_default: true
 network.default_network: host
-image_sources.active: upstream`}
+image_sources.active: upstream
+image_sources.channel: main`}
             </pre>
           </section>
 
@@ -64,14 +65,19 @@ image_sources.active: upstream`}
             <p className="text-slate-400 text-sm">
               Nihil keeps an upstream clone of <code>nihil-images</code> and can also track a personal fork for custom images.
               Switching sources changes which image tags and build source are considered active.
+              The upstream channel defaults to <code>main</code> (the <code>:latest</code> tag).
+              Select <code>dev</code> to pull <code>:dev</code> images; personal forks keep their own branch tags.
             </p>
             <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
 {`nihil image status
 nihil image switch upstream
 nihil image switch personal
+nihil image channel dev
+nihil image channel main
 
 image_sources:
   active: upstream
+  channel: main
   upstream_repo: TheNullPigeons/nihil-images
   personal_repo: <owner>/nihil-images
   personal_branch: nihil/full-custom`}

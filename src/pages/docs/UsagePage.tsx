@@ -105,7 +105,12 @@ nihil image build --wait
 
 # Switch between upstream and personal sources
 nihil image switch upstream
-nihil image switch personal`}
+nihil image switch personal
+
+# Use development images from the upstream repository
+nihil image channel dev
+nihil update
+nihil image channel main`}
             </pre>
             <Callout variant="note" title="Build scope">
               <code>nihil image build full</code> builds only the Full image. Running <code>nihil image build</code> without
@@ -132,6 +137,7 @@ nihil image switch personal`}
                     ['nihil install', 'Pull image variant'],
                     ['nihil images', 'List remote/local image variants'],
                     ['nihil image status', 'Show configured image sources'],
+                    ['nihil image channel main|dev', 'Select stable or development upstream images'],
                     ['nihil image customize', 'Select tools for a personal image branch'],
                     ['nihil image build', 'Trigger a Docker build for a selected variant'],
                     ['nihil update', 'Pull newer images'],
