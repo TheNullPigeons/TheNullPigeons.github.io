@@ -118,6 +118,34 @@ nihil image channel main`}
             </Callout>
           </section>
 
+          <section id="profiles" className="space-y-4">
+            <h2 className="text-xl font-semibold text-white">Container profiles</h2>
+            <p className="text-slate-400 text-sm">
+              Profiles keep reusable container creation settings in <code>~/.nihil/profiles/&lt;name&gt;.yml</code>.
+              Run the creator without options for a guided setup, or provide known values and answer only the remaining questions.
+            </p>
+            <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
+{`# Fully interactive
+nihil profile create
+
+# Hybrid: pre-fill a few answers
+nihil profile create redteam --image ad --network docker --privileged
+
+# Scriptable: omitted settings use Nihil defaults
+nihil profile create web --image web --network docker --non-interactive
+
+nihil profile list
+nihil profile show redteam
+nihil start acme --profile redteam
+
+# Command-line options override the profile
+nihil start acme --profile redteam --standard --no-log`}
+            </pre>
+            <Callout variant="note" title="Creation-time settings">
+              A profile applies only when Nihil creates the container. If the named container already exists, the profile is ignored. Profiles are plain YAML files, so do not store passwords or tokens in them.
+            </Callout>
+          </section>
+
           <section id="commands" className="space-y-4">
             <h2 className="text-xl font-semibold text-white">Command reference (short)</h2>
             <div className="overflow-x-auto">
@@ -142,6 +170,7 @@ nihil image channel main`}
                     ['nihil image build', 'Trigger a Docker build for a selected variant'],
                     ['nihil update', 'Pull newer images'],
                     ['nihil upgrade', 'Recreate containers from the selected image/config'],
+                    ['nihil profile create|list|show', 'Manage reusable container creation profiles'],
                     ['nihil info', 'Show images/containers status'],
                     ['nihil doctor', 'Run environment diagnostics'],
                     ['nihil tools', 'List tools by image/category'],
@@ -210,6 +239,7 @@ nihil upgrade gui-pentest --force`}
             { id: 'workflow', label: 'Daily workflow' },
             { id: 'images', label: 'Image lifecycle' },
             { id: 'custom-images', label: 'Custom image sources' },
+            { id: 'profiles', label: 'Container profiles' },
             { id: 'commands', label: 'Command reference' },
             { id: 'recipes', label: 'Common recipes' },
             { id: 'display', label: 'GUI support' },
