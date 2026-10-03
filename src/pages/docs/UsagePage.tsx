@@ -26,7 +26,7 @@ export const UsagePage: React.FC = () => {
                 'X11 and Wayland forwarding are enabled by default; disable either one per container if needed.',
                 'Use nihil exec for one-off commands in running containers.',
                 'Use nihil upgrade to recreate containers while keeping saved tool state.',
-                'Use nihil info, nihil images and nihil doctor when debugging state issues.',
+                'Use nihil info, nihil image list and nihil doctor when debugging state issues.',
               ]}
             />
           </section>
@@ -65,7 +65,7 @@ nihil stop my-pentest`}
 {`nihil install
 nihil install ad
 nihil install blueteam
-nihil images
+nihil image list
 nihil update
 nihil update web
 nihil upgrade --all --pull
@@ -73,7 +73,7 @@ nihil upgrade serval --privileged --network host -W --start
 nihil uninstall --unused`}
             </pre>
             <Callout variant="note" title="Image status">
-              <code>nihil images</code> shows registry availability before an image is installed. <code>Update available</code> means a newer remote image can be pulled; <code>Updated</code> means your local image matches the registry.
+              <code>nihil image list</code> shows registry availability before an image is installed. <code>Update available</code> means a newer remote image can be pulled; <code>Updated</code> means your local image matches the registry.
             </Callout>
           </section>
 
@@ -163,7 +163,7 @@ nihil start acme --profile redteam --standard --no-log`}
                     ['nihil stop', 'Stop running container'],
                     ['nihil remove', 'Delete container(s)'],
                     ['nihil install', 'Pull image variant'],
-                    ['nihil images', 'List remote/local image variants'],
+                    ['nihil image list', 'List remote/local image variants'],
                     ['nihil image status', 'Show configured image sources'],
                     ['nihil image channel main|dev', 'Select stable or development upstream images'],
                     ['nihil image customize', 'Select tools for a personal image branch'],

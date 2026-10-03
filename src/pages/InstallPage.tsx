@@ -28,7 +28,7 @@ pip install -e .`,
   {
     title: 'Pull an image (optional)',
     code: `# List available variants
-nihil images
+nihil image list
 
 # Pull the image you need
 nihil install full

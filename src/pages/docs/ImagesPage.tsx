@@ -64,7 +64,7 @@ export const ImagesPage: React.FC = () => {
                     'Use web for web/API engagements.',
                     'Use blueteam for DFIR, threat hunting, and forensics.',
                     'Use full when you need everything in one image.',
-                    'Use nihil images to see remote availability and update status before pulling.',
+                    'Use nihil image list to see remote availability and update status before pulling.',
                     'Run nihil tools <image> to inspect available tools.',
                   ]}
                 />
@@ -89,7 +89,7 @@ nihil install web
 nihil install blueteam
 
 # Check local and remote status
-nihil images`}
+nihil image list`}
                 </pre>
               </section>
 
@@ -149,7 +149,7 @@ nihil images`}
               <section id="registries" className="space-y-4">
                 <h2 className="text-xl font-semibold text-white">Image registry</h2>
                 <p className="text-slate-400 text-sm">
-                  All images are hosted on the GitHub Container Registry. The CLI checks the registry to show <code>Available</code>, <code>Update available</code>, or <code>Updated</code> in <code>nihil images</code>.
+                  All images are hosted on the GitHub Container Registry. The CLI checks the registry to show <code>Available</code>, <code>Update available</code>, or <code>Updated</code> in <code>nihil image list</code>.
                 </p>
                 <p className="text-slate-400 text-sm">
                   Stable images use <code>:latest</code> (also tagged <code>:main</code>). Run <code>nihil image channel dev</code> to use <code>:dev</code> for all upstream variants. A merge to main promotes the already built dev image without rebuilding it.

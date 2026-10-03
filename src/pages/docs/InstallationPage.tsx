@@ -76,7 +76,7 @@ nh --version`}
             <h2 className="text-xl font-semibold text-white">Pull a Nihil image</h2>
             <p className="text-slate-400 text-sm">Pull interactively first, then pin a specific image when needed.</p>
             <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
-{`nihil images
+{`nihil image list
 nihil install
 nihil install full
 nihil install ad
