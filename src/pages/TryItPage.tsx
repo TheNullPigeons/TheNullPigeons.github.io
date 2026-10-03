@@ -72,7 +72,7 @@ Nihil - by TheNullPigeons
 
 commands:
   info        Display information about images and containers
-  images      List available image variants
+  image       Manage image variants, sources and channels
   start       Start a container (creates it if it doesn't exist)
   stop        Stop a container
   exec        Execute a command in a container
@@ -90,8 +90,8 @@ commands:
     return 'nihil 1.0.0\n';
   }
 
-  // images
-  if (sub === 'images') {
+  // image list (`images` remains a compatibility alias)
+  if (sub === 'images' || (sub === 'image' && rest[0] === 'list')) {
     const variants = Object.keys(IMAGE_META) as ImageVariant[];
     let out = '\nAVAILABLE IMAGE VARIANTS\n';
     out += `  ${pad('VARIANT', 10)}${pad('IMAGE', 12)}${pad('DESCRIPTION', 32)}INSTALLED\n`;
@@ -386,7 +386,7 @@ _nihil "$@"
 const SUGGESTIONS = [
   'nihil --help',
   'nihil info',
-  'nihil images',
+  'nihil image list',
   'nihil doctor',
   'nihil start pentest --image ad --privileged --network host',
   'nihil start weblab --image web --workspace ~/projects',
