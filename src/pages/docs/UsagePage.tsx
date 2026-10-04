@@ -121,6 +121,7 @@ nihil image channel main`}
             </Callout>
             <Callout variant="tip" title="Browser selector">
               Add <code>--web</code> to complete the customization in a temporary local interface bound to <code>127.0.0.1</code>.
+              Before either selector opens, Nihil merges the latest upstream default branch into the personal customization branch.
               Clicking <strong>Apply &amp; build</strong> saves the selection, commits and pushes the branch, dispatches
               GitHub Actions, and follows the build to completion in the same page. A link to GitHub&apos;s live logs is
               displayed as soon as the workflow starts, and <strong>Cancel build</strong> stops the active run. Once the
