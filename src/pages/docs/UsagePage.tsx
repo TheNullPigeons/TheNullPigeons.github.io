@@ -93,6 +93,7 @@ gh auth status`}</pre>
 {`# Inspect and select a personal image source
 nihil image status
 nihil image customize full
+nihil image customize full --web
 
 # Delete local clone, remote branch/packages, or both before setup
 nihil image customize full --git-del local
@@ -114,7 +115,17 @@ nihil image channel main`}
             </pre>
             <Callout variant="note" title="Build scope">
               <code>nihil image build full</code> builds only the Full image. Running <code>nihil image build</code> without
-              a variant requests all image variants.
+              a variant requests all image variants. Add <code>--wait</code> to display a live progress bar based on
+              completed GitHub Actions steps, the current step, elapsed time, and the final workflow result. The bar
+              tracks Actions steps rather than individual Docker layers.
+            </Callout>
+            <Callout variant="tip" title="Browser selector">
+              Add <code>--web</code> to complete the customization in a temporary local interface bound to <code>127.0.0.1</code>.
+              Clicking <strong>Apply &amp; build</strong> saves the selection, commits and pushes the branch, dispatches
+              GitHub Actions, and follows the build to completion in the same page. A link to GitHub&apos;s live logs is
+              displayed as soon as the workflow starts, and <strong>Cancel build</strong> stops the active run. Once the
+              run ends, the complete logs are displayed and can be downloaded from the WebUI. Use <code>--no-push</code>
+              to save locally without starting a build.
             </Callout>
           </section>
 
