@@ -49,12 +49,16 @@ nihil start vpn-lab --vpn ~/vpn/client.ovpn --network docker
 nihil start re --image full --tmux
 # Exec / inspect
 nihil exec my-pentest
+nihil exec my-pentest nmap -V
 nihil info --container my-pentest
 # Stop
 nihil stop my-pentest`}
             </pre>
             <Callout variant="tip" title="Most useful flags">
               <code>--image</code>, <code>--workspace</code>, <code>-W</code>, <code>--network</code>, <code>--privileged</code>, <code>--vpn</code>, <code>--tmux</code>.
+            </Callout>
+            <Callout variant="note" title="Interactive and automated execution">
+              <code>nihil exec</code> allocates a terminal for an interactive shell and automatically runs without one in scripts, CI, and headless agents. Quoted arguments and <code>bash -c</code> scripts are passed unchanged to the container.
             </Callout>
           </section>
 
