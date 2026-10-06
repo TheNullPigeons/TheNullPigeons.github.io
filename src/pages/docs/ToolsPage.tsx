@@ -81,6 +81,13 @@ const ALL: Tool[] = [
   { name: 'rusthound-ce', cmd: 'rusthound-ce', desc: 'BloodHound CE collector (Rust)', category: 'Active Directory', images: ['full','ad'] },
   { name: 'rusthound', cmd: 'rusthound', desc: 'BloodHound legacy collector (Rust)', category: 'Active Directory', images: ['full','ad'] },
   { name: 'bloodbash', cmd: 'bloodbash', desc: 'BloodHound-based offensive automation', category: 'Active Directory', images: ['full','ad'] },
+  { name: 'adwsdomaindump', cmd: 'adwsdomaindump', desc: 'Dump Active Directory data through AD Web Services', category: 'Active Directory', images: ['full','ad'] },
+  { name: 'EVENmonitor', cmd: 'EVENmonitor', desc: 'Monitor and filter remote Windows event logs', category: 'Active Directory', images: ['full','ad'] },
+  { name: 'gpoParser', cmd: 'gpoParser', desc: 'Extract and analyze Active Directory Group Policy Objects', category: 'Active Directory', images: ['full','ad'] },
+  { name: 'pyGoldenGMSA', cmd: 'pyGoldenGMSA', desc: 'GoldenGMSA attack implementation for gMSA accounts', category: 'Active Directory', images: ['full','ad'] },
+  { name: 'RelayInformer', cmd: 'relayinformer', desc: 'Identify EPA enforcement on NTLM relay targets', category: 'Active Directory', images: ['full','ad'] },
+  { name: 'snaffler-ng', cmd: 'snaffler', desc: 'Find credentials and sensitive files on SMB shares', category: 'Active Directory', images: ['full','ad'] },
+  { name: 'SOAPy', cmd: 'SOAPy', desc: 'Interact offensively with AD Web Services through SOCKS5', category: 'Active Directory', images: ['full','ad'] },
   { name: 'kerbrute', cmd: 'kerbrute', desc: 'Kerberos brute-force / user enumeration', category: 'Active Directory', images: ['full','ad'] },
   { name: 'windapsearch', cmd: 'windapsearch', desc: 'LDAP enumeration (Go)', category: 'Active Directory', images: ['full','ad'] },
   { name: 'krbrelayx', cmd: 'krbrelayx', desc: 'Kerberos relay attacks', category: 'Active Directory', images: ['full','ad'] },
@@ -132,6 +139,7 @@ const ALL: Tool[] = [
   { name: 'wenum', cmd: 'wenum', desc: 'Web enumeration and fuzzing tool', category: 'Web', images: ['full','web'] },
   { name: 'arjun', cmd: 'arjun', desc: 'HTTP parameter discovery', category: 'Web', images: ['full','web'] },
   { name: 'wafw00f', cmd: 'wafw00f', desc: 'WAF detection', category: 'Web', images: ['full','web'] },
+  { name: 'badsecrets', cmd: 'badsecrets', desc: 'Detect known or weak cryptographic secrets', category: 'Web', images: ['full','web'] },
   { name: 'gopherus', cmd: 'gopherus3', desc: 'SSRF exploitation via Gopher', category: 'Web', images: ['full','web'] },
   { name: 'droopescan', cmd: 'droopescan', desc: 'Drupal/CMS scanner', category: 'Web', images: ['full','web'] },
   { name: 'cmsmap', cmd: 'cmsmap', desc: 'CMS exploitation', category: 'Web', images: ['full','web'] },
@@ -215,6 +223,8 @@ const ALL: Tool[] = [
   { name: 'xfreerdp', cmd: 'xfreerdp3', desc: 'RDP client', category: 'Network', images: ['full','ad','web','blueteam'] },
   { name: 'rdesktop', cmd: 'rdesktop', desc: 'Legacy RDP client', category: 'Network', images: ['full','ad','web','blueteam'] },
   { name: 'nfs-utils', cmd: 'showmount', desc: 'NFS client utilities (showmount, nfsstat, rpcinfo)', category: 'Network', images: ['full','ad','web','blueteam'] },
+  { name: 'beanshooter', cmd: 'beanshooter', desc: 'JMX enumeration and attack tool', category: 'Network', images: ['full','ad','web','blueteam'] },
+  { name: 'jmxterm', cmd: 'jmxterm', desc: 'Interactive command-line JMX client', category: 'Network', images: ['full','ad','web','blueteam'] },
   { name: 'pypykatz', cmd: 'pypykatz', desc: 'LSASS minidump parser (Python)', category: 'Credential', images: ['full','ad','web'] },
   { name: 'defaultcreds-cheat-sheet', cmd: 'creds', desc: 'Search vendor default credentials', category: 'Credential', images: ['full','ad','web'] },
   { name: 'trufflehog', cmd: 'trufflehog', desc: 'Scan Git repositories and files for secrets', category: 'Credential', images: ['full','ad','web'] },
@@ -268,6 +278,7 @@ const ALL: Tool[] = [
   { name: 'rsync', cmd: 'rsync', desc: 'File sync utility', category: 'Misc', images: ['full','ad','web'] },
   { name: 'wesng', cmd: 'wes', desc: 'Windows Exploit Suggester NG', category: 'Misc', images: ['full','ad','web'] },
   { name: 'gitleaks', cmd: 'gitleaks', desc: 'Git secrets scanner', category: 'Misc', images: ['full','ad','web'] },
+  { name: 'pacu', cmd: 'pacu', desc: 'AWS exploitation framework', category: 'Misc', images: ['full','ad','web'] },
   { name: 'ghidra', cmd: 'ghidra', desc: 'NSA reverse engineering suite', category: 'Reverse Engineering', images: ['full'] },
   { name: 'ida', cmd: 'ida64', desc: 'IDA Free interactive disassembler', category: 'Reverse Engineering', images: ['full'] },
   { name: 'binaryninja', cmd: 'binaryninja', desc: 'Binary Ninja Free reverse engineering platform', category: 'Reverse Engineering', images: ['full'] },
@@ -365,6 +376,9 @@ export const ToolsPage: React.FC = () => {
         <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-white">Tools</h1>
         <p className="text-slate-400 text-sm max-w-2xl">
           {ALL.length} tools pre-installed across all nihil images. Filter by image variant or category.
+        </p>
+        <p className="text-slate-400 text-sm max-w-2xl">
+          For Kerbrute output, run <code>kerbrute_users_dump kerbrute.log valid_users.txt</code> to extract unique usernames without their domain.
         </p>
       </header>
 
