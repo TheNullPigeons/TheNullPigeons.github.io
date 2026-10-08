@@ -2,16 +2,19 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 
 const BASE_URL = 'https://thenullpigeons.org';
-const DEFAULT_TITLE = 'TheNullPigeons';
+const DEFAULT_TITLE = 'TheNullPigeons - Offensive Security Lab & Nihil CLI';
 const DEFAULT_DESC = 'Professional offensive lab environment for security professionals.';
 
 type MetaConfig = { title: string; description: string };
 
 const ROUTE_META: Array<{ match: (p: string) => boolean; meta: MetaConfig }> = [
-  { match: (p) => p === '/', meta: { title: 'TheNullPigeons', description: DEFAULT_DESC } },
+  { match: (p) => p === '/', meta: { title: DEFAULT_TITLE, description: DEFAULT_DESC } },
   { match: (p) => p.startsWith('/docs/installation'), meta: { title: 'TheNullPigeons - Installation', description: 'Install nihil quickly and start your first offensive containers.' } },
   { match: (p) => p === '/docs/usage', meta: { title: 'TheNullPigeons - CLI Commands', description: 'Complete reference for nihil CLI commands and workflows.' } },
+  { match: (p) => p === '/docs/completion', meta: { title: 'TheNullPigeons - Shell Completion', description: 'Enable shell autocompletion for nihil commands.' } },
+  { match: (p) => p === '/docs/history', meta: { title: 'TheNullPigeons - Command History', description: 'Understand and manage nihil command history files.' } },
   { match: (p) => p === '/docs/images', meta: { title: 'TheNullPigeons - Images', description: 'Compare nihil images and pick the best stack for your engagement.' } },
+  { match: (p) => p === '/docs/mcp', meta: { title: 'TheNullPigeons - nihil-mcp', description: 'Model Context Protocol server that lets an AI assistant manage Nihil containers and run tooling via natural-language requests.' } },
   { match: (p) => p === '/docs/tools', meta: { title: 'TheNullPigeons - Tools', description: 'Browse all offensive security tools included in nihil images by category and image variant.' } },
   { match: (p) => p === '/docs/resources', meta: { title: 'TheNullPigeons - Resources', description: 'Versioned shared resource catalog for nihil. Scripts, payloads, binaries, and wordlists mounted in every container.' } },
   { match: (p) => p === '/docs/resources/catalog', meta: { title: 'TheNullPigeons - Resource Catalog', description: 'Browse all nihil-resources entries: webshells, Windows binaries, Linux helpers, AD scripts, and wordlists.' } },
@@ -68,7 +71,7 @@ export const SeoMeta: React.FC = () => {
     setMetaByProperty('og:description', meta.description);
     setMetaByProperty('og:url', absoluteUrl);
 
-    setMetaByName('twitter:card', 'summary');
+    setMetaByName('twitter:card', 'summary_large_image');
     setMetaByName('twitter:title', meta.title);
     setMetaByName('twitter:description', meta.description);
   }, [pathname]);

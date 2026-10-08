@@ -6,7 +6,7 @@ const DIST_DIR = path.resolve('dist');
 const BASE_HTML = path.join(DIST_DIR, 'index.html');
 
 const DEFAULT_META = {
-  title: 'TheNullPigeons',
+  title: 'TheNullPigeons - Offensive Security Lab & Nihil CLI',
   description: 'Professional offensive lab environment for security professionals.',
 };
 
@@ -27,6 +27,12 @@ const ROUTES = [
   ['/docs/nihil-history', { title: 'TheNullPigeons - nihil-history', description: 'Track credentials, hosts, and access links across engagements.' }],
   ['/docs/architecture', { title: 'TheNullPigeons - Architecture', description: 'Understand how nihil CLI, Docker manager, and image pipeline fit together.' }],
   ['/docs/configuration', { title: 'TheNullPigeons - Configuration', description: 'Configure nihil paths, resources, env variables, and command history.' }],
+  ['/docs/service', { title: 'TheNullPigeons - Services', description: 'Understand session services in nihil, including Desktop Browser UI and port behavior.' }],
+  ['/docs/mcp', { title: 'TheNullPigeons - nihil-mcp', description: 'Model Context Protocol server that lets an AI assistant manage Nihil containers and run tooling via natural-language requests.' }],
+  ['/docs/tools', { title: 'TheNullPigeons - Tools', description: 'Browse all offensive security tools included in nihil images by category and image variant.' }],
+  ['/docs/resources', { title: 'TheNullPigeons - Resources', description: 'Versioned shared resource catalog for nihil. Scripts, payloads, binaries, and wordlists mounted in every container.' }],
+  ['/docs/resources/catalog', { title: 'TheNullPigeons - Resource Catalog', description: 'Browse all nihil-resources entries: webshells, Windows binaries, Linux helpers, AD scripts, and wordlists.' }],
+  ['/docs/nihil-ntp', { title: 'TheNullPigeons - nihil-ntp', description: 'Synchronize container time with a domain controller for reliable Kerberos authentication.' }],
   ['/docs/contributing', { title: 'TheNullPigeons - Contributing', description: 'Report bugs, request tools, and contribute to the nihil ecosystem.' }],
   ['/docs/faq', { title: 'TheNullPigeons - FAQ', description: 'Answers to frequent questions about nihil setup and usage.' }],
   ['/docs/about', { title: 'TheNullPigeons - About', description: 'Why nihil was built and how the project is structured.' }],
@@ -64,6 +70,16 @@ function setMeta(html, route, meta) {
   return out;
 }
 
+function buildSitemap() {
+  const today = new Date().toISOString().slice(0, 10);
+  const urls = ROUTES.map(([route]) => {
+    const loc = `${BASE_URL}${route}`;
+    const priority = route === '/' ? '1.0' : route.startsWith('/docs') ? '0.8' : '0.6';
+    return `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${today}</lastmod>\n    <priority>${priority}</priority>\n  </url>`;
+  }).join('\n');
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
+}
+
 const baseHtml = await readFile(BASE_HTML, 'utf-8');
 
 for (const [route, meta] of ROUTES) {
@@ -73,4 +89,10 @@ for (const [route, meta] of ROUTES) {
   await writeFile(path.join(outputDir, 'index.html'), html, 'utf-8');
 }
 
-console.log(`Prerendered metadata for ${ROUTES.length} routes.`);
+// GitHub Pages has no server-side router: unknown deep links hit this file,
+// so it must boot the same SPA as index.html and let react-router take over.
+await writeFile(path.join(DIST_DIR, '404.html'), setMeta(baseHtml, '/', DEFAULT_META), 'utf-8');
+
+await writeFile(path.join(DIST_DIR, 'sitemap.xml'), buildSitemap(), 'utf-8');
+
+console.log(`Prerendered metadata for ${ROUTES.length} routes, plus sitemap.xml and 404.html.`);
