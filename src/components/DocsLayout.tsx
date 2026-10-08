@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
+import { DocsSearch } from './DocsSearch';
 import hljs from 'highlight.js/lib/core';
 import bash from 'highlight.js/lib/languages/bash';
 import dockerfile from 'highlight.js/lib/languages/dockerfile';
@@ -295,12 +296,24 @@ export const DocsLayout: React.FC<{ children: React.ReactNode }> = ({ children }
     });
   }, [location.pathname]);
 
+  // Search results can link to `/docs/x#section`; react-router doesn't
+  // auto-scroll to a hash when the route itself also changes.
+  useEffect(() => {
+    if (location.hash) {
+      const target = document.getElementById(location.hash.slice(1));
+      target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      window.scrollTo({ top: 0 });
+    }
+  }, [location.pathname, location.hash]);
+
   return (
     <div className="flex gap-12 items-start">
       <aside className="w-60 shrink-0 sticky top-24 hidden md:block">
         <div className="space-y-1 p-2 rounded-xl bg-slate-900/30 border border-slate-800/50 backdrop-blur-sm">
-          <div className="px-3 pt-1 pb-2 mb-1 border-b border-slate-800/50">
+          <div className="px-3 pt-1 pb-2 mb-1 border-b border-slate-800/50 space-y-2">
             <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-slate-600">Documentation</p>
+            <DocsSearch />
           </div>
           {sections.map((section) => (
             <SidebarSection
