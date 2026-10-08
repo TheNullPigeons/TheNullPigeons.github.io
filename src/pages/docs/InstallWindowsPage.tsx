@@ -33,7 +33,7 @@ export const InstallWindowsPage: React.FC = () => {
         </p>
       </div>
 
-      <div className="space-y-4">
+      <div id="wsl2-workaround" className="space-y-4">
         <h2 className="text-xl font-semibold text-white">WSL2 workaround</h2>
         <ol className="list-decimal list-inside space-y-3 text-slate-400 text-sm">
           <li>
