@@ -3410,6 +3410,30 @@
         "full",
         "web"
       ]
+    },
+    {
+      "name": "seth",
+      "cmd": "seth",
+      "desc": "RDP downgrade and credential interception",
+      "category": "Network",
+      "images": [
+        "full",
+        "ad",
+        "web",
+        "blueteam"
+      ]
+    },
+    {
+      "name": "wifit3",
+      "cmd": "wifit3",
+      "desc": "USB wireless network auditor",
+      "category": "Network",
+      "images": [
+        "full",
+        "ad",
+        "web",
+        "blueteam"
+      ]
     }
   ]
 }
