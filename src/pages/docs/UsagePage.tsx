@@ -103,6 +103,9 @@ nihil upgrade --all --pull
 nihil upgrade my-pentest --privileged --network host -W --start
 nihil uninstall --unused`}
             </pre>
+            <Callout variant="note" title="Container state after upgrade">
+              <code>nihil upgrade</code>, including <code>--all</code>, preserves each container's running or stopped state. Stopped containers may start temporarily to restore saved files, then stop again. Use <code>--start</code> with one container to leave it running and open a shell.
+            </Callout>
             <Callout variant="note" title="Image status">
               <code>nihil image list</code> shows registry availability before an image is installed. <code>Update available</code> means a newer remote image can be pulled; <code>Updated</code> means your local image matches the registry.
             </Callout>
