@@ -262,8 +262,9 @@ nhi export markdown              # print to stdout`}
           <section id="tui" className="space-y-4">
             <h2 className="text-xl font-semibold text-white">TUI (Terminal UI)</h2>
             <p className="text-slate-400 text-sm">
-              Interactive interface built with Textual for browsing and editing engagement data. It opens inline below
-              the prompt by default, keeping your terminal history visible; use the full screen with <code>--full</code>.
+              Interactive interface built with Textual for browsing and editing engagement data.
+              It opens below your command by default, keeping terminal history visible. Use <code>--full</code> for fullscreen mode.
+              Tab transitions take 200 ms. Switching tabs clears the current search filter.
             </p>
             <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
 {`nhi tui            # inline, below the command line
@@ -301,9 +302,10 @@ nhitf             # same as 'nhi tui --full'`}
                 </thead>
                 <tbody className="text-slate-300">
                   {[
-                    ['q', 'Quit'],
+                    ['q / Ctrl+q', 'Quit'],
                     ['r', 'Refresh all data'],
-                    ['1 / 2 / 3', 'Switch tabs'],
+                    ['1 / 2 / 3 / 4', 'Switch tabs'],
+                    ['← / → or h / l', 'Previous / next tab from a table'],
                     ['Ctrl+E', 'Open engagement manager'],
                     ['a', 'Add item (credential, host, or access link)'],
                     ['e', 'Edit selected item'],
@@ -314,7 +316,7 @@ nhitf             # same as 'nhi tui --full'`}
                     ['/', 'Search / filter items'],
                     ['j / k', 'Navigate up/down (vi-style)'],
                     ['g / G', 'Jump to top / bottom'],
-                    ['?', 'Show allowed protocols and statuses'],
+                    ['?', 'Open scrollable keyboard shortcut help; Esc closes it'],
                     ['Enter', 'Show details of selected item'],
                   ].map(([key, action]) => (
                     <tr key={key} className="border-b border-slate-800/40">
