@@ -267,10 +267,11 @@ nhi export markdown              # print to stdout`}
               Tab transitions take 200 ms. Switching tabs clears the current search filter.
             </p>
             <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
-{`nhi tui            # inline, below the command line
-nhit              # same as 'nhi tui'
-nhi tui --full    # full-screen
-nhitf             # same as 'nhi tui --full'`}
+{`nhi tui          # Inline (default)
+nhit             # Shortcut for the interface
+nhi tui --full   # Fullscreen
+nhit --full
+nhitf            # Fullscreen shortcut installed with nihil-history`}
             </pre>
 
             <h3 className="text-base font-medium text-white mt-6">Tabs</h3>
@@ -314,9 +315,9 @@ nhitf             # same as 'nhi tui --full'`}
                     ['L', 'Create access link (cred → host)'],
                     ['v', 'Enter visual selection mode (multi-delete)'],
                     ['/', 'Search / filter items'],
-                    ['j / k', 'Navigate up/down (vi-style)'],
+                    ['↑ / ↓ or j / k', 'Move between rows'],
                     ['g / G', 'Jump to top / bottom'],
-                    ['?', 'Open scrollable keyboard shortcut help; Esc closes it'],
+                    ['?', 'Open keyboard shortcuts grouped by context; scroll with ↑ / ↓ or j / k, Esc closes it'],
                     ['Enter', 'Show details of selected item'],
                   ].map(([key, action]) => (
                     <tr key={key} className="border-b border-slate-800/40">
