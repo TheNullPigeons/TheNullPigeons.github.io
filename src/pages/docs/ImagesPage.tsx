@@ -398,7 +398,7 @@ nihil tools blueteam --category blueteam`}
                     { cat: 'Threat hunting', tools: 'chainsaw, hayabusa, sigma-cli, loki' },
                     { cat: 'Malware analysis', tools: 'yara, capa, jadx' },
                     { cat: 'Forensics', tools: 'sleuthkit, volatility3, foremost, exiftool, steghide, zsteg, stegseek' },
-                    { cat: 'Network', tools: 'nmap, tcpdump, wireshark, tshark, seth, wifit3, snmpwalk, onesixtyone, netdiscover' },
+                    { cat: 'Network', tools: 'nmap, tcpdump, wireshark, tshark, seth, wifite2, wifit3, snmpwalk, onesixtyone, netdiscover' },
                   ].map((row) => (
                     <div key={row.cat} className="p-3 rounded-xl bg-gradient-to-r from-emerald-500/5 to-transparent border border-emerald-500/20">
                       <p className="text-sm font-medium text-emerald-300">{row.cat}</p>

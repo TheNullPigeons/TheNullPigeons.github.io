@@ -3434,6 +3434,18 @@
         "web",
         "blueteam"
       ]
+    },
+    {
+      "name": "wifite2",
+      "cmd": "wifite",
+      "desc": "Automated wireless network auditor",
+      "category": "Network",
+      "images": [
+        "full",
+        "ad",
+        "web",
+        "blueteam"
+      ]
     }
   ]
 }
