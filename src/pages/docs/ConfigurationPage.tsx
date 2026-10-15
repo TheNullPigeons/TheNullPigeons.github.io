@@ -131,6 +131,17 @@ nihil start no-wayland --disable-wayland`}
             </pre>
           </section>
 
+          <section id="firefox" className="space-y-4">
+            <h2 className="text-xl font-semibold text-white">Firefox extensions</h2>
+            <p className="text-slate-400 text-sm">
+              The full, AD, and web images include FoxyProxy, Cookie-Editor, Wappalyzer,
+              Multi-Account Containers, and User-Agent Switcher. FoxyProxy has a Burp Suite
+              proxy preset for <code>127.0.0.1:8080</code>, with proxying disabled by default.
+              Select that preset in FoxyProxy when you want to send traffic through Burp.
+              Disabling proxying keeps all extensions installed.
+            </p>
+          </section>
+
           {/* My Resources */}
           <section id="my-resources" className="space-y-4">
             <h2 className="text-xl font-semibold text-white">My Resources</h2>
@@ -229,6 +240,7 @@ nihil exec pentest`}
             { id: 'config-file', label: 'Config file' },
             { id: 'image-sources', label: 'Image sources' },
             { id: 'display', label: 'Display' },
+            { id: 'firefox', label: 'Firefox' },
             { id: 'my-resources', label: 'My Resources' },
             { id: 'examples', label: 'Examples' },
             { id: 'env-vars', label: 'Environment variables' },
