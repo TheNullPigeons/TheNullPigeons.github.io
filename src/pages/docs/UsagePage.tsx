@@ -55,6 +55,13 @@ nihil info --container my-pentest
 # Stop
 nihil stop my-pentest`}
             </pre>
+            <p className="text-slate-400 text-sm">
+              Use <code>nihil restart my-pentest</code> to stop and start a container, then open your configured shell.
+              Use <code>nihil restart my-pentest --no-shell</code> to restart without opening a shell,
+              or <code>nihil restart web-pentest vpn-lab</code> to restart several containers without opening a shell.
+              Stopped containers are started directly and configured VPN connections are started as needed.
+              If one container fails, the remaining containers are still processed; the command returns an error and opens no shell.
+            </p>
             <Callout variant="tip" title="Most useful flags">
               <code>--image</code>, <code>--workspace</code>, <code>--workspace-here</code>, <code>--network</code>, <code>--privileged</code>, <code>--vpn</code>, <code>--env</code>, <code>--tmux</code>.
             </Callout>
@@ -191,6 +198,7 @@ nihil image channel main`}
                     ['nihil start', 'Create/start a container'],
                     ['nihil exec', 'Open shell or run one command; -e to set env vars'],
                     ['nihil stop', 'Stop running container'],
+                    ['nihil restart', 'Restart container(s); use --no-shell to skip shell access'],
                     ['nihil remove', 'Delete container(s); --wipe also erases /workspace'],
                     ['nihil install', 'Pull image variant'],
                     ['nihil image list', 'List remote/local image variants'],
