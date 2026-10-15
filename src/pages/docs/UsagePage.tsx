@@ -61,6 +61,13 @@ nihil stop my-pentest`}
             <Callout variant="note" title="Interactive and automated execution">
               <code>nihil exec</code> allocates a terminal for an interactive shell and automatically runs without one in scripts, CI, and headless agents. Quoted arguments and <code>bash -c</code> scripts are passed unchanged to the container.
             </Callout>
+            <Callout variant="note" title="VPN startup">
+              <code>nihil start vpn-lab --vpn ~/vpn/client.ovpn --no-shell</code> starts the VPN without opening a shell.
+              On an existing container, this connection stays active until it is stopped or the container is stopped.
+              With an interactive shell, the session VPN stops when you leave the shell.
+              Older containers keep their entrypoint-managed VPN; Nihil waits for it before replacing it with a session VPN.
+              If that startup times out, retry after it completes.
+            </Callout>
           </section>
 
           <section id="env-logging" className="space-y-4">
