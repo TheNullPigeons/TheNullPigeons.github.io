@@ -265,6 +265,7 @@ nhi export markdown              # print to stdout`}
               Interactive interface built with Textual for browsing and editing engagement data.
               It opens below your command by default, keeping terminal history visible. Use <code>--full</code> for fullscreen mode.
               Tab transitions take 200 ms. Switching tabs clears the current search filter.
+              Keyboard help keeps a scrollable content area on short terminals, with a compact close button.
             </p>
             <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
 {`nhi tui          # Inline (default)
@@ -317,7 +318,7 @@ nhitf            # Fullscreen shortcut installed with nihil-history`}
                     ['/', 'Search / filter items'],
                     ['↑ / ↓ or j / k', 'Move between rows'],
                     ['g / G', 'Jump to top / bottom'],
-                    ['?', 'Open keyboard shortcuts grouped by context; scroll with ↑ / ↓ or j / k, Esc closes it'],
+                    ['?', 'Open keyboard shortcuts grouped by context; scroll with ↑ / ↓ or j / k, g / G jumps to the beginning / end, Esc closes it'],
                     ['Enter', 'Show details of selected item'],
                   ].map(([key, action]) => (
                     <tr key={key} className="border-b border-slate-800/40">
