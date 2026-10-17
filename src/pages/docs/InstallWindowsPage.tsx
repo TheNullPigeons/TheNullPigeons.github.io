@@ -154,8 +154,8 @@ nihil install`}
 nihil doctor
 
 # Start a container with a workspace in the Linux filesystem
-mkdir -p ~/engagements/acme
-nihil start acme --workspace ~/engagements/acme`}
+mkdir -p ~/engagements/lab01
+nihil start lab01 --workspace ~/engagements/lab01`}
             </pre>
           </section>
 

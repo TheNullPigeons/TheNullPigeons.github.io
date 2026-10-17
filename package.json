@@ -6,7 +6,8 @@
     "dev": "vite",
     "build": "vite build && node scripts/prerender-meta.mjs",
     "preview": "vite preview",
-    "lint": "echo \"no lint configured\""
+    "lint": "echo \"no lint configured\"",
+    "sync-data": "node scripts/sync-data.mjs"
   },
   "dependencies": {
     "highlight.js": "^11.11.1",

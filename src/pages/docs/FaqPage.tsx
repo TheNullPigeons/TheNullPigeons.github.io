@@ -73,7 +73,12 @@ export const FaqPage: React.FC = () => {
             </Q>
 
             <Q q="How do I access the host network?">
-              <p>Run with <code className="text-xs bg-slate-900 px-1 py-0.5 rounded border border-slate-700">--network host</code>.</p>
+              <p>
+                Host networking is the default on Linux, so you usually get it without any flag. If a profile or config
+                set another mode, pass <code className="text-xs bg-slate-900 px-1 py-0.5 rounded border border-slate-700">--network host</code>.
+                On macOS and Docker Desktop host mode is unavailable and nihil falls back to the docker network. See{' '}
+                <a href="/docs/network-vpn" className="text-amber-400 hover:underline">Network &amp; VPN</a>.
+              </p>
             </Q>
 
             <Q q="How do I run tools that require elevated privileges?">
@@ -104,7 +109,7 @@ export const FaqPage: React.FC = () => {
 
             <Q q="Is --privileged safe to use?">
               <p>
-                <code className="text-xs bg-slate-900 px-1 py-0.5 rounded border border-slate-700">--privileged</code> gives broad access to the host. Use it only when needed and in isolated test environments.
+                Containers start unprivileged by default. <code className="text-xs bg-slate-900 px-1 py-0.5 rounded border border-slate-700">--privileged</code> gives broad access to the host, so use it only when a task needs it and in isolated test environments.
               </p>
             </Q>
 

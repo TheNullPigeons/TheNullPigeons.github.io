@@ -23,7 +23,8 @@ export const NihilNtpPage: React.FC = () => {
             <TldrBlock
               items={[
                 'Use a domain controller or another reachable NTP server as the time source.',
-                'The default faketime mode changes the time seen by the shell, not the host clock.',
+                'Default faketime mode shifts the time seen by shell commands, without touching the real clock.',
+                'faketime only shifts dynamically-linked libc programs (Python tooling), not static or Go binaries.',
                 'Use status and sync to inspect or refresh the current offset.',
               ]}
             />
@@ -38,11 +39,19 @@ export const NihilNtpPage: React.FC = () => {
 {`# Configure and enable faketime mode
 nihil-ntp 10.10.10.10
 
-# Set the server and change the real container clock instead
+# Set the server and step the real system clock instead (needs a privileged container)
 nihil-ntp --clock 10.10.10.10`}
             </pre>
             <Callout variant="note" title="Faketime by default">
-              Faketime is the safe default: the host clock is untouched, while commands launched from configured shells see the calculated offset.
+              Faketime is the safe default: the real clock is untouched, while commands launched from configured shells
+              see the calculated offset through <code>libfaketime</code>. It only shifts dynamically-linked libc
+              programs, so Python tooling (impacket, netexec, certipy) is covered, but static or Go binaries are not.
+            </Callout>
+            <Callout variant="warning" title="--clock changes the host clock">
+              <code>--clock</code> steps the real system clock with <code>ntpdate</code>/<code>sntp</code> and covers
+              every tool, but it needs a privileged container (<code>CAP_SYS_TIME</code>). Under Docker the clock is
+              shared with the host, so stepping it affects the host too. If the step does not actually take effect,
+              nihil-ntp falls back to faketime.
             </Callout>
             <Callout variant="warning" title="Disable it for time-sensitive applications">
               If <code>nihil-ntp</code> remains enabled, applications that depend on the real wall clock can malfunction.

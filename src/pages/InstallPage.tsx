@@ -70,7 +70,7 @@ nihil install full`,
   },
   {
     title: 'Start a container',
-    code: `nihil start my-pentest --workspace ~/engagements/acme`,
+    code: `nihil start my-pentest --workspace ~/engagements/lab01`,
     note: 'Host network mode is unavailable on macOS, nihil falls back to the bridge network automatically. USB and wireless device passthrough are not available, and CPU-heavy tools run slower than on Linux.',
   },
 ];

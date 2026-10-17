@@ -45,18 +45,53 @@ export const ConfigurationPage: React.FC = () => {
               Nihil stores its configuration at <code className="text-xs bg-slate-900 px-1 py-0.5 rounded border border-slate-700 font-mono">~/.nihil/config.yml</code>.
             </p>
             <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
-{`# View current config
+{`# Print the current configuration
 nihil config
 
-# Open in editor
-nihil config --edit
+# Open the file in $EDITOR
+nihil config --edit`}
+            </pre>
+            <p className="text-slate-400 text-sm">
+              The file is created on first run with inline comments. Every key below shows its default:
+            </p>
+            <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
+{`network:
+  default_network: host        # host | docker | nat | disabled
 
-# Common keys
-display.x11_by_default: true
-display.wayland_by_default: true
-network.default_network: host
-image_sources.active: upstream
-image_sources.channel: main`}
+workspace:
+  default_path: null           # absolute path used as default workspace (null = none)
+
+shell:
+  default_shell: zsh           # zsh | bash | tmux
+  logging:
+    always_enable: false       # always record shell sessions with asciinema
+    method: asciinema          # asciinema | script
+
+my_resources:
+  enabled: true                # mount ~/.nihil/my-resources in every container
+  path: ~/.nihil/my-resources
+
+nihil_resources:
+  enabled: true                # mount the shared nihil-resources catalog (read-only)
+  path: ~/.nihil/nihil-resources
+  auto_update: false           # git pull nihil-resources on every container start
+
+display:
+  x11_by_default: true         # X11 / XWayland forwarding
+  wayland_by_default: true     # Wayland socket forwarding
+
+updates:
+  auto_check: true             # check for image updates on start
+
+build:
+  images_path: null            # path to a nihil-images source dir (for nihil build)
+
+image_sources:
+  active: upstream             # upstream | personal
+  channel: main                # main | dev (upstream images)
+  upstream_repo: TheNullPigeons/nihil-images
+  personal_repo: null          # GitHub fork used for customized images
+  personal_branch: null        # branch used for customized images`}
             </pre>
           </section>
 
@@ -108,17 +143,20 @@ nihil start no-wayland --disable-wayland`}
 {`~/.nihil/my-resources/
 └── setup/
     ├── zsh/
-    │   ├── zshrc      # Custom zsh config (sourced automatically)
-    │   ├── aliases     # Custom aliases
-    │   └── history     # Extra history commands
+    │   ├── zshrc               # Custom zsh config (sourced automatically)
+    │   ├── aliases             # Custom aliases
+    │   └── history             # Extra history commands
     ├── nvim/
-    │   └── init.vim    # Neovim config
-    └── tmux/
-        └── tmux.conf   # Tmux config`}
+    │   └── init.vim            # Neovim config (copied to ~/.config/nvim/)
+    ├── tmux/
+    │   └── tmux.conf           # Merged into ~/.tmux.conf
+    └── load_user_setup.sh      # Runs once on first container start`}
             </pre>
             <div className="p-3 rounded-lg bg-emerald-500/5 border border-emerald-500/20">
               <p className="text-xs text-emerald-300">
-                These files are created automatically on first run with helpful comments. Edit them to customize your environment.
+                These files are created automatically on first run with helpful comments. Edit them to customize your
+                environment. Put one-off installs or setup commands in <code className="font-mono">load_user_setup.sh</code>:
+                it runs once, the first time a container starts.
               </p>
             </div>
             <Callout variant="tip" title="Team productivity">

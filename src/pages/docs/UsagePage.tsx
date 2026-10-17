@@ -47,6 +47,7 @@ nihil start my-pentest
 nihil start web-pentest --workspace ~/projects/web
 nihil start vpn-lab --vpn ~/vpn/client.ovpn --network docker
 nihil start re --image full --tmux
+nihil start ad-lab --image ad --env TARGET=10.10.10.1 --env PROXY --log
 # Exec / inspect
 nihil exec my-pentest
 nihil exec my-pentest nmap -V
@@ -55,10 +56,36 @@ nihil info --container my-pentest
 nihil stop my-pentest`}
             </pre>
             <Callout variant="tip" title="Most useful flags">
-              <code>--image</code>, <code>--workspace</code>, <code>-W</code>, <code>--network</code>, <code>--privileged</code>, <code>--vpn</code>, <code>--tmux</code>.
+              <code>--image</code>, <code>--workspace</code>, <code>--workspace-here</code>, <code>--network</code>, <code>--privileged</code>, <code>--vpn</code>, <code>--env</code>, <code>--tmux</code>.
             </Callout>
             <Callout variant="note" title="Interactive and automated execution">
               <code>nihil exec</code> allocates a terminal for an interactive shell and automatically runs without one in scripts, CI, and headless agents. Quoted arguments and <code>bash -c</code> scripts are passed unchanged to the container.
+            </Callout>
+          </section>
+
+          <section id="env-logging" className="space-y-4">
+            <h2 className="text-xl font-semibold text-white">Environment variables &amp; logging</h2>
+            <p className="text-slate-400 text-sm">
+              Pass variables into a container with <code>--env</code> / <code>-e</code> (repeatable). With a value it
+              sets the variable; without a value it forwards the one from your host environment. It works on
+              <code>start</code>, <code>exec</code> and <code>upgrade</code>.
+            </p>
+            <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
+{`# Set and forward variables at creation
+nihil start lab -e TARGET=10.10.10.1 -e HTTPS_PROXY
+
+# Only for a single command
+nihil exec lab -e DEBUG=1 ./run.sh
+
+# Add one when recreating a container
+nihil upgrade lab -e TARGET=10.10.10.2
+
+# Record the shell session with asciinema
+nihil start lab --log`}
+            </pre>
+            <Callout variant="note" title="Routing and VPN live on their own page">
+              Network modes, the <code>--vpn</code> workflow and privileged mode are covered in
+              <a href="/docs/network-vpn" className="text-amber-400 hover:underline"> Network &amp; VPN</a>.
             </Callout>
           </section>
 
@@ -73,11 +100,16 @@ nihil image list
 nihil update
 nihil update web
 nihil upgrade --all --pull
-nihil upgrade serval --privileged --network host -W --start
+nihil upgrade my-pentest --privileged --network host -W --start
 nihil uninstall --unused`}
             </pre>
             <Callout variant="note" title="Image status">
               <code>nihil image list</code> shows registry availability before an image is installed. <code>Update available</code> means a newer remote image can be pulled; <code>Updated</code> means your local image matches the registry.
+            </Callout>
+            <Callout variant="warning" title="Removing containers and their data">
+              <code>nihil remove &lt;name&gt;</code> deletes the container but keeps its <code>/workspace</code> on the
+              host. Add <code>--wipe</code> to also delete that workspace directory permanently (it asks for
+              confirmation unless <code>--force</code> is set).
             </Callout>
           </section>
 
@@ -147,9 +179,9 @@ nihil image channel main`}
                 <tbody className="text-slate-300 text-sm">
                   {[
                     ['nihil start', 'Create/start a container'],
-                    ['nihil exec', 'Open shell or run one command'],
+                    ['nihil exec', 'Open shell or run one command; -e to set env vars'],
                     ['nihil stop', 'Stop running container'],
-                    ['nihil remove', 'Delete container(s)'],
+                    ['nihil remove', 'Delete container(s); --wipe also erases /workspace'],
                     ['nihil install', 'Pull image variant'],
                     ['nihil image list', 'List remote/local image variants'],
                     ['nihil image status', 'Show configured image sources'],
@@ -169,6 +201,7 @@ nihil image channel main`}
                     ['nihil completion', 'Generate shell completion script'],
                     ['nihil version', 'Show wrapper version'],
                     ['nihil uninstall --unused', 'Remove local images unused by any container'],
+                    ['nihil build', 'Build an image locally from a nihil-images source'],
                   ].map(([cmd, desc]) => (
                     <tr key={cmd} className="border-b border-slate-800/50">
                       <td className="py-2 pr-3 font-mono text-amber-300 text-xs">{cmd}</td>
@@ -186,7 +219,7 @@ nihil image channel main`}
               AD: <code>nihil start ad-lab --image ad --privileged --network host --workspace ~/ad-lab</code><br />
               Web: <code>nihil start web-lab --image web --workspace ~/projects/web</code><br />
               Recon: <code>nihil start net-lab --privileged --network host</code><br />
-              Current directory: <code>nihil start quick -W --tmux</code>
+              Current directory: <code>nihil start quick --workspace-here --tmux</code>
             </p>
           </section>
 
@@ -224,6 +257,7 @@ nihil upgrade gui-pentest --force`}
           items={[
             { id: 'tldr', label: 'TL;DR' },
             { id: 'workflow', label: 'Daily workflow' },
+            { id: 'env-logging', label: 'Env & logging' },
             { id: 'images', label: 'Image lifecycle' },
             { id: 'custom-images', label: 'Custom image sources' },
             { id: 'commands', label: 'Command reference' },

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { SectionToc } from '../../components/SectionToc';
 import { Callout, StepList, TldrBlock } from '../../components/DocsBlocks';
+import toolsData from '../../data/tools.json';
 
 const tabs = ['overview', 'full', 'ad', 'web', 'blueteam'] as const;
 type Tab = typeof tabs[number];
@@ -231,7 +232,7 @@ nihil tools blueteam --category blueteam`}
                   The complete arsenal. Every module, every tool. Largest image, but you'll never be missing anything.
                 </p>
                 <div className="flex flex-wrap gap-1.5 mt-3">
-                  {['core_tools', 'mod_ad', 'mod_web', 'mod_osint', 'mod_pwn', 'mod_reverse', 'mod_crypto', 'mod_forensics', 'mod_blueteam', 'mod_network', 'mod_credential', 'mod_c2', 'mod_misc', 'mod_wordlists'].map((m) => (
+                  {(toolsData.modules.full as string[]).map((m) => (
                     <span key={m} className="text-[10px] px-2 py-0.5 rounded-full bg-amber-400/10 text-amber-400/70 border border-amber-500/15 font-mono">{m}</span>
                   ))}
                 </div>
@@ -268,7 +269,7 @@ nihil tools blueteam --category blueteam`}
                     Built for internal engagements. Covers the full AD kill chain: enumeration, exploitation, lateral movement, persistence.
                   </p>
                   <div className="flex flex-wrap gap-1.5 mt-3">
-                    {['ad_enum', 'ad_exploit', 'relay', 'credentials', 'c2'].map((m) => (
+                    {(toolsData.modules.ad as string[]).map((m) => (
                       <span key={m} className="text-[10px] px-2 py-0.5 rounded-full bg-cyan-400/10 text-cyan-300/80 border border-cyan-500/15 font-mono">{m}</span>
                     ))}
                   </div>
@@ -331,7 +332,7 @@ nihil tools blueteam --category blueteam`}
                     Everything for web application testing, from recon to exploitation.
                   </p>
                   <div className="flex flex-wrap gap-1.5 mt-3">
-                    {['discovery', 'fuzzing', 'scanning', 'exploit', 'api'].map((m) => (
+                    {(toolsData.modules.web as string[]).map((m) => (
                       <span key={m} className="text-[10px] px-2 py-0.5 rounded-full bg-purple-400/10 text-purple-300/80 border border-purple-500/15 font-mono">{m}</span>
                     ))}
                   </div>
@@ -383,7 +384,7 @@ nihil tools blueteam --category blueteam`}
                     Purpose-built for defensive work: DFIR, log and event-log threat hunting, malware triage, and disk/memory forensics.
                   </p>
                   <div className="flex flex-wrap gap-1.5 mt-3">
-                    {['core_tools', 'mod_blueteam', 'mod_forensics', 'mod_network', 'mod_wordlists'].map((m) => (
+                    {(toolsData.modules.blueteam as string[]).map((m) => (
                       <span key={m} className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-400/10 text-emerald-300/80 border border-emerald-500/15 font-mono">{m}</span>
                     ))}
                   </div>
@@ -475,326 +476,24 @@ const ToolTable: React.FC<{ title: string; tools: Tool[] }> = ({ title, tools })
   </section>
 );
 
-/* -- Tool data -- */
+/* -- Tool data: generated from nihil-images tools.json by scripts/sync-data.mjs -- */
 
-const coreTools: Tool[] = [
-  { name: 'vim', cmd: 'vim', desc: 'Text editor' },
-  { name: 'nano', cmd: 'nano', desc: 'Text editor' },
-  { name: 'neovim', cmd: 'nvim', desc: 'Text editor' },
-  { name: 'tmux', cmd: 'tmux', desc: 'Terminal multiplexer' },
-  { name: 'fzf', cmd: 'fzf', desc: 'Fuzzy finder' },
-  { name: 'gdb', cmd: 'gdb', desc: 'GNU debugger' },
-  { name: 'asciinema', cmd: 'asciinema', desc: 'Terminal recorder' },
-  { name: 'whois', cmd: 'whois', desc: 'WHOIS lookup' },
-  { name: 'nihil-history', cmd: 'nhi', desc: 'Pentest engagement knowledge manager' },
-  { name: 'zoxide', cmd: 'zoxide', desc: 'Smart directory navigation (z)' },
-  { name: 'yazi', cmd: 'yazi', desc: 'TUI file manager (browse and open files, alias: y)' },
-  { name: 'nihil-ntp', cmd: 'nihil-ntp', desc: 'Sync the container clock to a target NTP server (DC) for Kerberos' },
-];
+const byCategory = (category: string): Tool[] =>
+  (toolsData.tools as Array<{ name: string; cmd: string; desc: string; category: string }>)
+    .filter((t) => t.category === category)
+    .map((t) => ({ name: t.name, cmd: t.cmd, desc: t.desc }));
 
-const adTools: Tool[] = [
-  { name: 'bloodhound', cmd: 'bloodhound-python', desc: 'AD attack path visualization (ingestor)' },
-  { name: 'bloodhound-ce-python', cmd: 'bloodhound-ce-python', desc: 'BloodHound CE Python ingestor' },
-  { name: 'bloodhound-ce', cmd: 'bloodhound-ce', desc: 'BloodHound CE desktop client' },
-  { name: 'bloodhound-legacy', cmd: 'bloodhound-legacy', desc: 'BloodHound legacy (4.x) desktop client' },
-  { name: 'bloodhound-import', cmd: 'bloodhound-import', desc: 'Import BloodHound JSON/ZIP data into Neo4j' },
-  { name: 'ldapdomaindump', cmd: 'ldapdomaindump', desc: 'LDAP domain information dumper' },
-  { name: 'adidnsdump', cmd: 'adidnsdump', desc: 'AD integrated DNS dumper' },
-  { name: 'adcheck', cmd: 'adcheck', desc: 'Active Directory security posture checker' },
-  { name: 'certipy', cmd: 'certipy', desc: 'ADCS enumeration and exploitation' },
-  { name: 'certipy-ad', cmd: 'certipy', desc: 'Compatibility alias for Certipy ADCS enumeration and exploitation' },
-  { name: 'bloodyad', cmd: 'bloodyAD', desc: 'AD privilege escalation framework' },
-  { name: 'evil-winrm-py', cmd: 'evil-winrm-py', desc: 'WinRM shell (Python)' },
-  { name: 'evil-winrm', cmd: 'evil-winrm', desc: 'WinRM shell (Ruby, original)' },
-  { name: 'netexec', cmd: 'netexec', desc: 'SMB/LDAP/WinRM/SSH exploitation framework' },
-  { name: 'impacket', cmd: 'secretsdump.py', desc: 'Windows protocol library (Fortra)' },
-  { name: 'Get-GPPPassword', cmd: 'Get-GPPPassword.py', desc: 'Extract plaintext credentials from GPP (impacket)' },
-  { name: 'mitm6', cmd: 'mitm6', desc: 'DHCPv6 spoofing for NTLM relay' },
-  { name: 'aclpwn', cmd: 'aclpwn', desc: 'AD ACL exploitation' },
-  { name: 'abuseACL', cmd: 'abuseACL', desc: 'AD ACL abuse and privilege escalation' },
-  { name: 'lsassy', cmd: 'lsassy', desc: 'Remote LSASS credential dumper' },
-  { name: 'donpapi', cmd: 'DonPAPI', desc: 'DPAPI credential extraction' },
-  { name: 'coercer', cmd: 'coercer', desc: 'NTLM authentication coercion' },
-  { name: 'pywhisker', cmd: 'pywhisker', desc: 'Shadow credentials manipulation' },
-  { name: 'enum4linux-ng', cmd: 'enum4linux-ng', desc: 'SMB/RPC/LDAP enumeration' },
-  { name: 'smbmap', cmd: 'smbmap', desc: 'SMB share enumeration' },
-  { name: 'smbclientng', cmd: 'smbclientng', desc: 'Interactive SMB client with modern UX' },
-  { name: 'sprayhound', cmd: 'sprayhound', desc: 'Password spraying with BloodHound' },
-  { name: 'ldapsearch-ad', cmd: 'ldapsearch-ad.py', desc: 'LDAP enumeration wrapper for AD' },
-  { name: 'pywerview', cmd: 'pywerview', desc: 'Python port of PowerView' },
-  { name: 'powerview.py', cmd: 'powerview', desc: 'Interactive PowerView for Linux (LDAP enum/abuse)' },
-  { name: 'tdo-dump', cmd: 'tdo-dump', desc: 'Dump trusted domain objects and secrets via DRS replication' },
-  { name: 'masky', cmd: 'masky', desc: 'ADCS-based credential extraction' },
-  { name: 'manspider', cmd: 'manspider', desc: 'Search sensitive files across SMB shares' },
-  { name: 'pre2k', cmd: 'pre2k', desc: 'Pre-Windows 2000 computer account exploitation' },
-  { name: 'responder', cmd: 'responder', desc: 'LLMNR/NBT-NS/mDNS poisoner' },
-  { name: 'responder-smb-on', cmd: 'responder-smb-on', desc: 'Responder configuration helper' },
-  { name: 'responder-smb-off', cmd: 'responder-smb-off', desc: 'Responder configuration helper' },
-  { name: 'responder-http-on', cmd: 'responder-http-on', desc: 'Responder configuration helper' },
-  { name: 'responder-http-off', cmd: 'responder-http-off', desc: 'Responder configuration helper' },
-  { name: 'rusthound-ce', cmd: 'rusthound-ce', desc: 'BloodHound CE collector (Rust)' },
-  { name: 'rusthound', cmd: 'rusthound', desc: 'BloodHound legacy collector (Rust)' },
-  { name: 'bloodbash', cmd: 'bloodbash', desc: 'BloodHound-based offensive automation' },
-  { name: 'kerbrute', cmd: 'kerbrute', desc: 'Kerberos brute-force / user enumeration' },
-  { name: 'windapsearch', cmd: 'windapsearch', desc: 'LDAP enumeration (Go)' },
-  { name: 'krbrelayx', cmd: 'krbrelayx', desc: 'Kerberos relay attacks' },
-  { name: 'gmsadumper', cmd: 'gmsadumper', desc: 'gMSA credential extraction' },
-  { name: 'FindUncommonShares', cmd: 'FindUncommonShares', desc: 'Discover non-standard SMB shares' },
-  { name: 'targetedKerberoast', cmd: 'targetedKerberoast', desc: 'Kerberoast via ACL abuse' },
-  { name: 'PKINITtools', cmd: 'gettgtpkinit', desc: 'PKINIT exploitation (shadow creds, UnPAC-the-hash)' },
-  { name: 'noPac', cmd: 'noPac', desc: 'CVE-2021-42278/42287 Sam-Account-Name spoofing' },
-  { name: 'PetitPotam', cmd: 'PetitPotam', desc: 'NTLM relay via EFS (CVE-2021-36942)' },
-  { name: 'zerologon', cmd: 'cve-2020-1472-exploit', desc: 'CVE-2020-1472 Netlogon exploit' },
-  { name: 'ShadowCoerce', cmd: 'ShadowCoerce', desc: 'Coercion via MS-FSRVP' },
-  { name: 'DFSCoerce', cmd: 'DFSCoerce', desc: 'Coercion via MS-DFSNM' },
-  { name: 'openldap', cmd: 'ldapsearch', desc: 'LDAP command-line utilities' },
-  { name: 'smbclient', cmd: 'smbclient', desc: 'SMB command-line client' },
-  { name: 'rpcclient', cmd: 'rpcclient', desc: 'Samba MS-RPC command-line client' },
-  { name: 'powershell', cmd: 'pwsh', desc: 'PowerShell 7' },
-  { name: 'ntlm_theft', cmd: 'ntlm_theft', desc: 'Generate files to steal NTLM hashes via UNC paths' },
-  { name: 'smtp-user-enum', cmd: 'smtp-user-enum', desc: 'SMTP user enumeration via VRFY, EXPN and RCPT' },
-  { name: 'neo4j', cmd: 'neo4j', desc: 'Neo4j graph database (BloodHound CE backend)' },
-  { name: 'cypher-shell', cmd: 'cypher-shell', desc: 'Neo4j Cypher query shell' },
-  { name: 'gofenrir', cmd: 'gf', desc: 'Fast AD user/group enumeration (Go)' },
-  { name: 'asrepcatcher', cmd: 'ASRepCatcher', desc: 'AS-REP Roasting listener' },
-  { name: 'autobloody', cmd: 'autobloody', desc: 'BloodyAD automation wrapper' },
-  { name: 'certsync', cmd: 'certsync', desc: 'Sync ADCS certs for PKINIT' },
-  { name: 'crackhound', cmd: 'crackhound', desc: 'BloodHound + hashcat path cracking' },
-  { name: 'godap', cmd: 'godap', desc: 'Interactive LDAP client (TUI)' },
-  { name: 'goexec', cmd: 'goexec', desc: 'Remote code execution via SMB/WMI' },
-  { name: 'goldencopy', cmd: 'goldencopy', desc: 'Copy/forge Kerberos tickets' },
-  { name: 'gosecretsdump', cmd: 'gosecretsdump', desc: 'Pure Go secretsdump' },
-  { name: 'GPOddity', cmd: 'gpoddity', desc: 'GPO abuse automation' },
-  { name: 'gpp-decrypt', cmd: 'gpp-decrypt', desc: 'Decrypt GPP passwords' },
-  { name: 'keepwn', cmd: 'KeePwn', desc: 'KeePass trigger attack' },
-  { name: 'krbjack', cmd: 'krbjack', desc: 'Kerberos pre-auth hijack' },
-  { name: 'ldaprelayscan', cmd: 'ldaprelayscan', desc: 'LDAP relay attack scanner' },
-  { name: 'ldeep', cmd: 'ldeep', desc: 'Deep LDAP enumeration' },
-  { name: 'LDAPWordlistHarvester', cmd: 'LDAPWordlistHarvester', desc: 'Build wordlists from LDAP' },
-  { name: 'nbtscan', cmd: 'nbtscan', desc: 'NBT-NS scanner' },
-  { name: 'PassTheCert', cmd: 'passthecert', desc: 'Pass-the-cert LDAP/LDAPS auth' },
-  { name: 'PCredz', cmd: 'Pcredz', desc: 'Network credential capture' },
-  { name: 'pygpoabuse', cmd: 'pygpoabuse', desc: 'GPO immediate task abuse' },
-  { name: 'sccmhunter', cmd: 'sccmhunter', desc: 'SCCM attack framework' },
-  { name: 'teamsphisher', cmd: 'teamsphisher', desc: 'Teams external phishing' },
-  { name: 'tombstone', cmd: 'tombstone', desc: 'Query and restore deleted Active Directory objects' },
-];
-
-const webTools: Tool[] = [
-  { name: 'sqlmap', cmd: 'sqlmap', desc: 'SQL injection testing' },
-  { name: 'gobuster', cmd: 'gobuster', desc: 'Directory/subdomain brute-force' },
-  { name: 'nikto', cmd: 'nikto', desc: 'Web server vulnerability scanner' },
-  { name: 'wfuzz', cmd: 'wfuzz', desc: 'Web fuzzer' },
-  { name: 'webfuzz', cmd: 'webfuzz', desc: 'HTTP web fuzzer' },
-  { name: 'wenum', cmd: 'wenum', desc: 'Web enumeration and fuzzing tool' },
-  { name: 'arjun', cmd: 'arjun', desc: 'HTTP parameter discovery' },
-  { name: 'wafw00f', cmd: 'wafw00f', desc: 'WAF detection' },
-  { name: 'gopherus', cmd: 'gopherus3', desc: 'SSRF exploitation via Gopher' },
-  { name: 'droopescan', cmd: 'droopescan', desc: 'Drupal/CMS scanner' },
-  { name: 'cmsmap', cmd: 'cmsmap', desc: 'CMS exploitation' },
-  { name: 'ssrfmap', cmd: 'ssrfmap', desc: 'SSRF exploitation framework' },
-  { name: 'jwt-tool', cmd: 'jwt-tool', desc: 'JWT manipulation and attacks' },
-  { name: 'xsstrike', cmd: 'xsstrike', desc: 'XSS detection and exploitation' },
-  { name: 'feroxbuster', cmd: 'feroxbuster', desc: 'Fast content discovery (Rust)' },
-  { name: 'testssl.sh', cmd: 'testssl.sh', desc: 'TLS/SSL configuration testing' },
-  { name: 'nuclei', cmd: 'nuclei', desc: 'Template-based vulnerability scanner' },
-  { name: 'httpx', cmd: 'httpx', desc: 'HTTP probe and technology fingerprinting' },
-  { name: 'subfinder', cmd: 'subfinder', desc: 'Passive subdomain enumeration' },
-  { name: 'dnsx', cmd: 'dnsx', desc: 'Fast DNS resolver and toolkit' },
-  { name: 'alterx', cmd: 'alterx', desc: 'Subdomain permutation generator' },
-  { name: 'katana', cmd: 'katana', desc: 'Web crawler (ProjectDiscovery)' },
-  { name: 'ffuf', cmd: 'ffuf', desc: 'Fast web fuzzer' },
-  { name: 'dirsearch', cmd: 'dirsearch', desc: 'Directory brute-force' },
-  { name: 'whatweb', cmd: 'whatweb', desc: 'Web technology fingerprinting' },
-  { name: 'hakrawler', cmd: 'hakrawler', desc: 'Web crawler for endpoint discovery' },
-  { name: 'gau', cmd: 'gau', desc: 'Get All URLs (Wayback, Common Crawl)' },
-  { name: 'waybackurls', cmd: 'waybackurls', desc: 'Fetch URLs from Wayback Machine' },
-  { name: 'commix', cmd: 'commix', desc: 'OS command injection exploitation' },
-  { name: 'glpwnme', cmd: 'glpwnme', desc: 'GLPI exploitation helper' },
-  { name: 'tplmap', cmd: 'tplmap', desc: 'Server-Side Template Injection' },
-  { name: 'nosqlmap', cmd: 'nosqlmap', desc: 'NoSQL injection exploitation' },
-  { name: 'graphqlmap', cmd: 'graphqlmap', desc: 'GraphQL exploitation' },
-  { name: 'graphw00f', cmd: 'graphw00f', desc: 'GraphQL server fingerprinting' },
-  { name: 'graphql-cop', cmd: 'graphql-cop', desc: 'GraphQL security auditing' },
-  { name: 'corsy', cmd: 'corsy', desc: 'CORS misconfiguration scanner' },
-  { name: 'crlfuzz', cmd: 'crlfuzz', desc: 'CRLF injection testing' },
-  { name: 'mitmproxy', cmd: 'mitmproxy', desc: 'HTTP/HTTPS interception proxy' },
-  { name: 'kiterunner', cmd: 'kr', desc: 'API endpoint discovery' },
-  { name: 'httpie', cmd: 'http', desc: 'User-friendly HTTP client' },
-  { name: 'caido', cmd: 'caido', desc: 'Web security desktop toolkit' },
-  { name: 'caido-cli', cmd: 'caido-cli', desc: 'Caido command-line interface' },
-  { name: 'swaks', cmd: 'swaks', desc: 'SMTP test tool (Swiss Army Knife for SMTP)' },
-  { name: 'mail', cmd: 'mail', desc: 'Command-line email client (mailutils + msmtp)' },
-  { name: 'burpsuite', cmd: 'burpsuite', desc: 'Web application security testing platform' },
-  { name: 'EyeWitness', cmd: 'EyeWitness', desc: 'Web screenshot and service enumeration tool' },
-  { name: 'wpscan', cmd: 'wpscan', desc: 'WordPress vulnerability scanner' },
-  { name: 'wpprobe', cmd: 'wpprobe', desc: 'WordPress plugin and vulnerability scanner' },
-  { name: 'bbot', cmd: 'bbot', desc: 'Automated recon and subdomain OSINT' },
-  { name: 'byp4xx', cmd: 'byp4xx', desc: 'HTTP 40x bypass' },
-  { name: 'git-dumper', cmd: 'git-dumper', desc: 'Dump exposed .git directories' },
-  { name: 'gowitness', cmd: 'gowitness', desc: 'Web screenshot tool (Go)' },
-  { name: 'httpmethods', cmd: 'httpmethods', desc: 'HTTP method enumeration' },
-  { name: 'joomscan', cmd: 'joomscan', desc: 'Joomla vulnerability scanner' },
-  { name: 'linkfinder', cmd: 'linkfinder', desc: 'Endpoint discovery in JS files' },
-  { name: 'naabu', cmd: 'naabu', desc: 'Fast port scanner (ProjectDiscovery)' },
-  { name: 'patator', cmd: 'patator', desc: 'Multi-purpose brute-forcer' },
-  { name: 'updog', cmd: 'updog', desc: 'HTTP file server with upload (SimpleHTTPServer replacement)' },
-  { name: 'wsgidav', cmd: 'wsgidav', desc: 'WebDAV server (serve files over WebDAV, e.g. for WebClient-based coercion/exfil)' },
-  { name: 'phpggc', cmd: 'phpggc', desc: 'PHP gadget chain generator' },
-  { name: 'smuggler', cmd: 'smuggler', desc: 'HTTP request smuggling tester' },
-  { name: 'sslscan', cmd: 'sslscan', desc: 'SSL/TLS configuration scanner' },
-  { name: 'xxeinjector', cmd: 'xxeinjector', desc: 'XXE injection automation' },
-  { name: 'ysoserial', cmd: 'ysoserial', desc: 'Java deserialization exploit payloads' },
-];
-
-const osintTools: Tool[] = [
-  { name: 'amass', cmd: 'amass', desc: 'Subdomain enumeration (OWASP)' },
-  { name: 'recon-ng', cmd: 'recon-ng', desc: 'Web recon framework' },
-  { name: 'sherlock', cmd: 'sherlock', desc: 'Username OSINT across platforms' },
-  { name: 'spiderfoot', cmd: 'spiderfoot', desc: 'Automated OSINT framework' },
-  { name: 'sublist3r', cmd: 'sublist3r', desc: 'Subdomain enumeration' },
-  { name: 'theHarvester', cmd: 'theHarvester', desc: 'Email and domain OSINT' },
-  { name: 'mailscout', cmd: 'mailscout', desc: 'IMAP and POP3 mailbox enumeration' },
-];
-
-const networkTools: Tool[] = [
-  { name: 'nmap', cmd: 'nmap', desc: 'Network scanner' },
-  { name: 'netcat', cmd: 'nc', desc: 'Network utility (OpenBSD)' },
-  { name: 'socat', cmd: 'socat', desc: 'Multipurpose network relay' },
-  { name: 'wireshark-cli', cmd: 'tshark', desc: 'Network protocol analyzer (CLI)' },
-  { name: 'wireshark', cmd: 'wireshark', desc: 'Network protocol analyzer (GUI)' },
-  { name: 'fping', cmd: 'fping', desc: 'Fast ICMP host discovery' },
-  { name: 'netdiscover', cmd: 'netdiscover', desc: 'Active/passive network address discovery' },
-  { name: 'zone-dnsenum', cmd: 'zone-dnsenum', desc: 'DNS zone enumeration and transfer' },
-  { name: 'dnsrecon', cmd: 'dnsrecon', desc: 'DNS enumeration and zone transfer testing' },
-  { name: 'dnsenum', cmd: 'dnsenum', desc: 'DNS enumeration script' },
-  { name: 'ngrok', cmd: 'ngrok', desc: 'Reverse tunnel for exposing local ports' },
-  { name: 'udpx', cmd: 'udpx', desc: 'Fast UDP port scanner' },
-  { name: 'bettercap', cmd: 'bettercap', desc: 'Network attack and monitoring framework' },
-  { name: 'ligolo-ng', cmd: 'ligolo-ng', desc: 'Tunneling via TUN interface (proxy)' },
-  { name: 'chisel', cmd: 'chisel', desc: 'TCP/UDP tunnel over HTTP' },
-  { name: 'masscan', cmd: 'masscan', desc: 'Fast port scanner' },
-  { name: 'nmap-parse-output', cmd: 'nmap-parse-output', desc: 'Nmap XML output parser' },
-  { name: 'proxychains', cmd: 'proxychains', desc: 'SOCKS/HTTP proxy chain' },
-  { name: 'rustscan', cmd: 'rustscan', desc: 'Fast port scanner (Rust)' },
-  { name: 'ssh-audit', cmd: 'ssh-audit', desc: 'SSH server configuration audit' },
-  { name: 'sshuttle', cmd: 'sshuttle', desc: 'VPN over SSH' },
-  { name: 'tcpdump', cmd: 'tcpdump', desc: 'Packet capture' },
-  { name: 'snmpwalk', cmd: 'snmpwalk', desc: 'SNMP tree walker' },
-  { name: 'onesixtyone', cmd: 'onesixtyone', desc: 'SNMP community string scanner' },
-  { name: 'xfreerdp', cmd: 'xfreerdp3', desc: 'RDP client' },
-  { name: 'rdesktop', cmd: 'rdesktop', desc: 'Legacy RDP client' },
-  { name: 'nfs-utils', cmd: 'showmount', desc: 'NFS client utilities (showmount, nfsstat, rpcinfo)' },
-];
-
-const credentialTools: Tool[] = [
-  { name: 'pypykatz', cmd: 'pypykatz', desc: 'LSASS minidump parser (Python)' },
-  { name: 'binwalk', cmd: 'binwalk', desc: 'Binary analysis / extraction' },
-  { name: 'john', cmd: 'john', desc: 'Password cracker (John the Ripper)' },
-  { name: 'zip2john', cmd: 'zip2john', desc: 'Convert ZIP archives to John hashes' },
-  { name: 'rar2john', cmd: 'rar2john', desc: 'Convert RAR archives to John hashes' },
-  { name: 'pdf2john', cmd: 'pdf2john', desc: 'Convert PDF files to John hashes' },
-  { name: 'ssh2john', cmd: 'ssh2john', desc: 'Convert SSH keys to John hashes' },
-  { name: 'keepass2john', cmd: 'keepass2john', desc: 'Convert KeePass databases to John hashes' },
-  { name: 'keychain2john', cmd: 'keychain2john', desc: 'Convert keychains to John hashes' },
-  { name: 'pfx2john', cmd: 'pfx2john', desc: 'Convert PFX files to John hashes' },
-  { name: 'office2john', cmd: 'office2john', desc: 'Convert Office documents to John hashes' },
-  { name: 'pwsafe2john', cmd: 'pwsafe2john', desc: 'Convert Password Safe files to John hashes' },
-  { name: 'xortool', cmd: 'xortool', desc: 'Analyze repeating-key XOR ciphers' },
-  { name: 'xortool-xor', cmd: 'xortool-xor', desc: 'Apply XOR with a supplied key' },
-  { name: 'hashcat', cmd: 'hashcat', desc: 'GPU password cracker' },
-  { name: 'haiti', cmd: 'haiti', desc: 'Hash type identifier' },
-  { name: 'fcrackzip', cmd: 'fcrackzip', desc: 'ZIP password cracker' },
-  { name: 'hydra', cmd: 'hydra', desc: 'Multi-protocol brute-forcer' },
-  { name: 'name-that-hash', cmd: 'nth', desc: 'Hash identifier' },
-  { name: 'pdfcrack', cmd: 'pdfcrack', desc: 'PDF password cracker' },
-];
-
-const pwnTools: Tool[] = [
-  { name: 'radare2', cmd: 'r2', desc: 'Reverse engineering framework' },
-  { name: 'strace', cmd: 'strace', desc: 'System call tracer' },
-  { name: 'ltrace', cmd: 'ltrace', desc: 'Library call tracer' },
-  { name: 'cmake', cmd: 'cmake', desc: 'Build system generator' },
-  { name: 'pwntools', cmd: 'pwn', desc: 'CTF/exploit development library' },
-  { name: 'ROPgadget', cmd: 'ROPgadget', desc: 'ROP gadget finder' },
-  { name: 'pwndbg', cmd: '/opt/tools/gdb/pwndbg/gdbinit.py', desc: 'GDB plugin for exploit dev' },
-  { name: 'peda', cmd: '/opt/tools/gdb/peda/peda.py', desc: 'Python Exploit Development Assistance for GDB' },
-  { name: 'gef', cmd: '/opt/tools/gdb/gef/gef.py', desc: 'GDB Enhanced Features for exploit devs and reverse engineers' },
-  { name: 'one_gadget', cmd: 'one_gadget', desc: 'One-gadget RCE finder for libc' },
-  { name: 'seccomp-tools', cmd: 'seccomp-tools', desc: 'Seccomp filter analyzer' },
-  { name: 'checksec', cmd: 'checksec', desc: 'Binary security property checker' },
-  { name: 'patchelf', cmd: 'patchelf', desc: 'Patch ELF interpreters, rpaths and dependencies' },
-  { name: 'pwninit', cmd: 'pwninit', desc: 'Initialize pwn challenges with matching libc/ld' },
-];
-
-const c2Tools: Tool[] = [
-  { name: 'metasploit', cmd: 'msfconsole', desc: 'Exploitation framework' },
-  { name: 'sliver', cmd: 'sliver-server', desc: 'C2 framework' },
-  { name: 'penelope', cmd: 'penelope', desc: 'Advanced reverse shell handler' },
-  { name: 'pwncat-vl', cmd: 'pwncat-vl', desc: 'Maintained fork of pwncat-cs with reverse/bind shell automation' },
-  { name: 'mythic-cli', cmd: 'mythic-cli', desc: 'Mythic C2 framework management CLI' },
-];
-
-const miscTools: Tool[] = [
-  { name: 'searchsploit', cmd: 'searchsploit', desc: 'Exploit database search' },
-  { name: 'CyberChef', cmd: '/opt/tools/CyberChef', desc: 'Data transformation toolkit (offline)' },
-  { name: 'firefox', cmd: 'firefox', desc: 'Web browser' },
-  { name: 'chromium', cmd: 'chromium', desc: 'Web browser (no-sandbox wrapper)' },
-  { name: 'grc', cmd: 'grc', desc: 'Generic log colorizer' },
-  { name: 'sqlitebrowser', cmd: 'sqlitebrowser', desc: 'GUI SQLite database browser' },
-  { name: 'sqlite3', cmd: 'sqlite3', desc: 'SQLite command-line client' },
-  { name: 'keepassxc', cmd: 'keepassxc', desc: 'KeePass password manager' },
-  { name: 'rsync', cmd: 'rsync', desc: 'File sync utility' },
-  { name: 'wesng', cmd: 'wes', desc: 'Windows Exploit Suggester NG' },
-  { name: 'gitleaks', cmd: 'gitleaks', desc: 'Git secrets scanner' },
-];
-
-const reverseTools: Tool[] = [
-  { name: 'ghidra', cmd: 'ghidra', desc: 'NSA reverse engineering suite' },
-  { name: 'ida', cmd: 'ida64', desc: 'IDA Free interactive disassembler' },
-  { name: 'binaryninja', cmd: 'binaryninja', desc: 'Binary Ninja Free reverse engineering platform' },
-  { name: 'angr', cmd: 'angr', desc: 'Symbolic execution and binary analysis' },
-  { name: 'pycdc', cmd: 'pycdc', desc: 'Python bytecode decompiler' },
-  { name: 'uncompyle6', cmd: 'uncompyle6', desc: 'Python 2/3 bytecode decompiler' },
-  { name: 'pycdas', cmd: 'pycdas', desc: 'Python bytecode disassembler' },
-  { name: 'nasm', cmd: 'nasm', desc: 'x86/x64 assembler' },
-];
-
-const cryptoTools: Tool[] = [
-  { name: 'RsaCtfTool', cmd: 'RsaCtfTool', desc: 'RSA attack automation' },
-  { name: 'xortool', cmd: 'xortool', desc: 'XOR cipher analysis' },
-  { name: 'z3-solver', cmd: 'z3-solver', desc: 'SMT constraint solver' },
-  { name: 'pycryptodome', cmd: 'pycryptodome', desc: 'Python crypto library' },
-  { name: 'hashid', cmd: 'hashid', desc: 'Hash type identifier' },
-];
-
-const forensicsTools: Tool[] = [
-  { name: 'volatility3', cmd: 'vol', desc: 'Memory forensics framework' },
-  { name: 'foremost', cmd: 'foremost', desc: 'File carving tool' },
-  { name: 'exiftool', cmd: 'exiftool', desc: 'Metadata extraction' },
-  { name: 'steghide', cmd: 'steghide', desc: 'JPEG/BMP steganography' },
-  { name: 'zsteg', cmd: 'zsteg', desc: 'PNG/BMP steganography detector' },
-  { name: 'stegseek', cmd: 'stegseek', desc: 'Steghide brute-forcer' },
-  { name: 'openstego', cmd: 'openstego', desc: 'Steganography tool' },
-  { name: 'jadx', cmd: 'jadx', desc: 'Android/Java decompiler' },
-];
-
-const wordlistsTools: Tool[] = [
-  { name: 'seclists', cmd: '/opt/lists/seclists', desc: 'Security wordlists collection' },
-  { name: 'rockyou', cmd: '/opt/lists/rockyou.txt', desc: 'Rockyou password list (extracted from seclists)' },
-  { name: 'cewl', cmd: 'cewl', desc: 'Wordlist generator from websites' },
-  { name: 'crunch', cmd: 'crunch', desc: 'Wordlist generator' },
-  { name: 'cupp', cmd: 'cupp', desc: 'Custom user password profiler' },
-  { name: 'username-anarchy', cmd: 'username-anarchy', desc: 'Username generation from names' },
-];
-
-const blueteamTools: Tool[] = [
-  { name: 'chainsaw', cmd: 'chainsaw', desc: 'Windows event log threat hunting' },
-  { name: 'hayabusa', cmd: 'hayabusa', desc: 'Windows DFIR timeline generator' },
-  { name: 'sigma-cli', cmd: 'sigma', desc: 'Sigma detection rule CLI' },
-  { name: 'wazuh-cli', cmd: 'wazuh-cli', desc: 'Wazuh SIEM/XDR management CLI' },
-  { name: 'yara', cmd: 'yara', desc: 'Malware pattern matching' },
-  { name: 'capa', cmd: 'capa', desc: 'FLARE malware capability detection' },
-  { name: 'loki', cmd: 'loki', desc: 'IOC scanner' },
-  { name: 'sleuthkit', cmd: 'fls', desc: 'Disk forensics toolkit (The Sleuth Kit)' },
-];
+const coreTools = byCategory('Core');
+const adTools = byCategory('Active Directory');
+const webTools = byCategory('Web');
+const osintTools = byCategory('OSINT');
+const networkTools = byCategory('Network');
+const credentialTools = byCategory('Credential');
+const pwnTools = byCategory('Pwn');
+const reverseTools = byCategory('Reverse Engineering');
+const cryptoTools = byCategory('Crypto');
+const forensicsTools = byCategory('Forensics');
+const c2Tools = byCategory('C2');
+const miscTools = byCategory('Misc');
+const wordlistsTools = byCategory('Wordlists');
+const blueteamTools = byCategory('Blue Team');

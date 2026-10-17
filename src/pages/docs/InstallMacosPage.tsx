@@ -104,7 +104,7 @@ nihil doctor`}
 nihil install full
 
 # Create and start a container
-nihil start my-pentest --workspace ~/engagements/acme`}
+nihil start my-pentest --workspace ~/engagements/lab01`}
             </pre>
             <p className="text-slate-400 text-sm">
               The first pull is a large download and the first start is slower than on Linux, since every layer runs translated. Subsequent starts are quick.

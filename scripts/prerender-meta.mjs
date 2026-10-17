@@ -27,6 +27,7 @@ const ROUTES = [
   ['/docs/nihil-history', { title: 'TheNullPigeons - nihil-history', description: 'Track credentials, hosts, and access links across engagements.' }],
   ['/docs/architecture', { title: 'TheNullPigeons - Architecture', description: 'Understand how nihil CLI, Docker manager, and image pipeline fit together.' }],
   ['/docs/configuration', { title: 'TheNullPigeons - Configuration', description: 'Configure nihil paths, resources, env variables, and command history.' }],
+  ['/docs/network-vpn', { title: 'TheNullPigeons - Network & VPN', description: 'Network modes (host, docker, nat, disabled) and OpenVPN routing for nihil containers.' }],
   ['/docs/service', { title: 'TheNullPigeons - Services', description: 'Understand session services in nihil, including Desktop Browser UI and port behavior.' }],
   ['/docs/mcp', { title: 'TheNullPigeons - nihil-mcp', description: 'Model Context Protocol server that lets an AI assistant manage Nihil containers and run tooling via natural-language requests.' }],
   ['/docs/tools', { title: 'TheNullPigeons - Tools', description: 'Browse all offensive security tools included in nihil images by category and image variant.' }],

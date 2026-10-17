@@ -38,6 +38,7 @@ const sections: SidebarSection[] = [
       { label: 'Windows', to: '/docs/installation/windows' },
       { label: 'CLI Commands', to: '/docs/usage' },
       { label: 'Configuration', to: '/docs/configuration' },
+      { label: 'Network & VPN', to: '/docs/network-vpn' },
       { label: 'Shell Completion', to: '/docs/completion' },
       { label: 'Command History', to: '/docs/history' },
     ],

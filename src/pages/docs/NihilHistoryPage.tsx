@@ -153,6 +153,29 @@ nhi engagement set-workspace corp_local`}
             </p>
           </section>
 
+          {/* Targets */}
+          <section id="targets" className="space-y-4">
+            <h2 className="text-xl font-semibold text-white">AD targets</h2>
+            <p className="text-slate-400 text-sm">
+              Targets store the AD object you are currently working against (a user, group, computer, domain or
+              principal), so you can feed it straight into tooling through the environment.
+            </p>
+            <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
+{`# Register a target object
+nhi targets add -n dc-takeover --computer DC01 --domain corp.local
+
+# List, select, remove
+nhi targets list
+nhi targets set --id 1
+nhi targets rm --id 1`}
+            </pre>
+            <p className="text-slate-400 text-xs">
+              Fields: <code>--user</code>, <code>--group</code>, <code>--object</code>, <code>--computer</code>,
+              <code>--domain</code>, <code>--principal</code>. The selected target is exported as the
+              <code>TARGET_*</code> variables.
+            </p>
+          </section>
+
           {/* Access */}
           <section id="access" className="space-y-4">
             <h2 className="text-xl font-semibold text-white">Access links</h2>
@@ -208,18 +231,26 @@ nhi env install-shell
 nhi env uninstall-shell`}
             </pre>
             <div className="space-y-1 text-xs text-slate-400 mt-2">
-              <p><span className="text-slate-300 font-medium">From active credential:</span> <code>USER</code>, <code>PASSWORD</code>, <code>NT_HASH</code>, <code>DOMAIN</code></p>
+              <p><span className="text-slate-300 font-medium">From active credential:</span> <code>USER</code>, <code>PASSWORD</code>, <code>NT_HASH</code>, <code>DOMAIN</code>, <code>BASE_DN</code></p>
               <p><span className="text-slate-300 font-medium">From active host:</span> <code>TARGET</code>, <code>IP</code></p>
               <p><span className="text-slate-300 font-medium">From DC role host:</span> <code>DC_IP</code>, <code>DC_HOST</code></p>
+              <p><span className="text-slate-300 font-medium">From active target:</span> <code>TARGET_USER</code>, <code>TARGET_GROUP</code>, <code>TARGET_OBJECT</code>, <code>TARGET_COMPUTER</code>, <code>TARGET_DOMAIN</code>, <code>TARGET_PRINCIPAL</code></p>
             </div>
+            <p className="text-slate-500 text-xs"><code>BASE_DN</code> is derived from the credential&apos;s domain (e.g. <code>corp.local</code> becomes <code>DC=corp,DC=local</code>).</p>
           </section>
 
           {/* Export */}
           <section id="export" className="space-y-4">
             <h2 className="text-xl font-semibold text-white">Export reports</h2>
             <p className="text-slate-400 text-sm">
-              Export with <code>nhi export json -o report.json</code> or <code>nhi export markdown -o report.md</code>.
+              Export the engagement as JSON or Markdown. With <code>-o</code> / <code>--output</code> it writes a file;
+              without it the report is printed to stdout.
             </p>
+            <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
+{`nhi export json -o report.json
+nhi export markdown -o report.md
+nhi export markdown              # print to stdout`}
+            </pre>
             <div className="p-3 rounded-lg bg-amber-500/5 border border-amber-500/20">
               <p className="text-xs text-amber-300">
                 <code className="font-mono">--include-secrets</code> includes plaintext passwords and hashes in the export. Handle with care.
@@ -231,10 +262,14 @@ nhi env uninstall-shell`}
           <section id="tui" className="space-y-4">
             <h2 className="text-xl font-semibold text-white">TUI (Terminal UI)</h2>
             <p className="text-slate-400 text-sm">
-              Interactive interface built with Textual for browsing and editing engagement data.
+              Interactive interface built with Textual for browsing and editing engagement data. It opens inline below
+              the prompt by default, keeping your terminal history visible; use the full screen with <code>--full</code>.
             </p>
             <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
-{`nhi tui`}
+{`nhi tui            # inline, below the command line
+nhit              # same as 'nhi tui'
+nhi tui --full    # full-screen
+nhitf             # same as 'nhi tui --full'`}
             </pre>
 
             <h3 className="text-base font-medium text-white mt-6">Tabs</h3>
@@ -340,6 +375,7 @@ nhi env uninstall-shell`}
             { id: 'engagements', label: 'Engagements' },
             { id: 'credentials', label: 'Credentials' },
             { id: 'hosts', label: 'Hosts' },
+            { id: 'targets', label: 'AD targets' },
             { id: 'access', label: 'Access links' },
             { id: 'sync', label: 'Sync from tools' },
             { id: 'env', label: 'Environment variables' },

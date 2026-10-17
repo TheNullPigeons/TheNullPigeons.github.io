@@ -1,263 +1,262 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { SectionToc } from '../../components/SectionToc';
 import { Callout, TldrBlock } from '../../components/DocsBlocks';
 
-/* ── SVG diagram: CLI flow ── */
+/* ── Postal-style diagram primitives ── */
+const AX = { red: '#ff4a2a', blue: '#4c74ff', paper: '#efe8d8' };
+const INK = '#0e0d0b';
+const PANEL = '#17150f';
+const LINE = '#3e3b33';
+const SLATE = '#a09884';
+const DISP = "'Big Shoulders', 'Arial Narrow', sans-serif";
+const MONO = "'IBM Plex Mono', ui-monospace, monospace";
+
+const Stop: React.FC<{
+  x: number; y: number; w: number; h: number;
+  title: string; sub?: string; accent: string; index?: string;
+  dashed?: boolean; titleSize?: number;
+}> = ({ x, y, w, h, title, sub, accent, index, dashed, titleSize = 15 }) => (
+  <g>
+    {!dashed && <rect x={x + 5} y={y + 5} width={w} height={h} fill="#000" opacity="0.55" />}
+    <rect x={x} y={y} width={w} height={h} fill={PANEL} stroke={accent} strokeWidth="1.6" strokeDasharray={dashed ? '5 4' : undefined} />
+    {!dashed && <rect x={x} y={y} width="4" height={h} fill={accent} />}
+    {index && (
+      <>
+        <rect x={x + w - 26} y={y + 6} width="20" height="13" fill={accent} />
+        <text x={x + w - 16} y={y + 16} textAnchor="middle" fill={INK} fontSize="9" fontWeight="700" fontFamily={MONO}>{index}</text>
+      </>
+    )}
+    <text x={x + (dashed ? w / 2 : 16)} y={y + (sub ? h / 2 - 1 : h / 2 + 5)} textAnchor={dashed ? 'middle' : 'start'} fill={AX.paper} fontSize={titleSize} fontWeight="800" fontFamily={DISP} letterSpacing="0.4" style={{ textTransform: 'uppercase' }}>{title}</text>
+    {sub && <text x={x + (dashed ? w / 2 : 16)} y={y + h / 2 + 14} textAnchor={dashed ? 'middle' : 'start'} fill={SLATE} fontSize="8.5" fontFamily={MONO}>{sub}</text>}
+  </g>
+);
+
+// Dashed "stitch" connector with a square arrowhead.
+const Stitch: React.FC<{ d: string; color?: string; arrow?: boolean; soft?: boolean }> = ({ d, color = SLATE, arrow = true, soft }) => (
+  <path d={d} fill="none" stroke={color} strokeWidth={soft ? 1 : 1.5} strokeDasharray="5 4" strokeLinecap="square" opacity={soft ? 0.5 : 1} markerEnd={arrow ? 'url(#tnpArrow)' : undefined} />
+);
+
+const EnvelopeFrame: React.FC<{ w: number; h: number; label: string }> = ({ w, h, label }) => (
+  <g>
+    <rect x="8" y="8" width={w - 16} height={h - 16} fill="none" stroke={LINE} strokeWidth="1" strokeDasharray="2 4" />
+    <rect x="22" y="2" width={label.length * 7.2 + 20} height="16" fill={AX.red} />
+    <text x="32" y="14" fill={INK} fontSize="9.5" fontWeight="700" fontFamily={MONO} letterSpacing="1">{label}</text>
+  </g>
+);
+
+const arrowDefs = (
+  <marker id="tnpArrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+    <path d="M0.5,0.5 L6.5,3.5 L0.5,6.5 Z" fill={AX.paper} />
+  </marker>
+);
+
+/* ── SVG diagram: CLI command route ── */
 const FlowDiagram: React.FC = () => (
   <div className="relative overflow-x-auto py-2">
-    <svg viewBox="0 0 800 420" className="w-full min-w-[600px]" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="gAmber" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.15" />
-          <stop offset="100%" stopColor="#f59e0b" stopOpacity="0.05" />
-        </linearGradient>
-        <linearGradient id="gCyan" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.15" />
-          <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.05" />
-        </linearGradient>
-        <linearGradient id="gEmerald" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#10b981" stopOpacity="0.15" />
-          <stop offset="100%" stopColor="#10b981" stopOpacity="0.05" />
-        </linearGradient>
-        <linearGradient id="gPurple" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#a855f7" stopOpacity="0.15" />
-          <stop offset="100%" stopColor="#a855f7" stopOpacity="0.05" />
-        </linearGradient>
-        <filter id="glow">
-          <feGaussianBlur stdDeviation="2" result="blur" />
-          <feMerge>
-            <feMergeNode in="blur" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
-        <marker id="arrowAmber" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
-          <path d="M0,0 L8,3 L0,6" fill="none" stroke="#f59e0b" strokeWidth="1.5" />
-        </marker>
-        <marker id="arrowCyan" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
-          <path d="M0,0 L8,3 L0,6" fill="none" stroke="#06b6d4" strokeWidth="1.5" />
-        </marker>
-        <marker id="arrowEmerald" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
-          <path d="M0,0 L8,3 L0,6" fill="none" stroke="#10b981" strokeWidth="1.5" />
-        </marker>
-      </defs>
+    <svg viewBox="0 0 820 470" className="w-full min-w-[620px]" xmlns="http://www.w3.org/2000/svg">
+      <defs>{arrowDefs}</defs>
+      <rect x="0" y="0" width="820" height="470" fill={INK} />
+      <EnvelopeFrame w={820} h={470} label="N° CLI · COMMAND ROUTE" />
 
-      {/* User */}
+      {/* central spine */}
+      <Stop x={255} y={56} w={175} h={54} title="parser.py" sub="argument parsing" accent={AX.red} index="01" />
+      <Stop x={255} y={140} w={175} h={54} title="controller.py" sub="command dispatch" accent={AX.red} index="02" />
+      <Stop x={250} y={224} w={190} h={64} title="manager.py" sub="docker SDK" accent={AX.blue} index="03" titleSize={17} />
+      <Stop x={250} y={318} w={190} h={56} title="Docker Engine" sub="container lifecycle" accent={AX.blue} index="04" />
+      <Stop x={250} y={404} w={190} h={44} title="zsh session" accent={AX.paper} dashed titleSize={13} />
+
+      {/* user */}
+      <Stop x={40} y={56} w={160} h={54} title="USER" sub="nihil start …" accent={AX.red} />
+      <Stitch d="M200,83 L249,83" color={AX.red} />
+
+      {/* spine connectors */}
+      <Stitch d="M342,110 L342,138" color={AX.red} />
+      <Stitch d="M342,194 L345,222" color={AX.blue} />
+      <Stitch d="M345,288 L345,316" color={AX.blue} />
+      <Stitch d="M345,374 L345,402" color={AX.paper} />
+
+      {/* left margin: console + utils */}
+      <Stop x={40} y={150} w={160} h={50} title="console/" sub="formatter · banner" accent={AX.red} titleSize={13} />
+      <Stop x={40} y={224} w={160} h={50} title="utils/" sub="doctor · history" accent={AX.red} titleSize={13} />
+      <Stitch d="M200,170 L253,160" color={LINE} soft arrow={false} />
+      <Stitch d="M200,250 L248,250" color={LINE} soft arrow={false} />
+
+      {/* right margin: images.py, ghcr, volumes */}
+      <Stop x={470} y={56} w={170} h={54} title="images.py" sub="image registry" accent={AX.paper} titleSize={13} />
+      <Stitch d="M470,83 L431,160" color={LINE} soft arrow={false} />
+
       <g>
-        <circle cx="80" cy="70" r="28" fill="url(#gAmber)" stroke="#f59e0b" strokeWidth="1.5" opacity="0.9" />
-        <text x="80" y="65" textAnchor="middle" fill="#fbbf24" fontSize="18" fontFamily="monospace">$</text>
-        <text x="80" y="80" textAnchor="middle" fill="#fbbf24" fontSize="8" fontWeight="bold">USER</text>
+        <rect x={470 + 5} y={152 + 5} width="200" height="74" fill="#000" opacity="0.55" />
+        <rect x="470" y="152" width="200" height="74" fill={PANEL} stroke={AX.paper} strokeWidth="1.6" />
+        <rect x="470" y="152" width="200" height="4" className="airmail" fill={AX.paper} />
+        <text x="480" y="176" fill={AX.paper} fontSize="12" fontWeight="800" fontFamily={DISP} letterSpacing="0.3">ghcr.io/thenullpigeons</text>
+        <text x="480" y="196" fill={SLATE} fontSize="8" fontFamily={MONO}>full · ad · web · blueteam</text>
+        <text x="480" y="212" fill={AX.red} fontSize="8" fontFamily={MONO}>:flock · :nest · :beak · :coo</text>
       </g>
+      <Stitch d="M470,190 L442,230" color={LINE} soft arrow={false} />
 
-      {/* Arrow: User -> Parser */}
-      <path d="M108,70 L175,70" fill="none" stroke="#f59e0b" strokeWidth="1.5" strokeDasharray="6,3" markerEnd="url(#arrowAmber)" />
-      <text x="142" y="62" textAnchor="middle" fill="#92400e" fontSize="7" fontFamily="monospace" opacity="0.7">nihil start</text>
-
-      {/* Parser box */}
       <g>
-        <rect x="185" y="42" width="130" height="56" rx="12" fill="url(#gAmber)" stroke="#f59e0b" strokeWidth="1" />
-        <text x="250" y="65" textAnchor="middle" fill="#fbbf24" fontSize="11" fontWeight="bold" fontFamily="system-ui">parser.py</text>
-        <text x="250" y="80" textAnchor="middle" fill="#92400e" fontSize="8" fontFamily="system-ui">Argument parsing</text>
+        <rect x={470 + 5} y={300 + 5} width="190" height="96" fill="#000" opacity="0.55" />
+        <rect x="470" y="300" width="190" height="96" fill={PANEL} stroke={AX.blue} strokeWidth="1.6" />
+        <rect x="470" y="300" width="4" height="96" fill={AX.blue} />
+        <text x="484" y="322" fill={AX.paper} fontSize="13" fontWeight="800" fontFamily={DISP} letterSpacing="0.4" style={{ textTransform: 'uppercase' }}>Mounted volumes</text>
+        <text x="484" y="340" fill={SLATE} fontSize="8" fontFamily={MONO}>/workspace</text>
+        <text x="484" y="353" fill={SLATE} fontSize="8" fontFamily={MONO}>/opt/my-resources</text>
+        <text x="484" y="366" fill={SLATE} fontSize="8" fontFamily={MONO}>/opt/resources (ro)</text>
+        <text x="484" y="379" fill={SLATE} fontSize="8" fontFamily={MONO}>/opt/nihil/vpn (opt)</text>
       </g>
-
-      {/* Arrow: Parser -> Controller */}
-      <path d="M315,70 L365,70" fill="none" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrowAmber)" />
-
-      {/* Controller box */}
-      <g>
-        <rect x="375" y="42" width="140" height="56" rx="12" fill="url(#gAmber)" stroke="#f59e0b" strokeWidth="1" />
-        <text x="445" y="65" textAnchor="middle" fill="#fbbf24" fontSize="11" fontWeight="bold" fontFamily="system-ui">controller.py</text>
-        <text x="445" y="80" textAnchor="middle" fill="#92400e" fontSize="8" fontFamily="system-ui">Command dispatch</text>
-      </g>
-
-      {/* Arrow: Controller -> Manager */}
-      <path d="M445,98 L445,140" fill="none" stroke="#06b6d4" strokeWidth="1.5" markerEnd="url(#arrowCyan)" />
-
-      {/* Manager box - larger, central */}
-      <g>
-        <rect x="355" y="150" width="180" height="70" rx="14" fill="url(#gCyan)" stroke="#06b6d4" strokeWidth="1.5" />
-        <rect x="355" y="150" width="180" height="70" rx="14" fill="none" stroke="#06b6d4" strokeWidth="0.5" strokeDasharray="4,4" strokeDashoffset="2" opacity="0.3" />
-        <text x="445" y="178" textAnchor="middle" fill="#22d3ee" fontSize="13" fontWeight="bold" fontFamily="system-ui">manager.py</text>
-        <text x="445" y="196" textAnchor="middle" fill="#0e7490" fontSize="9" fontFamily="system-ui">Docker SDK interactions</text>
-      </g>
-
-      {/* Arrow: Manager -> Docker Engine */}
-      <path d="M445,220 L445,270" fill="none" stroke="#10b981" strokeWidth="1.5" markerEnd="url(#arrowEmerald)" />
-
-      {/* Docker Engine box */}
-      <g>
-        <rect x="345" y="280" width="200" height="65" rx="14" fill="url(#gEmerald)" stroke="#10b981" strokeWidth="1.5" />
-        <text x="445" y="306" textAnchor="middle" fill="#34d399" fontSize="13" fontWeight="bold" fontFamily="system-ui">Docker Engine</text>
-        <text x="445" y="324" textAnchor="middle" fill="#065f46" fontSize="9" fontFamily="system-ui">Container lifecycle</text>
-      </g>
-
-      {/* Arrow: Docker -> Container */}
-      <path d="M445,345 L445,375" fill="none" stroke="#10b981" strokeWidth="1.5" markerEnd="url(#arrowEmerald)" />
-
-      {/* Container */}
-      <g>
-        <rect x="365" y="380" width="160" height="35" rx="8" fill="url(#gEmerald)" stroke="#10b981" strokeWidth="1" strokeDasharray="4,2" />
-        <text x="445" y="402" textAnchor="middle" fill="#6ee7b7" fontSize="10" fontWeight="bold" fontFamily="monospace">zsh session</text>
-      </g>
-
-      {/* Side: features/images.py */}
-      <g>
-        <rect x="580" y="42" width="140" height="56" rx="12" fill="url(#gPurple)" stroke="#a855f7" strokeWidth="1" />
-        <text x="650" y="65" textAnchor="middle" fill="#c084fc" fontSize="11" fontWeight="bold" fontFamily="system-ui">images.py</text>
-        <text x="650" y="80" textAnchor="middle" fill="#6b21a8" fontSize="8" fontFamily="system-ui">Image registry</text>
-      </g>
-      <path d="M515,60 L570,60" fill="none" stroke="#a855f7" strokeWidth="1" strokeDasharray="4,3" opacity="0.6" />
-
-      {/* Side: ghcr.io */}
-      <g>
-        <rect x="600" y="170" width="170" height="80" rx="14" fill="url(#gPurple)" stroke="#a855f7" strokeWidth="1" />
-        <text x="685" y="198" textAnchor="middle" fill="#c084fc" fontSize="10" fontWeight="bold" fontFamily="monospace">ghcr.io/thenullpigeons</text>
-        <text x="685" y="218" textAnchor="middle" fill="#7e22ce" fontSize="8" fontFamily="system-ui">full:latest | ad:latest | web:latest | blueteam:latest</text>
-        <text x="685" y="234" textAnchor="middle" fill="#7e22ce" fontSize="7" fontFamily="system-ui" opacity="0.6">:flock | :nest | :beak | :coo</text>
-      </g>
-      <path d="M535,185 L590,195" fill="none" stroke="#a855f7" strokeWidth="1" strokeDasharray="4,3" opacity="0.6" />
-
-      {/* Side: volumes */}
-      <g>
-        <rect x="110" y="280" width="190" height="80" rx="12" fill="url(#gCyan)" stroke="#06b6d4" strokeWidth="1" opacity="0.8" />
-        <text x="205" y="304" textAnchor="middle" fill="#22d3ee" fontSize="10" fontWeight="bold" fontFamily="system-ui">Mounted volumes</text>
-        <text x="205" y="322" textAnchor="middle" fill="#0e7490" fontSize="8" fontFamily="monospace">/workspace</text>
-        <text x="205" y="336" textAnchor="middle" fill="#0e7490" fontSize="8" fontFamily="monospace">/opt/my-resources</text>
-        <text x="205" y="350" textAnchor="middle" fill="#0e7490" fontSize="8" fontFamily="monospace">/vpn (optional)</text>
-      </g>
-      <path d="M300,315 L340,310" fill="none" stroke="#06b6d4" strokeWidth="1" strokeDasharray="4,3" opacity="0.5" />
-
-      {/* Side: console */}
-      <g>
-        <rect x="10" y="140" width="140" height="56" rx="12" fill="url(#gAmber)" stroke="#f59e0b" strokeWidth="1" opacity="0.7" />
-        <text x="80" y="163" textAnchor="middle" fill="#fbbf24" fontSize="10" fontWeight="bold" fontFamily="system-ui">console/</text>
-        <text x="80" y="178" textAnchor="middle" fill="#92400e" fontSize="8" fontFamily="system-ui">formatter.py + banner.py</text>
-      </g>
-      <path d="M150,168 L350,178" fill="none" stroke="#f59e0b" strokeWidth="1" strokeDasharray="4,3" opacity="0.4" />
-
-      {/* Side: utils */}
-      <g>
-        <rect x="10" y="216" width="140" height="45" rx="12" fill="url(#gAmber)" stroke="#f59e0b" strokeWidth="1" opacity="0.7" />
-        <text x="80" y="237" textAnchor="middle" fill="#fbbf24" fontSize="10" fontWeight="bold" fontFamily="system-ui">utils/</text>
-        <text x="80" y="250" textAnchor="middle" fill="#92400e" fontSize="8" fontFamily="system-ui">doctor.py + history.py</text>
-      </g>
-      <path d="M150,238 L350,195" fill="none" stroke="#f59e0b" strokeWidth="1" strokeDasharray="4,3" opacity="0.4" />
+      <Stitch d="M470,346 L442,346" color={LINE} soft arrow={false} />
     </svg>
   </div>
 );
 
-/* ── SVG diagram: Build pipeline ── */
-const BuildDiagram: React.FC = () => (
-  <div className="relative overflow-x-auto py-2">
-    <svg viewBox="0 0 800 360" className="w-full min-w-[600px]" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="gBuild" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.12" />
-          <stop offset="100%" stopColor="#f59e0b" stopOpacity="0.04" />
-        </linearGradient>
-        <linearGradient id="gReg" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.12" />
-          <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.04" />
-        </linearGradient>
-        <linearGradient id="gOut" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#10b981" stopOpacity="0.12" />
-          <stop offset="100%" stopColor="#10b981" stopOpacity="0.04" />
-        </linearGradient>
-        <marker id="aRight" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
-          <path d="M0,0 L8,3 L0,6" fill="none" stroke="#64748b" strokeWidth="1.2" />
-        </marker>
-      </defs>
+/* ── SVG diagram: image build pipeline ── */
+const BuildDiagram: React.FC = () => {
+  const modules = [
+    'base.sh', 'core_tools.sh', 'mod_ad.sh', 'mod_c2.sh', 'mod_credential.sh', 'mod_crypto.sh',
+    'mod_dfir.sh', 'mod_forensics.sh', 'mod_hunt.sh', 'mod_misc.sh', 'mod_network.sh',
+    'mod_osint.sh', 'mod_pwn.sh', 'mod_reverse.sh', 'mod_web.sh', 'mod_wordlists.sh',
+  ];
+  const registries = ['pacman', 'AUR', 'pipx', 'pipx-git', 'go', 'cargo', 'gem', 'git / curl'];
+  const variants = [
+    { y: 50, file: 'Dockerfile', out: 'full:latest', tag: ':flock', accent: AX.red },
+    { y: 112, file: 'Dockerfile.ad', out: 'ad:latest', tag: ':nest', accent: AX.blue },
+    { y: 174, file: 'Dockerfile.web', out: 'web:latest', tag: ':beak', accent: AX.paper },
+    { y: 236, file: 'Dockerfile.blueteam', out: 'blueteam:latest', tag: ':coo', accent: AX.paper },
+  ];
+  const head = (x: number, label: string) => (
+    <text x={x} y="34" textAnchor="middle" fill={AX.red} fontSize="10" fontWeight="700" fontFamily={MONO} letterSpacing="2">{label}</text>
+  );
+  return (
+    <div className="relative overflow-x-auto py-2">
+      <svg viewBox="0 0 820 390" className="w-full min-w-[620px]" xmlns="http://www.w3.org/2000/svg">
+        <defs>{arrowDefs}</defs>
+        <rect x="0" y="0" width="820" height="390" fill={INK} />
+        <EnvelopeFrame w={820} h={390} label="N° IMG · BUILD PIPELINE" />
 
-      {/* Dockerfile column */}
-      <text x="100" y="24" textAnchor="middle" fill="#64748b" fontSize="9" fontWeight="bold" fontFamily="system-ui" letterSpacing="2">DOCKERFILE</text>
-      {[
-        { y: 45, label: 'Dockerfile', sub: 'full', color: '#f59e0b' },
-        { y: 105, label: 'Dockerfile.ad', sub: 'ad', color: '#22d3ee' },
-        { y: 165, label: 'Dockerfile.web', sub: 'web', color: '#a855f7' },
-        { y: 225, label: 'Dockerfile.blueteam', sub: 'blueteam', color: '#10b981' },
-      ].map((d) => (
-        <g key={d.label}>
-          <rect x="30" y={d.y} width="140" height="45" rx="10" fill="url(#gBuild)" stroke={d.color} strokeWidth="1" />
-          <text x="100" y={d.y + 22} textAnchor="middle" fill={d.color} fontSize="10" fontWeight="bold" fontFamily="monospace">{d.label}</text>
-          <text x="100" y={d.y + 36} textAnchor="middle" fill="#64748b" fontSize="8" fontFamily="system-ui">{d.sub}</text>
-        </g>
-      ))}
+        {head(100, 'DOCKERFILE')}
+        {variants.map((v) => (
+          <g key={v.file}>
+            <rect x={30 + 5} y={v.y + 5} width="150" height="46" fill="#000" opacity="0.5" />
+            <rect x="30" y={v.y} width="150" height="46" fill={PANEL} stroke={v.accent} strokeWidth="1.6" />
+            <rect x="30" y={v.y} width="4" height="46" fill={v.accent} />
+            <text x="44" y={v.y + 22} fill={AX.paper} fontSize="11" fontWeight="800" fontFamily={MONO}>{v.file}</text>
+            <text x="44" y={v.y + 37} fill={SLATE} fontSize="8.5" fontFamily={MONO}>variant</text>
+          </g>
+        ))}
+        {variants.map((v) => (
+          <Stitch key={v.file} d={`M180,${v.y + 23} L222,${v.y + 23}`} color={LINE} soft />
+        ))}
 
-      {/* Arrows to modules */}
-      {[67, 127, 187, 247].map((y) => (
-        <path key={y} d={`M170,${y} L225,${y}`} fill="none" stroke="#64748b" strokeWidth="1" strokeDasharray="4,3" markerEnd="url(#aRight)" />
-      ))}
+        {head(320, 'MODULES')}
+        <rect x={232 + 5} y={43 + 5} width="176" height="258" fill="#000" opacity="0.5" />
+        <rect x="232" y="43" width="176" height="258" fill={PANEL} stroke={AX.blue} strokeWidth="1.6" />
+        <rect x="232" y="43" width="4" height="258" fill={AX.blue} />
+        {modules.map((m, i) => (
+          <text key={m} x="248" y={60 + i * 15.3} fill={SLATE} fontSize="8.5" fontFamily={MONO}>{m}</text>
+        ))}
+        <Stitch d="M408,160 L452,160" color={LINE} soft />
 
-      {/* Modules column */}
-      <text x="320" y="24" textAnchor="middle" fill="#64748b" fontSize="9" fontWeight="bold" fontFamily="system-ui" letterSpacing="2">MODULES</text>
-      <rect x="235" y="38" width="170" height="245" rx="12" fill="url(#gReg)" stroke="#06b6d4" strokeWidth="1" />
-      {[
-        'base.sh',
-        'core_tools.sh',
-        'mod_ad.sh',
-        'mod_web.sh',
-        'mod_pwn.sh',
-        'mod_network.sh',
-        'mod_credential.sh',
-        'mod_reverse.sh',
-        'mod_crypto.sh',
-        'mod_forensics.sh',
-        'mod_c2.sh',
-        'mod_blueteam.sh',
-      ].map((m, i) => (
-        <g key={m}>
-          <rect x="248" y={52 + i * 18} width="144" height="16" rx="4" fill="#0f172a" stroke="#1e293b" strokeWidth="0.5" />
-          <text x="320" y={63 + i * 18} textAnchor="middle" fill="#94a3b8" fontSize="7.5" fontFamily="monospace">{m}</text>
-        </g>
-      ))}
+        {head(548, 'REGISTRIES')}
+        <rect x={462 + 5} y={43 + 5} width="172" height="230" fill="#000" opacity="0.5" />
+        <rect x="462" y="43" width="172" height="230" fill={PANEL} stroke={AX.paper} strokeWidth="1.6" />
+        <rect x="462" y="43" width="4" height="230" fill={AX.paper} />
+        {registries.map((r, i) => (
+          <g key={r}>
+            <rect x="478" y={58 + i * 26} width="8" height="8" fill={i % 3 === 0 ? AX.red : i % 3 === 1 ? AX.blue : AX.paper} />
+            <text x="494" y={66 + i * 26} fill={AX.paper} fontSize="9" fontFamily={MONO}>{r}</text>
+          </g>
+        ))}
+        <Stitch d="M634,160 L664,160" color={LINE} soft />
 
-      {/* Arrow to registries */}
-      <path d="M405,135 L455,135" fill="none" stroke="#64748b" strokeWidth="1" strokeDasharray="4,3" markerEnd="url(#aRight)" />
+        {head(730, 'OUTPUT')}
+        {variants.map((v) => (
+          <g key={v.out}>
+            <rect x={672 + 5} y={v.y + 5} width="120" height="46" fill="#000" opacity="0.5" />
+            <rect x="672" y={v.y} width="120" height="46" fill={PANEL} stroke={v.accent} strokeWidth="1.6" />
+            <rect x="672" y={v.y} width="4" height="46" fill={v.accent} />
+            <text x="686" y={v.y + 21} fill={AX.paper} fontSize="10" fontWeight="800" fontFamily={MONO}>{v.out}</text>
+            <text x="686" y={v.y + 37} fill={AX.red} fontSize="8.5" fontFamily={MONO}>{v.tag}</text>
+          </g>
+        ))}
 
-      {/* Registries */}
-      <text x="550" y="24" textAnchor="middle" fill="#64748b" fontSize="9" fontWeight="bold" fontFamily="system-ui" letterSpacing="2">REGISTRIES</text>
-      <rect x="465" y="38" width="170" height="220" rx="12" fill="url(#gReg)" stroke="#06b6d4" strokeWidth="1" />
-      {[
-        { name: 'pacman', color: '#fbbf24' },
-        { name: 'AUR', color: '#fbbf24' },
-        { name: 'pipx', color: '#22d3ee' },
-        { name: 'pipx-git', color: '#22d3ee' },
-        { name: 'go', color: '#34d399' },
-        { name: 'cargo', color: '#fb923c' },
-        { name: 'gem', color: '#f43f5e' },
-        { name: 'git / curl', color: '#a78bfa' },
-      ].map((r, i) => (
-        <g key={r.name}>
-          <rect x="478" y={52 + i * 25} width="144" height="20" rx="4" fill="#0f172a" stroke="#1e293b" strokeWidth="0.5" />
-          <circle cx="490" cy={62 + i * 25} r="3" fill={r.color} opacity="0.8" />
-          <text x="500" y={66 + i * 25} fill="#94a3b8" fontSize="8" fontFamily="monospace">{r.name}</text>
-        </g>
-      ))}
+        {/* healthcheck bottom bar */}
+        <rect x="232" y="318" width="402" height="36" fill={PANEL} stroke={AX.paper} strokeWidth="1.6" strokeDasharray="5 4" />
+        <text x="433" y="341" textAnchor="middle" fill={AX.paper} fontSize="12" fontWeight="800" fontFamily={DISP} letterSpacing="0.5" style={{ textTransform: 'uppercase' }}>healthcheck.sh validates tools.json</text>
+        <Stitch d="M433,301 L433,316" color={LINE} soft />
+      </svg>
+    </div>
+  );
+};
 
-      {/* Arrow to output */}
-      <path d="M635,135 L665,135" fill="none" stroke="#64748b" strokeWidth="1" strokeDasharray="4,3" markerEnd="url(#aRight)" />
+/* Click a diagram to open it full-screen. */
+const ZoomableDiagram: React.FC<{ children: React.ReactNode; label: string }> = ({ children, label }) => {
+  const [open, setOpen] = useState(false);
 
-      {/* Output: GHCR */}
-      <text x="730" y="24" textAnchor="middle" fill="#64748b" fontSize="9" fontWeight="bold" fontFamily="system-ui" letterSpacing="2">OUTPUT</text>
-      {[
-        { y: 45, label: 'full:latest', tag: ':flock', color: '#f59e0b' },
-        { y: 105, label: 'ad:latest', tag: ':nest', color: '#22d3ee' },
-        { y: 165, label: 'web:latest', tag: ':beak', color: '#a855f7' },
-        { y: 225, label: 'blueteam:latest', tag: ':coo', color: '#10b981' },
-      ].map((d) => (
-        <g key={d.label}>
-          <rect x="675" y={d.y} width="115" height="45" rx="10" fill="url(#gOut)" stroke="#10b981" strokeWidth="1" />
-          <text x="732" y={d.y + 22} textAnchor="middle" fill="#34d399" fontSize="9" fontWeight="bold" fontFamily="monospace">{d.label}</text>
-          <text x="732" y={d.y + 36} textAnchor="middle" fill="#065f46" fontSize="7" fontFamily="monospace">{d.tag}</text>
-        </g>
-      ))}
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false); };
+    document.addEventListener('keydown', onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
 
-      {/* Bottom: health check */}
-      <rect x="235" y="305" width="400" height="35" rx="8" fill="url(#gOut)" stroke="#10b981" strokeWidth="1" strokeDasharray="4,2" />
-      <text x="435" y="327" textAnchor="middle" fill="#6ee7b7" fontSize="10" fontWeight="bold" fontFamily="system-ui">healthcheck.sh validates tools.json</text>
-      <path d="M435,285 L435,303" fill="none" stroke="#10b981" strokeWidth="1" strokeDasharray="3,3" opacity="0.5" />
-    </svg>
-  </div>
-);
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        aria-label={`Expand the ${label} diagram`}
+        className="group relative block w-full cursor-zoom-in text-left"
+      >
+        {children}
+        <span className="pointer-events-none absolute right-3 top-3 flex items-center gap-1.5 bg-ink/80 border border-slate-700 px-2 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-slate-400 group-hover:border-amber-500 group-hover:text-amber-500 transition-colors">
+          <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+            <path strokeLinecap="square" d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+          </svg>
+          Expand
+        </span>
+      </button>
+
+      {open && createPortal(
+        <div
+          className="fixed inset-0 z-[120] flex flex-col bg-ink/92 backdrop-blur-sm p-4 md:p-8 animate-in-docs"
+          onClick={() => setOpen(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${label} diagram`}
+        >
+          <div className="flex items-center justify-between gap-4 mb-3 shrink-0">
+            <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-slate-400">
+              <span className="text-amber-500">N°</span> {label}
+            </span>
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              className="flex items-center gap-2 h-8 px-3 border border-slate-700 font-mono text-[11px] uppercase tracking-[0.14em] text-slate-300 hover:bg-paper hover:text-ink transition-colors"
+            >
+              Esc · Close
+            </button>
+          </div>
+          <div
+            className="airmail-frame flex-1 min-h-0"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="h-full w-full overflow-auto bg-ink flex items-start md:items-center justify-center p-2 md:p-4">
+              <div className="w-full min-w-[620px] max-w-[1400px]">{children}</div>
+            </div>
+          </div>
+        </div>,
+        document.body,
+      )}
+    </>
+  );
+};
 
 export const ArchitecturePage: React.FC = () => {
   return (
@@ -294,7 +293,7 @@ export const ArchitecturePage: React.FC = () => {
               What happens when you run <code className="text-xs bg-slate-900 px-1.5 py-0.5 rounded border border-slate-700 font-mono text-amber-300">nihil start pentest --image ad</code>
             </p>
             <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800/80">
-              <FlowDiagram />
+              <ZoomableDiagram label="Command route"><FlowDiagram /></ZoomableDiagram>
             </div>
           </section>
 
@@ -312,14 +311,14 @@ export const ArchitecturePage: React.FC = () => {
                 const colors: Record<string, string> = {
                   amber: 'border-amber-500/30 bg-amber-500/5',
                   cyan: 'border-cyan-500/30 bg-cyan-500/5',
-                  purple: 'border-purple-500/30 bg-purple-500/5',
-                  emerald: 'border-emerald-500/30 bg-emerald-500/5',
+                  purple: 'border-slate-600/40 bg-slate-500/[0.07]',
+                  emerald: 'border-slate-600/40 bg-slate-500/[0.07]',
                 };
                 const textColors: Record<string, string> = {
                   amber: 'text-amber-400',
                   cyan: 'text-cyan-400',
-                  purple: 'text-purple-400',
-                  emerald: 'text-emerald-400',
+                  purple: 'text-slate-300',
+                  emerald: 'text-slate-300',
                 };
                 return (
                   <div key={s.step} className={`flex gap-3 p-3 rounded-xl border ${colors[s.color]} transition-all hover:scale-[1.01]`}>
@@ -349,13 +348,13 @@ export const ArchitecturePage: React.FC = () => {
                 const borderColor: Record<string, string> = {
                   amber: 'border-amber-500/20 hover:border-amber-500/40',
                   cyan: 'border-cyan-500/20 hover:border-cyan-500/40',
-                  purple: 'border-purple-500/20 hover:border-purple-500/40',
+                  purple: 'border-slate-700/50 hover:border-slate-500/70',
                   slate: 'border-slate-700/50 hover:border-slate-600/50',
                 };
                 const titleColor: Record<string, string> = {
                   amber: 'text-amber-300',
                   cyan: 'text-cyan-300',
-                  purple: 'text-purple-300',
+                  purple: 'text-slate-200',
                   slate: 'text-slate-300',
                 };
                 return (
@@ -376,7 +375,7 @@ export const ArchitecturePage: React.FC = () => {
               How images are built from Dockerfiles through modules and registries to published images.
             </p>
             <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800/80">
-              <BuildDiagram />
+              <ZoomableDiagram label="Build pipeline"><BuildDiagram /></ZoomableDiagram>
             </div>
           </section>
 
@@ -391,15 +390,15 @@ export const ArchitecturePage: React.FC = () => {
             </p>
             <div className="grid sm:grid-cols-2 gap-2">
               {[
-                { name: 'pacman', fn: 'install_pacman_tool', desc: 'Arch official + Chaotic-AUR', color: '#fbbf24' },
-                { name: 'AUR', fn: 'install_aur_tool', desc: 'AUR community packages', color: '#fbbf24' },
-                { name: 'pipx', fn: 'install_pipx_tool', desc: 'Python from PyPI', color: '#22d3ee' },
-                { name: 'pipx-git', fn: 'install_pipx_tool_git', desc: 'Python from Git repos', color: '#22d3ee' },
-                { name: 'go', fn: 'install_go_tool', desc: 'Go packages', color: '#34d399' },
-                { name: 'cargo', fn: 'install_cargo_tool', desc: 'Rust packages', color: '#fb923c' },
-                { name: 'gem', fn: 'install_gem_tool', desc: 'Ruby gems', color: '#f43f5e' },
-                { name: 'git', fn: 'install_git_tool', desc: 'Clone + venv/symlink', color: '#a78bfa' },
-                { name: 'curl', fn: 'install_tar_tool', desc: 'Direct binary downloads', color: '#a78bfa' },
+                { name: 'pacman', fn: 'install_pacman_tool', desc: 'Arch official + Chaotic-AUR', color: '#ff917a' },
+                { name: 'AUR', fn: 'install_aur_tool', desc: 'AUR community packages', color: '#ff917a' },
+                { name: 'pipx', fn: 'install_pipx_tool', desc: 'Python from PyPI', color: '#7893ff' },
+                { name: 'pipx-git', fn: 'install_pipx_tool_git', desc: 'Python from Git repos', color: '#7893ff' },
+                { name: 'go', fn: 'install_go_tool', desc: 'Go packages', color: '#ddd5c3' },
+                { name: 'cargo', fn: 'install_cargo_tool', desc: 'Rust packages', color: '#ff6446' },
+                { name: 'gem', fn: 'install_gem_tool', desc: 'Ruby gems', color: '#ff4a2a' },
+                { name: 'git', fn: 'install_git_tool', desc: 'Clone + venv/symlink', color: '#c3baa6' },
+                { name: 'curl', fn: 'install_tar_tool', desc: 'Direct binary downloads', color: '#c3baa6' },
               ].map((r) => (
                 <div key={r.name} className="flex items-center gap-3 p-2.5 rounded-lg bg-slate-900/40 border border-slate-800/60">
                   <div className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: r.color, opacity: 0.8 }} />
@@ -425,8 +424,8 @@ export const ArchitecturePage: React.FC = () => {
               {[
                 { img: 'full', tag: ':flock', color: 'border-amber-500/30 bg-amber-500/5', text: 'text-amber-300' },
                 { img: 'ad', tag: ':nest', color: 'border-cyan-500/30 bg-cyan-500/5', text: 'text-cyan-300' },
-                { img: 'web', tag: ':beak', color: 'border-purple-500/30 bg-purple-500/5', text: 'text-purple-300' },
-                { img: 'blueteam', tag: ':coo', color: 'border-emerald-500/30 bg-emerald-500/5', text: 'text-emerald-300' },
+                { img: 'web', tag: ':beak', color: 'border-slate-600/40 bg-slate-500/[0.07]', text: 'text-slate-200' },
+                { img: 'blueteam', tag: ':coo', color: 'border-slate-600/40 bg-slate-500/[0.07]', text: 'text-slate-200' },
               ].map((b) => (
                 <div key={b.img} className={`flex-1 min-w-[140px] p-3 rounded-xl border ${b.color} text-center`}>
                   <p className={`text-sm font-bold font-mono ${b.text}`}>{b.img}</p>
@@ -434,9 +433,9 @@ export const ArchitecturePage: React.FC = () => {
                 </div>
               ))}
             </div>
-            <div className="p-3 rounded-lg bg-emerald-500/5 border border-emerald-500/20">
-              <p className="text-xs text-emerald-300">
-                <code className="font-mono text-emerald-200">healthcheck.sh</code> validates every tool in <code className="font-mono text-emerald-200">tools.json</code> after
+            <div className="p-3 rounded-lg bg-cyan-500/5 border border-cyan-500/20">
+              <p className="text-xs text-cyan-300">
+                <code className="font-mono text-cyan-200">healthcheck.sh</code> validates every tool in <code className="font-mono text-cyan-200">tools.json</code> after
                 installation. Failed checks are reported and fail the build.
               </p>
             </div>

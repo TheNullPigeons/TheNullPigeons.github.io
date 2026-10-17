@@ -48,8 +48,8 @@ export const InstallationPage: React.FC = () => {
             <h2 className="text-xl font-semibold text-white">Install with pipx (recommended)</h2>
             <StepList
               steps={[
-                { title: 'Clone the repository', detail: 'Use the official nihil repository as installation source.' },
-                { title: 'Install with pipx editable mode', detail: 'Keeps your Python environment clean and easy to update.' },
+                { title: 'Install pipx', detail: 'pipx keeps nihil isolated in its own virtual environment.' },
+                { title: 'Install nihil from GitHub', detail: 'pipx installs directly from the official repository, no manual clone needed.' },
                 { title: 'Validate command availability', detail: 'Run nihil --version to confirm the wrapper is ready.' },
               ]}
             />
@@ -68,7 +68,11 @@ nh --version`}
               Use this only if pipx is unavailable. pipx is safer for long-term maintenance.
             </Callout>
             <p className="text-slate-400 text-sm">
-              Alternative command: <code>pip install -e .</code> after cloning the repository.
+              Install from the same source with pip:
+            </p>
+            <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">{`pip install --user "git+https://github.com/TheNullPigeons/nihil.git"`}</pre>
+            <p className="text-slate-400 text-sm">
+              Contributors who want an editable checkout clone the repo first, then run <code>pip install -e .</code> from it.
             </p>
           </section>
 
@@ -163,7 +167,8 @@ nihil uninstall --unused`}
             <div className="space-y-2">
               <p className="text-slate-300 text-sm font-medium">Update the wrapper:</p>
               <p className="text-slate-400 text-sm">
-                Pull latest code then reinstall editable with <code>pipx install -e . --force</code>.
+                Re-pull the latest wrapper from GitHub with <code>pipx upgrade nihil</code>. If the install metadata is
+                missing, reinstall with <code>pipx install &quot;git+https://github.com/TheNullPigeons/nihil.git&quot; --force</code>.
               </p>
             </div>
             <div className="space-y-2">

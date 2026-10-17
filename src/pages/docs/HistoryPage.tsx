@@ -13,7 +13,7 @@ export const HistoryPage: React.FC = () => {
           Command History
         </h1>
         <p className="text-slate-400 text-sm md:text-base max-w-2xl">
-          Nihil automatically logs every command you run so you can find and reuse complex invocations later.
+          Nihil logs every nihil command you run to its own history file, so you can find and reuse complex invocations later. This is separate from your shell history.
         </p>
       </header>
 
@@ -22,9 +22,10 @@ export const HistoryPage: React.FC = () => {
           <section id="tldr">
             <TldrBlock
               items={[
-                'Nihil logs executed commands automatically.',
+                'Nihil logs every nihil command you run to ~/.config/nihil/history.log.',
+                'Sensitive values (--env, --vpn, --workspace, --browser-ui-password) are masked as ***.',
+                'The file is never purged automatically, not even by nihil remove.',
                 'Use grep/fzf to recover previous workflows quickly.',
-                'Rotate file periodically if engagement volume is high.',
               ]}
             />
           </section>
@@ -42,13 +43,21 @@ export const HistoryPage: React.FC = () => {
 
           <section id="format" className="space-y-3">
             <h2 className="text-xl font-semibold text-white">Format</h2>
-            <p className="text-slate-400 text-sm">Each line is the full command that was run:</p>
+            <p className="text-slate-400 text-sm">
+              Each line is the nihil command that was run, with sensitive option values replaced by <code>***</code>:
+            </p>
             <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
 {`nihil start my-pentest --privileged
 nihil exec my-pentest nmap -sn 192.168.1.0/24
-nihil stop my-pentest
+nihil start vpn-lab --vpn *** --network docker
 nihil remove my-pentest --force`}
             </pre>
+            <Callout variant="note" title="Secrets are masked, and nothing is auto-deleted">
+              The values of <code>--env</code>, <code>--vpn</code>, <code>--workspace</code> and
+              <code>--browser-ui-password</code> are written as <code>***</code>, so client paths and secrets never land
+              in the log. The file is never purged automatically, not even by <code>nihil remove</code>: delete it
+              yourself when an engagement ends.
+            </Callout>
           </section>
 
           <section id="usage" className="space-y-4">
@@ -63,14 +72,14 @@ grep "start" ~/.config/nihil/history.log`}
               <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
 {`cat ~/.config/nihil/history.log | fzf`}
               </pre>
-              <p className="text-slate-300 text-sm font-medium">Reverse search in your shell (<code className="text-amber-300">Ctrl+R</code>):</p>
+              <p className="text-slate-300 text-sm font-medium">Reverse search with fzf and <code className="text-amber-300">Ctrl+R</code>:</p>
               <p className="text-slate-400 text-sm">
-                Because nihil injects executed commands into your shell history, <kbd className="px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700 text-slate-200 text-xs font-mono">Ctrl+R</kbd> works
-                natively. Type a keyword and your shell will cycle through matching nihil invocations directly in the prompt.
+                The log is a plain text file, so you can bind it to an <kbd className="px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700 text-slate-200 text-xs font-mono">Ctrl+R</kbd>-style
+                picker. For example, select a past nihil command and drop it on the prompt:
               </p>
               <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
-{`# In your terminal: press Ctrl+R then type "start"
-# your shell will surface: nihil start my-pentest --privileged`}
+{`# zsh/bash widget: fuzzy-pick a past nihil command
+print -z "$(tac ~/.config/nihil/history.log | fzf)"`}
               </pre>
             </div>
           </section>

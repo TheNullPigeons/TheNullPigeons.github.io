@@ -39,13 +39,14 @@ export const McpPage: React.FC = () => {
             </p>
             <StepList
               steps={[
-                { title: 'Install the package', detail: 'From the nihil-mcp directory, install it into your environment.' },
+                { title: 'Clone and install the package', detail: 'Install nihil-mcp from source; it exposes the nihil-mcp command.' },
                 { title: 'Register the server', detail: 'Add it to your MCP client so the tools load automatically.' },
                 { title: 'Verify', detail: 'Confirm the server is listed and reachable.' },
               ]}
             />
             <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
-{`# 1. Install
+{`# 1. Clone and install
+git clone https://github.com/TheNullPigeons/nihil-mcp.git
 cd nihil-mcp
 pip install -e .
 
@@ -55,6 +56,15 @@ claude mcp add nihil -- nihil-mcp
 # 3. Verify
 claude mcp list`}
             </pre>
+            <Callout variant="note" title="Other MCP clients">
+              Any stdio MCP client works. Point it at the <code>nihil-mcp</code> command, for example in a client
+              config file:
+              <pre className="mt-2 text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">{`{
+  "mcpServers": {
+    "nihil": { "command": "nihil-mcp" }
+  }
+}`}</pre>
+            </Callout>
             <Callout variant="note" title="Loaded per session">
               Start a new client session after registering — the tools are discovered automatically
               over the stdio transport.
@@ -68,7 +78,7 @@ claude mcp list`}
               right tools to provision a container and run the requested commands inside it.
             </p>
             <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
-{`"Start a nihil web container, mount ~/htb as workspace,
+{`"Start a nihil web container, mount ~/lab as workspace,
  then scan 10.10.10.1 with nmap"`}
             </pre>
           </section>
@@ -124,7 +134,7 @@ claude mcp list`}
               working directory and any variables you export carry across calls.
             </p>
             <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
-{`create_session("pentest-htb")        -> session_id
+{`create_session("pentest-lab")        -> session_id
 exec_in_session(id, "export TARGET=10.10.10.1")
 exec_in_session(id, "nmap -sV $TARGET")   # same env + cwd
 close_session(id)`}

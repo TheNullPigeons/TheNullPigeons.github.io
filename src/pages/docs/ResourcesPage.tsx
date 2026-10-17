@@ -1,4 +1,5 @@
 import React from 'react';
+import resourcesData from '../../data/resources.json';
 import { SectionToc } from '../../components/SectionToc';
 import { Callout, TldrBlock } from '../../components/DocsBlocks';
 
@@ -112,7 +113,7 @@ nihil resources install --force   # re-clone after confirmation`}
 {`nihil resources sync                       # all enabled resources
 nihil resources sync --profile ad          # AD/internal only
 nihil resources sync --profile web         # web resources only
-nihil resources sync --profile blueteam`}
+nihil resources sync --profile ctf         # CTF helper resources`}
               </pre>
             </div>
 
@@ -192,17 +193,15 @@ enabled  = true`}
                   </tr>
                 </thead>
                 <tbody className="text-slate-300 text-sm">
-                  {([
-                    ['full', 'setup, active-directory, linux, windows, web, wordlists, cheatsheets, bin'],
-                    ['ad', 'setup, active-directory, linux, windows, wordlists, cheatsheets, bin'],
-                    ['web', 'setup, web, linux, wordlists, cheatsheets, bin'],
-                    ['blueteam', 'setup, linux, wordlists'],
-                  ] as [string, string][]).map(([profile, cats]) => (
+                  {Object.entries(resourcesData.profiles as Record<string, { categories: string[] }>).map(([profile, info]) => {
+                    const cats = info.categories.join(', ');
+                    return (
                     <tr key={profile} className="border-b border-slate-800/50">
                       <td className="py-2 pr-4 font-mono text-amber-300 text-xs">{profile}</td>
                       <td className="py-2 text-slate-400 text-xs">{cats}</td>
                     </tr>
-                  ))}
+                    );
+                  })}
                 </tbody>
               </table>
             </div>

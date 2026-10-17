@@ -42,8 +42,13 @@ export const ServicePage: React.FC = () => {
               <code>--browser-ui-port</code> if you want a stable port.
             </p>
             <Callout variant="note" title="Port behavior">
-              If no port is specified, nihil picks a random port between <code>6901</code> and{' '}
-              <code>6999</code>. The selected URL is shown in container info output.
+              If no port is specified, nihil picks a random free port in <code>6901-6999</code> (falling back to
+              <code>7000-7099</code> if that range is full). The selected URL is shown in container info output.
+            </Callout>
+            <Callout variant="warning" title="Bound to localhost only">
+              The port is published on <code>127.0.0.1</code>, so Browser UI is reachable only from the host running
+              Docker. To reach it from another machine, forward the port over SSH
+              (<code>ssh -L 6901:127.0.0.1:6901 user@host</code>) rather than exposing it directly.
             </Callout>
           </section>
 
@@ -53,6 +58,10 @@ export const ServicePage: React.FC = () => {
               Browser UI can use an auto-generated session password or a password provided with{' '}
               <code>--browser-ui-password</code>. Keep this value private during engagements.
             </p>
+            <Callout variant="note" title="Where passwords are stored">
+              Generated and provided Browser UI passwords are saved per container in
+              <code>~/.nihil/browser_ui_passwords.json</code>, so the session keeps the same password across restarts.
+            </Callout>
             <Callout variant="warning" title="Operational security">
               Prefer random passwords and isolated networks when exposing browser-based access during an
               assessment.

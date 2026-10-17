@@ -19,6 +19,7 @@ import { ImagesPage } from './docs/ImagesPage';
 import { NihilHistoryPage } from './docs/NihilHistoryPage';
 import { ArchitecturePage } from './docs/ArchitecturePage';
 import { ConfigurationPage } from './docs/ConfigurationPage';
+import { NetworkVpnPage } from './docs/NetworkVpnPage';
 import { ContributingPage } from './docs/ContributingPage';
 import { ServicePage } from './docs/ServicePage';
 import { McpPage } from './docs/McpPage';
@@ -104,6 +105,10 @@ export const App: React.FC = () => {
         <Route
           path="/docs/configuration"
           element={<DocsLayout><ConfigurationPage /></DocsLayout>}
+        />
+        <Route
+          path="/docs/network-vpn"
+          element={<DocsLayout><NetworkVpnPage /></DocsLayout>}
         />
         <Route
           path="/docs/service"
