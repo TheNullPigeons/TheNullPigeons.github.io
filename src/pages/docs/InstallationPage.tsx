@@ -72,6 +72,30 @@ nh --version`}
             </p>
           </section>
 
+          <section id="image-channel" className="space-y-4">
+            <h2 className="text-xl font-semibold text-white">Choose an image channel (main / dev)</h2>
+            <p className="text-slate-400 text-sm">
+              Upstream images are published on two channels. <code>main</code> (the default) pulls the stable{' '}
+              <code>:latest</code> tags; <code>dev</code> pulls the <code>:dev</code> tags built from the development
+              branch, so you get new tools and fixes before they are merged. Pick a channel before pulling.
+            </p>
+            <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
+{`# Show the current channel
+nihil image channel
+
+# Switch to development images
+nihil image channel dev
+
+# Back to stable images
+nihil image channel main`}
+            </pre>
+            <Callout variant="note" title="Saved in your config">
+              The choice is stored in your nihil config and applies to every upstream variant (full, ad, web, blueteam).
+              If you already have images installed, run <code>nihil update</code> after switching to pull them from the
+              new channel. The channel is ignored while a personal image source is active.
+            </Callout>
+          </section>
+
           <section id="pull-image" className="space-y-4">
             <h2 className="text-xl font-semibold text-white">Pull a Nihil image</h2>
             <p className="text-slate-400 text-sm">Pull interactively first, then pin a specific image when needed.</p>
@@ -165,6 +189,7 @@ nihil uninstall --unused`}
             { id: 'prereqs', label: 'Prerequisites' },
             { id: 'install-pipx', label: 'Install with pipx' },
             { id: 'install-pip', label: 'Install with pip' },
+            { id: 'image-channel', label: 'Image channel' },
             { id: 'pull-image', label: 'Pull a Nihil image' },
             { id: 'verify', label: 'Verify installation' },
             { id: 'first-container', label: 'First container' },

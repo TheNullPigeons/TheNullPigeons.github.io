@@ -13,7 +13,7 @@ export const BlogPostPage: React.FC = () => {
       {/* Back */}
       <Link
         to="/blog"
-        className="inline-flex items-center gap-1.5 text-sm text-slate-400 hover:text-amber-400 transition-colors"
+        className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-slate-400 hover:text-amber-500 transition-colors"
       >
         <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
@@ -24,17 +24,17 @@ export const BlogPostPage: React.FC = () => {
       {/* Header */}
       <header className="space-y-3 border-b border-slate-800 pb-8">
         <div className="flex flex-wrap items-center gap-2">
-          <time className="text-xs text-slate-500 tabular-nums">{post.date}</time>
+          <time className="font-mono text-xs text-slate-500 tabular-nums">{post.date}</time>
           {post.tags.map((tag) => (
             <span
               key={tag}
-              className="text-xs px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20"
+              className="font-mono text-[10.5px] uppercase tracking-[0.14em] px-2 py-0.5 border border-slate-700 text-slate-400"
             >
               {tag}
             </span>
           ))}
         </div>
-        <h1 className="font-display text-3xl md:text-4xl font-bold tracking-tight text-white">
+        <h1 className="text-4xl md:text-6xl font-bold display leading-[0.95] text-paper">
           {post.title}
         </h1>
         <p className="text-slate-400 text-lg leading-relaxed">{post.excerpt}</p>

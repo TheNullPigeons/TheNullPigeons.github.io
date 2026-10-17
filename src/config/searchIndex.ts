@@ -14,6 +14,7 @@ export const searchIndex: SearchEntry[] = [
   { page: 'Installation - Linux', path: '/docs/installation/linux', label: 'Install nihil with pipx or pip, pull your first image.' },
   { page: 'Installation - Linux', path: '/docs/installation/linux#install-pipx', label: 'Install with pipx' },
   { page: 'Installation - Linux', path: '/docs/installation/linux#install-pip', label: 'Install with pip' },
+  { page: 'Installation - Linux', path: '/docs/installation/linux#image-channel', label: 'Choose an image channel (main / dev)', keywords: ['channel', 'dev', 'main', 'latest', 'development', 'stable'] },
   { page: 'Installation - Linux', path: '/docs/installation/linux#pull-image', label: 'Pull a Nihil image' },
   { page: 'Installation - Linux', path: '/docs/installation/linux#first-container', label: 'First container' },
   { page: 'Installation - Linux', path: '/docs/installation/linux#update-uninstall', label: 'Update / Uninstall' },
@@ -23,7 +24,10 @@ export const searchIndex: SearchEntry[] = [
   { page: 'Installation - macOS', path: '/docs/installation/macos#limitations', label: 'Known limitations' },
   { page: 'Installation - macOS', path: '/docs/installation/macos#troubleshooting', label: 'Troubleshooting' },
   { page: 'Installation - Windows', path: '/docs/installation/windows', label: 'Install nihil on Windows via WSL2.', keywords: ['wsl', 'wsl2'] },
-  { page: 'Installation - Windows', path: '/docs/installation/windows#wsl2-workaround', label: 'WSL2 workaround', keywords: ['wsl', 'wsl2'] },
+  { page: 'Installation - Windows', path: '/docs/installation/windows#support', label: 'What is supported', keywords: ['wsl', 'wsl2', 'docker desktop'] },
+  { page: 'Installation - Windows', path: '/docs/installation/windows#wsl', label: 'Install WSL2', keywords: ['wsl', 'wsl2', 'wsl --install'] },
+  { page: 'Installation - Windows', path: '/docs/installation/windows#docker', label: 'Set up Docker (Engine or Desktop)', keywords: ['docker desktop', 'docker engine', 'systemd', 'wsl integration'] },
+  { page: 'Installation - Windows', path: '/docs/installation/windows#limitations', label: 'Known limitations', keywords: ['host network', 'wslg', 'usb', 'mnt/c'] },
 
   // CLI
   { page: 'CLI Commands', path: '/docs/usage', label: 'Complete reference for nihil CLI commands and workflows.' },

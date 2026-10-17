@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { FlyingPigeons } from './FlyingPigeons';
 import { SeoMeta } from './SeoMeta';
+import { AirmailBar, ArrowUpRight, DiscordIcon, GithubIcon } from './Mail';
 
 const navLinks = [
   { to: '/', label: 'Overview', end: true },
@@ -12,124 +12,198 @@ const navLinks = [
 ];
 
 const navLinkClass = ({ isActive }: { isActive: boolean }) =>
-  'px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ' +
-  (isActive
-    ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30'
-    : 'text-slate-400 hover:text-white hover:bg-slate-800/80 border border-transparent');
+  'group relative flex items-center gap-2 px-3 py-2 font-mono text-[11px] uppercase tracking-[0.16em] transition-colors ' +
+  (isActive ? 'text-paper' : 'text-slate-400 hover:text-paper');
 
-const mobileNavLinkClass = ({ isActive }: { isActive: boolean }) =>
-  'block px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ' +
-  (isActive
-    ? 'bg-cyan-500/20 text-cyan-300'
-    : 'text-slate-300 hover:text-white hover:bg-slate-800/60');
+const footerLinks = [
+  {
+    title: 'Nihil',
+    links: [
+      { to: '/docs', label: 'Install' },
+      { to: '/docs/usage', label: 'CLI reference' },
+      { to: '/docs/images', label: 'Images' },
+      { to: '/try', label: 'Online demo' },
+    ],
+  },
+  {
+    title: 'Project',
+    links: [
+      { to: '/source-code', label: 'Source code' },
+      { to: '/blog', label: 'Blog' },
+      { to: '/community', label: 'Community' },
+      { to: '/pricing', label: 'Pricing' },
+    ],
+  },
+];
 
 export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
+  const fullBleed = location.pathname === '/';
 
-  // Close menu on navigation
   React.useEffect(() => { setMenuOpen(false); }, [location]);
 
   return (
-    <div className="min-h-screen bg-black text-slate-100 flex flex-col relative">
+    <div className="grain min-h-screen bg-ink text-slate-100 flex flex-col relative">
       <SeoMeta />
-      <FlyingPigeons />
-      <header className="sticky top-0 z-50 border-b border-slate-800/80 bg-black/85 backdrop-blur-xl">
-        <div className="max-w-[96rem] mx-auto px-4 py-3 flex items-center justify-between gap-4">
-
-          {/* Logo */}
+      <header className="sticky top-0 z-50 bg-ink/85 backdrop-blur-xl border-b border-slate-800/80">
+        <AirmailBar className="h-1" />
+        <div className="max-w-[88rem] mx-auto px-5 md:px-8 h-16 flex items-center justify-between gap-4">
           <Link to="/" className="flex items-center gap-3 group">
             <img
               src="/assets/thenullpigeonslogo.png"
-              alt="TheNullPigeons"
-              className="h-10 w-10 object-contain transition-transform group-hover:scale-105"
+              alt=""
+              className="h-9 w-9 object-contain transition-transform duration-300 group-hover:-rotate-12 group-hover:scale-110"
             />
-            <div className="flex flex-col leading-tight">
-              <span className="font-semibold tracking-tight text-white">TheNullPigeons</span>
-              <span className="text-xs text-slate-400">Offensive tooling</span>
-            </div>
+            <span className="flex flex-col leading-none">
+              <span className="display text-paper text-[22px] leading-none">TheNullPigeons</span>
+              <span className="font-mono text-[9.5px] uppercase tracking-[0.2em] text-slate-500 mt-1">
+                Offensive mail service
+              </span>
+            </span>
           </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-2">
-            {navLinks.map(({ to, label, end }) => (
+          <nav className="hidden md:flex items-center">
+            {navLinks.map(({ to, label, end }, i) => (
               <NavLink key={to} to={to} className={navLinkClass} end={end}>
-                {label}
+                {({ isActive }) => (
+                  <>
+                    <span className={isActive ? 'text-amber-500' : 'text-slate-600 group-hover:text-amber-500 transition-colors'}>
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    {label}
+                    {isActive && <span className="absolute left-3 right-3 -bottom-[13px] h-[2px] bg-amber-500" />}
+                  </>
+                )}
               </NavLink>
             ))}
+          </nav>
+
+          <div className="hidden md:flex items-center gap-2">
             <NavLink
               to="/source-code"
               className={({ isActive }) =>
-                'flex items-center justify-center w-9 h-9 rounded-lg transition-all duration-200 border ' +
-                (isActive
-                  ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800/80 border-transparent')
+                'flex items-center justify-center w-9 h-9 transition-colors ' +
+                (isActive ? 'text-paper' : 'text-slate-400 hover:text-paper')
               }
-              aria-label="Source Code"
+              aria-label="Source code"
             >
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 0C5.372 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.6.111.793-.261.793-.578 0-.285-.011-1.04-.016-2.04-3.338.726-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.73.083-.73 1.205.085 1.84 1.237 1.84 1.237 1.07 1.835 2.807 1.305 3.492.998.108-.776.418-1.305.76-1.605-2.665-.305-5.467-1.334-5.467-5.93 0-1.31.468-2.382 1.236-3.22-.124-.303-.536-1.524.116-3.176 0 0 1.008-.322 3.3 1.23.957-.266 1.984-.399 3.004-.404 1.02.005 2.047.138 3.005.404 2.292-1.552 3.298-1.23 3.298-1.23.653 1.652.24 2.873.118 3.176.77.838 1.235 1.91 1.235 3.22 0 4.61-2.807 5.624-5.48 5.92.43.372.814 1.103.814 2.222 0 1.604-.015 2.896-.015 3.29 0 .319.192.694.8.576C20.565 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
-              </svg>
+              <GithubIcon className="w-[18px] h-[18px]" />
             </NavLink>
-          </nav>
+            <Link
+              to="/try"
+              className="flex items-center gap-2 h-9 px-3.5 bg-paper text-ink font-mono text-[11px] uppercase tracking-[0.14em] font-semibold hover:bg-amber-500 transition-colors"
+            >
+              Try it live
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
 
-          {/* Hamburger */}
           <button
             type="button"
             onClick={() => setMenuOpen((v) => !v)}
-            className="md:hidden flex items-center justify-center w-9 h-9 rounded-lg border border-slate-700 bg-slate-900/60 text-slate-300 hover:text-white hover:border-slate-600 transition-colors"
+            className="md:hidden flex items-center gap-2 h-9 px-3 border border-slate-700 font-mono text-[11px] uppercase tracking-[0.14em] text-slate-200"
+            aria-expanded={menuOpen}
             aria-label="Toggle menu"
           >
-            {menuOpen ? (
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            )}
+            {menuOpen ? 'Close' : 'Menu'}
           </button>
         </div>
 
-        {/* Mobile menu */}
         {menuOpen && (
-          <div className="md:hidden border-t border-slate-800/80 bg-black/95 px-4 py-3 space-y-1">
-            {navLinks.map(({ to, label, end }) => (
-              <NavLink key={to} to={to} className={mobileNavLinkClass} end={end}>
-                {label}
-              </NavLink>
-            ))}
-            <NavLink to="/source-code" className={mobileNavLinkClass}>
-              <span className="inline-flex items-center gap-2">
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 0C5.372 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.6.111.793-.261.793-.578 0-.285-.011-1.04-.016-2.04-3.338.726-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.73.083-.73 1.205.085 1.84 1.237 1.84 1.237 1.07 1.835 2.807 1.305 3.492.998.108-.776.418-1.305.76-1.605-2.665-.305-5.467-1.334-5.467-5.93 0-1.31.468-2.382 1.236-3.22-.124-.303-.536-1.524.116-3.176 0 0 1.008-.322 3.3 1.23.957-.266 1.984-.399 3.004-.404 1.02.005 2.047.138 3.005.404 2.292-1.552 3.298-1.23 3.298-1.23.653 1.652.24 2.873.118 3.176.77.838 1.235 1.91 1.235 3.22 0 4.61-2.807 5.624-5.48 5.92.43.372.814 1.103.814 2.222 0 1.604-.015 2.896-.015 3.29 0 .319.192.694.8.576C20.565 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
-                </svg>
-                Source Code
-              </span>
-            </NavLink>
+          <div className="md:hidden border-t border-slate-800 bg-ink px-5 py-4">
+            {[...navLinks, { to: '/source-code', label: 'Source code', end: false }, { to: '/try', label: 'Try it live', end: false }].map(
+              ({ to, label, end }, i) => (
+                <NavLink
+                  key={to}
+                  to={to}
+                  end={end}
+                  className={({ isActive }) =>
+                    'flex items-baseline gap-4 py-3 border-b border-slate-800/80 display text-4xl ' +
+                    (isActive ? 'text-amber-500' : 'text-paper')
+                  }
+                >
+                  <span className="font-mono text-[11px] text-slate-500">{String(i + 1).padStart(2, '0')}</span>
+                  {label}
+                </NavLink>
+              ),
+            )}
           </div>
         )}
       </header>
 
-      <main className="flex-1">
-        <div className="max-w-[96rem] mx-auto px-4 py-10">{children}</div>
+      <main className="flex-1 relative z-10">
+        {fullBleed ? children : <div className="max-w-[88rem] mx-auto px-5 md:px-8 py-12 md:py-16">{children}</div>}
       </main>
 
-      <footer className="border-t border-slate-800 bg-black/90 text-xs text-slate-500">
-        <div className="max-w-[96rem] mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-2">
-          <span>
-            Built by{' '}
-            <a href="https://github.com/0xbbuddha" target="_blank" rel="noreferrer"
-              className="text-slate-300 hover:text-amber-400 transition-colors underline-offset-2 hover:underline">
-              Killian Prin-Abeil
-            </a>{' '}&{' '}
-            <a href="https://github.com/Goultarde" target="_blank" rel="noreferrer"
-              className="text-slate-300 hover:text-amber-400 transition-colors underline-offset-2 hover:underline">
-              Harouna Coulibaly
-            </a>
-          </span>
-          <span className="text-slate-600">90% coffee, 10% exploits. 100% pigeons.</span>
+      <footer className="relative z-10 border-t border-slate-800 bg-ink overflow-hidden">
+        <div className="max-w-[88rem] mx-auto px-5 md:px-8 pt-16 pb-8">
+          <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+            <div className="space-y-5 max-w-sm">
+              <p className="display text-3xl text-paper leading-tight">
+                Open-source offensive tooling,{' '}
+                <span className="stencil text-amber-500">hand-delivered.</span>
+              </p>
+              <p className="text-sm text-slate-400 leading-relaxed">
+                No telemetry, no licence key, no black box. Just Dockerfiles, a CLI, and a flock of
+                pigeons with better opsec than most.
+              </p>
+            </div>
+            {footerLinks.map((col) => (
+              <div key={col.title} className="space-y-4">
+                <p className="eyebrow">{col.title}</p>
+                <ul className="space-y-2.5">
+                  {col.links.map((l) => (
+                    <li key={l.to}>
+                      <Link to={l.to} className="text-sm text-slate-300 hover:text-amber-500 transition-colors">
+                        {l.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+            <div className="space-y-4">
+              <p className="eyebrow">Elsewhere</p>
+              <ul className="space-y-2.5">
+                <li>
+                  <a href="https://github.com/TheNullPigeons" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm text-slate-300 hover:text-amber-500 transition-colors">
+                    <GithubIcon className="w-3.5 h-3.5" /> GitHub
+                  </a>
+                </li>
+                <li>
+                  <a href="https://discord.gg/YzjaNpRRPX" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm text-slate-300 hover:text-amber-500 transition-colors">
+                    <DiscordIcon className="w-3.5 h-3.5" /> Discord
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-6 bg-amber-500 text-ink select-none overflow-hidden" aria-hidden>
+          <div className="@container max-w-[88rem] mx-auto px-5 md:px-8">
+            {/* Line-height equals the cap height (0.81em), so equal padding centres the capitals vertically.
+                The ink is 6.55em wide; sizing in cqw makes it fill the container exactly. */}
+            <p className="display whitespace-nowrap text-center leading-[0.81] pt-[0.13em] pb-[0.10em] text-[length:calc(100cqw/6.6)]">
+              TheNull<span className="stencil">Pigeons</span>
+            </p>
+          </div>
+        </div>
+
+        <div className="border-t border-slate-800">
+          <div className="max-w-[88rem] mx-auto px-5 md:px-8 py-4 flex flex-wrap items-center justify-between gap-3 font-mono text-[11px] text-slate-500">
+            <span>
+              Built by{' '}
+              <a href="https://github.com/0xbbuddha" target="_blank" rel="noreferrer" className="text-slate-300 hover:text-amber-500 transition-colors">
+                Killian Prin-Abeil
+              </a>{' '}&amp;{' '}
+              <a href="https://github.com/Goultarde" target="_blank" rel="noreferrer" className="text-slate-300 hover:text-amber-500 transition-colors">
+                Harouna Coulibaly
+              </a>
+            </span>
+            <span>90% coffee · 10% exploits · 100% pigeons</span>
+          </div>
         </div>
       </footer>
     </div>

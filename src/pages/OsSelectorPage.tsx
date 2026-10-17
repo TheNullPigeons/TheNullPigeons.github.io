@@ -1,6 +1,7 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { LinuxLogo, AppleLogo, WindowsLogo } from '../components/OsLogos';
+import { ArrowRight, SectionLabel, Stamp } from '../components/Mail';
 
 const options = [
   {
@@ -8,7 +9,8 @@ const options = [
     label: 'Linux',
     to: '/docs/installation/linux',
     Logo: LinuxLogo,
-    note: 'Fully supported. Recommended for best compatibility.',
+    note: 'Fully supported. Recommended for host networking and USB / wireless device access.',
+    status: 'Priority mail',
     available: true,
   },
   {
@@ -17,6 +19,7 @@ const options = [
     to: '/docs/installation/macos',
     Logo: AppleLogo,
     note: 'Supported. Apple Silicon runs the amd64 images under emulation.',
+    status: 'Standard mail',
     available: true,
   },
   {
@@ -24,52 +27,73 @@ const options = [
     label: 'Windows',
     to: '/docs/installation/windows',
     Logo: WindowsLogo,
-    note: 'Coming soon. Use WSL2 and follow the Linux guide in the meantime.',
-    available: false,
+    note: 'Supported through WSL2, with Docker Engine in the distribution or Docker Desktop.',
+    status: 'Via WSL2',
+    available: true,
   },
 ];
 
 export const OsSelectorPage: React.FC = () => {
-  const navigate = useNavigate();
-
   return (
-    <div className="min-h-[60vh] flex flex-col items-center justify-center space-y-10 py-16">
-      <header className="text-center space-y-3 max-w-xl">
-        <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Documentation</p>
-        <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
-          <span className="text-amber-400">Choose your platform</span>
-        </h1>
-        <p className="text-slate-400 text-sm">
-          Select your operating system to get started with Nihil.
+    <div className="space-y-14 py-6">
+      <header className="grid md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-6 items-end">
+        <div className="space-y-5">
+          <SectionLabel index="00">Documentation</SectionLabel>
+          <h1 className="text-5xl md:text-7xl font-bold display text-paper leading-[0.92]">
+            Where should we <span className="stencil text-amber-500">deliver?</span>
+          </h1>
+        </div>
+        <p className="text-slate-400 md:text-lg leading-relaxed max-w-md md:justify-self-end">
+          Pick your operating system. Each guide gets you from zero to a running Nihil container.
         </p>
       </header>
 
-      <div className="flex flex-col sm:flex-row gap-4 w-full max-w-2xl">
-        {options.map(({ id, label, to, Logo, note, available }) => (
-          <button
-            key={id}
-            type="button"
-            disabled={!available}
-            onClick={() => available && navigate(to)}
-            className={
-              'flex-1 flex flex-col items-center gap-4 rounded-2xl border p-8 transition-all duration-200 ' +
-              (available
-                ? 'border-slate-700 bg-slate-900/60 hover:border-amber-500/50 hover:bg-slate-800/80 cursor-pointer group'
-                : 'border-slate-800 bg-slate-900/30 opacity-50 cursor-not-allowed')
-            }
-          >
-            <Logo className={`w-12 h-12 ${available ? 'text-slate-300 group-hover:text-white' : 'text-slate-600'} transition-colors`} />
-            <span className={`text-lg font-semibold ${available ? 'text-white' : 'text-slate-500'}`}>
-              {label}
-            </span>
-            <span className="text-xs text-slate-500 text-center leading-relaxed">{note}</span>
-            {!available && (
-              <span className="text-[10px] uppercase tracking-widest text-slate-600 font-medium">
-                Coming soon
-              </span>
-            )}
-          </button>
-        ))}
+      <div className="grid md:grid-cols-3 gap-6">
+        {options.map(({ id, label, to, Logo, note, status, available }) => {
+          const body = (
+            <>
+              <div className="flex items-start justify-between gap-4">
+                <div className="space-y-1">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink/50">Deliver to</p>
+                  <p className="text-4xl font-bold display">{label}</p>
+                </div>
+                <Stamp tone="ink" className="w-20 h-24 shrink-0 rotate-[4deg]">
+                  <Logo className="w-9 h-9" />
+                </Stamp>
+              </div>
+              <div className="mt-8 space-y-2.5">
+                <div className="h-px bg-ink/20" />
+                <p className="text-sm leading-relaxed text-ink/75 min-h-[3rem]">{note}</p>
+                <div className="h-px bg-ink/20" />
+              </div>
+              <div className="mt-6 flex items-center justify-between">
+                <span
+                  className={
+                    'font-mono text-[10.5px] uppercase tracking-[0.16em] px-2 py-1 border ' +
+                    (available ? 'border-amber-600 text-amber-600' : 'border-ink/40 text-ink/50 -rotate-2')
+                  }
+                >
+                  {status}
+                </span>
+                {available && <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />}
+              </div>
+            </>
+          );
+
+          return available ? (
+            <Link
+              key={id}
+              to={to}
+              className="group airmail-frame block transition-transform duration-200 hover:-translate-y-1.5"
+            >
+              <div className="bg-paper text-ink p-6 md:p-7 h-full">{body}</div>
+            </Link>
+          ) : (
+            <div key={id} className="airmail-frame opacity-50 grayscale" aria-disabled>
+              <div className="bg-paper text-ink p-6 md:p-7 h-full">{body}</div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

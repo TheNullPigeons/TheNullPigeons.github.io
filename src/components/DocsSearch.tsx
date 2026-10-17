@@ -26,7 +26,7 @@ function useFilteredResults(query: string): SearchEntry[] {
   }, [query]);
 }
 
-export const DocsSearch: React.FC = () => {
+export const DocsSearch: React.FC<{ hotkey?: boolean }> = ({ hotkey = true }) => {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [activeIndex, setActiveIndex] = useState(0);
@@ -47,6 +47,7 @@ export const DocsSearch: React.FC = () => {
   };
 
   useEffect(() => {
+    if (!hotkey) return;
     const onKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
@@ -57,7 +58,7 @@ export const DocsSearch: React.FC = () => {
     };
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, []);
+  }, [hotkey]);
 
   useEffect(() => {
     if (open) {
@@ -88,24 +89,24 @@ export const DocsSearch: React.FC = () => {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="flex items-center gap-2 w-full px-3 py-2 rounded-lg text-left text-sm text-slate-400 bg-slate-950/60 border border-slate-800 hover:border-slate-700 hover:text-slate-200 transition-colors"
+        className="flex items-center gap-2.5 w-full px-3 py-2.5 text-left text-sm text-slate-400 bg-slate-950 border border-slate-800 hover:border-slate-500 hover:text-paper transition-colors"
       >
         <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35M19 11a8 8 0 11-16 0 8 8 0 0116 0z" />
         </svg>
         <span className="flex-1">Search docs</span>
-        <kbd className="hidden md:inline text-[10px] px-1.5 py-0.5 rounded border border-slate-700 text-slate-500">
+        <kbd className="hidden md:inline font-mono text-[10px] px-1.5 py-0.5 border border-slate-700 text-slate-500">
           Ctrl K
         </kbd>
       </button>
 
       {open && (
         <div
-          className="fixed inset-0 z-[100] flex items-start justify-center pt-24 px-4 bg-black/70 backdrop-blur-sm"
+          className="fixed inset-0 z-[100] flex items-start justify-center pt-24 px-4 bg-ink/80 backdrop-blur-sm"
           onClick={close}
         >
           <div
-            className="w-full max-w-lg rounded-xl border border-slate-700 bg-slate-900 shadow-2xl overflow-hidden"
+            className="w-full max-w-lg border border-slate-700 bg-slate-950 shadow-[10px_10px_0_rgba(0,0,0,0.6)] overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center gap-2 border-b border-slate-800 px-4 py-3">
@@ -120,7 +121,7 @@ export const DocsSearch: React.FC = () => {
                 placeholder="Search the docs..."
                 className="flex-1 bg-transparent text-sm text-slate-100 placeholder:text-slate-500 outline-none"
               />
-              <kbd className="text-[10px] px-1.5 py-0.5 rounded border border-slate-700 text-slate-500">Esc</kbd>
+              <kbd className="font-mono text-[10px] px-1.5 py-0.5 border border-slate-700 text-slate-500">Esc</kbd>
             </div>
 
             {query.trim() !== '' && (
@@ -136,13 +137,13 @@ export const DocsSearch: React.FC = () => {
                       onClick={() => go(entry)}
                       className={
                         'w-full text-left px-4 py-2.5 flex flex-col gap-0.5 transition-colors ' +
-                        (i === activeIndex ? 'bg-amber-500/10' : 'hover:bg-slate-800/60')
+                        (i === activeIndex ? 'bg-slate-900 shadow-[inset_2px_0_0_var(--color-airmail-red)]' : 'hover:bg-slate-900/60')
                       }
                     >
-                      <span className={'text-sm ' + (i === activeIndex ? 'text-amber-300' : 'text-slate-200')}>
+                      <span className={'text-sm ' + (i === activeIndex ? 'text-paper' : 'text-slate-300')}>
                         {entry.label}
                       </span>
-                      <span className="text-xs text-slate-500">{entry.page}</span>
+                      <span className="font-mono text-[10.5px] uppercase tracking-[0.12em] text-slate-500">{entry.page}</span>
                     </button>
                   </li>
                 ))}

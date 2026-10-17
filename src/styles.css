@@ -1,21 +1,238 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders:wght@500..900&family=Big+Shoulders+Stencil:wght@700..900&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
 @import "tailwindcss";
 
+/*
+ * Airmail theme.
+ * The legacy palette names (slate / amber / cyan) are remapped here so every
+ * page, including the long docs pages, picks up the new look without
+ * rewriting their utility classes:
+ *   slate -> warm ink & paper neutrals
+ *   amber -> airmail red (primary signal)
+ *   cyan  -> airmail blue (the logo's blue)
+ */
 @theme {
-  --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
-  --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
-  --font-mono: ui-monospace, 'SF Mono', monospace;
+  --font-sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-display: 'Big Shoulders', 'Arial Narrow', sans-serif;
+  --font-stencil: 'Big Shoulders Stencil', 'Big Shoulders', 'Arial Narrow', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
+
+  --color-ink: #0e0d0b;
+  --color-ink-2: #15140f;
+  --color-paper: #efe8d8;
+  --color-airmail-red: #ff4a2a;
+  --color-airmail-blue: #4c74ff;
+
+  --color-slate-50: #f8f5ee;
+  --color-slate-100: #efe8d8;
+  --color-slate-200: #ddd5c3;
+  --color-slate-300: #c3baa6;
+  --color-slate-400: #a09884;
+  --color-slate-500: #7c7565;
+  --color-slate-600: #5b564a;
+  --color-slate-700: #3e3b33;
+  --color-slate-800: #2a2823;
+  --color-slate-900: #1a1915;
+  --color-slate-950: #12110e;
+
+  --color-amber-50: #fff2ee;
+  --color-amber-100: #ffded5;
+  --color-amber-200: #ffbcab;
+  --color-amber-300: #ff917a;
+  --color-amber-400: #ff6446;
+  --color-amber-500: #ff4a2a;
+  --color-amber-600: #db3416;
+  --color-amber-700: #ae270f;
+  --color-amber-800: #7f1e0d;
+  --color-amber-900: #531409;
+  --color-amber-950: #2e0b05;
+
+  --color-cyan-50: #eef2ff;
+  --color-cyan-100: #dfe6ff;
+  --color-cyan-200: #c0cfff;
+  --color-cyan-300: #9cb2ff;
+  --color-cyan-400: #7893ff;
+  --color-cyan-500: #4c74ff;
+  --color-cyan-600: #3a58e6;
+  --color-cyan-700: #2d45b8;
+  --color-cyan-800: #233489;
+  --color-cyan-900: #19255c;
+  --color-cyan-950: #0f1636;
+
+  --color-white: #f6f1e6;
+
+  /* Sharp, printed-matter corners everywhere (pills stay rounded-full) */
+  --radius-sm: 2px;
+  --radius-md: 2px;
+  --radius-lg: 3px;
+  --radius-xl: 3px;
+  --radius-2xl: 4px;
+  --radius-3xl: 6px;
 }
 
 @layer base {
+  html {
+    color-scheme: dark;
+  }
   body {
     font-family: var(--font-sans);
-    @apply bg-black text-slate-100 antialiased;
+    background-color: var(--color-ink);
+    color: var(--color-slate-100);
+    font-optical-sizing: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
-  h1, h2, h3 {
+  h1, h2 {
     font-family: var(--font-display);
+    font-weight: 800;
   }
+  ::selection {
+    background: var(--color-airmail-red);
+    color: var(--color-ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-airmail-blue);
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  /* Film grain over the whole page: keeps the flat ink from looking digital */
+  .grain::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 60;
+    opacity: 0.07;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  /* Airmail envelope border: red / paper / blue / paper diagonal stripes */
+  .airmail {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      var(--color-airmail-red) 0 12px,
+      transparent 12px 20px,
+      var(--color-airmail-blue) 20px 32px,
+      transparent 32px 40px
+    );
+  }
+
+  .airmail-frame {
+    position: relative;
+    padding: 6px;
+    background-image: repeating-linear-gradient(
+      -45deg,
+      var(--color-airmail-red) 0 14px,
+      var(--color-paper) 14px 22px,
+      var(--color-airmail-blue) 22px 36px,
+      var(--color-paper) 36px 44px
+    );
+  }
+
+  /* Perforated postage-stamp edge */
+  .stamp {
+    --perf: 10px;
+    padding: calc(var(--perf) * 0.7);
+    -webkit-mask:
+      radial-gradient(circle closest-side, transparent 72%, #000 75%) calc(var(--perf) / -2) calc(var(--perf) / -2) / var(--perf) var(--perf) round,
+      linear-gradient(#000 0 0) content-box;
+    mask:
+      radial-gradient(circle closest-side, transparent 72%, #000 75%) calc(var(--perf) / -2) calc(var(--perf) / -2) / var(--perf) var(--perf) round,
+      linear-gradient(#000 0 0) content-box;
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-slate-400);
+  }
+
+  /* Condensed freight-label headline */
+  .display {
+    font-family: var(--font-display);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.005em;
+  }
+
+  /* Stencilled accent words, like a crate marking */
+  .stencil {
+    font-family: var(--font-stencil);
+    font-weight: 800;
+    font-style: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.8rem 1.25rem;
+    background: var(--color-airmail-red);
+    color: var(--color-ink);
+    font-weight: 600;
+    font-size: 0.925rem;
+    border-radius: 2px;
+    box-shadow: 4px 4px 0 var(--color-paper);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn-primary:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--color-paper);
+  }
+  .btn-primary:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--color-paper);
+  }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.8rem 1.25rem;
+    border: 1px solid var(--color-slate-600);
+    color: var(--color-slate-100);
+    font-weight: 500;
+    font-size: 0.925rem;
+    border-radius: 2px;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .btn-ghost:hover {
+    border-color: var(--color-paper);
+    background: rgb(239 232 216 / 0.05);
+  }
+
+  .rule {
+    border-color: var(--color-slate-800);
+  }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes stampIn {
+  0% { opacity: 0; transform: scale(1.6) rotate(-14deg); }
+  60% { opacity: 1; transform: scale(0.96) rotate(-9deg); }
+  100% { opacity: 1; transform: scale(1) rotate(-10deg); }
+}
+.animate-stamp {
+  animation: stampIn 0.7s cubic-bezier(0.2, 0.9, 0.3, 1.2) 0.5s both;
+}
+
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-rise {
+  animation: riseIn 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 
 .animate-in-docs {
@@ -37,17 +254,6 @@
   animation: fadeSlideOut 0.35s ease-in forwards;
 }
 
-/* FAQ: hide default disclosure triangle so we can use our own chevron */
-.faq-summary {
-  list-style: none;
-}
-.faq-summary::-webkit-details-marker {
-  display: none;
-}
-.faq-summary::marker {
-  content: none;
-}
-
 @keyframes fadeSlideOut {
   from {
     opacity: 1;
@@ -59,58 +265,107 @@
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .animate-stamp,
+  .animate-rise,
+  .animate-in-docs,
+  .animate-\[marquee_60s_linear_infinite\] {
+    animation: none !important;
+  }
+}
+
+/* FAQ: hide default disclosure triangle so we can use our own marker */
+.faq-summary {
+  list-style: none;
+}
+.faq-summary::-webkit-details-marker {
+  display: none;
+}
+.faq-summary::marker {
+  content: none;
+}
+
 @layer components {
+  .docs-content h1 {
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.005em;
+    font-size: clamp(2.25rem, 4vw, 3.25rem);
+    line-height: 1;
+  }
+  .docs-content h2 {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    font-size: 1.6rem;
+  }
+
   .docs-content .code-shell {
-    border: 1px solid rgba(51, 65, 85, 0.8);
-    border-radius: 0.65rem;
+    border: 1px solid var(--color-slate-800);
+    border-radius: 3px;
     overflow: hidden;
-    background: rgba(2, 6, 23, 0.9);
-    box-shadow: 0 12px 30px rgba(2, 6, 23, 0.45);
+    background: #0a0a08;
   }
 
   .docs-content .code-shell-head {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.45rem 0.65rem;
-    border-bottom: 1px solid rgba(51, 65, 85, 0.9);
-    background: linear-gradient(90deg, rgba(15, 23, 42, 0.98), rgba(30, 41, 59, 0.75));
+    padding: 0.4rem 0.65rem 0.4rem 0.8rem;
+    border-bottom: 1px solid var(--color-slate-800);
+    background: var(--color-slate-950);
+    position: relative;
+  }
+
+  .docs-content .code-shell-head::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--color-airmail-red);
   }
 
   .docs-content .code-shell-lang {
-    font-size: 0.7rem;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: #94a3b8;
-    font-weight: 600;
+    letter-spacing: 0.16em;
+    color: var(--color-slate-500);
+    font-weight: 500;
   }
 
   .docs-content .code-shell-copy {
-    font-size: 0.72rem;
-    color: #f8fafc;
-    background: rgba(6, 182, 212, 0.2);
-    border: 1px solid rgba(6, 182, 212, 0.4);
-    border-radius: 0.45rem;
-    padding: 0.2rem 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-slate-300);
+    background: transparent;
+    border: 1px solid var(--color-slate-700);
+    border-radius: 2px;
+    padding: 0.2rem 0.55rem;
     cursor: pointer;
     transition: all 0.15s ease;
   }
 
   .docs-content .code-shell-copy:hover {
-    background: rgba(6, 182, 212, 0.35);
-    border-color: rgba(6, 182, 212, 0.7);
+    color: var(--color-ink);
+    background: var(--color-paper);
+    border-color: var(--color-paper);
   }
 
   .docs-content pre {
     border: 0 !important;
     border-radius: 0 !important;
-    background: linear-gradient(180deg, rgba(2, 6, 23, 0.95) 0%, rgba(15, 23, 42, 0.92) 100%) !important;
+    background: #0a0a08 !important;
     box-shadow: none;
-    padding: 0.75rem 0.85rem !important;
+    padding: 0.85rem 0.95rem !important;
     margin: 0;
     overflow-x: auto;
     scrollbar-width: thin;
-    scrollbar-color: rgba(100, 116, 139, 0.8) transparent;
+    scrollbar-color: var(--color-slate-700) transparent;
   }
 
   .docs-content pre::-webkit-scrollbar {
@@ -118,76 +373,77 @@
   }
 
   .docs-content pre::-webkit-scrollbar-thumb {
-    background: rgba(100, 116, 139, 0.8);
+    background: var(--color-slate-700);
     border-radius: 999px;
   }
 
   .docs-content pre code {
-    color: #e2e8f0;
+    font-family: var(--font-mono);
+    color: var(--color-slate-200);
     font-size: 0.78rem;
-    line-height: 1.5;
+    line-height: 1.6;
   }
 
   .docs-content pre code.hljs {
     background: transparent !important;
     padding: 0 !important;
-    color: #c0caf5;
+    color: var(--color-slate-200);
   }
 
   .docs-content .hljs-keyword,
   .docs-content .hljs-selector-tag {
-    color: #bb9af7;
-    font-weight: 600;
+    color: #8ea6ff;
+    font-weight: 500;
   }
 
   .docs-content .hljs-string {
-    color: #9ece6a;
+    color: #c8d48c;
   }
 
   .docs-content .hljs-number,
   .docs-content .hljs-literal,
   .docs-content .hljs-symbol {
-    color: #ff9e64;
+    color: #ff917a;
   }
 
   .docs-content .hljs-comment {
-    color: #565f89;
+    color: var(--color-slate-500);
     font-style: italic;
   }
 
   .docs-content .hljs-function .hljs-title,
   .docs-content .hljs-title.function_,
   .docs-content .hljs-title {
-    color: #7aa2f7;
+    color: #f3c98b;
   }
 
   .docs-content .hljs-built_in {
-    color: #e0af68;
+    color: #f3c98b;
   }
 
   .docs-content .hljs-type,
   .docs-content .hljs-class .hljs-title {
-    color: #2ac3de;
+    color: #8ea6ff;
   }
 
   .docs-content .hljs-params,
   .docs-content .hljs-variable,
   .docs-content .hljs-template-variable {
-    color: #c0caf5;
+    color: var(--color-slate-200);
   }
 
   .docs-content .hljs-attr,
   .docs-content .hljs-attribute {
-    color: #73daca;
+    color: #9cc9b8;
   }
 
   .docs-content .hljs-meta {
-    color: #f7768e;
+    color: #ff6446;
   }
 
   .docs-content .hljs-punctuation,
   .docs-content .hljs-operator {
-    color: #89ddff;
+    color: var(--color-slate-400);
   }
 
   .docs-content .cmd-line {
@@ -196,29 +452,31 @@
   }
 
   .docs-content .cmd-prompt {
-    color: #7dcfff;
+    color: var(--color-airmail-red);
     font-weight: 600;
   }
 
   .docs-content .cmd-bin {
-    color: #9ece6a;
+    color: var(--color-paper);
     font-weight: 600;
   }
 
   .docs-content .cmd-args {
-    color: #c0caf5;
+    color: var(--color-slate-300);
   }
 
   .docs-content .cmd-comment {
-    color: #565f89;
+    color: var(--color-slate-500);
     font-style: italic;
   }
 
   .docs-content code:not(pre code) {
-    background: rgba(15, 23, 42, 0.88);
-    border: 1px solid rgba(51, 65, 85, 0.7);
-    color: #fcd34d;
-    border-radius: 0.45rem;
-    padding: 0.12rem 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    background: var(--color-slate-900);
+    border: 1px solid var(--color-slate-800);
+    color: #ff917a;
+    border-radius: 2px;
+    padding: 0.08rem 0.35rem;
   }
 }

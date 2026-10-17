@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { GITHUB_USERNAMES } from '../config/teamAvatars';
+import { ArrowUpRight, DiscordIcon, GithubIcon, LinkedinIcon, Postmark, SectionLabel, Stamp } from '../components/Mail';
 
 const team = [
   {
@@ -23,6 +24,64 @@ const team = [
   },
 ];
 
+const audiences = [
+  {
+    title: 'Pentesters & Red Teamers',
+    desc: 'A ready-to-deploy offensive environment for real engagements: AD attacks, network recon, web testing. Reproducible, auditable, and yours to customize.',
+  },
+  {
+    title: 'CTF Players',
+    desc: "Spin up a fully loaded container in seconds and get straight to the challenge. No setup overhead, no missing tools, just nihil start ctf and you're in.",
+  },
+  {
+    title: 'Investigators',
+    desc: 'Hunt threats, triage malware, and investigate incidents with a purpose-built image. Chainsaw, hayabusa, capa, sleuthkit: just nihil start blueteam.',
+  },
+  {
+    title: 'Security Students',
+    desc: 'Learn offensive techniques in a clean, transparent environment. Every tool, every script is visible on GitHub. No black box to get lost in.',
+  },
+  {
+    title: 'Security Researchers',
+    desc: 'Isolate your work in dedicated containers per project. Arch-based images with full control over what goes in. Fork, tweak, and rebuild as you need.',
+  },
+];
+
+const philosophy = [
+  {
+    title: 'Transparency first',
+    desc: 'Everything lives on GitHub: Dockerfiles, scripts, CLI. No hidden layers, no mystery install. You can read, audit, and fork every line.',
+  },
+  {
+    title: 'No bloat',
+    desc: 'Lightweight Arch-based images. No tool gets in unless it earns its place. You know exactly what runs in your container.',
+  },
+  {
+    title: 'No lock-in',
+    desc: 'No telemetry, no account, no subscription, no dashboard. Pull the image, use it, break it, move on.',
+  },
+];
+
+// What the MIT licence allows, shown as a customs declaration.
+const declaration = [
+  { label: 'Personal use, labs and CTFs', allowed: true },
+  { label: 'Professional engagements', allowed: true },
+  { label: 'Commercial use, inside your company or for clients', allowed: true },
+  { label: 'Modify, fork and redistribute', allowed: true },
+  { label: 'Licence fee, seat count or key', allowed: false },
+  { label: 'Telemetry or account', allowed: false },
+];
+
+// Keep in sync with the licence file of each repository.
+const parcels = [
+  { name: 'nihil', licence: 'MIT' },
+  { name: 'nihil-images', licence: 'MIT' },
+  { name: 'nihil-history', licence: null },
+  { name: 'nihil-resources', licence: null },
+  { name: 'nihil-mcp', licence: null },
+  { name: 'nihil-ntp', licence: null },
+];
+
 async function fetchGitHubAvatar(username: string): Promise<string | null> {
   try {
     const res = await fetch(`https://api.github.com/users/${username}`, {
@@ -35,7 +94,6 @@ async function fetchGitHubAvatar(username: string): Promise<string | null> {
     return null;
   }
 }
-
 
 export const CommunityPage: React.FC = () => {
   const [avatarUrls, setAvatarUrls] = useState<Record<string, string>>({});
@@ -56,193 +114,249 @@ export const CommunityPage: React.FC = () => {
   }, []);
 
   return (
-    <div className="space-y-20">
-      <section className="text-center space-y-6 pt-4">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
-          <span className="text-amber-400">Community</span>
-        </h1>
-        <p className="text-slate-400 max-w-2xl mx-auto text-base md:text-lg">
-          A small team of practitioners. No SaaS, no paywall, just open code and feedback from the field.
-        </p>
-        <div className="flex flex-wrap justify-center gap-4 pt-2">
-          <Link
-            to="/source-code"
-            className="inline-flex items-center gap-3 px-6 py-3 rounded-xl border border-slate-700/80 bg-slate-900/50 hover:bg-slate-800/60 hover:border-amber-500/30 transition-all duration-200 group"
-          >
-            <svg className="w-6 h-6 text-slate-400 group-hover:text-amber-400 transition-colors" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 0C5.372 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.6.111.793-.261.793-.578 0-.285-.011-1.04-.016-2.04-3.338.726-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.73.083-.73 1.205.085 1.84 1.237 1.84 1.237 1.07 1.835 2.807 1.305 3.492.998.108-.776.418-1.305.76-1.605-2.665-.305-5.467-1.334-5.467-5.93 0-1.31.468-2.382 1.236-3.22-.124-.303-.536-1.524.116-3.176 0 0 1.008-.322 3.3 1.23.957-.266 1.984-.399 3.004-.404 1.02.005 2.047.138 3.005.404 2.292-1.552 3.298-1.23 3.298-1.23.653 1.652.24 2.873.118 3.176.77.838 1.235 1.91 1.235 3.22 0 4.61-2.807 5.624-5.48 5.92.43.372.814 1.103.814 2.222 0 1.604-.015 2.896-.015 3.29 0 .319.192.694.8.576C20.565 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
-            </svg>
-            <div className="text-left">
-              <span className="font-semibold text-white block">GitHub</span>
-              <span className="text-xs text-slate-400">Repos, issues & PRs</span>
-            </div>
-          </Link>
-          <a
-            href="https://discord.gg/YzjaNpRRPX"
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-3 px-6 py-3 rounded-xl border border-slate-700/80 bg-slate-900/50 hover:bg-slate-800/60 hover:border-amber-500/30 transition-all duration-200 group"
-          >
-            <svg className="w-6 h-6 text-slate-400 group-hover:text-amber-400 transition-colors" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z" />
-            </svg>
-            <div className="text-left">
-              <span className="font-semibold text-white block">Discord</span>
-              <span className="text-xs text-slate-400">Chat & support</span>
-            </div>
-          </a>
-        </div>
-      </section>
-
-      {/* Who is Nihil for */}
-      <section className="space-y-8">
-        <div className="text-center max-w-2xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-semibold text-white">Who is Nihil for?</h2>
-          <p className="text-slate-400 text-sm mt-2">
-            Built for people who work in offensive security, at any level.
+    <div className="space-y-24 md:space-y-32">
+      <header className="space-y-10">
+        <div className="space-y-5 max-w-4xl">
+          <SectionLabel index="00">Community</SectionLabel>
+          <h1 className="text-5xl md:text-8xl font-bold display text-paper leading-[0.9]">
+            A small flock. <br />
+            <span className="stencil text-amber-500">Open loft.</span>
+          </h1>
+          <p className="text-slate-400 md:text-lg leading-relaxed max-w-xl">
+            A small team of practitioners. No SaaS, no paywall, just open code and feedback from the field.
           </p>
         </div>
-        <div className="grid gap-4 sm:grid-cols-6 max-w-4xl mx-auto">
+
+        <div className="grid md:grid-cols-2 border-t border-l border-slate-800">
           {[
-            {
-              title: 'Pentesters & Red Teamers',
-              desc: 'Use Nihil as a ready-to-deploy offensive environment for real engagements: AD attacks, network recon, web testing. Reproducible, auditable, and yours to customize.',
-              col: 'sm:col-span-2',
-            },
-            {
-              title: 'CTF Players',
-              desc: "Spin up a fully loaded container in seconds and get straight to the challenge. No setup overhead, no missing tools, just nihil start ctf and you're in.",
-              col: 'sm:col-span-2',
-            },
-            {
-              title: 'Investigators',
-              desc: 'Hunt threats, triage malware, and investigate incidents with a purpose-built image. Chainsaw, hayabusa, capa, sleuthkit - just nihil start blueteam.',
-              col: 'sm:col-span-2',
-            },
-            {
-              title: 'Security Students',
-              desc: 'Learn offensive techniques in a clean, transparent environment. Every tool, every script is visible on GitHub. No magic, no black box to get lost in.',
-              col: 'sm:col-span-2 sm:col-start-2',
-            },
-            {
-              title: 'Security Researchers',
-              desc: 'Isolate your work in dedicated containers per project. Arch-based images with full control over what goes in. Fork, tweak, and rebuild as you need.',
-              col: 'sm:col-span-2',
-            },
-          ].map(({ title, desc, col }) => (
-            <div
-              key={title}
-              className={`${col} rounded-2xl border border-slate-700/80 bg-slate-900/50 p-6 space-y-2 hover:border-amber-500/30 hover:bg-slate-900/70 transition-all duration-200`}
-            >
-              <h3 className="font-semibold text-white">{title}</h3>
-              <p className="text-sm text-slate-400 leading-relaxed">{desc}</p>
-            </div>
-          ))}
+            { href: '/source-code', internal: true, Icon: GithubIcon, title: 'GitHub', sub: 'Repos, issues & pull requests' },
+            { href: 'https://discord.gg/YzjaNpRRPX', internal: false, Icon: DiscordIcon, title: 'Discord', sub: 'Chat, support & war stories' },
+          ].map(({ href, internal, Icon, title, sub }) => {
+            const inner = (
+              <>
+                <div className="flex items-start justify-between">
+                  <Icon className="w-7 h-7" />
+                  <ArrowUpRight className="w-6 h-6 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                </div>
+                <div className="mt-16">
+                  <p className="text-4xl md:text-6xl font-bold display">{title}</p>
+                  <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.16em] opacity-60">{sub}</p>
+                </div>
+              </>
+            );
+            const cls =
+              'group block p-7 md:p-10 border-r border-b border-slate-800 text-paper hover:bg-paper hover:text-ink transition-colors duration-300';
+            return internal ? (
+              <Link key={title} to={href} className={cls}>{inner}</Link>
+            ) : (
+              <a key={title} href={href} target="_blank" rel="noreferrer" className={cls}>{inner}</a>
+            );
+          })}
         </div>
+      </header>
+
+      <section className="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.7fr)] gap-12">
+        <div className="space-y-5 lg:sticky lg:top-28 self-start">
+          <SectionLabel index="01">Recipients</SectionLabel>
+          <h2 className="text-4xl md:text-6xl font-bold display text-paper leading-[0.95]">
+            Who is <span className="stencil text-amber-500">Nihil</span> for?
+          </h2>
+          <p className="text-slate-400 leading-relaxed max-w-sm">
+            Built for people who work in security, at any level.
+          </p>
+        </div>
+        <ol className="border-t border-slate-800">
+          {audiences.map((a, i) => (
+            <li key={a.title} className="group grid grid-cols-[2.5rem_minmax(0,1fr)] gap-x-4 py-7 border-b border-slate-800">
+              <span className="font-mono text-xs text-slate-500 pt-2 group-hover:text-amber-500 transition-colors">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <div className="space-y-2">
+                <h3 className="text-2xl md:text-3xl font-semibold display text-paper">{a.title}</h3>
+                <p className="text-slate-400 leading-relaxed max-w-2xl">{a.desc}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
       </section>
 
-      <section className="space-y-10">
-        <h2 className="text-2xl md:text-3xl font-semibold text-white text-center">
-          The Null Hackers
-        </h2>
-        <p className="text-slate-400 text-sm text-center max-w-xl mx-auto">
-          Two hackers who built the tools they actually needed.
-        </p>
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {team.map((member) => {
+      <section className="space-y-12">
+        <div className="grid md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-6 items-end">
+          <div className="space-y-5">
+            <SectionLabel index="02">The Null Hackers</SectionLabel>
+            <h2 className="text-4xl md:text-6xl font-bold display text-paper leading-[0.95]">
+              Two hackers, <br />
+              <span className="stencil text-amber-500">one loft.</span>
+            </h2>
+          </div>
+          <p className="text-slate-400 md:text-lg leading-relaxed max-w-md md:justify-self-end">
+            We built the tools we actually needed on engagements, then kept going.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {team.map((member, i) => {
             const avatarUrl = avatarUrls[member.id];
             return (
-              <a
-                key={member.github}
-                href={member.github}
-                target="_blank"
-                rel="noreferrer"
-                className="group flex flex-col sm:flex-row items-center sm:items-start gap-6 p-6 rounded-2xl border border-slate-700/80 bg-slate-900/50 hover:bg-slate-800/60 hover:border-amber-500/30 transition-all duration-300"
-              >
-                <div className="flex-shrink-0 w-24 h-24 rounded-full border-2 border-slate-700 group-hover:border-amber-500/50 overflow-hidden bg-slate-800 flex items-center justify-center transition-colors">
-                  {avatarUrl ? (
-                    <img
-                      src={avatarUrl}
-                      alt={member.name}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <span className="text-3xl font-bold text-amber-400/90">
-                      {member.initial}
-                    </span>
-                  )}
-                </div>
-                <div className="flex-1 text-center sm:text-left">
-                  <h3 className="text-xl font-semibold text-white group-hover:text-amber-300 transition-colors">
-                    {member.name}
-                  </h3>
-                  <p className="text-amber-400/90 text-sm mt-0.5">
-                    @{member.handle} · {member.role}
-                  </p>
-                  <div className="mt-3 flex justify-center sm:justify-start gap-3">
-                    <a
-                      href={member.github}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center justify-center h-8 w-8 rounded-full border border-slate-700 bg-slate-900 text-slate-300 hover:border-amber-400 hover:text-amber-300 transition-colors"
-                      aria-label={`${member.name} on GitHub`}
-                    >
-                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden>
-                        <path d="M12 0C5.372 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.6.111.793-.261.793-.578 0-.285-.011-1.04-.016-2.04-3.338.726-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.73.083-.73 1.205.085 1.84 1.237 1.84 1.237 1.07 1.835 2.807 1.305 3.492.998.108-.776.418-1.305.76-1.605-2.665-.305-5.467-1.334-5.467-5.93 0-1.31.468-2.382 1.236-3.22-.124-.303-.536-1.524.116-3.176 0 0 1.008-.322 3.3 1.23.957-.266 1.984-.399 3.004-.404 1.02.005 2.047.138 3.005.404 2.292-1.552 3.298-1.23 3.298-1.23.653 1.652.24 2.873.118 3.176.77.838 1.235 1.91 1.235 3.22 0 4.61-2.807 5.624-5.48 5.92.43.372.814 1.103.814 2.222 0 1.604-.015 2.896-.015 3.29 0 .319.192.694.8.576C20.565 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
-                      </svg>
-                    </a>
-                    <a
-                      href={member.linkedin}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center justify-center h-8 w-8 rounded-full border border-slate-700 bg-slate-900 text-slate-300 hover:border-amber-400 hover:text-amber-300 transition-colors"
-                      aria-label={`${member.name} on LinkedIn`}
-                    >
-                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-                        <path d="M4.983 3.5C4.983 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.983 2.12 4.983 3.5zM.25 8.25h4.5v15.5H.25V8.25zM8.75 8.25h4.31v2.12h.06c.6-1.14 2.07-2.34 4.27-2.34 4.56 0 5.4 3 5.4 6.9v8.82h-4.5v-7.82c0-1.87-.03-4.27-2.6-4.27-2.6 0-3 2.03-3 4.13v7.96h-4.5V8.25z" />
-                      </svg>
-                    </a>
+              <article key={member.github} className="airmail-frame">
+                <div className="relative bg-paper text-ink p-6 md:p-8 overflow-hidden">
+                  <Postmark
+                    top="THENULLPIGEONS"
+                    bottom={`AGENT ${String(i + 1).padStart(3, '0')}`}
+                    center={member.initial}
+                    className="absolute -right-16 -bottom-6 w-80 text-ink/[0.08] -rotate-12"
+                  />
+                  <div className="relative flex flex-col sm:flex-row gap-6 items-start">
+                    <Stamp tone="ink" className="w-28 h-32 md:w-32 md:h-36 shrink-0 -rotate-3">
+                      {avatarUrl ? (
+                        <img src={avatarUrl} alt={member.name} className="w-full h-full object-cover grayscale contrast-125" />
+                      ) : (
+                        <span className="text-4xl font-bold text-amber-500">{member.initial}</span>
+                      )}
+                    </Stamp>
+                    <div className="min-w-0 space-y-3 pt-1">
+                      <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink/50">
+                        Agent {String(i + 1).padStart(3, '0')} · {member.role}
+                      </p>
+                      <h3 className="text-2xl md:text-3xl font-bold display leading-tight">{member.name}</h3>
+                      <p className="font-mono text-sm text-amber-600">@{member.handle}</p>
+                      <div className="flex gap-2 pt-2">
+                        <a
+                          href={member.github}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-2 h-9 px-3 border border-ink/30 font-mono text-[11px] uppercase tracking-[0.12em] hover:bg-ink hover:text-paper transition-colors"
+                          aria-label={`${member.name} on GitHub`}
+                        >
+                          <GithubIcon className="w-3.5 h-3.5" /> GitHub
+                        </a>
+                        <a
+                          href={member.linkedin}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-2 h-9 px-3 border border-ink/30 font-mono text-[11px] uppercase tracking-[0.12em] hover:bg-ink hover:text-paper transition-colors"
+                          aria-label={`${member.name} on LinkedIn`}
+                        >
+                          <LinkedinIcon className="w-3.5 h-3.5" /> LinkedIn
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </a>
+              </article>
             );
           })}
         </div>
       </section>
 
-      {/* Philosophy */}
-      <section className="space-y-8">
-        <div className="text-center max-w-2xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-semibold text-white">Our Philosophy</h2>
-        </div>
-        <div className="grid gap-4 md:grid-cols-3 max-w-4xl mx-auto">
-          {[
-            {
-              title: 'Transparency first',
-              desc: 'Everything lives on GitHub: Dockerfiles, scripts, CLI. No hidden layers, no mystery install. You can read, audit, and fork every line.',
-            },
-            {
-              title: 'No bloat',
-              desc: 'Lightweight Arch-based images. No tool gets in unless it earns its place. You know exactly what runs in your container.',
-            },
-            {
-              title: 'No lock-in',
-              desc: 'No telemetry, no account, no subscription, no dashboard. Pull the image, use it, break it, move on.',
-            },
-          ].map(({ title, desc }) => (
+      <section className="space-y-12">
+        <SectionLabel index="03">Our philosophy</SectionLabel>
+        <div className="grid md:grid-cols-3 border-t border-slate-800">
+          {philosophy.map(({ title, desc }, i) => (
             <div
               key={title}
-              className="rounded-2xl border border-slate-700/80 bg-slate-900/50 p-6 space-y-2 hover:border-amber-500/30 hover:bg-slate-900/70 transition-all duration-200"
+              className={'py-8 md:py-10 space-y-4 ' + (i > 0 ? 'md:pl-8 md:border-l border-slate-800 border-t md:border-t-0' : '') + (i < 2 ? ' md:pr-8' : '')}
             >
-              <h3 className="font-semibold text-amber-400">{title}</h3>
-              <p className="text-sm text-slate-400 leading-relaxed">{desc}</p>
+              <h3 className="stencil text-4xl text-amber-500">{title}</h3>
+              <p className="text-slate-400 leading-relaxed">{desc}</p>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="rounded-2xl border border-dashed border-slate-700 bg-slate-950/60 p-6 text-sm text-slate-400 space-y-2 max-w-3xl mx-auto">
-        <p>
+      <section className="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] gap-12 items-start">
+        <div className="space-y-6">
+          <SectionLabel index="04">Customs declaration</SectionLabel>
+          <h2 className="display text-4xl md:text-6xl text-paper leading-[0.95]">
+            Open source. <br />
+            <span className="stencil text-amber-500">Nothing hidden.</span>
+          </h2>
+          <p className="text-slate-400 leading-relaxed max-w-md">
+            The Nihil CLI and the images are released under the MIT licence. Use them for your own lab, on paid
+            engagements or inside your company. The only condition is to keep the copyright notice.
+          </p>
+          <p className="text-slate-400 leading-relaxed max-w-md">
+            Everything is built in public on GitHub: issues, pull requests and the image build pipeline.
+            Contributions are welcome, never required.
+          </p>
+          <Link to="/docs/contributing" className="inline-flex items-center gap-2 text-sm text-slate-300 hover:text-amber-500 transition-colors">
+            How to contribute <ArrowUpRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+
+        <div className="airmail-frame">
+          <div className="bg-paper text-ink">
+            <div className="flex items-baseline justify-between gap-4 px-5 md:px-7 pt-5 pb-4 border-b-2 border-ink">
+              <p className="display text-2xl md:text-3xl leading-none">Customs declaration</p>
+              <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink/55 whitespace-nowrap">Form TNP-01</p>
+            </div>
+
+            <div className="px-5 md:px-7 py-4 border-b border-ink/25">
+              <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink/55 mb-3">Permitted uses</p>
+              <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-2.5">
+                {declaration.map((d) => (
+                  <li key={d.label} className="flex items-start gap-3 text-[14px] leading-snug">
+                    <span
+                      className={
+                        'mt-[1px] w-4 h-4 shrink-0 border-[1.5px] border-ink flex items-center justify-center font-mono text-[11px] leading-none font-bold ' +
+                        (d.allowed ? 'text-amber-600' : 'text-ink/30')
+                      }
+                      aria-hidden
+                    >
+                      {d.allowed ? '✓' : ''}
+                    </span>
+                    <span className={d.allowed ? '' : 'text-ink/50 line-through decoration-ink/40'}>
+                      {d.label}
+                      <span className="sr-only">{d.allowed ? ' (allowed)' : ' (none)'}</span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <table className="w-full text-left">
+              <thead>
+                <tr className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink/55">
+                  <th className="font-normal px-5 md:px-7 pt-4 pb-2">Contents</th>
+                  <th className="font-normal px-5 md:px-7 pt-4 pb-2 text-right">Licence</th>
+                </tr>
+              </thead>
+              <tbody>
+                {parcels.map((r) => (
+                  <tr key={r.name} className="border-t border-ink/15">
+                    <td className="px-5 md:px-7 py-2.5">
+                      <a
+                        href={`https://github.com/TheNullPigeons/${r.name}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="font-mono text-[13.5px] hover:text-amber-600 transition-colors"
+                      >
+                        {r.name}
+                      </a>
+                    </td>
+                    <td className="px-5 md:px-7 py-2.5 text-right">
+                      {r.licence ? (
+                        <span className="font-mono text-[11px] font-semibold px-1.5 py-0.5 border border-ink">{r.licence}</span>
+                      ) : (
+                        <span className="font-mono text-[11px] text-ink/50">licence pending</span>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            <div className="flex items-center justify-between gap-4 px-5 md:px-7 py-4 mt-1 border-t-2 border-ink">
+              <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink/55">Value declared</p>
+              <p className="display text-3xl leading-none">0.00</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="border border-dashed border-slate-700 p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-4 md:gap-10">
+        <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-amber-500 shrink-0">P.S.</p>
+        <p className="text-slate-300 leading-relaxed">
           Found a bug or have an idea? Open an issue or a PR. If TheNullPigeons helped on an engagement,
           we&apos;d love to hear it, especially if something broke in a fun way.
         </p>

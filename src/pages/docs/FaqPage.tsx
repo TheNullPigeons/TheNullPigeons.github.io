@@ -29,7 +29,7 @@ export const FaqPage: React.FC = () => {
           <section id="tldr">
             <TldrBlock
               items={[
-                'Linux is the reference platform; Windows should use WSL2.',
+                'Linux is the reference platform; Windows is supported through WSL2.',
                 'Most runtime issues are resolved by nihil doctor + Docker checks.',
                 'Use --workspace for persistent project files.',
                 'Use --privileged only when required by tooling.',
@@ -41,7 +41,7 @@ export const FaqPage: React.FC = () => {
             <h2 className="text-xl font-semibold text-white">Installation</h2>
 
             <Q q="Does Nihil work on Windows?">
-              <p>Nihil runs best on Linux. On Windows, use WSL2 with Docker Desktop.</p>
+              <p>Yes, through WSL2. Install nihil inside a WSL2 distribution with either Docker Engine in that distribution (recommended, host network mode works) or Docker Desktop with the WSL2 backend. See the <a href="/docs/installation/windows" className="text-amber-400 hover:underline">Windows install guide</a>.</p>
             </Q>
 
             <Q q="pipx is not available, what do I do?">
