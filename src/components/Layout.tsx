@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { SeoMeta } from './SeoMeta';
 import { AirmailBar, ArrowUpRight, DiscordIcon, GithubIcon } from './Mail';
 
@@ -22,7 +22,7 @@ const footerLinks = [
       { to: '/docs', label: 'Install' },
       { to: '/docs/usage', label: 'CLI reference' },
       { to: '/docs/images', label: 'Images' },
-      { to: '/try', label: 'Online demo' },
+      { to: '/#transmissions', label: 'Watch it work' },
     ],
   },
   {
@@ -39,9 +39,21 @@ const footerLinks = [
 export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const fullBleed = location.pathname === '/';
 
   React.useEffect(() => { setMenuOpen(false); }, [location]);
+
+  // Scroll to the home demo reel; navigate home first when on another page.
+  const watchDemos = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setMenuOpen(false);
+    if (location.pathname === '/') {
+      document.getElementById('transmissions')?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      navigate('/#transmissions');
+    }
+  };
 
   return (
     <div className="grain min-h-screen bg-ink text-slate-100 flex flex-col relative">
@@ -90,13 +102,14 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
             >
               <GithubIcon className="w-[18px] h-[18px]" />
             </NavLink>
-            <Link
-              to="/try"
+            <a
+              href="/#transmissions"
+              onClick={watchDemos}
               className="flex items-center gap-2 h-9 px-3.5 bg-paper text-ink font-mono text-[11px] uppercase tracking-[0.14em] font-semibold hover:bg-amber-500 transition-colors"
             >
-              Try it live
+              Watch it work
               <ArrowUpRight className="w-3.5 h-3.5" />
-            </Link>
+            </a>
           </div>
 
           <button
@@ -112,7 +125,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
 
         {menuOpen && (
           <div className="md:hidden border-t border-slate-800 bg-ink px-5 py-4">
-            {[...navLinks, { to: '/source-code', label: 'Source code', end: false }, { to: '/try', label: 'Try it live', end: false }].map(
+            {[...navLinks, { to: '/source-code', label: 'Source code', end: false }].map(
               ({ to, label, end }, i) => (
                 <NavLink
                   key={to}

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Flock } from '../components/Flock';
 import { DemoReel, type Demo } from '../components/DemoReel';
 import { ArrowRight, ArrowUpRight, Postmark, SectionLabel, Stamp } from '../components/Mail';
@@ -126,6 +126,17 @@ const CopyCommand: React.FC<{ command: string }> = ({ command }) => {
 };
 
 export const HomePage: React.FC = () => {
+  const location = useLocation();
+
+  // Smooth-scroll to the demo reel when arriving at /#transmissions.
+  useEffect(() => {
+    if (location.hash === '#transmissions') {
+      requestAnimationFrame(() => {
+        document.getElementById('transmissions')?.scrollIntoView({ behavior: 'smooth' });
+      });
+    }
+  }, [location.hash]);
+
   return (
     <div>
       {/* ───────────── Hero ───────────── */}
@@ -254,9 +265,9 @@ export const HomePage: React.FC = () => {
             </div>
             <p className="text-slate-400 md:text-lg leading-relaxed max-w-md md:justify-self-end">
               Three unedited terminal recordings. Pick one, or let the reel run.
-              Want to type the commands yourself?{' '}
-              <Link to="/try" className="text-paper underline decoration-amber-500 decoration-2 underline-offset-4 hover:text-amber-500">
-                Open the online demo
+              Ready to run them yourself?{' '}
+              <Link to="/docs" className="text-paper underline decoration-amber-500 decoration-2 underline-offset-4 hover:text-amber-500">
+                Install Nihil
               </Link>
               .
             </p>

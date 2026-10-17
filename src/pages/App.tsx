@@ -5,7 +5,6 @@ import { DocsLayout } from '../components/DocsLayout';
 import { HomePage } from './HomePage';
 import { CommunityPage } from './CommunityPage';
 import { PricingPage } from './PricingPage';
-import { TryItPage } from './TryItPage';
 import { OsSelectorPage } from './OsSelectorPage';
 import { InstallationPage } from './docs/InstallationPage';
 import { InstallMacosPage } from './docs/InstallMacosPage';
@@ -39,7 +38,8 @@ export const App: React.FC = () => {
         <Route path="/community" element={<CommunityPage />} />
         <Route path="/pricing" element={<PricingPage />} />
         <Route path="/source-code" element={<SourceCodePage />} />
-        <Route path="/try" element={<TryItPage />} />
+        {/* /try (terminal simulator) removed; the home demo reel is the live showcase */}
+        <Route path="/try" element={<Navigate to="/#transmissions" replace />} />
 
         {/* Legacy redirects */}
         <Route path="/install" element={<Navigate to="/docs" replace />} />
