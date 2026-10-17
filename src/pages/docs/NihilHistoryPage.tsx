@@ -265,6 +265,8 @@ nhi export markdown              # print to stdout`}
               Interactive interface built with Textual for browsing and editing engagement data.
               It opens below your command by default, keeping terminal history visible. Use <code>--full</code> for fullscreen mode.
               Tab transitions take 200 ms. Switching tabs clears the current search filter.
+              Switching tabs with 1–4 or F1–F4 keeps the table focused. Up/down arrows and j/k return focus to the table and move between rows.
+              Inline tables measure column widths before painting refreshed rows, so IPs and other values remain fully visible from the first frame after adding or editing data.
               Keyboard help keeps a scrollable content area on short terminals, with a compact close button.
             </p>
             <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
@@ -272,7 +274,9 @@ nhi export markdown              # print to stdout`}
 nhit             # Shortcut for the interface
 nhi tui --full   # Fullscreen
 nhit --full
-nhitf            # Fullscreen shortcut installed with nihil-history`}
+nhitf            # Fullscreen shortcut installed with nihil-history
+nhi -h           # Help (-h / --help also work on subcommands)
+nhit -h          # Interface launch options`}
             </pre>
 
             <h3 className="text-base font-medium text-white mt-6">Tabs</h3>
@@ -288,7 +292,8 @@ nhitf            # Fullscreen shortcut installed with nihil-history`}
                 <tbody className="text-slate-300">
                   <tr className="border-b border-slate-800/40"><td className="py-1.5 pr-3 font-medium">Credentials</td><td className="py-1.5 pr-3 text-amber-300 font-mono">1</td><td className="py-1.5 text-slate-400">All credentials for the active engagement</td></tr>
                   <tr className="border-b border-slate-800/40"><td className="py-1.5 pr-3 font-medium">Hosts</td><td className="py-1.5 pr-3 text-amber-300 font-mono">2</td><td className="py-1.5 text-slate-400">All hosts for the active engagement</td></tr>
-                  <tr className="border-b border-slate-800/40"><td className="py-1.5 pr-3 font-medium">Access Matrix</td><td className="py-1.5 pr-3 text-amber-300 font-mono">3</td><td className="py-1.5 text-slate-400">Credential/host/protocol access grid</td></tr>
+                  <tr className="border-b border-slate-800/40"><td className="py-1.5 pr-3 font-medium">Targets</td><td className="py-1.5 pr-3 text-amber-300 font-mono">3</td><td className="py-1.5 text-slate-400">Active Directory targets</td></tr>
+                  <tr className="border-b border-slate-800/40"><td className="py-1.5 pr-3 font-medium">Access Matrix</td><td className="py-1.5 pr-3 text-amber-300 font-mono">4</td><td className="py-1.5 text-slate-400">Credential/host/protocol access grid</td></tr>
                 </tbody>
               </table>
             </div>
@@ -306,7 +311,7 @@ nhitf            # Fullscreen shortcut installed with nihil-history`}
                   {[
                     ['q / Ctrl+q', 'Quit'],
                     ['r', 'Refresh all data'],
-                    ['1 / 2 / 3 / 4', 'Switch tabs'],
+                    ['1 / 2 / 3 / 4 or F1 / F2 / F3 / F4', 'Switch tabs and focus the table'],
                     ['← / → or h / l', 'Previous / next tab from a table'],
                     ['Ctrl+E', 'Open engagement manager'],
                     ['a', 'Add item (credential, host, or access link)'],
