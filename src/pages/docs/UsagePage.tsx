@@ -106,6 +106,16 @@ nihil start lab --log`}
           <section id="images" className="space-y-4">
             <h2 className="text-xl font-semibold text-white">Image lifecycle</h2>
             <p className="text-slate-400 text-sm">Pull, update, and remove images with explicit commands.</p>
+            <p className="text-slate-400 text-sm">
+              When installing upstream images from an interactive terminal on the <code>main</code> channel,
+              <code> nihil install</code> offers to switch to <code>dev</code> before downloading:
+              <code> y</code> saves the development channel for future image commands;
+              <code> n</code> keeps stable images for this installation (the default);
+              <code> never</code> keeps stable images and disables future channel prompts.
+              Set <code>image_sources.prompt_for_dev: true</code> in your config to enable the prompt again.
+              Non-interactive installs and personal image sources keep their configured channel without this prompt.
+              Use <code>nihil image channel main</code> to return to stable images.
+            </p>
             <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
 {`nihil install
 nihil install ad
@@ -122,6 +132,8 @@ nihil uninstall --unused`}
             </Callout>
             <Callout variant="note" title="Image status">
               <code>nihil image list</code> shows registry availability before an image is installed. <code>Update available</code> means a newer remote image can be pulled; <code>Updated</code> means your local image matches the registry.
+              Stable upstream images tagged <code>:latest</code> are displayed as <code>:main</code>.
+              For branch builds, their displayed version uses <code>main</code> even when the image was promoted from <code>dev</code>.
             </Callout>
             <Callout variant="warning" title="Removing containers and their data">
               <code>nihil remove &lt;name&gt;</code> deletes the container but keeps its <code>/workspace</code> on the

@@ -103,6 +103,13 @@ nihil image channel main`}
           <section id="pull-image" className="space-y-4">
             <h2 className="text-xl font-semibold text-white">Pull a Nihil image</h2>
             <p className="text-slate-400 text-sm">Pull interactively first, then pin a specific image when needed.</p>
+            <p className="text-slate-400 text-sm">
+              For upstream images on <code>main</code>, interactive installation offers to switch to the
+              development channel <code>dev</code>: <code>y</code> switches and saves your choice,
+              <code> n</code> keeps stable images for now (the default), and <code>never</code> keeps stable
+              images without asking again.
+              Switch back with <code>nihil image channel main</code>.
+            </p>
             <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
 {`nihil image list
 nihil install

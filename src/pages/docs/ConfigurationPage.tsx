@@ -102,6 +102,8 @@ image_sources:
               Switching sources changes which image tags and build source are considered active.
               The upstream channel defaults to <code>main</code> (the <code>:latest</code> tag).
               Select <code>dev</code> to pull <code>:dev</code> images; personal forks keep their own branch tags.
+              Choosing <code>never</code> during installation saves <code>image_sources.prompt_for_dev: false</code>.
+              Set it back to <code>true</code> to offer the development channel again.
             </p>
             <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
 {`nihil image status
@@ -113,6 +115,7 @@ nihil image channel main
 image_sources:
   active: upstream
   channel: main
+  prompt_for_dev: true
   upstream_repo: TheNullPigeons/nihil-images
   personal_repo: <owner>/nihil-images
   personal_branch: nihil/full-custom`}
