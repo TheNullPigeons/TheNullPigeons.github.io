@@ -176,9 +176,16 @@ nihil image switch personal
 # Use development images from the upstream repository
 nihil image channel dev
 nihil update
+# Build the upstream dev channel (requires workflow dispatch permissions)
+nihil image switch upstream
+nihil image build full --wait
 nihil image channel main`}
             </pre>
             <Callout variant="note" title="Build scope">
+              Builds target the active image source: the configured upstream repository on the selected
+              <code> main</code> or <code>dev</code> channel, or the configured personal repository and customization branch.
+              Your GitHub account must have permission to dispatch workflows in that repository. The workflow publishes
+              images to GHCR; upstream builds on <code>main</code> also update the stable tags, including <code>latest</code>.{' '}
               <code>nihil image build full</code> builds only the Full image. Running <code>nihil image build</code> without
               a variant requests all image variants. Add <code>--wait</code> to display a live progress bar based on
               completed GitHub Actions steps, the current step, elapsed time, and the final workflow result. The bar
