@@ -40,7 +40,7 @@ export const OsSelectorPage: React.FC = () => {
         <div className="space-y-5">
           <SectionLabel index="00">Documentation</SectionLabel>
           <h1 className="text-5xl md:text-7xl font-bold display text-paper leading-[0.92]">
-            Where should we <span className="stencil text-amber-500">deliver?</span>
+            Where should we <span className="stencil logo-blue-text">deliver?</span>
           </h1>
         </div>
         <p className="text-slate-400 md:text-lg leading-relaxed max-w-md md:justify-self-end">

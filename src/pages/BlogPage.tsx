@@ -13,7 +13,7 @@ export const BlogPage: React.FC = () => {
           <SectionLabel index="00">Dispatches</SectionLabel>
           <h1 className="text-5xl md:text-8xl font-bold display text-paper leading-[0.9]">
             Notes from <br />
-            <span className="stencil text-amber-500">the field.</span>
+            <span className="stencil logo-blue-text">the field.</span>
           </h1>
         </div>
         <p className="text-slate-400 md:text-lg leading-relaxed max-w-md md:justify-self-end">
@@ -26,7 +26,7 @@ export const BlogPage: React.FC = () => {
           <div className="bg-paper text-ink px-6 py-12 md:px-12 md:py-16 space-y-4">
             <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink/50">Inbox · 0 messages</p>
             <p className="text-3xl md:text-5xl font-bold display leading-tight">
-              No dispatches yet. <span className="stencil text-amber-600">Check back soon.</span>
+              No dispatches yet. <span className="stencil logo-blue-text">Check back soon.</span>
             </p>
             <p className="text-ink/60">We&apos;re writing. Pigeons don&apos;t type fast.</p>
           </div>

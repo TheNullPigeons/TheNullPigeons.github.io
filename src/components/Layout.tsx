@@ -80,11 +80,11 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
               <NavLink key={to} to={to} className={navLinkClass} end={end}>
                 {({ isActive }) => (
                   <>
-                    <span className={isActive ? 'text-amber-500' : 'text-slate-600 group-hover:text-amber-500 transition-colors'}>
+                    <span className={isActive ? 'text-cyan-400' : 'text-slate-600 group-hover:text-cyan-400 transition-colors'}>
                       {String(i + 1).padStart(2, '0')}
                     </span>
                     {label}
-                    {isActive && <span className="absolute left-3 right-3 -bottom-[13px] h-[2px] bg-amber-500" />}
+                    {isActive && <span className="absolute left-3 right-3 -bottom-[13px] h-[2px] bg-airmail-blue" />}
                   </>
                 )}
               </NavLink>
@@ -105,7 +105,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
             <a
               href="/#transmissions"
               onClick={watchDemos}
-              className="flex items-center gap-2 h-9 px-3.5 bg-paper text-ink font-mono text-[11px] uppercase tracking-[0.14em] font-semibold hover:bg-amber-500 transition-colors"
+              className="flex items-center gap-2 h-9 px-3.5 bg-[#236fbb] text-white font-mono text-[11px] uppercase tracking-[0.14em] font-semibold hover:bg-cyan-700 transition-colors"
             >
               Watch it work
               <ArrowUpRight className="w-3.5 h-3.5" />
@@ -155,7 +155,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
             <div className="space-y-5 max-w-sm">
               <p className="display text-3xl text-paper leading-tight">
                 Open-source offensive tooling,{' '}
-                <span className="stencil text-amber-500">hand-delivered.</span>
+                <span className="stencil logo-blue-text">hand-delivered.</span>
               </p>
               <p className="text-sm text-slate-400 leading-relaxed">
                 No telemetry, no licence key, no black box. Just Dockerfiles, a CLI, and a flock of

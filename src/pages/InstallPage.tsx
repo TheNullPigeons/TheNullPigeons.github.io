@@ -98,7 +98,7 @@ export const InstallPage: React.FC = () => {
       {/* Hero - TheNullPigeons présente son outil */}
       <header className="text-center space-y-4">
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-          <span className="text-amber-400">Discover our tool</span>
+          <span className="logo-blue-text">Discover our tool</span>
           <span className="block text-white text-xl md:text-2xl mt-2 font-normal text-slate-200">
             Nihil, our offensive environment, directly on your host.
           </span>

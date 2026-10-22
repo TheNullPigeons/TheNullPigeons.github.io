@@ -37,7 +37,7 @@ export const SourceCodePage: React.FC = () => {
           <SectionLabel index="00">Manifest</SectionLabel>
           <h1 className="text-5xl md:text-8xl font-bold display text-paper leading-[0.9]">
             Nothing to <br />
-            <span className="stencil text-amber-500">declare.</span>
+            <span className="stencil logo-blue-text">declare.</span>
           </h1>
         </div>
         <p className="text-slate-400 md:text-lg leading-relaxed max-w-md md:justify-self-end">

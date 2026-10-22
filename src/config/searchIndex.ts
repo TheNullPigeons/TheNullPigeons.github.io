@@ -91,10 +91,12 @@ export const searchIndex: SearchEntry[] = [
   { page: 'nihil-history', path: '/docs/nihil-history#engagements', label: 'Engagements' },
   { page: 'nihil-history', path: '/docs/nihil-history#credentials', label: 'Credentials' },
   { page: 'nihil-history', path: '/docs/nihil-history#hosts', label: 'Hosts' },
+  { page: 'nihil-history', path: '/docs/nihil-history#targets', label: 'AD targets and TARGET_* variables' },
+  { page: 'nihil-history', path: '/docs/nihil-history#env', label: 'Shell integration and selected credentials', keywords: ['env.sh', 'DC_IP', 'NT_HASH', 'bash', 'zsh', 'fish'] },
   { page: 'nihil-history', path: '/docs/nihil-history#access', label: 'Access links' },
   { page: 'nihil-history', path: '/docs/nihil-history#sync', label: 'Sync from tools' },
   { page: 'nihil-history', path: '/docs/nihil-history#export', label: 'Export reports' },
-  { page: 'nihil-history', path: '/docs/nihil-history#tui', label: 'TUI', keywords: ['terminal ui'] },
+  { page: 'nihil-history', path: '/docs/nihil-history#tui', label: 'TUI workflow and keyboard shortcuts', keywords: ['terminal ui', 'nhit', 'nhitf', 'engagement manager', 'visual selection', 'copy paste'] },
   { page: 'nihil-history', path: '/docs/nihil-history#storage', label: 'Data storage' },
   { page: 'nihil-history', path: '/docs/nihil-history#troubleshooting', label: 'Troubleshooting' },
 

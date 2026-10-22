@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 
 /**
- * A boids flock of pigeons. The pointer acts as a hawk: birds scatter away
+ * A boids flock of doves. The pointer acts as a hawk: birds scatter away
  * from it, then regroup. Pauses when off-screen and renders a single still
  * frame for users who prefer reduced motion.
  */
@@ -13,11 +13,11 @@ interface Bird {
   vy: number;
   phase: number;
   size: number;
-  red: boolean;
+  accent: boolean;
 }
 
-const PAPER = '239, 232, 216';
-const RED = '255, 74, 42';
+const PAPER = '243, 238, 229';
+const BLUE = '50, 180, 227';
 
 const VIEW_RADIUS = 60;
 const SEPARATION_RADIUS = 22;
@@ -35,31 +35,85 @@ function makeBirds(count: number, w: number, h: number): Bird[] {
       vx: Math.cos(angle) * speed,
       vy: Math.sin(angle) * speed,
       phase: Math.random() * Math.PI * 2,
-      size: 4 + Math.random() * 5,
-      red: i % 17 === 0,
+      size: 5 + Math.random() * 5,
+      accent: i % 17 === 0,
     };
   });
 }
 
 function drawBird(ctx: CanvasRenderingContext2D, b: Bird) {
   const heading = Math.atan2(b.vy, b.vx);
-  const flap = Math.sin(b.phase) * 0.55;
   const s = b.size;
-  const alpha = 0.35 + (s - 4) / 12;
+  const alpha = 0.4 + (s - 5) / 12;
 
   ctx.save();
   ctx.translate(b.x, b.y);
   ctx.rotate(heading);
-  ctx.strokeStyle = `rgba(${b.red ? RED : PAPER}, ${b.red ? 0.95 : alpha})`;
-  ctx.lineWidth = Math.max(1, s * 0.22);
-  ctx.lineCap = 'round';
-  ctx.lineJoin = 'round';
-  // Seen from above: body along the heading, wings sweeping back.
+  ctx.scale(s, s);
+  ctx.fillStyle = `rgba(${b.accent ? BLUE : PAPER}, ${b.accent ? 0.95 : alpha})`;
+
+  const spread = 0.85 + (Math.sin(b.phase) + 1) * 0.32;
   ctx.beginPath();
-  ctx.moveTo(-s * 0.9, -s * (0.9 + flap));
-  ctx.quadraticCurveTo(-s * 0.2, -s * 0.25, s * 0.5, 0);
-  ctx.quadraticCurveTo(-s * 0.2, s * 0.25, -s * 0.9, s * (0.9 + flap));
+  for (const side of [-1, 1]) {
+    ctx.save();
+    ctx.scale(1, side * spread);
+    ctx.moveTo(0.28, 0.2);
+    ctx.bezierCurveTo(0.72, 0.65, 0.62, 1.25, 0.3, 1.65);
+    ctx.quadraticCurveTo(0.14, 1.89, 0.07, 1.65);
+    ctx.lineTo(0.01, 1.4);
+    ctx.quadraticCurveTo(-0.04, 1.88, -0.2, 1.68);
+    ctx.lineTo(-0.22, 1.36);
+    ctx.quadraticCurveTo(-0.33, 1.75, -0.45, 1.5);
+    ctx.lineTo(-0.4, 1.2);
+    ctx.quadraticCurveTo(-0.6, 1.48, -0.66, 1.2);
+    ctx.lineTo(-0.55, 0.96);
+    ctx.quadraticCurveTo(-0.83, 1.17, -0.83, 0.92);
+    ctx.lineTo(-0.62, 0.66);
+    ctx.quadraticCurveTo(-0.86, 0.83, -0.83, 0.62);
+    ctx.quadraticCurveTo(-0.68, 0.34, -0.3, 0.18);
+    ctx.closePath();
+    ctx.restore();
+  }
+  ctx.moveTo(-0.35, -0.18);
+  ctx.lineTo(-0.98, -0.4);
+  ctx.quadraticCurveTo(-1.13, -0.32, -1.05, -0.2);
+  ctx.quadraticCurveTo(-1.24, -0.15, -1.12, 0);
+  ctx.quadraticCurveTo(-1.24, 0.15, -1.05, 0.2);
+  ctx.quadraticCurveTo(-1.13, 0.32, -0.98, 0.4);
+  ctx.lineTo(-0.35, 0.18);
+  ctx.closePath();
+  ctx.fill();
+
+  ctx.strokeStyle = `rgba(20, 20, 22, ${alpha * 0.3})`;
+  ctx.lineWidth = 0.035;
+  ctx.beginPath();
+  for (const side of [-1, 1]) {
+    for (const offset of [0, 0.22, 0.44]) {
+      ctx.moveTo(0.02, side * 0.34);
+      ctx.quadraticCurveTo(0.1 - offset, side * spread * 0.8, 0.04 - offset, side * spread * (1.55 - offset));
+    }
+  }
   ctx.stroke();
+
+  ctx.beginPath();
+  ctx.ellipse(0, 0, 0.56, 0.35, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.ellipse(0.4, 0, 0.23, 0.21, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(0.63, 0, 0.23, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = `rgba(20, 20, 22, ${b.accent ? 0.85 : alpha})`;
+  ctx.beginPath();
+  ctx.moveTo(0.8, -0.07);
+  ctx.lineTo(1.02, 0);
+  ctx.lineTo(0.8, 0.07);
+  ctx.closePath();
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(0.7, -0.08, 0.045, 0, Math.PI * 2);
+  ctx.fill();
   ctx.restore();
 }
 
@@ -92,7 +146,7 @@ export function Flock({ className = '' }: { className?: string }) {
     };
     resize();
 
-    const step = () => {
+    const step = (delta = 1) => {
       for (const b of birds) {
         let ax = 0, ay = 0;
         let cx = 0, cy = 0, avx = 0, avy = 0, sx = 0, sy = 0, n = 0;
@@ -135,16 +189,16 @@ export function Flock({ className = '' }: { className?: string }) {
         ax += (homeX - b.x) * 0.00004;
         ay += (homeY - b.y) * 0.00006;
 
-        b.vx += ax;
-        b.vy += ay;
+        b.vx += ax * delta;
+        b.vy += ay * delta;
         const speed = Math.hypot(b.vx, b.vy);
         const clamped = Math.min(Math.max(speed, MIN_SPEED), MAX_SPEED + (hawk.active ? 1.6 : 0));
         b.vx = (b.vx / speed) * clamped;
         b.vy = (b.vy / speed) * clamped;
 
-        b.x += b.vx;
-        b.y += b.vy;
-        b.phase += 0.18 + speed * 0.05;
+        b.x += b.vx * delta;
+        b.y += b.vy * delta;
+        b.phase += (0.18 + speed * 0.05) * delta;
 
         const m = 30;
         if (b.x < -m) b.x = w + m;
@@ -161,8 +215,11 @@ export function Flock({ className = '' }: { className?: string }) {
 
     let raf = 0;
     let visible = true;
-    const loop = () => {
-      step();
+    let previousTime: number | null = null;
+    const loop = (time: number) => {
+      const delta = previousTime === null ? 0 : Math.min((time - previousTime) / (1000 / 45), 1);
+      previousTime = time;
+      step(delta);
       render();
       raf = requestAnimationFrame(loop);
     };
@@ -180,6 +237,7 @@ export function Flock({ className = '' }: { className?: string }) {
     const observer = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
       cancelAnimationFrame(raf);
+      previousTime = null;
       if (visible && !reduceMotion) raf = requestAnimationFrame(loop);
     });
 

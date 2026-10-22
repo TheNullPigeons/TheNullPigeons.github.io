@@ -120,7 +120,7 @@ export const CommunityPage: React.FC = () => {
           <SectionLabel index="00">Community</SectionLabel>
           <h1 className="text-5xl md:text-8xl font-bold display text-paper leading-[0.9]">
             A small flock. <br />
-            <span className="stencil text-amber-500">Open loft.</span>
+            <span className="stencil logo-blue-text">Open loft.</span>
           </h1>
           <p className="text-slate-400 md:text-lg leading-relaxed max-w-xl">
             A small team of practitioners. No SaaS, no paywall, just open code and feedback from the field.
@@ -159,7 +159,7 @@ export const CommunityPage: React.FC = () => {
         <div className="space-y-5 lg:sticky lg:top-28 self-start">
           <SectionLabel index="01">Recipients</SectionLabel>
           <h2 className="text-4xl md:text-6xl font-bold display text-paper leading-[0.95]">
-            Who is <span className="stencil text-amber-500">Nihil</span> for?
+            Who is <span className="stencil logo-blue-text">Nihil</span> for?
           </h2>
           <p className="text-slate-400 leading-relaxed max-w-sm">
             Built for people who work in security, at any level.
@@ -186,7 +186,7 @@ export const CommunityPage: React.FC = () => {
             <SectionLabel index="02">The Null Hackers</SectionLabel>
             <h2 className="text-4xl md:text-6xl font-bold display text-paper leading-[0.95]">
               Two hackers, <br />
-              <span className="stencil text-amber-500">one loft.</span>
+              <span className="stencil logo-blue-text">one loft.</span>
             </h2>
           </div>
           <p className="text-slate-400 md:text-lg leading-relaxed max-w-md md:justify-self-end">
@@ -257,7 +257,7 @@ export const CommunityPage: React.FC = () => {
               key={title}
               className={'py-8 md:py-10 space-y-4 ' + (i > 0 ? 'md:pl-8 md:border-l border-slate-800 border-t md:border-t-0' : '') + (i < 2 ? ' md:pr-8' : '')}
             >
-              <h3 className="stencil text-4xl text-amber-500">{title}</h3>
+              <h3 className="stencil text-4xl logo-blue-text">{title}</h3>
               <p className="text-slate-400 leading-relaxed">{desc}</p>
             </div>
           ))}
@@ -269,7 +269,7 @@ export const CommunityPage: React.FC = () => {
           <SectionLabel index="04">Customs declaration</SectionLabel>
           <h2 className="display text-4xl md:text-6xl text-paper leading-[0.95]">
             Open source. <br />
-            <span className="stencil text-amber-500">Nothing hidden.</span>
+            <span className="stencil logo-blue-text">Nothing hidden.</span>
           </h2>
           <p className="text-slate-400 leading-relaxed max-w-md">
             The Nihil CLI and the images are released under the MIT licence. Use them for your own lab, on paid

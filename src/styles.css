@@ -4,12 +4,12 @@
 
 /*
  * Airmail theme.
- * The legacy palette names (slate / amber / cyan) are remapped here so every
+ * The legacy palette names (slate / cyan) are remapped here so every
  * page, including the long docs pages, picks up the new look without
  * rewriting their utility classes:
- *   slate -> warm ink & paper neutrals
- *   amber -> airmail red (primary signal)
- *   cyan  -> airmail blue (the logo's blue)
+ *   slate -> neutral charcoal & ivory
+ *   amber -> original Tailwind amber (headings & highlights)
+ *   cyan  -> light logo blue (secondary accents)
  */
 @theme {
   --font-sans: 'IBM Plex Sans', system-ui, sans-serif;
@@ -17,49 +17,39 @@
   --font-stencil: 'Big Shoulders Stencil', 'Big Shoulders', 'Arial Narrow', sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
 
-  --color-ink: #0e0d0b;
-  --color-ink-2: #15140f;
-  --color-paper: #efe8d8;
-  --color-airmail-red: #ff4a2a;
-  --color-airmail-blue: #4c74ff;
+  --color-ink: #141416;
+  --color-ink-2: #1c1c1f;
+  --color-paper: #f3eee5;
+  --color-airmail-red: var(--color-amber-700);
+  --color-airmail-blue: #32b4e3;
+  --color-logo-blue-mid: #238bd3;
+  --color-logo-blue-deep: #2c57c8;
 
-  --color-slate-50: #f8f5ee;
-  --color-slate-100: #efe8d8;
-  --color-slate-200: #ddd5c3;
-  --color-slate-300: #c3baa6;
-  --color-slate-400: #a09884;
-  --color-slate-500: #7c7565;
-  --color-slate-600: #5b564a;
-  --color-slate-700: #3e3b33;
-  --color-slate-800: #2a2823;
-  --color-slate-900: #1a1915;
-  --color-slate-950: #12110e;
+  --color-slate-50: #faf7f2;
+  --color-slate-100: #f3eee5;
+  --color-slate-200: #e0dcd5;
+  --color-slate-300: #c7c3bf;
+  --color-slate-400: #aaa6a3;
+  --color-slate-500: #918d8c;
+  --color-slate-600: #686568;
+  --color-slate-700: #49464b;
+  --color-slate-800: #333136;
+  --color-slate-900: #232226;
+  --color-slate-950: #19191c;
 
-  --color-amber-50: #fff2ee;
-  --color-amber-100: #ffded5;
-  --color-amber-200: #ffbcab;
-  --color-amber-300: #ff917a;
-  --color-amber-400: #ff6446;
-  --color-amber-500: #ff4a2a;
-  --color-amber-600: #db3416;
-  --color-amber-700: #ae270f;
-  --color-amber-800: #7f1e0d;
-  --color-amber-900: #531409;
-  --color-amber-950: #2e0b05;
+  --color-cyan-50: #effaff;
+  --color-cyan-100: #daf3fc;
+  --color-cyan-200: #b7e7f8;
+  --color-cyan-300: #85d8f2;
+  --color-cyan-400: #57c7ec;
+  --color-cyan-500: #32b4e3;
+  --color-cyan-600: #168bb9;
+  --color-cyan-700: #157096;
+  --color-cyan-800: #165b79;
+  --color-cyan-900: #174b63;
+  --color-cyan-950: #0d3043;
 
-  --color-cyan-50: #eef2ff;
-  --color-cyan-100: #dfe6ff;
-  --color-cyan-200: #c0cfff;
-  --color-cyan-300: #9cb2ff;
-  --color-cyan-400: #7893ff;
-  --color-cyan-500: #4c74ff;
-  --color-cyan-600: #3a58e6;
-  --color-cyan-700: #2d45b8;
-  --color-cyan-800: #233489;
-  --color-cyan-900: #19255c;
-  --color-cyan-950: #0f1636;
-
-  --color-white: #f6f1e6;
+  --color-white: #faf7f2;
 
   /* Sharp, printed-matter corners everywhere (pills stay rounded-full) */
   --radius-sm: 2px;
@@ -87,7 +77,7 @@
     font-weight: 800;
   }
   ::selection {
-    background: var(--color-airmail-red);
+    background: var(--color-airmail-blue);
     color: var(--color-ink);
   }
   :focus-visible {
@@ -115,7 +105,7 @@
       -45deg,
       var(--color-airmail-red) 0 12px,
       transparent 12px 20px,
-      var(--color-airmail-blue) 20px 32px,
+      var(--color-logo-blue-deep) 20px 32px,
       transparent 32px 40px
     );
   }
@@ -127,7 +117,7 @@
       -45deg,
       var(--color-airmail-red) 0 14px,
       var(--color-paper) 14px 22px,
-      var(--color-airmail-blue) 22px 36px,
+      var(--color-logo-blue-mid) 22px 36px,
       var(--color-paper) 36px 44px
     );
   }
@@ -169,13 +159,20 @@
     letter-spacing: 0.01em;
   }
 
+  .logo-blue-text {
+    color: var(--color-airmail-blue);
+    background: linear-gradient(155deg, #7cdeed 5%, var(--color-airmail-blue) 35%, var(--color-logo-blue-mid) 65%, #6388ee 100%);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
   .btn-primary {
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
     padding: 0.8rem 1.25rem;
-    background: var(--color-airmail-red);
-    color: var(--color-ink);
+    background: #236fbb;
+    color: var(--color-white);
     font-weight: 600;
     font-size: 0.925rem;
     border-radius: 2px;
@@ -205,7 +202,7 @@
   }
   .btn-ghost:hover {
     border-color: var(--color-paper);
-    background: rgb(239 232 216 / 0.05);
+    background: rgb(243 238 229 / 0.05);
   }
 
   .rule {
@@ -304,7 +301,7 @@
     border: 1px solid var(--color-slate-800);
     border-radius: 3px;
     overflow: hidden;
-    background: #0a0a08;
+    background: #101012;
   }
 
   .docs-content .code-shell-head {
@@ -324,7 +321,7 @@
     top: 0;
     bottom: 0;
     width: 3px;
-    background: var(--color-airmail-red);
+    background: var(--color-airmail-blue);
   }
 
   .docs-content .code-shell-lang {
@@ -359,7 +356,7 @@
   .docs-content pre {
     border: 0 !important;
     border-radius: 0 !important;
-    background: #0a0a08 !important;
+    background: #101012 !important;
     box-shadow: none;
     padding: 0.85rem 0.95rem !important;
     margin: 0;
@@ -392,7 +389,7 @@
 
   .docs-content .hljs-keyword,
   .docs-content .hljs-selector-tag {
-    color: #8ea6ff;
+    color: var(--color-cyan-300);
     font-weight: 500;
   }
 
@@ -403,7 +400,7 @@
   .docs-content .hljs-number,
   .docs-content .hljs-literal,
   .docs-content .hljs-symbol {
-    color: #ff917a;
+    color: var(--color-cyan-300);
   }
 
   .docs-content .hljs-comment {
@@ -423,7 +420,7 @@
 
   .docs-content .hljs-type,
   .docs-content .hljs-class .hljs-title {
-    color: #8ea6ff;
+    color: var(--color-cyan-300);
   }
 
   .docs-content .hljs-params,
@@ -438,7 +435,7 @@
   }
 
   .docs-content .hljs-meta {
-    color: #ff6446;
+    color: var(--color-cyan-400);
   }
 
   .docs-content .hljs-punctuation,
@@ -452,7 +449,7 @@
   }
 
   .docs-content .cmd-prompt {
-    color: var(--color-airmail-red);
+    color: var(--color-cyan-400);
     font-weight: 600;
   }
 
@@ -475,7 +472,7 @@
     font-size: 0.85em;
     background: var(--color-slate-900);
     border: 1px solid var(--color-slate-800);
-    color: #ff917a;
+    color: var(--color-cyan-300);
     border-radius: 2px;
     padding: 0.08rem 0.35rem;
   }

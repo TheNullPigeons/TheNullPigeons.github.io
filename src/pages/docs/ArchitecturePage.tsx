@@ -4,7 +4,7 @@ import { SectionToc } from '../../components/SectionToc';
 import { Callout, TldrBlock } from '../../components/DocsBlocks';
 
 /* ── Postal-style diagram primitives ── */
-const AX = { red: '#ff4a2a', blue: '#4c74ff', paper: '#efe8d8' };
+const AX = { red: 'var(--color-airmail-red)', blue: 'var(--color-airmail-blue)', paper: 'var(--color-paper)' };
 const INK = '#0e0d0b';
 const PANEL = '#17150f';
 const LINE = '#3e3b33';
@@ -396,7 +396,7 @@ export const ArchitecturePage: React.FC = () => {
                 { name: 'pipx-git', fn: 'install_pipx_tool_git', desc: 'Python from Git repos', color: '#7893ff' },
                 { name: 'go', fn: 'install_go_tool', desc: 'Go packages', color: '#ddd5c3' },
                 { name: 'cargo', fn: 'install_cargo_tool', desc: 'Rust packages', color: '#ff6446' },
-                { name: 'gem', fn: 'install_gem_tool', desc: 'Ruby gems', color: '#ff4a2a' },
+                { name: 'gem', fn: 'install_gem_tool', desc: 'Ruby gems', color: 'var(--color-airmail-red)' },
                 { name: 'git', fn: 'install_git_tool', desc: 'Clone + venv/symlink', color: '#c3baa6' },
                 { name: 'curl', fn: 'install_tar_tool', desc: 'Direct binary downloads', color: '#c3baa6' },
               ].map((r) => (

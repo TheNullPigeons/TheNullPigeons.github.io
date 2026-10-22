@@ -47,12 +47,36 @@ const images = [
 ];
 
 const fleet = [
-  { name: 'nihil', role: 'The CLI', desc: 'Pull images, start containers, manage workspaces, VPN and services from one command.', to: '/docs/usage' },
-  { name: 'nihil-images', role: 'Arch-based images', desc: 'Four variants, every Dockerfile public. Fork them, trim them, rebuild them.', to: '/docs/images' },
-  { name: 'nihil-history', role: 'Engagement memory', desc: 'Track credentials, hosts and access links across containers and engagements.', to: '/docs/nihil-history' },
-  { name: 'nihil-resources', role: 'Shared arsenal', desc: 'Webshells, Windows binaries, AD scripts and wordlists mounted in every container.', to: '/docs/resources' },
-  { name: 'nihil-mcp', role: 'Agent bridge', desc: 'An MCP server so your AI assistant can drive Nihil containers for you.', to: '/docs/mcp' },
-  { name: 'nihil-ntp', role: 'Clock sync', desc: 'Align the container clock with the DC so Kerberos stops complaining.', to: '/docs/nihil-ntp' },
+  {
+    name: 'nihil', role: 'The CLI', desc: 'Pull images, start containers, manage workspaces, VPN and services from one command.', to: '/docs/usage',
+    detail: '$ nh start lab --image ad',
+    drawing: <><rect x="8" y="13" width="80" height="62" rx="4" /><path d="M8 28h80M20 20h1m7 0h1m7 0h1M24 42l12 10-12 10m23 0h19" /></>,
+  },
+  {
+    name: 'nihil-images', role: 'Arch-based images', desc: 'Four variants, every Dockerfile public. Fork them, trim them, rebuild them.', to: '/docs/images',
+    detail: 'full / ad / web / blueteam',
+    drawing: <><path d="M48 8L88 28 48 48 8 28 48 8zm-40 36 40 20 40-20M8 60l40 20 40-20" /><path d="M48 48v32" strokeDasharray="3 5" /></>,
+  },
+  {
+    name: 'nihil-history', role: 'Engagement memory', desc: 'Track credentials, hosts and access links across containers and engagements.', to: '/docs/nihil-history',
+    detail: 'Remember the engagement.',
+    drawing: <><rect x="20" y="10" width="58" height="76" rx="4" /><path d="M32 10v76M13 27h14m-14 21h14m-14 21h14M43 30h23M43 45h16M43 60h23" /></>,
+  },
+  {
+    name: 'nihil-resources', role: 'Shared arsenal', desc: 'Webshells, Windows binaries, AD scripts and wordlists mounted in every container.', to: '/docs/resources',
+    detail: 'Your kit. Already packed.',
+    drawing: <><path d="M8 25h30l9 10h41v44H8V25zM15 25V15h30l9 10h27v10" /><path d="M29 51l-9 8 9 8m12-18-7 20m12-18 9 8-9 8" /></>,
+  },
+  {
+    name: 'nihil-mcp', role: 'Agent bridge', desc: 'An MCP server so your AI assistant can drive Nihil containers for you.', to: '/docs/mcp',
+    detail: 'Agent ↔ tools ↔ container',
+    drawing: <><rect x="6" y="32" width="22" height="32" rx="4" /><rect x="68" y="32" width="22" height="32" rx="4" /><path d="M28 42h40m0 12H28M38 34l8 8-8 8m20-4-8 8 8 8M17 23v9m62 32v9" /></>,
+  },
+  {
+    name: 'nihil-ntp', role: 'Clock sync', desc: 'Align the container clock with the DC so Kerberos stops complaining.', to: '/docs/nihil-ntp',
+    detail: 'Right time. Valid tickets.',
+    drawing: <><circle cx="48" cy="48" r="34" /><path d="M48 25v23l16 10M48 14v5m34 29h-5M48 82v-5M14 48h5M35 6h26" /><circle cx="48" cy="48" r="3" /></>,
+  },
 ];
 
 const principles = [
@@ -168,7 +192,7 @@ export const HomePage: React.FC = () => {
               <br />
               delivered by
               <br />
-              <span className="stencil text-amber-500">pigeons.</span>
+              <span className="stencil logo-blue-text">pigeons.</span>
             </h1>
 
             <p
@@ -197,12 +221,12 @@ export const HomePage: React.FC = () => {
           <div className="hidden lg:block relative w-[19rem] h-[24rem] mr-6">
             <div className="absolute inset-0 rotate-[5deg] shadow-[18px_22px_0_rgba(0,0,0,0.55)]">
               <Stamp denomination="0.00" caption="Nihil" className="w-full h-full">
-                <div className="relative w-full h-full bg-[radial-gradient(circle_at_50%_40%,#dfe6ff_0%,#efe8d8_65%)] flex items-center justify-center">
+                <div className="relative w-full h-full bg-[radial-gradient(circle_at_50%_40%,var(--color-slate-50)_0%,var(--color-paper)_65%)] flex items-center justify-center">
                   <img src="/assets/thenullpigeonslogo.png" alt="" className="w-[85%] object-contain" />
                 </div>
               </Stamp>
             </div>
-            <Postmark className="animate-stamp absolute -left-44 top-[56%] w-[23rem] text-amber-500/90" />
+            <Postmark className="animate-stamp absolute -left-44 top-[56%] w-[23rem] text-cyan-400/90" />
           </div>
         </div>
 
@@ -260,7 +284,7 @@ export const HomePage: React.FC = () => {
             <div className="space-y-5">
               <SectionLabel index="01">Transmissions</SectionLabel>
               <h2 className="text-4xl md:text-6xl font-bold display text-paper leading-[0.95]">
-                See it <span className="stencil text-amber-500">fly.</span>
+                See it <span className="stencil logo-blue-text">fly.</span>
               </h2>
             </div>
             <p className="text-slate-400 md:text-lg leading-relaxed max-w-md md:justify-self-end">
@@ -282,7 +306,7 @@ export const HomePage: React.FC = () => {
               <SectionLabel index="02">The stamp sheet</SectionLabel>
               <h2 className="text-4xl md:text-6xl font-bold display text-paper leading-[0.95]">
                 Four images. <br />
-                <span className="stencil text-amber-500">One flock.</span>
+                <span className="stencil logo-blue-text">One flock.</span>
               </h2>
             </div>
             <p className="text-slate-400 md:text-lg leading-relaxed max-w-md md:justify-self-end">
@@ -364,7 +388,7 @@ export const HomePage: React.FC = () => {
             <div className="space-y-5">
               <SectionLabel index="04">The loft</SectionLabel>
               <h2 className="text-4xl md:text-6xl font-bold display text-paper leading-[0.95]">
-                Everything in <span className="stencil text-amber-500">the loft.</span>
+                Everything in <span className="stencil logo-blue-text">the loft.</span>
               </h2>
             </div>
             <p className="text-slate-400 md:text-lg leading-relaxed max-w-md md:justify-self-end">
@@ -372,21 +396,35 @@ export const HomePage: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 border-l border-t border-slate-800">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-12 gap-3 md:gap-4">
             {fleet.map((f, i) => (
               <Link
                 key={f.name}
                 to={f.to}
-                className="group relative p-7 md:p-8 border-r border-b border-slate-800 hover:bg-slate-900/60 transition-colors min-h-[15rem] flex flex-col"
+                className={
+                  'group relative isolate overflow-hidden border p-6 md:p-8 flex flex-col focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-400 transition-colors ' +
+                  (i === 0 ? 'lg:col-span-7 border-cyan-700/50 bg-cyan-950/40 hover:border-cyan-400 min-h-[19rem] ' :
+                    i === 1 ? 'lg:col-span-5 border-amber-700/40 bg-slate-900/60 hover:border-amber-400 min-h-[19rem] ' :
+                    'lg:col-span-3 border-slate-800 bg-ink-2/40 hover:border-cyan-600 min-h-[18rem] ')
+                }
               >
-                <div className="flex items-start justify-between">
-                  <span className="font-mono text-[11px] text-slate-500">{String(i + 1).padStart(2, '0')}</span>
-                  <ArrowUpRight className="w-5 h-5 text-slate-600 group-hover:text-amber-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                <svg
+                  viewBox="0 0 96 96" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"
+                  className={
+                    'absolute right-5 top-5 -z-10 h-28 w-28 md:h-32 md:w-32 transition-transform duration-300 motion-safe:group-hover:-translate-y-1 ' +
+                    (i === 0 ? 'text-cyan-400/35 md:h-40 md:w-40' : i === 1 ? 'text-amber-400/30' : 'text-cyan-300/25')
+                  }
+                >
+                  {f.drawing}
+                </svg>
+                <div className="flex items-start justify-between gap-4">
+                  <span className="font-mono text-[11px] text-slate-400">{String(i + 1).padStart(2, '0')} / {f.role}</span>
+                  <ArrowUpRight className="w-5 h-5 shrink-0 text-slate-400 group-hover:text-cyan-300 transition-colors" />
                 </div>
-                <div className="mt-auto pt-10 space-y-2">
-                  <p className="eyebrow text-[10px] text-cyan-300">{f.role}</p>
-                  <h3 className="font-mono text-2xl font-semibold tracking-tight text-paper">{f.name}</h3>
-                  <p className="text-sm text-slate-400 leading-relaxed">{f.desc}</p>
+                <div className="mt-auto pt-20 space-y-3">
+                  <h3 className={'font-mono font-semibold tracking-tight text-paper ' + (i < 2 ? 'text-3xl md:text-4xl' : 'text-xl lg:text-lg xl:text-2xl')}>{f.name}</h3>
+                  <p className={'text-sm text-slate-300 leading-relaxed max-w-lg ' + (i < 2 ? 'lg:min-h-[3rem]' : 'lg:min-h-[4.5rem]')}>{f.desc}</p>
+                  <p className={'pt-3 border-t font-mono text-[11px] ' + (i === 1 ? 'border-amber-500/20 text-amber-300' : 'border-cyan-500/20 text-cyan-300')}>{f.detail}</p>
                 </div>
               </Link>
             ))}
@@ -399,7 +437,7 @@ export const HomePage: React.FC = () => {
             <SectionLabel index="05">Questions</SectionLabel>
             <h2 className="text-4xl md:text-6xl font-bold display text-paper leading-[0.95]">
               Quick answers. <br />
-              <span className="stencil text-amber-500">No sales pitch.</span>
+              <span className="stencil logo-blue-text">No sales pitch.</span>
             </h2>
             <Link to="/docs/faq" className="inline-flex items-center gap-2 text-sm text-slate-300 hover:text-amber-500 transition-colors">
               Full FAQ in the docs <ArrowRight className="w-3.5 h-3.5" />
@@ -426,7 +464,7 @@ export const HomePage: React.FC = () => {
 
         {/* ───────────── Final call ───────────── */}
         <section className="pb-20 md:pb-28">
-          <div className="airmail-frame">
+          <div className="airmail-frame [--color-airmail-red:var(--color-logo-blue-mid)]">
             <div className="relative bg-paper text-ink px-6 py-12 md:px-14 md:py-16 overflow-hidden">
               <Postmark
                 top="READY FOR TAKEOFF"
@@ -437,12 +475,12 @@ export const HomePage: React.FC = () => {
               <div className="relative max-w-3xl space-y-7">
                 <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink/60">First class</p>
                 <h2 className="text-4xl md:text-7xl font-bold display leading-[0.92]">
-                  Your next box is <span className="stencil text-amber-600">one command</span> away.
+                  Your next box is <span className="stencil logo-blue-text">one command</span> away.
                 </h2>
                 <div className="flex flex-wrap gap-4 pt-2">
                   <Link
                     to="/docs"
-                    className="inline-flex items-center gap-2 px-5 py-3 bg-ink text-paper font-semibold text-sm shadow-[4px_4px_0_var(--color-airmail-red)] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_var(--color-airmail-red)] transition-all"
+                    className="inline-flex items-center gap-2 px-5 py-3 bg-ink text-paper font-semibold text-sm shadow-[4px_4px_0_var(--color-airmail-blue)] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_var(--color-airmail-blue)] transition-all"
                   >
                     Install Nihil <ArrowRight />
                   </Link>
