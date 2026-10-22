@@ -44,6 +44,10 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
 
   React.useEffect(() => { setMenuOpen(false); }, [location]);
 
+  React.useLayoutEffect(() => {
+    if (!location.hash) window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, [location.pathname, location.hash]);
+
   // Scroll to the home demo reel; navigate home first when on another page.
   const watchDemos = (e: React.MouseEvent) => {
     e.preventDefault();

@@ -270,8 +270,6 @@ export const DocsLayout: React.FC<{ children: React.ReactNode }> = ({ children }
     if (location.hash) {
       const target = document.getElementById(location.hash.slice(1));
       target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    } else {
-      window.scrollTo({ top: 0 });
     }
   }, [location.pathname, location.hash]);
 
