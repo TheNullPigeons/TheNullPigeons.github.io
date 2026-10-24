@@ -285,11 +285,12 @@ nhi engagement set-workspace corp_local`}
             <h2 className="text-xl font-semibold text-white">Hosts</h2>
             <p className="text-slate-400 text-sm">
               Add manually with <code>nhi hosts add</code> or press <code>a</code> in TUI tab 2.
-              An IP or hostname is required. Set the role to <code>DC</code> for a domain controller;
+              An IP or hostname is required. Set one or more comma-separated roles such as <code>DC,ADCS</code>, <code>WSUS</code>, or <code>SCCM</code> when relevant;
               <code>Ctrl+D</code> toggles that role on the selected host in the TUI.
             </p>
             <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
 {`nhi hosts add --ip 10.10.10.1 --hostname DC01 --domain corp.local --role DC
+nhi hosts add --ip 10.10.10.20 --hostname CA01 --domain corp.local --role DC,ADCS
 nhi hosts list
 nhi hosts set --id 1
 
@@ -299,7 +300,9 @@ nhi hosts import-nmap -f scan.xml`}
             <p className="text-slate-400 text-sm">
               Nmap import adds IPv4 addresses, the first hostname, and the first OS match when available.
               IPs already present in the active engagement are skipped. It does not import port or service inventories.
-              Selecting a host with the DC role records its <code>DC_IP</code> and <code>DC_HOST</code> separately from the current target host.
+              Selecting a host with one or more known roles records role-specific variables separately from the current target host:
+              <code>DC_IP</code>/<code>DC_HOST</code>, <code>ADCS_IP</code>/<code>ADCS_HOST</code>,
+              <code>WSUS_IP</code>/<code>WSUS_HOST</code>, and <code>SCCM_IP</code>/<code>SCCM_HOST</code>.
             </p>
           </section>
 
@@ -365,6 +368,27 @@ nhi sync nxc --workspace-path /path/to/workspaces --workspace corp_local`}
             <Callout variant="note" title="Auto-sync">
               NXC data is silently imported on every <code>nhi</code> command (from the engagement-linked workspace only). Use <code>nhi sync nxc</code> explicitly when you need verbose output, want to sync a different workspace, or use <code>--all</code> to pull from every NXC workspace at once.
             </Callout>
+            <div className="space-y-2 text-slate-400 text-sm">
+              <p>
+                Disable automatic and manual imports independently in <code>~/.nihil/config.yml</code>:
+              </p>
+              <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
+{`nihil_history:
+  sync_credentials: false
+  sync_hosts: true`}
+              </pre>
+              <p>
+                Set either value to <code>false</code>, or both to disable both imports. The settings apply when the container is created or recreated.
+              </p>
+              <p>
+                From inside the container, you can change the persistent setting without editing the host config:
+              </p>
+              <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
+{`nhi config sync --no-hosts
+nhi config sync --credentials --hosts
+nhi config sync --no-credentials --no-hosts`}
+              </pre>
+            </div>
             <Callout variant="note" title="Deletion also affects NetExec">
               Deleting a credential or host in the TUI also attempts to remove the matching entry from the linked NXC workspace.
               This applies to single-row and visual-mode deletions. Back up both stores before bulk cleanup.
@@ -403,6 +427,9 @@ nhi env uninstall-shell`}
               <p><span className="text-slate-300 font-medium">From active credential:</span> <code>USER</code>, <code>PASSWORD</code>, <code>NT_HASH</code>, <code>DOMAIN</code>, <code>BASE_DN</code></p>
               <p><span className="text-slate-300 font-medium">From active host:</span> <code>TARGET</code>, <code>IP</code></p>
               <p><span className="text-slate-300 font-medium">From DC role host:</span> <code>DC_IP</code>, <code>DC_HOST</code></p>
+              <p><span className="text-slate-300 font-medium">From ADCS role host:</span> <code>ADCS_IP</code>, <code>ADCS_HOST</code></p>
+              <p><span className="text-slate-300 font-medium">From WSUS role host:</span> <code>WSUS_IP</code>, <code>WSUS_HOST</code></p>
+              <p><span className="text-slate-300 font-medium">From SCCM role host:</span> <code>SCCM_IP</code>, <code>SCCM_HOST</code></p>
               <p><span className="text-slate-300 font-medium">From active target:</span> <code>TARGET_USER</code>, <code>TARGET_GROUP</code>, <code>TARGET_OBJECT</code>, <code>TARGET_COMPUTER</code>, <code>TARGET_DOMAIN</code>, <code>TARGET_PRINCIPAL</code></p>
             </div>
             <p className="text-slate-500 text-xs"><code>BASE_DN</code> is derived from the credential&apos;s domain (e.g. <code>corp.local</code> becomes <code>DC=corp,DC=local</code>).</p>
