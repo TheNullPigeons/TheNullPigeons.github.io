@@ -2783,6 +2783,18 @@
       ]
     },
     {
+      "name": "tvmux",
+      "cmd": "tvmux",
+      "desc": "Record tmux sessions with asciinema",
+      "module": "mod_misc",
+      "category": "Misc",
+      "images": [
+        "full",
+        "ad",
+        "web"
+      ]
+    },
+    {
       "name": "searchsploit",
       "cmd": "searchsploit",
       "desc": "Exploit database search",

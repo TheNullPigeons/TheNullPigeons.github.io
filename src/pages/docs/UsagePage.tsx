@@ -129,6 +129,8 @@ nihil update
 nihil update web
 nihil upgrade --all --pull
 nihil upgrade my-pentest --privileged --network host -W --start
+nihil uninstall 2-10,12-14
+nihil uninstall full:dev-a1b2c3d4e5f6
 nihil uninstall --unused`}
             </pre>
             <Callout variant="note" title="Container state after upgrade">
@@ -139,6 +141,9 @@ nihil uninstall --unused`}
               Stable upstream images tagged <code>:latest</code> are displayed as <code>:main</code>.
               For branch builds, their displayed version uses <code>main</code> even when the image was promoted from <code>dev</code>.
             </Callout>
+            <p className="text-slate-400 text-sm">
+              Before replacing a moving image tag, Nihil keeps the previous upstream image locally under a unique name such as <code>full:dev-a1b2c3d4e5f6</code>; its source is shown as <code>old_upstream</code>. Locally built images use the <code>:local</code> tag and the <code>Local_build</code> source label. The <code>nihil uninstall</code> selection shows the source beside each image name. Select several rows with comma separated numbers and ranges, such as <code>2-10,12-14</code>, or uninstall an image directly by its displayed name, such as <code>full:dev-a1b2c3d4e5f6</code>.
+            </p>
             <Callout variant="warning" title="Removing containers and their data">
               <code>nihil remove &lt;name&gt;</code> deletes the container but keeps its <code>/workspace</code> on the
               host. Add <code>--wipe</code> to also delete that workspace directory permanently (it asks for
@@ -149,12 +154,52 @@ nihil uninstall --unused`}
           <section id="custom-images" className="space-y-4">
             <h2 className="text-xl font-semibold text-white">Custom image sources</h2>
             <p className="text-slate-400 text-sm">
-              Use <code>nihil image</code> to select tools for a personal <code>nihil-images</code> branch,
-              trigger a variant build, and monitor the resulting GitHub Actions run.
+              Use <code>nihil image</code> to select tools for a personal <code>nihil-images</code> branch. Build an
+              image locally with <code>nihil build</code>. It accepts a local clone path, a remote Git URL, or a GitHub
+              <code> owner/repo</code>. Without <code>--source</code>, Nihil uses <code>build.images_path</code> or the
+              current clone; outside those paths it clones the active remote source and branch. Remote sources are
+              cloned temporarily. Use <code>--ref</code> to choose a remote branch or tag.
             </p>
-            <Callout variant="note" title="GitHub CLI required">
-              This workflow uses the GitHub CLI (<code>gh</code>) to authenticate, manage the fork, push the personal
-              branch, and dispatch GitHub Actions builds. Install <code>gh</code> and authenticate before starting:
+            <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
+{`# Build full locally from the configured active remote source
+nihil build full
+
+# Clone a remote repository and build its dev branch locally
+nihil build ad --source TheNullPigeons/nihil-images --ref dev
+
+# Show full Docker output when needed
+nihil build -v
+
+# Save full output while keeping the terminal concise
+nihil build --log build.log`}
+            </pre>
+            <p className="text-slate-400 text-sm">
+              <code>nihil build</code> shows Docker setup, Dockerfile instructions, and counted build phases including
+              each image module by default. Add
+              <code> -v</code> or <code>--verbose</code> to show complete Docker output. The <code>--log</code> option
+              saves the complete build output while keeping the terminal concise.
+            </p>
+            <p className="text-slate-400 text-sm">
+              To build and publish through GitHub Actions, use <code>nihil image build</code>. It targets the active
+              image source and its selected channel or personal branch. Add <code>--web</code> to open the workflow page
+              in a local browser page with progress, logs, and a cancel button, or <code>--wait</code> to follow the
+              run in the terminal. For a local Docker build, <code>nihil build --web</code> opens the same local page
+              with live Docker output and a cancel button. These two <code>--web</code> options show different builds.
+            </p>
+            <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
+{`# Build and publish every variant with GitHub Actions
+nihil image build
+
+# Build one variant, open Actions in a browser, and/or wait for completion
+nihil image build blueteam --web --wait
+
+# Show the local build and live output in a browser
+nihil build blueteam --source nihil-images --web`}
+            </pre>
+            <Callout variant="note" title="GitHub CLI for browser customization builds">
+              The browser selector's <strong>Apply &amp; build</strong> action uses the GitHub CLI (<code>gh</code>) to
+              push the personal branch and dispatch its GitHub Actions build. <code>nihil image build</code> also uses
+              <code> gh</code>; install and authenticate it before using that command:
               <pre className="mt-2 text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">{`gh auth login
 gh auth status`}</pre>
             </Callout>
@@ -169,38 +214,34 @@ nihil image customize full --git-del local
 nihil image customize full --git-del distant
 nihil image customize full --git-del all
 
-# Build one variant, or all variants when no variant is provided
-nihil image build full --wait
-nihil image build --wait
-
 # Switch between upstream and personal sources
 nihil image switch upstream
 nihil image switch personal
 
-# Use development images from the upstream repository
+# Select development images for pull and local builds
 nihil image channel dev
 nihil update
-# Build the upstream dev channel (requires workflow dispatch permissions)
-nihil image switch upstream
-nihil image build full --wait
 nihil image channel main`}
             </pre>
+            <p className="text-slate-400 text-sm">
+              <code>nihil image switch upstream</code> selects the configured <code>main</code> or <code>dev</code>
+              source without cloning or changing the upstream repository. Local builds clone the selected branch
+              temporarily when needed; GitHub Actions builds use the remote directly.
+            </p>
             <Callout variant="note" title="Build scope">
-              Builds target the active image source: the configured upstream repository on the selected
-              <code> main</code> or <code>dev</code> channel, or the configured personal repository and customization branch.
-              Your GitHub account must have permission to dispatch workflows in that repository. The workflow publishes
-              images to GHCR; upstream builds on <code>main</code> also update the stable tags, including <code>latest</code>.{' '}
-              <code>nihil image build full</code> builds only the Full image. Running <code>nihil image build</code> without
-              a variant requests all image variants. Add <code>--wait</code> to display a live progress bar based on
-              completed GitHub Actions steps, the current step, elapsed time, and the final workflow result. The bar
-              tracks Actions steps rather than individual Docker layers.
+              <code>nihil build</code> uses Docker on this machine and creates a local image tag. <code>nihil image build</code>
+              dispatches GitHub Actions to build and publish the selected variants from the active source. The upstream
+              source follows the selected <code>main</code> or <code>dev</code> channel; a personal source follows its
+              configured repository branch. Add <code>--web</code> to <code>nihil build</code> for a local browser page
+              with live Docker output; it does not change the local build into a GitHub Actions run.
             </Callout>
             <Callout variant="tip" title="Browser selector">
               Add <code>--web</code> to complete the customization in a temporary local interface bound to <code>127.0.0.1</code>.
               Before either selector opens, Nihil merges the latest upstream default branch into the personal customization branch.
-              Clicking <strong>Apply &amp; build</strong> saves the selection, commits and pushes the branch, dispatches
+              Clicking <strong>Apply &amp; build</strong> saves the selection, commits and pushes the branch when the
+              selection changed, then dispatches
               GitHub Actions, and follows the build to completion in the same page. A link to GitHub&apos;s live logs is
-              displayed as soon as the workflow starts, and <strong>Cancel build</strong> stops the active run. Once the
+              displayed as soon as the workflow starts and opens the active GitHub Actions job, while <strong>Cancel build</strong> stops the active run. Once the
               run ends, the complete logs are displayed and can be downloaded from the WebUI. Use <code>--no-push</code>
               to save locally without starting a build.
             </Callout>
@@ -225,10 +266,11 @@ nihil image channel main`}
                     ['nihil remove', 'Delete container(s); --wipe also erases /workspace'],
                     ['nihil install', 'Pull image variant'],
                     ['nihil image list', 'List remote/local image variants'],
+                    ['nihil image build', 'Build and publish image variants with GitHub Actions'],
                     ['nihil image status', 'Show configured image sources'],
                     ['nihil image channel main|dev', 'Select stable or development upstream images'],
                     ['nihil image customize', 'Select tools for a personal image branch'],
-                    ['nihil image build', 'Trigger a Docker build for a selected variant'],
+                    ['nihil build', 'Build an image locally from the active local or remote source'],
                     ['nihil update', 'Pull newer images'],
                     ['nihil upgrade', 'Recreate containers from the selected image/config'],
                     ['nihil info', 'Show image and container status; -c/--containers or -i/--images filters the output'],
@@ -242,7 +284,6 @@ nihil image channel main`}
                     ['nihil completion', 'Generate shell completion script'],
                     ['nihil version', 'Show wrapper version'],
                     ['nihil uninstall --unused', 'Remove local images unused by any container'],
-                    ['nihil build', 'Build an image locally from a nihil-images source'],
                   ].map(([cmd, desc]) => (
                     <tr key={cmd} className="border-b border-slate-800/50">
                       <td className="py-2 pr-3 font-mono text-amber-300 text-xs">{cmd}</td>
