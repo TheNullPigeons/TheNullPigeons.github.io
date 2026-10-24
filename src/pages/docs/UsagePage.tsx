@@ -54,6 +54,8 @@ nihil exec my-pentest nmap -V
 nihil info -c my-pentest
 nihil info --containers
 nihil info -c
+nihil info --images
+nihil info -i
 # Stop
 nihil stop my-pentest`}
             </pre>
@@ -229,7 +231,7 @@ nihil image channel main`}
                     ['nihil image build', 'Trigger a Docker build for a selected variant'],
                     ['nihil update', 'Pull newer images'],
                     ['nihil upgrade', 'Recreate containers from the selected image/config'],
-                    ['nihil info', 'Show image and container status; -c/--containers lists containers only'],
+                    ['nihil info', 'Show image and container status; -c/--containers or -i/--images filters the output'],
                     ['nihil doctor', 'Run environment diagnostics'],
                     ['nihil tools', 'List tools by image/category'],
                     ['nihil resources install', 'Clone the nihil-resources catalog'],
