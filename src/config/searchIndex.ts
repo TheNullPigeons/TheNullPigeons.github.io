@@ -48,6 +48,8 @@ export const searchIndex: SearchEntry[] = [
   { page: 'Configuration', path: '/docs/configuration#cmd-history', label: 'Command history' },
   { page: 'Network & VPN', path: '/docs/network-vpn', label: 'Network modes and OpenVPN routing for containers.', keywords: ['vpn', 'openvpn', 'network', 'host', 'docker', 'nat', 'disabled', 'bridge', 'ovpn', 'privileged'] },
   { page: 'Network & VPN', path: '/docs/network-vpn#modes', label: 'Network modes (host, docker, nat, disabled)', keywords: ['nat', 'bridge', 'host networking'] },
+  { page: 'Network & VPN', path: '/docs/network-vpn#basics', label: 'What --network and --privileged do (beginners)', keywords: ['docker', 'privileged', 'network', 'beginner', 'sandbox', 'container', 'explained'] },
+  { page: 'Network & VPN', path: '/docs/network-vpn#recipes', label: 'Which network / privileged option should I pick?', keywords: ['recipe', 'which', 'privileged', 'network', 'host', 'docker', 'htb', 'wifi'] },
   { page: 'Network & VPN', path: '/docs/network-vpn#vpn', label: 'VPN (--vpn, --no-vpn)', keywords: ['vpn', 'openvpn', 'ovpn'] },
   { page: 'Network & VPN', path: '/docs/network-vpn#privileged', label: 'Privileged mode', keywords: ['privileged', 'standard', 'capabilities'] },
   { page: 'Shell Completion', path: '/docs/completion', label: 'Enable shell autocompletion for nihil commands.' },
