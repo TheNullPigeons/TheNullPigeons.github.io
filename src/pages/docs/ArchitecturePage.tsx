@@ -58,12 +58,13 @@ const PIGEON = {
   red: { top: '#ff9e86', left: '#ff5231', right: '#d2340f', rightB: '#a2270a', acc: '#ff4a2a', dark: '#320b03', feather: '#a02a0c' },
 };
 type PigeonKey = keyof typeof PIGEON;
-const FOOT = '#e4902f';
-const BEAK = '#f2a63c';
-const BEAK_D = '#d4871f';
+const FOOT = '#f06b7a';
+const BEAK = '#3f4450';
+const BEAK_D = '#24272f';
+const CERE = '#f3eee4';
 const BASE_A = 36; // base cube half-width (scaled per node)
 
-// A cubic pigeon: one voxel body, side-set bird eyes, a chunky beak with cere,
+// A cubic pigeon: voxel body, orange side-set eyes, dark beak with a white cere,
 // little feet, a fan tail out the back and folded wings. `s` scales it down for helpers.
 const Pigeon: React.FC<{ cx: number; cy: number; pal: typeof PIGEON[PigeonKey]; gid: string; delay: number; s?: number }> = ({ cx, cy, pal, gid, delay, s = 1 }) => {
   const A = BASE_A * s, B = A / 2, HH = 42 * s;
@@ -90,19 +91,22 @@ const Pigeon: React.FC<{ cx: number; cy: number; pal: typeof PIGEON[PigeonKey]; 
       <polygon points={`${Tl[0]},${Tl[1]} ${Tb[0]},${Tb[1]} ${Tb[0]},${Tb[1] + HH} ${Tl[0]},${Tl[1] + HH}`} fill={pal.left} />
       <polygon points={`${Tr[0]},${Tr[1]} ${Tb[0]},${Tb[1]} ${Tb[0]},${Tb[1] + HH} ${Tr[0]},${Tr[1] + HH}`} fill={`url(#${gid}r)`} />
       <polygon points={`${Tt[0]},${Tt[1]} ${Tr[0]},${Tr[1]} ${Tb[0]},${Tb[1]} ${Tl[0]},${Tl[1]}`} fill={`url(#${gid}t)`} />
-      {[0, 1, 2].map((k) => {
-        const y1 = Tl[1] + 12 * s + k * 7 * s;
-        return <line key={k} x1={Tl[0] + 8 * s} y1={y1} x2={Tb[0] - 8 * s} y2={y1 + B * 0.48} stroke={pal.feather} strokeOpacity="0.55" strokeWidth={1.3 * s} />;
+      {[0, 1].map((k) => {
+        const y1 = Tl[1] + 15 * s + k * 11 * s;
+        return <line key={k} x1={Tl[0] + 8 * s} y1={y1} x2={Tb[0] - 7 * s} y2={y1 + B * 0.48} stroke={pal.feather} strokeOpacity="0.9" strokeWidth={3 * s} />;
       })}
+      {/* neck sheen hint */}
+      <line x1={Tb[0] + 3 * s} y1={Tb[1] + 6 * s} x2={Tr[0] - 10 * s} y2={Tr[1] + 9 * s} stroke="#dfe6ff" strokeOpacity="0.4" strokeWidth={2.2 * s} strokeLinecap="round" />
       {eyes.map(([ex, ey], i) => (
         <g key={i}>
-          <circle cx={ex} cy={ey} r={3 * s} fill={pal.dark} />
-          <circle cx={ex - 0.7 * s} cy={ey - s} r={0.9 * s} fill="#fff" fillOpacity="0.8" />
+          <circle cx={ex} cy={ey} r={3.6 * s} fill="#e8893a" />
+          <circle cx={ex} cy={ey} r={2 * s} fill={pal.dark} />
+          <circle cx={ex - 0.7 * s} cy={ey - s} r={0.8 * s} fill="#fff" />
         </g>
       ))}
-      <polygon points={`${Tb[0] - 4.5 * s},${by - 3.5 * s} ${Tb[0] + 4.5 * s},${by - 3.5 * s} ${Tb[0] + 3 * s},${by} ${Tb[0] - 3 * s},${by}`} fill={BEAK_D} />
-      <polygon points={`${Tb[0] - 6 * s},${by} ${Tb[0] + 6 * s},${by} ${Tb[0]},${by + 13 * s}`} fill={BEAK} />
-      <polygon points={`${Tb[0]},${by} ${Tb[0] + 6 * s},${by} ${Tb[0]},${by + 13 * s}`} fill={BEAK_D} />
+      <path d={`M${Tb[0] - 5.5 * s},${by - 5 * s} Q${Tb[0]},${by - 8 * s} ${Tb[0] + 5.5 * s},${by - 5 * s} L${Tb[0] + 4 * s},${by - 1 * s} L${Tb[0] - 4 * s},${by - 1 * s} Z`} fill={CERE} />
+      <polygon points={`${Tb[0] - 5 * s},${by - 1 * s} ${Tb[0] + 5 * s},${by - 1 * s} ${Tb[0]},${by + 12 * s}`} fill={BEAK} />
+      <polygon points={`${Tb[0]},${by - 1 * s} ${Tb[0] + 5 * s},${by - 1 * s} ${Tb[0]},${by + 12 * s}`} fill={BEAK_D} />
     </g>
   );
 };
