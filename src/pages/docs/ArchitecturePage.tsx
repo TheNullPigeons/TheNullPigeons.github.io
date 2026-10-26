@@ -51,65 +51,205 @@ const arrowDefs = (
   </marker>
 );
 
-/* ── SVG diagram: CLI command route ── */
-const FlowDiagram: React.FC = () => (
-  <div className="relative overflow-x-auto py-2">
-    <svg viewBox="0 0 820 470" className="w-full min-w-[620px]" xmlns="http://www.w3.org/2000/svg">
-      <defs>{arrowDefs}</defs>
-      <rect x="0" y="0" width="820" height="470" fill={INK} />
-      <EnvelopeFrame w={820} h={470} label="N° CLI · COMMAND ROUTE" />
+/* ── Isometric command-flow scene (GitLab-style, cubic pigeons) ── */
+const PIGEON = {
+  blue: { top: '#aebeff', left: '#5a7dff', right: '#3a58e6', rightB: '#273f9e', acc: '#4c74ff', dark: '#0d1230', feather: '#2a3f8f' },
+  paper: { top: '#fbf6ec', left: '#ddd3bd', right: '#c0b495', rightB: '#9f9375', acc: '#efe8d8', dark: '#2a2823', feather: '#8a7f64' },
+  red: { top: '#ff9e86', left: '#ff5231', right: '#d2340f', rightB: '#a2270a', acc: '#ff4a2a', dark: '#320b03', feather: '#a02a0c' },
+};
+type PigeonKey = keyof typeof PIGEON;
+const FOOT = '#e4902f';
+const BEAK = '#f2a63c';
+const BEAK_D = '#d4871f';
+const BASE_A = 36; // base cube half-width (scaled per node)
 
-      {/* central spine */}
-      <Stop x={255} y={56} w={175} h={54} title="parser.py" sub="argument parsing" accent={AX.red} index="01" />
-      <Stop x={255} y={140} w={175} h={54} title="controller.py" sub="command dispatch" accent={AX.red} index="02" />
-      <Stop x={250} y={224} w={190} h={64} title="manager.py" sub="docker SDK" accent={AX.blue} index="03" titleSize={17} />
-      <Stop x={250} y={318} w={190} h={56} title="Docker Engine" sub="container lifecycle" accent={AX.blue} index="04" />
-      <Stop x={250} y={404} w={190} h={44} title="zsh session" accent={AX.paper} dashed titleSize={13} />
+// A cubic pigeon: one voxel body, side-set bird eyes, a chunky beak with cere,
+// little feet, a fan tail out the back and folded wings. `s` scales it down for helpers.
+const Pigeon: React.FC<{ cx: number; cy: number; pal: typeof PIGEON[PigeonKey]; gid: string; delay: number; s?: number }> = ({ cx, cy, pal, gid, delay, s = 1 }) => {
+  const A = BASE_A * s, B = A / 2, HH = 42 * s;
+  const Tt = [cx, cy], Tr = [cx + A, cy + B], Tb = [cx, cy + 2 * B], Tl = [cx - A, cy + B];
+  const Bb = [cx, cy + 2 * B + HH];
+  const lpt = (fu: number, fv: number) => [cx - fu * A, cy + 2 * B - fu * B + fv * HH];
+  const rpt = (fu: number, fv: number) => [cx + fu * A, cy + 2 * B - fu * B + fv * HH];
+  const eyes = [lpt(0.24, 0.2), rpt(0.24, 0.2)];
+  const by = Tb[1] + HH * 0.2;
+  return (
+    <g className="iso-float" style={{ animationDelay: `${delay}s` }}>
+      <defs>
+        <linearGradient id={`${gid}t`} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor={pal.top} /><stop offset="1" stopColor={pal.left} /></linearGradient>
+        <linearGradient id={`${gid}r`} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor={pal.right} /><stop offset="1" stopColor={pal.rightB} /></linearGradient>
+      </defs>
+      {[-6 * s, 5 * s].map((dx, i) => (
+        <g key={i}>
+          <rect x={Bb[0] + dx} y={Bb[1] - 3 * s} width={2.8 * s} height={7 * s} fill={FOOT} />
+          <rect x={Bb[0] + dx - 2 * s} y={Bb[1] + 3.5 * s} width={6 * s} height={2.4 * s} fill={FOOT} />
+        </g>
+      ))}
+      <polygon points={`${Tt[0] + 3 * s},${Tt[1] + 2 * s} ${Tt[0] + 34 * s},${Tt[1] - 10 * s} ${Tt[0] + 45 * s},${Tt[1] + 2 * s} ${Tr[0] + 5 * s},${Tr[1] - 3 * s}`} fill={pal.rightB} />
+      <polygon points={`${Tt[0] + 3 * s},${Tt[1] + 2 * s} ${Tt[0] + 34 * s},${Tt[1] - 10 * s} ${Tt[0] + 34 * s},${Tt[1] - 7 * s} ${Tt[0] + 5 * s},${Tt[1] + 4 * s}`} fill={pal.right} />
+      <polygon points={`${Tl[0]},${Tl[1]} ${Tb[0]},${Tb[1]} ${Tb[0]},${Tb[1] + HH} ${Tl[0]},${Tl[1] + HH}`} fill={pal.left} />
+      <polygon points={`${Tr[0]},${Tr[1]} ${Tb[0]},${Tb[1]} ${Tb[0]},${Tb[1] + HH} ${Tr[0]},${Tr[1] + HH}`} fill={`url(#${gid}r)`} />
+      <polygon points={`${Tt[0]},${Tt[1]} ${Tr[0]},${Tr[1]} ${Tb[0]},${Tb[1]} ${Tl[0]},${Tl[1]}`} fill={`url(#${gid}t)`} />
+      {[0, 1, 2].map((k) => {
+        const y1 = Tl[1] + 12 * s + k * 7 * s;
+        return <line key={k} x1={Tl[0] + 8 * s} y1={y1} x2={Tb[0] - 8 * s} y2={y1 + B * 0.48} stroke={pal.feather} strokeOpacity="0.55" strokeWidth={1.3 * s} />;
+      })}
+      {eyes.map(([ex, ey], i) => (
+        <g key={i}>
+          <circle cx={ex} cy={ey} r={3 * s} fill={pal.dark} />
+          <circle cx={ex - 0.7 * s} cy={ey - s} r={0.9 * s} fill="#fff" fillOpacity="0.8" />
+        </g>
+      ))}
+      <polygon points={`${Tb[0] - 4.5 * s},${by - 3.5 * s} ${Tb[0] + 4.5 * s},${by - 3.5 * s} ${Tb[0] + 3 * s},${by} ${Tb[0] - 3 * s},${by}`} fill={BEAK_D} />
+      <polygon points={`${Tb[0] - 6 * s},${by} ${Tb[0] + 6 * s},${by} ${Tb[0]},${by + 13 * s}`} fill={BEAK} />
+      <polygon points={`${Tb[0]},${by} ${Tb[0] + 6 * s},${by} ${Tb[0]},${by + 13 * s}`} fill={BEAK_D} />
+    </g>
+  );
+};
 
-      {/* user */}
-      <Stop x={40} y={56} w={160} h={54} title="USER" sub="nihil start …" accent={AX.red} />
-      <Stitch d="M200,83 L249,83" color={AX.red} />
+const Tile: React.FC<{ cx: number; cy: number; acc: string; s?: number }> = ({ cx, cy, acc, s = 1 }) => {
+  const A = BASE_A * s, B = A / 2;
+  const pts = `${cx},${cy - B} ${cx + A + 9 * s},${cy} ${cx},${cy + B + 5 * s} ${cx - A - 9 * s},${cy}`;
+  return (
+    <g>
+      <ellipse cx={cx} cy={cy + B + 10 * s} rx={A + 16 * s} ry={B * 0.8} fill={acc} fillOpacity="0.22" filter="url(#isoGlow)" />
+      <polygon points={pts} fill={acc} fillOpacity="0.08" />
+      <polygon points={pts} fill="none" stroke={acc} strokeWidth={1.8 * s} strokeDasharray="4 4" />
+    </g>
+  );
+};
 
-      {/* spine connectors */}
-      <Stitch d="M342,110 L342,138" color={AX.red} />
-      <Stitch d="M342,194 L345,222" color={AX.blue} />
-      <Stitch d="M345,288 L345,316" color={AX.blue} />
-      <Stitch d="M345,374 L345,402" color={AX.paper} />
+const NodeLabel: React.FC<{ cx: number; y: number; text: string; acc: string; idx?: string }> = ({ cx, y, text, acc, idx }) => {
+  const w = text.length * 6.6 + (idx ? 30 : 16);
+  return (
+    <g transform={`translate(${cx - w / 2},${y})`}>
+      <rect width={w} height="20" fill={PANEL} stroke={acc} strokeWidth="1.2" />
+      {idx && <><rect width="18" height="20" fill={acc} /><text x="9" y="14" textAnchor="middle" fontFamily={MONO} fontSize="9.5" fontWeight="700" fill="#0e0d0b">{idx}</text></>}
+      <text x={idx ? 18 + (w - 18) / 2 : w / 2} y="14" textAnchor="middle" fontFamily={MONO} fontSize="9.5" fill="#efe8d8">{text}</text>
+    </g>
+  );
+};
 
-      {/* left margin: console + utils */}
-      <Stop x={40} y={150} w={160} h={50} title="console/" sub="formatter · banner" accent={AX.red} titleSize={13} />
-      <Stop x={40} y={224} w={160} h={50} title="utils/" sub="doctor · history" accent={AX.red} titleSize={13} />
-      <Stitch d="M200,170 L253,160" color={LINE} soft arrow={false} />
-      <Stitch d="M200,250 L248,250" color={LINE} soft arrow={false} />
+const TagChip: React.FC<{ x: number; y: number; text: string; acc: string }> = ({ x, y, text, acc }) => {
+  const w = text.length * 6 + 12;
+  return (
+    <g transform={`translate(${x},${y})`}>
+      <rect x={-w / 2} y="-8" width={w} height="16" rx="8" fill={PANEL} stroke={acc} strokeWidth="1.1" />
+      <text x="0" y="3.5" textAnchor="middle" fontFamily={MONO} fontSize="8" fill={acc}>{text}</text>
+    </g>
+  );
+};
 
-      {/* right margin: images.py, ghcr, volumes */}
-      <Stop x={470} y={56} w={170} h={54} title="images.py" sub="image registry" accent={AX.paper} titleSize={13} />
-      <Stitch d="M470,83 L431,160" color={LINE} soft arrow={false} />
+const HS = 0.56; // helper pigeon scale
 
-      <g>
-        <rect x={470 + 5} y={152 + 5} width="200" height="74" fill="#000" opacity="0.55" />
-        <rect x="470" y="152" width="200" height="74" fill={PANEL} stroke={AX.paper} strokeWidth="1.6" />
-        <rect x="470" y="152" width="200" height="4" className="airmail" fill={AX.paper} />
-        <text x="480" y="176" fill={AX.paper} fontSize="12" fontWeight="800" fontFamily={DISP} letterSpacing="0.3">ghcr.io/thenullpigeons</text>
-        <text x="480" y="196" fill={SLATE} fontSize="8" fontFamily={MONO}>full · ad · web · blueteam</text>
-        <text x="480" y="212" fill={AX.red} fontSize="8" fontFamily={MONO}>:flock · :nest · :beak · :coo</text>
-      </g>
-      <Stitch d="M470,190 L442,230" color={LINE} soft arrow={false} />
+const FlowDiagram: React.FC = () => {
+  // Flow actors placed on a slope-0.5 isometric diagonal, so each connector is
+  // a single straight segment running along the grid. tc = platform centre.
+  const flow = ([
+    ['red', 'parser.py', '01'],
+    ['red', 'controller.py', '02'],
+    ['blue', 'manager.py', '03'],
+    ['blue', 'Docker Engine', '04'],
+    ['paper', 'zsh session', '05'],
+  ] as Array<[PigeonKey, string, string]>).map(([col, txt, idx], i) => {
+    const cx = 180 + i * 160, cy = 95 + i * 80;
+    return { cx, cy, col, txt, idx, tc: [cx, cy + 73] as [number, number] };
+  });
+  // Helpers sit on ±0.5 diagonals from their actor's platform (single-segment links).
+  const helpers: Array<{ tc: [number, number]; col: PigeonKey; txt: string; actor: number }> = [
+    { tc: [262, 209], col: 'paper', txt: 'images.py', actor: 1 },
+    { tc: [190, 323], col: 'red', txt: 'console/', actor: 1 },
+    { tc: [330, 413], col: 'red', txt: 'utils/', actor: 2 },
+    { tc: [690, 233], col: 'paper', txt: 'ghcr.io', actor: 2 },
+    { tc: [520, 478], col: 'blue', txt: 'volumes', actor: 3 },
+  ].map((h) => ({ ...h, hx: h.tc[0], hy: h.tc[1] - 73 * HS })) as never;
 
-      <g>
-        <rect x={470 + 5} y={300 + 5} width="190" height="96" fill="#000" opacity="0.55" />
-        <rect x="470" y="300" width="190" height="96" fill={PANEL} stroke={AX.blue} strokeWidth="1.6" />
-        <rect x="470" y="300" width="4" height="96" fill={AX.blue} />
-        <text x="484" y="322" fill={AX.paper} fontSize="13" fontWeight="800" fontFamily={DISP} letterSpacing="0.4" style={{ textTransform: 'uppercase' }}>Mounted volumes</text>
-        <text x="484" y="340" fill={SLATE} fontSize="8" fontFamily={MONO}>/workspace</text>
-        <text x="484" y="353" fill={SLATE} fontSize="8" fontFamily={MONO}>/opt/my-resources</text>
-        <text x="484" y="366" fill={SLATE} fontSize="8" fontFamily={MONO}>/opt/resources (ro)</text>
-        <text x="484" y="379" fill={SLATE} fontSize="8" fontFamily={MONO}>/opt/nihil/vpn (opt)</text>
-      </g>
-      <Stitch d="M470,346 L442,346" color={LINE} soft arrow={false} />
-    </svg>
-  </div>
-);
+  const trim = (p: [number, number], q: [number, number], t0: number, t1: number) => {
+    const dx = q[0] - p[0], dy = q[1] - p[1], d = Math.hypot(dx, dy) || 1;
+    const ux = dx / d, uy = dy / d;
+    return [p[0] + ux * t0, p[1] + uy * t0, q[0] - ux * t1, q[1] - uy * t1];
+  };
+  const Arrow = ({ p, q, t0 = 46, t1 = 46 }: { p: [number, number]; q: [number, number]; t0?: number; t1?: number }) => {
+    const [x1, y1, x2, y2] = trim(p, q, t0, t1);
+    return <path d={`M${x1.toFixed(1)},${y1.toFixed(1)} L${x2.toFixed(1)},${y2.toFixed(1)}`} fill="none" stroke="#b7ab92" strokeWidth="1.9" strokeDasharray="6 4" strokeLinecap="square" markerEnd="url(#isoArrow)" opacity="0.92" />;
+  };
+  const Link = ({ p, q, acc }: { p: [number, number]; q: [number, number]; acc: string }) => {
+    const [x1, y1, x2, y2] = trim(p, q, 24, 42);
+    return <path d={`M${x1.toFixed(1)},${y1.toFixed(1)} L${x2.toFixed(1)},${y2.toFixed(1)}`} fill="none" stroke={acc} strokeWidth="1.3" strokeDasharray="4 3" opacity="0.6" />;
+  };
+
+  const flowItems = flow.map((f, i) => ({ y: f.cy, kind: 'flow' as const, i }));
+  const helpItems = (helpers as unknown as Array<{ hy: number }>).map((h, i) => ({ y: h.hy, kind: 'help' as const, i }));
+  const items = [...flowItems, ...helpItems].sort((a, b) => a.y - b.y);
+  const H = helpers as unknown as Array<{ tc: [number, number]; col: PigeonKey; txt: string; actor: number; hx: number; hy: number }>;
+
+  return (
+    <div className="relative overflow-x-auto py-2">
+      <svg viewBox="0 0 1000 600" className="w-full min-w-[760px]" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="isoGlow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="9" /></filter>
+          <radialGradient id="isoBgBlue" cx="52%" cy="46%" r="42%"><stop offset="0" stopColor="#4c74ff" stopOpacity="0.16" /><stop offset="1" stopColor="#4c74ff" stopOpacity="0" /></radialGradient>
+          <radialGradient id="isoBgRed" cx="18%" cy="28%" r="34%"><stop offset="0" stopColor="#ff4a2a" stopOpacity="0.12" /><stop offset="1" stopColor="#ff4a2a" stopOpacity="0" /></radialGradient>
+          <radialGradient id="isoFade" cx="50%" cy="48%" r="75%"><stop offset="0" stopColor="#fff" stopOpacity="1" /><stop offset="0.7" stopColor="#fff" stopOpacity="0.9" /><stop offset="1" stopColor="#fff" stopOpacity="0" /></radialGradient>
+          <mask id="isoMask"><rect width="1000" height="600" fill="url(#isoFade)" /></mask>
+          <radialGradient id="isoVig" cx="50%" cy="48%" r="72%"><stop offset="60%" stopColor="#000" stopOpacity="0" /><stop offset="100%" stopColor="#000" stopOpacity="0.5" /></radialGradient>
+          <marker id="isoArrow" markerWidth="7" markerHeight="7" refX="5.5" refY="3.5" orient="auto"><path d="M0.5,0.5 L6,3.5 L0.5,6.5 Z" fill="#cdbfa0" /></marker>
+        </defs>
+        <rect width="1000" height="600" fill="#0e0d0b" />
+        <rect width="1000" height="600" fill="url(#isoBgBlue)" />
+        <rect width="1000" height="600" fill="url(#isoBgRed)" />
+        <g mask="url(#isoMask)">
+          <g stroke="#5a5347" strokeWidth="1" opacity="0.5">
+            {Array.from({ length: 40 }, (_, k) => -520 + k * 30).map((c) => (
+              <line key={`a${c}`} x1={-60} y1={0.5 * -60 + c} x2={1060} y2={0.5 * 1060 + c} />
+            ))}
+            {Array.from({ length: 41 }, (_, k) => -60 + k * 30).map((c) => (
+              <line key={`b${c}`} x1={-60} y1={-0.5 * -60 + c} x2={1060} y2={-0.5 * 1060 + c} />
+            ))}
+          </g>
+        </g>
+
+        <g transform="translate(40,38)">
+          <rect width="16" height="16" fill="#ff4a2a" />
+          <text x="26" y="13" fontFamily={DISP} fontSize="17" fontWeight="800" fill="#efe8d8" letterSpacing="0.4" style={{ textTransform: 'uppercase' }}>Command route</text>
+          <text x="0" y="34" fontFamily={MONO} fontSize="10.5" fill={SLATE}>nihil start  →  zsh session</text>
+        </g>
+
+        {/* flow connectors + entry (single grid-aligned segments, behind nodes) */}
+        {flow.slice(0, -1).map((f, i) => <Arrow key={i} p={f.tc} q={flow[i + 1].tc} />)}
+        <NodeLabel cx={80} y={118} text="$ nihil start" acc="#ff4a2a" />
+        <Arrow p={[80, 128]} q={flow[0].tc} t0={6} t1={48} />
+
+        {/* helper links */}
+        {H.map((h, i) => <Link key={i} p={h.tc} q={flow[h.actor].tc} acc={PIGEON[h.col].acc} />)}
+
+        {/* nodes, back to front */}
+        {items.map(({ kind, i }) => kind === 'flow' ? (
+          <g key={`f${i}`}>
+            <Tile cx={flow[i].tc[0]} cy={flow[i].tc[1]} acc={PIGEON[flow[i].col].acc} />
+            <Pigeon cx={flow[i].cx} cy={flow[i].cy} pal={PIGEON[flow[i].col]} gid={`fl${i}`} delay={i * 0.5} />
+          </g>
+        ) : (
+          <g key={`h${i}`}>
+            <Tile cx={H[i].tc[0]} cy={H[i].tc[1]} acc={PIGEON[H[i].col].acc} s={HS} />
+            <Pigeon cx={H[i].hx} cy={H[i].hy} pal={PIGEON[H[i].col]} gid={`hl${i}`} delay={0.3 + i * 0.4} s={HS} />
+          </g>
+        ))}
+
+        {/* labels */}
+        {flow.map((f, i) => <NodeLabel key={i} cx={f.cx} y={f.tc[1] + 14} text={f.txt} acc={PIGEON[f.col].acc} idx={f.idx} />)}
+        {H.map((h, i) => <NodeLabel key={i} cx={h.hx} y={h.tc[1] + 36 * HS / 2 + 13} text={h.txt} acc={PIGEON[h.col].acc} />)}
+
+        {/* detail chips */}
+        {[':flock', ':nest', ':beak', ':coo'].map((t, k) => <TagChip key={t} x={782} y={205 + k * 19} text={t} acc={PIGEON.paper.acc} />)}
+        {['/workspace', '/opt/my-resources', '/opt/resources', '/opt/nihil/vpn'].map((v, k) => <TagChip key={v} x={640} y={470 + k * 19} text={v} acc={PIGEON.blue.acc} />)}
+
+        <rect width="1000" height="600" fill="url(#isoVig)" />
+        <rect x="1" y="1" width="998" height="598" fill="none" stroke="#2a2823" strokeWidth="2" />
+      </svg>
+    </div>
+  );
+};
 
 /* ── SVG diagram: image build pipeline ── */
 const BuildDiagram: React.FC = () => {
