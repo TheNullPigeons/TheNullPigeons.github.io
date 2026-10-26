@@ -41,7 +41,7 @@ export const NetworkVpnPage: React.FC = () => {
             <div className="space-y-3">
               <div className="rounded-lg border border-slate-800 bg-slate-900/40 p-4">
                 <p className="text-sm font-medium text-cyan-300">
-                  <code>--network</code> — where the container lives on the network
+                  <code>--network</code>: where the container lives on the network
                 </p>
                 <p className="text-slate-400 text-sm mt-1">
                   By default (<code>host</code>) the container uses <strong>your machine&apos;s own network</strong>: same
@@ -53,7 +53,7 @@ export const NetworkVpnPage: React.FC = () => {
               </div>
               <div className="rounded-lg border border-slate-800 bg-slate-900/40 p-4">
                 <p className="text-sm font-medium text-amber-300">
-                  <code>--privileged</code> — how much power the container has over your machine
+                  <code>--privileged</code>: how much power the container has over your machine
                 </p>
                 <p className="text-slate-400 text-sm mt-1">
                   By default Docker runs the container in a <strong>sandbox</strong>: it can do normal offensive work
@@ -133,7 +133,7 @@ nihil upgrade lab --network docker`}
             <ul className="list-disc list-inside text-slate-400 text-sm space-y-1">
               <li>Using a <strong>USB Wi-Fi adapter</strong> for wireless attacks (monitor mode, injection).</li>
               <li>Loading <strong>kernel modules</strong> or mounting filesystems.</li>
-              <li>Stepping the <strong>real system clock</strong> — e.g. <code>nihil-ntp --clock</code> for Kerberos.</li>
+              <li>Stepping the <strong>real system clock</strong>, e.g. <code>nihil-ntp --clock</code> for Kerberos.</li>
             </ul>
             <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
 {`# Enable it only for the container that needs it
@@ -144,7 +144,7 @@ nihil upgrade wifi --standard`}
             </pre>
             <Callout variant="warning" title="Think of it as near-root on your laptop">
               <code>--privileged</code> gives the container broad access to your host. Enable it only for the specific
-              task that needs it, on a machine you trust — not as a default &quot;to be safe&quot;. For a VPN you do
+              task that needs it, on a machine you trust, not as a default &quot;to be safe&quot;. For a VPN you do
               <strong> not</strong> need it (see below).
             </Callout>
           </section>
@@ -153,7 +153,7 @@ nihil upgrade wifi --standard`}
           <section id="vpn" className="space-y-4">
             <h2 className="text-xl font-semibold text-white">VPN</h2>
             <p className="text-slate-400 text-sm">
-              <code>--vpn</code> starts the container with OpenVPN so its traffic goes through your engagement profile —
+              <code>--vpn</code> starts the container with OpenVPN so its traffic goes through your engagement profile:
               perfect for a Hack The Box / TryHackMe lab or a client VPN. Nihil wires up the tunnel for you (it adds the
               needed network capability and <code>/dev/net/tun</code>), so <strong>no <code>--privileged</code> is
               required</strong>.

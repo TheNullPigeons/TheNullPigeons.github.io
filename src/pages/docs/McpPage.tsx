@@ -26,7 +26,7 @@ export const McpPage: React.FC = () => {
                 'Exposes container, execution and image tools to an MCP client over stdio.',
                 'Only acts on Nihil containers (images from the nihil registry).',
                 'Persistent sessions keep working directory and exported variables across calls.',
-                'It runs commands an assistant chooses — read the Security section before using it.',
+                'It runs commands an assistant chooses, so read the Security section before using it.',
               ]}
             />
           </section>
@@ -66,7 +66,7 @@ claude mcp list`}
 }`}</pre>
             </Callout>
             <Callout variant="note" title="Loaded per session">
-              Start a new client session after registering — the tools are discovered automatically
+              Start a new client session after registering: the tools are discovered automatically
               over the stdio transport.
             </Callout>
           </section>
@@ -130,7 +130,7 @@ claude mcp list`}
             <h2 className="text-xl font-semibold text-white">One-off commands vs sessions</h2>
             <p className="text-slate-400 text-sm">
               Use <code>exec_command</code> for independent commands that need no shared state. For
-              multi-step work — set a target, then scan, then enumerate — open a session so the
+              multi-step work (set a target, then scan, then enumerate), open a session so the
               working directory and any variables you export carry across calls.
             </p>
             <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
@@ -160,7 +160,7 @@ close_session(id)`}
               when a task truly needs it.
             </Callout>
             <Callout variant="warning" title="Privileged mode breaks containment">
-              <code>privileged=True</code> grants extra capabilities and device access — treat it as
+              <code>privileged=True</code> grants extra capabilities and device access, so treat it as
               near-host access. Enable it only for the specific task that requires it (for example
               raw sockets for certain scans), never as a default.
             </Callout>
@@ -172,7 +172,7 @@ close_session(id)`}
             </Callout>
             <Callout variant="warning" title="No built-in scope enforcement">
               Nothing here restricts which targets can be attacked. Only point it at systems you are
-              explicitly authorized to test — staying in scope and within the law is on the operator.
+              explicitly authorized to test. Staying in scope and within the law is on the operator.
             </Callout>
           </section>
         </div>
