@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import { searchIndex, type SearchEntry } from '../config/searchIndex';
 
@@ -100,7 +101,7 @@ export const DocsSearch: React.FC<{ hotkey?: boolean }> = ({ hotkey = true }) =>
         </kbd>
       </button>
 
-      {open && (
+      {open && createPortal(
         <div
           className="fixed inset-0 z-[100] flex items-start justify-center pt-24 px-4 bg-ink/80 backdrop-blur-sm"
           onClick={close}
@@ -150,7 +151,8 @@ export const DocsSearch: React.FC<{ hotkey?: boolean }> = ({ hotkey = true }) =>
               </ul>
             )}
           </div>
-        </div>
+        </div>,
+        document.body,
       )}
     </>
   );
