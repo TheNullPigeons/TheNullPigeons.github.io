@@ -16,7 +16,7 @@ export const ConfigurationPage: React.FC = () => {
           Customize nihil: config file, my-resources, environment variables, and command history.
         </p>
         <div className="flex flex-wrap gap-2 pt-1">
-          {['config.yml', 'image sources', 'display', 'resources'].map((badge) => (
+          {['~/.nihil', 'config.yml', 'image sources', 'display', 'resources'].map((badge) => (
             <span key={badge} className="text-[0.625rem] px-2.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-300/90 font-semibold tracking-wide">
               {badge}
             </span>
@@ -29,6 +29,7 @@ export const ConfigurationPage: React.FC = () => {
           <section id="tldr">
             <TldrBlock
               items={[
+                'Everything nihil keeps on your host lives in ~/.nihil.',
                 'config.yml controls wrapper behavior.',
                 'my-resources is mounted in every container.',
                 'X11 and Wayland forwarding are enabled by default for new containers.',
@@ -36,6 +37,96 @@ export const ConfigurationPage: React.FC = () => {
                 'EDITOR and DOCKER_HOST are useful runtime env vars.',
               ]}
             />
+          </section>
+
+          {/* ~/.nihil */}
+          <section id="nihil-home" className="space-y-4">
+            <h2 className="text-xl font-semibold text-white">The ~/.nihil directory</h2>
+            <p className="text-slate-400 text-sm">
+              Everything nihil keeps on your host lives in <code>~/.nihil</code>. It is created the first time you run
+              a command, and other folders appear as you use the related features.
+            </p>
+            <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
+{`~/.nihil/
+├── config.yml                  # wrapper settings
+├── my-resources/               # your dotfiles and setup, mounted in every container
+├── nihil-resources/            # shared catalog (nihil resources install)
+├── vpn/                        # .ovpn files used by --vpn
+├── workspaces/<name>/          # default /workspace of each container
+├── image-sources/              # nihil-images clones (upstream and personal fork)
+├── state/<name>/hosts.tar      # /etc/hosts kept across stop / start
+├── browser_ui_passwords.json   # Browser UI passwords
+└── .xauth                      # X11 cookie when xhost is missing`}
+            </pre>
+            <div className="overflow-x-auto">
+              <table className="w-full text-xs border-collapse">
+                <thead>
+                  <tr className="border-b border-slate-700/80">
+                    <th className="text-left py-1.5 pr-3 text-slate-500 font-medium">Path</th>
+                    <th className="text-left py-1.5 pr-3 text-slate-500 font-medium">What it holds</th>
+                    <th className="text-left py-1.5 text-slate-500 font-medium">If you delete it</th>
+                  </tr>
+                </thead>
+                <tbody className="text-slate-300">
+                  <tr className="border-b border-slate-800/40 align-top">
+                    <td className="py-1.5 pr-3 text-amber-300 font-mono whitespace-nowrap">{'config.yml'}</td>
+                    <td className="py-1.5 pr-3 text-slate-400">Wrapper settings. Created on first run with inline comments.</td>
+                    <td className="py-1.5 text-slate-500">Reset to defaults</td>
+                  </tr>
+                  <tr className="border-b border-slate-800/40 align-top">
+                    <td className="py-1.5 pr-3 text-amber-300 font-mono whitespace-nowrap">{'my-resources/'}</td>
+                    <td className="py-1.5 pr-3 text-slate-400">Your personal config, mounted read-write at /opt/my-resources in every container. Its setup/ files are applied on the first start of each container.</td>
+                    <td className="py-1.5 text-slate-500">Your dotfiles are lost</td>
+                  </tr>
+                  <tr className="border-b border-slate-800/40 align-top">
+                    <td className="py-1.5 pr-3 text-amber-300 font-mono whitespace-nowrap">{'nihil-resources/'}</td>
+                    <td className="py-1.5 pr-3 text-slate-400">Clone of the shared resources catalog, created by nihil resources install and mounted read-only at /opt/resources.</td>
+                    <td className="py-1.5 text-slate-500">Reinstall with nihil resources install</td>
+                  </tr>
+                  <tr className="border-b border-slate-800/40 align-top">
+                    <td className="py-1.5 pr-3 text-amber-300 font-mono whitespace-nowrap">{'vpn/'}</td>
+                    <td className="py-1.5 pr-3 text-slate-400">Your .ovpn files. --vpn with no path uses client.ovpn, or the only .ovpn in this folder.</td>
+                    <td className="py-1.5 text-slate-500">Your VPN configs are lost</td>
+                  </tr>
+                  <tr className="border-b border-slate-800/40 align-top">
+                    <td className="py-1.5 pr-3 text-amber-300 font-mono whitespace-nowrap">{'workspaces/<name>/'}</td>
+                    <td className="py-1.5 pr-3 text-slate-400">Default /workspace of a container when you pass no --workspace and set no workspace.default_path. Shell recordings go to logs/ inside it.</td>
+                    <td className="py-1.5 text-slate-500">Your engagement files are lost</td>
+                  </tr>
+                  <tr className="border-b border-slate-800/40 align-top">
+                    <td className="py-1.5 pr-3 text-amber-300 font-mono whitespace-nowrap">{'image-sources/'}</td>
+                    <td className="py-1.5 pr-3 text-slate-400">Git clones of nihil-images: upstream/nihil-images, plus {"<login>/<repo>"} for a personal fork made by nihil image customize.</td>
+                    <td className="py-1.5 text-slate-500">Re-cloned when needed</td>
+                  </tr>
+                  <tr className="border-b border-slate-800/40 align-top">
+                    <td className="py-1.5 pr-3 text-amber-300 font-mono whitespace-nowrap">{'state/<name>/hosts.tar'}</td>
+                    <td className="py-1.5 pr-3 text-slate-400">Backup of the container's /etc/hosts, saved on stop and restored on start, because Docker rewrites the file. Deleted with the container.</td>
+                    <td className="py-1.5 text-slate-500">Manual hosts entries are lost</td>
+                  </tr>
+                  <tr className="border-b border-slate-800/40 align-top">
+                    <td className="py-1.5 pr-3 text-amber-300 font-mono whitespace-nowrap">{'browser_ui_passwords.json'}</td>
+                    <td className="py-1.5 pr-3 text-slate-400">Browser UI password of each container (permissions 600), so a session keeps the same password across restarts.</td>
+                    <td className="py-1.5 text-slate-500">New password on next start</td>
+                  </tr>
+                  <tr className="border-b border-slate-800/40 align-top">
+                    <td className="py-1.5 pr-3 text-amber-300 font-mono whitespace-nowrap">{'.xauth'}</td>
+                    <td className="py-1.5 pr-3 text-slate-400">Copy of your Xauthority, mounted read-only for X11 forwarding when xhost is not installed. Refreshed on every start.</td>
+                    <td className="py-1.5 text-slate-500">Recreated on next start</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <Callout variant="warning" title="Removing a container keeps its workspace">
+              <code>nihil remove</code> deletes <code>state/&lt;name&gt;</code> but never <code>workspaces/&lt;name&gt;</code>.
+              Your loot stays on disk until you delete the folder yourself.
+            </Callout>
+            <p className="text-slate-400 text-sm">
+              If a command fails with a permission error, <code>~/.nihil</code> was probably created by root
+              (for example by running nihil with sudo). <code>nihil doctor</code> detects it, and this fixes it:
+            </p>
+            <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
+{`sudo chown -R $USER ~/.nihil`}
+            </pre>
           </section>
 
           {/* Config file */}
@@ -240,6 +331,7 @@ nihil exec pentest`}
         <SectionToc
           items={[
             { id: 'tldr', label: 'TL;DR' },
+            { id: 'nihil-home', label: '~/.nihil' },
             { id: 'config-file', label: 'Config file' },
             { id: 'image-sources', label: 'Image sources' },
             { id: 'display', label: 'Display' },

@@ -39,6 +39,7 @@ export const searchIndex: SearchEntry[] = [
   { page: 'CLI Commands', path: '/docs/usage#display', label: 'X11 / Wayland GUI support', keywords: ['x11', 'wayland', 'gui'] },
   { page: 'CLI Commands', path: '/docs/usage#troubleshooting', label: 'Troubleshooting' },
   { page: 'Configuration', path: '/docs/configuration', label: 'Configure nihil paths, resources, env variables, and command history.' },
+  { page: 'Configuration', path: '/docs/configuration#nihil-home', label: 'The ~/.nihil directory', keywords: ['.nihil', 'nihil home', 'workspaces', 'vpn', 'state', 'xauth', 'permissions', 'chown'] },
   { page: 'Configuration', path: '/docs/configuration#config-file', label: 'Config file' },
   { page: 'Configuration', path: '/docs/configuration#image-sources', label: 'Image sources' },
   { page: 'Configuration', path: '/docs/configuration#display', label: 'Display' },
