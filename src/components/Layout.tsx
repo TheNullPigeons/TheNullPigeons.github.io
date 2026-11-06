@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { SeoMeta } from './SeoMeta';
 import { AirmailBar, ArrowUpRight, DiscordIcon, GithubIcon } from './Mail';
+import { scrollBehavior } from './motion';
 
 const navLinks = [
   { to: '/', label: 'Overview', end: true },
@@ -12,7 +13,7 @@ const navLinks = [
 ];
 
 const navLinkClass = ({ isActive }: { isActive: boolean }) =>
-  'group relative flex items-center gap-2 px-3 py-2 font-mono text-[11px] uppercase tracking-[0.16em] transition-colors ' +
+  'group relative flex items-center gap-2 px-3 py-2 font-mono text-[0.6875rem] uppercase tracking-[0.16em] transition-colors ' +
   (isActive ? 'text-paper' : 'text-slate-400 hover:text-paper');
 
 const footerLinks = [
@@ -44,6 +45,13 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
 
   React.useEffect(() => { setMenuOpen(false); }, [location]);
 
+  React.useEffect(() => {
+    if (!menuOpen) return;
+    const overflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = overflow; };
+  }, [menuOpen]);
+
   React.useLayoutEffect(() => {
     if (!location.hash) window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   }, [location.pathname, location.hash]);
@@ -53,7 +61,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
     e.preventDefault();
     setMenuOpen(false);
     if (location.pathname === '/') {
-      document.getElementById('transmissions')?.scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('transmissions')?.scrollIntoView({ behavior: scrollBehavior() });
     } else {
       navigate('/#transmissions');
     }
@@ -72,8 +80,8 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
               className="h-9 w-9 object-contain transition-transform duration-300 group-hover:-rotate-12 group-hover:scale-110"
             />
             <span className="flex flex-col leading-none">
-              <span className="display text-paper text-[22px] leading-none">TheNullPigeons</span>
-              <span className="font-mono text-[9.5px] uppercase tracking-[0.2em] text-slate-500 mt-1">
+              <span className="display text-paper text-[1.375rem] leading-none">TheNullPigeons</span>
+              <span className="font-mono text-[0.625rem] uppercase tracking-[0.2em] text-slate-500 mt-1">
                 Offensive mail service
               </span>
             </span>
@@ -109,7 +117,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
             <a
               href="/#transmissions"
               onClick={watchDemos}
-              className="flex items-center gap-2 h-9 px-3.5 bg-[#236fbb] text-white font-mono text-[11px] uppercase tracking-[0.14em] font-semibold hover:bg-cyan-700 transition-colors"
+              className="flex items-center gap-2 h-9 px-3.5 bg-[#236fbb] text-white font-mono text-[0.6875rem] uppercase tracking-[0.14em] font-semibold hover:bg-cyan-700 transition active:scale-[0.97]"
             >
               Watch it work
               <ArrowUpRight className="w-3.5 h-3.5" />
@@ -119,7 +127,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
           <button
             type="button"
             onClick={() => setMenuOpen((v) => !v)}
-            className="md:hidden flex items-center gap-2 h-9 px-3 border border-slate-700 font-mono text-[11px] uppercase tracking-[0.14em] text-slate-200"
+            className="md:hidden flex items-center gap-2 h-9 px-3 border border-slate-700 transition active:scale-[0.95] font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-slate-200"
             aria-expanded={menuOpen}
             aria-label="Toggle menu"
           >
@@ -128,7 +136,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
         </div>
 
         {menuOpen && (
-          <div className="md:hidden border-t border-slate-800 bg-ink px-5 py-4">
+          <div className="md:hidden border-t border-slate-800 px-5 py-4 max-h-[calc(100dvh-4.25rem)] overflow-y-auto origin-top transition duration-200 ease-out starting:opacity-0 starting:-translate-y-2 motion-reduce:starting:translate-y-0">
             {[...navLinks, { to: '/source-code', label: 'Source code', end: false }].map(
               ({ to, label, end }, i) => (
                 <NavLink
@@ -140,7 +148,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                     (isActive ? 'text-amber-500' : 'text-paper')
                   }
                 >
-                  <span className="font-mono text-[11px] text-slate-500">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="font-mono text-[0.6875rem] text-slate-500">{String(i + 1).padStart(2, '0')}</span>
                   {label}
                 </NavLink>
               ),
@@ -209,7 +217,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
         </div>
 
         <div className="border-t border-slate-800">
-          <div className="max-w-[88rem] mx-auto px-5 md:px-8 py-4 flex flex-wrap items-center justify-between gap-3 font-mono text-[11px] text-slate-500">
+          <div className="max-w-[88rem] mx-auto px-5 md:px-8 py-4 flex flex-wrap items-center justify-between gap-3 font-mono text-[0.6875rem] text-slate-500">
             <span>
               Built by{' '}
               <a href="https://github.com/0xbbuddha" target="_blank" rel="noreferrer" className="text-slate-300 hover:text-amber-500 transition-colors">

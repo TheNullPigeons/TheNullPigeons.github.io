@@ -17,7 +17,7 @@ export const ContributingPage: React.FC = () => {
         </p>
         <div className="flex flex-wrap gap-2 pt-1">
           {['Issues', 'Tool requests', 'Dev setup', 'Custom images'].map((badge) => (
-            <span key={badge} className="text-[10px] px-2.5 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300/90 font-semibold tracking-wide">
+            <span key={badge} className="text-[0.625rem] px-2.5 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300/90 font-semibold tracking-wide">
               {badge}
             </span>
           ))}

@@ -27,6 +27,12 @@ function useFilteredResults(query: string): SearchEntry[] {
   }, [query]);
 }
 
+// Shown before the user types: the common paths first.
+const SUGGESTED_PATHS = ['/docs/installation/linux', '/docs/usage', '/docs/images', '/docs/configuration', '/docs/network-vpn'];
+const suggestions = SUGGESTED_PATHS.map((p) => searchIndex.find((e) => e.path === p)).filter((e): e is SearchEntry => !!e);
+
+const isMac = typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.userAgent);
+
 export const DocsSearch: React.FC<{ hotkey?: boolean }> = ({ hotkey = true }) => {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
@@ -35,6 +41,7 @@ export const DocsSearch: React.FC<{ hotkey?: boolean }> = ({ hotkey = true }) =>
   const navigate = useNavigate();
 
   const results = useFilteredResults(query);
+  const list = query.trim() ? results : suggestions;
 
   const close = () => {
     setOpen(false);
@@ -53,13 +60,26 @@ export const DocsSearch: React.FC<{ hotkey?: boolean }> = ({ hotkey = true }) =>
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
         setOpen((v) => !v);
-      } else if (e.key === 'Escape') {
-        close();
       }
     };
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [hotkey]);
+
+  // Escape must work for every instance, including the hotkey-less mobile one.
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') close();
+    };
+    window.addEventListener('keydown', onKeyDown);
+    const overflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', onKeyDown);
+      document.body.style.overflow = overflow;
+    };
+  }, [open]);
 
   useEffect(() => {
     if (open) {
@@ -74,13 +94,13 @@ export const DocsSearch: React.FC<{ hotkey?: boolean }> = ({ hotkey = true }) =>
   const handleInputKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'ArrowDown') {
       e.preventDefault();
-      setActiveIndex((i) => Math.min(i + 1, results.length - 1));
+      setActiveIndex((i) => Math.min(i + 1, list.length - 1));
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
       setActiveIndex((i) => Math.max(i - 1, 0));
     } else if (e.key === 'Enter') {
       e.preventDefault();
-      const picked = results[activeIndex];
+      const picked = list[activeIndex];
       if (picked) go(picked);
     }
   };
@@ -90,24 +110,27 @@ export const DocsSearch: React.FC<{ hotkey?: boolean }> = ({ hotkey = true }) =>
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="flex items-center gap-2.5 w-full px-3 py-2.5 text-left text-sm text-slate-400 bg-slate-950 border border-slate-800 hover:border-slate-500 hover:text-paper transition-colors"
+        className="flex items-center gap-2.5 w-full px-3 py-2.5 text-left text-sm text-slate-400 bg-slate-950 border border-slate-800 hover:border-slate-500 hover:text-paper transition active:scale-[0.98]"
       >
         <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35M19 11a8 8 0 11-16 0 8 8 0 0116 0z" />
         </svg>
         <span className="flex-1">Search docs</span>
-        <kbd className="hidden md:inline font-mono text-[10px] px-1.5 py-0.5 border border-slate-700 text-slate-500">
-          Ctrl K
+        <kbd className="hidden md:inline font-mono text-[0.625rem] px-1.5 py-0.5 border border-slate-700 text-slate-500">
+          {isMac ? '⌘K' : 'Ctrl K'}
         </kbd>
       </button>
 
       {open && createPortal(
         <div
-          className="fixed inset-0 z-[100] flex items-start justify-center pt-24 px-4 bg-ink/80 backdrop-blur-sm"
+          className="fixed inset-0 z-[100] flex items-start justify-center pt-24 px-4 bg-ink/80 backdrop-blur-sm transition-opacity duration-150 starting:opacity-0"
           onClick={close}
         >
           <div
-            className="w-full max-w-lg border border-slate-700 bg-slate-950 shadow-[10px_10px_0_rgba(0,0,0,0.6)] overflow-hidden"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Search the docs"
+            className="w-full max-w-lg border border-slate-700 bg-slate-950 shadow-[10px_10px_0_rgba(0,0,0,0.6)] overflow-hidden origin-top transition duration-200 ease-out starting:opacity-0 starting:scale-[0.98] starting:-translate-y-1 motion-reduce:starting:scale-100 motion-reduce:starting:translate-y-0"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center gap-2 border-b border-slate-800 px-4 py-3">
@@ -120,17 +143,20 @@ export const DocsSearch: React.FC<{ hotkey?: boolean }> = ({ hotkey = true }) =>
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={handleInputKeyDown}
                 placeholder="Search the docs..."
+                aria-label="Search the docs"
                 className="flex-1 bg-transparent text-sm text-slate-100 placeholder:text-slate-500 outline-none"
               />
-              <kbd className="font-mono text-[10px] px-1.5 py-0.5 border border-slate-700 text-slate-500">Esc</kbd>
+              <kbd className="hidden md:inline font-mono text-[0.625rem] px-1.5 py-0.5 border border-slate-700 text-slate-500">Esc</kbd>
             </div>
 
-            {query.trim() !== '' && (
-              <ul className="max-h-80 overflow-y-auto py-2">
-                {results.length === 0 && (
+            {query.trim() === '' && (
+              <p className="px-4 pt-3 eyebrow text-[0.625rem]">Popular pages</p>
+            )}
+            <ul className="max-h-80 overflow-y-auto py-2">
+                {list.length === 0 && (
                   <li className="px-4 py-6 text-center text-sm text-slate-500">No results for "{query}"</li>
                 )}
-                {results.map((entry, i) => (
+                {list.map((entry, i) => (
                   <li key={entry.path}>
                     <button
                       type="button"
@@ -144,12 +170,11 @@ export const DocsSearch: React.FC<{ hotkey?: boolean }> = ({ hotkey = true }) =>
                       <span className={'text-sm ' + (i === activeIndex ? 'text-paper' : 'text-slate-300')}>
                         {entry.label}
                       </span>
-                      <span className="font-mono text-[10.5px] uppercase tracking-[0.12em] text-slate-500">{entry.page}</span>
+                      <span className="font-mono text-[0.65625rem] uppercase tracking-[0.12em] text-slate-500">{entry.page}</span>
                     </button>
                   </li>
                 ))}
-              </ul>
-            )}
+            </ul>
           </div>
         </div>,
         document.body,

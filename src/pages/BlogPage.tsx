@@ -24,7 +24,7 @@ export const BlogPage: React.FC = () => {
       {sorted.length === 0 ? (
         <div className="airmail-frame max-w-3xl">
           <div className="bg-paper text-ink px-6 py-12 md:px-12 md:py-16 space-y-4">
-            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink/50">Inbox · 0 messages</p>
+            <p className="font-mono text-[0.6875rem] uppercase tracking-[0.18em] text-ink/50">Inbox · 0 messages</p>
             <p className="text-3xl md:text-5xl font-bold display leading-tight">
               No dispatches yet. <span className="stencil logo-blue-text">Check back soon.</span>
             </p>
@@ -47,7 +47,7 @@ export const BlogPage: React.FC = () => {
                   <p className="text-slate-400 leading-relaxed max-w-2xl">{post.excerpt}</p>
                   <div className="flex flex-wrap gap-2">
                     {post.tags.map((tag) => (
-                      <span key={tag} className="font-mono text-[10.5px] uppercase tracking-[0.14em] px-2 py-0.5 border border-slate-700 text-slate-400">
+                      <span key={tag} className="font-mono text-[0.65625rem] uppercase tracking-[0.14em] px-2 py-0.5 border border-slate-700 text-slate-400">
                         {tag}
                       </span>
                     ))}

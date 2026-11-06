@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Flock } from '../components/Flock';
 import { DemoReel, type Demo } from '../components/DemoReel';
 import { ArrowRight, ArrowUpRight, Postmark, SectionLabel, Stamp } from '../components/Mail';
+import { scrollBehavior } from '../components/motion';
 
 const INSTALL_CMD = 'pipx install "git+https://github.com/TheNullPigeons/nihil.git"';
 
@@ -135,13 +136,13 @@ const CopyCommand: React.FC<{ command: string }> = ({ command }) => {
   return (
     <div className="flex items-stretch border border-slate-700 bg-ink/80 backdrop-blur-sm max-w-full">
       <span className="flex items-center px-3 font-mono text-sm text-amber-500 border-r border-slate-800 select-none">$</span>
-      <code className="flex-1 min-w-0 px-3 py-3 font-mono text-[12.5px] text-slate-200 overflow-x-auto whitespace-nowrap">
+      <code className="flex-1 min-w-0 px-3 py-3 font-mono text-[0.78125rem] text-slate-200 overflow-x-auto whitespace-nowrap">
         {command}
       </code>
       <button
         type="button"
         onClick={copy}
-        className="shrink-0 px-4 font-mono text-[11px] uppercase tracking-[0.14em] border-l border-slate-800 text-slate-300 hover:bg-paper hover:text-ink transition-colors"
+        className="shrink-0 px-4 font-mono text-[0.6875rem] uppercase tracking-[0.14em] border-l border-slate-800 text-slate-300 hover:bg-paper hover:text-ink active:bg-paper/80 transition-colors"
       >
         {copied ? 'Copied' : 'Copy'}
       </button>
@@ -156,7 +157,7 @@ export const HomePage: React.FC = () => {
   useEffect(() => {
     if (location.hash === '#transmissions') {
       requestAnimationFrame(() => {
-        document.getElementById('transmissions')?.scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('transmissions')?.scrollIntoView({ behavior: scrollBehavior() });
       });
     }
   }, [location.hash]);
@@ -179,13 +180,13 @@ export const HomePage: React.FC = () => {
 
         <div className="relative flex-1 max-w-[88rem] w-full mx-auto px-5 md:px-8 pt-14 md:pt-20 pb-12 grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_auto] gap-12 items-center">
           <div className="space-y-8 max-w-5xl min-w-0">
-            <p className="animate-rise inline-flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.18em] text-slate-400">
+            <p className="animate-rise inline-flex items-center gap-2.5 font-mono text-[0.6875rem] uppercase tracking-[0.18em] text-slate-400">
               <span className="h-2 w-2 bg-amber-500" />
               Nihil 1.0 · now in flight
             </p>
 
             <h1
-              className="animate-rise text-paper leading-[0.86] display text-[clamp(3.4rem,7.6vw,7.5rem)]"
+              className="animate-rise text-paper leading-[0.86] display tracking-[-0.01em] text-[clamp(3.4rem,7.6vw,7.5rem)]"
               style={{ animationDelay: '80ms' }}
             >
               Offensive tooling,
@@ -247,21 +248,21 @@ export const HomePage: React.FC = () => {
                   (i === 3 ? 'border-t md:border-t-0 border-slate-800 ' : '')
                 }
               >
-                <dt className="eyebrow text-[10px]">{k}</dt>
-                <dd className="mt-1 text-sm md:text-[15px] text-paper font-medium">{v}</dd>
+                <dt className="eyebrow text-[0.625rem]">{k}</dt>
+                <dd className="mt-1 text-sm md:text-[0.9375rem] text-paper font-medium">{v}</dd>
               </div>
             ))}
           </dl>
         </div>
 
-        <p className="hidden md:block absolute right-8 top-6 font-mono text-[10.5px] uppercase tracking-[0.16em] text-slate-600 pointer-events-none">
+        <p className="hidden md:block absolute right-8 top-6 font-mono text-[0.65625rem] uppercase tracking-[0.16em] text-slate-500 pointer-events-none">
           Move your cursor, you&apos;re the hawk.
         </p>
       </section>
 
       {/* ───────────── Tool ticker ───────────── */}
       <section className="border-b border-slate-800 bg-amber-500 text-ink overflow-hidden" aria-label="Some of the bundled tools">
-        <div className="flex w-max animate-[marquee_60s_linear_infinite] py-3">
+        <div className="flex w-max animate-[marquee_60s_linear_infinite] hover:[animation-play-state:paused] py-3">
           {[0, 1].map((dup) => (
             <ul key={dup} className="flex shrink-0 items-center" aria-hidden={dup === 1}>
               {tickerTools.map((t) => (
@@ -320,8 +321,8 @@ export const HomePage: React.FC = () => {
               <Link
                 key={img.name}
                 to="/docs/images"
-                className="group block transition-transform duration-300 hover:-translate-y-2 hover:rotate-0"
-                style={{ transform: `rotate(${[-2, 1.5, -1, 2][i]}deg)` }}
+                className="group block transition duration-300 rotate-(--tilt) hover:-translate-y-2 hover:rotate-0 active:translate-y-0 active:scale-[0.98]"
+                style={{ '--tilt': `${[-2, 1.5, -1, 2][i]}deg` } as React.CSSProperties}
               >
                 <Stamp
                   caption={img.alias}
@@ -339,7 +340,7 @@ export const HomePage: React.FC = () => {
                         <path key={k} d={`M0 ${8 + k * 14} q 12.5 -7 25 0 t 25 0 t 25 0 t 25 0 t 25 0 t 25 0 t 25 0 t 25 0`} fill="none" stroke="currentColor" strokeWidth="3" />
                       ))}
                     </svg>
-                    <p className="absolute top-[38%] left-0 right-0 text-center font-mono text-[10px] uppercase tracking-[0.3em] text-ink/40">
+                    <p className="absolute top-[38%] left-0 right-0 text-center font-mono text-[0.625rem] uppercase tracking-[0.3em] text-ink/40">
                       ghcr.io/thenullpigeons
                     </p>
                     <div>
@@ -402,7 +403,7 @@ export const HomePage: React.FC = () => {
                 key={f.name}
                 to={f.to}
                 className={
-                  'group relative isolate overflow-hidden border p-6 md:p-8 flex flex-col focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-400 transition-colors ' +
+                  'group relative isolate overflow-hidden border p-6 md:p-8 flex flex-col focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-400 transition active:scale-[0.99] ' +
                   (i === 0 ? 'lg:col-span-7 border-cyan-700/50 bg-cyan-950/40 hover:border-cyan-400 min-h-[19rem] ' :
                     i === 1 ? 'lg:col-span-5 border-amber-700/40 bg-slate-900/60 hover:border-amber-400 min-h-[19rem] ' :
                     'lg:col-span-3 border-slate-800 bg-ink-2/40 hover:border-cyan-600 min-h-[18rem] ')
@@ -418,13 +419,13 @@ export const HomePage: React.FC = () => {
                   {f.drawing}
                 </svg>
                 <div className="flex items-start justify-between gap-4">
-                  <span className="font-mono text-[11px] text-slate-400">{String(i + 1).padStart(2, '0')} / {f.role}</span>
+                  <span className="font-mono text-[0.6875rem] text-slate-400">{String(i + 1).padStart(2, '0')} / {f.role}</span>
                   <ArrowUpRight className="w-5 h-5 shrink-0 text-slate-400 group-hover:text-cyan-300 transition-colors" />
                 </div>
                 <div className="mt-auto pt-20 space-y-3">
                   <h3 className={'font-mono font-semibold tracking-tight text-paper ' + (i < 2 ? 'text-3xl md:text-4xl' : 'text-xl lg:text-lg xl:text-2xl')}>{f.name}</h3>
                   <p className={'text-sm text-slate-300 leading-relaxed max-w-lg ' + (i < 2 ? 'lg:min-h-[3rem]' : 'lg:min-h-[4.5rem]')}>{f.desc}</p>
-                  <p className={'pt-3 border-t font-mono text-[11px] ' + (i === 1 ? 'border-amber-500/20 text-amber-300' : 'border-cyan-500/20 text-cyan-300')}>{f.detail}</p>
+                  <p className={'pt-3 border-t font-mono text-[0.6875rem] ' + (i === 1 ? 'border-amber-500/20 text-amber-300' : 'border-cyan-500/20 text-cyan-300')}>{f.detail}</p>
                 </div>
               </Link>
             ))}
@@ -447,7 +448,7 @@ export const HomePage: React.FC = () => {
             {faqs.map((f, i) => (
               <details key={f.q} className="group border-b border-slate-800">
                 <summary className="faq-summary flex items-center gap-5 cursor-pointer py-6 select-none">
-                  <span className="font-mono text-[11px] text-slate-500 w-6">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="font-mono text-[0.6875rem] text-slate-500 w-6">{String(i + 1).padStart(2, '0')}</span>
                   <span className="flex-1 text-lg md:text-xl font-medium text-paper group-hover:text-amber-500 transition-colors">
                     {f.q}
                   </span>
@@ -473,20 +474,20 @@ export const HomePage: React.FC = () => {
                 className="absolute -right-10 -top-6 w-[26rem] text-ink/10 rotate-[-8deg] hidden md:block"
               />
               <div className="relative max-w-3xl space-y-7">
-                <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink/60">First class</p>
+                <p className="font-mono text-[0.6875rem] uppercase tracking-[0.18em] text-ink/60">First class</p>
                 <h2 className="text-4xl md:text-7xl font-bold display leading-[0.92]">
                   Your next box is <span className="stencil logo-blue-text">one command</span> away.
                 </h2>
                 <div className="flex flex-wrap gap-4 pt-2">
                   <Link
                     to="/docs"
-                    className="inline-flex items-center gap-2 px-5 py-3 bg-ink text-paper font-semibold text-sm shadow-[4px_4px_0_var(--color-airmail-blue)] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_var(--color-airmail-blue)] transition-all"
+                    className="inline-flex items-center gap-2 px-5 py-3 bg-ink text-paper font-semibold text-sm shadow-[4px_4px_0_var(--color-airmail-blue)] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_var(--color-airmail-blue)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[2px_2px_0_var(--color-airmail-blue)] transition"
                   >
                     Install Nihil <ArrowRight />
                   </Link>
                   <Link
                     to="/community"
-                    className="inline-flex items-center gap-2 px-5 py-3 border border-ink/40 font-medium text-sm hover:border-ink hover:bg-ink/5 transition-colors"
+                    className="inline-flex items-center gap-2 px-5 py-3 border border-ink/40 font-medium text-sm hover:border-ink hover:bg-ink/5 active:scale-[0.97] transition"
                   >
                     Join the flock
                   </Link>

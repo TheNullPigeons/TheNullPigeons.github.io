@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { DocsSearch } from './DocsSearch';
+import { scrollBehavior } from './motion';
 import hljs from 'highlight.js/lib/core';
 import bash from 'highlight.js/lib/languages/bash';
 import dockerfile from 'highlight.js/lib/languages/dockerfile';
@@ -101,10 +102,10 @@ const SidebarSection: React.FC<{ section: SidebarSection; index: number; default
         className="flex items-center gap-3 w-full py-3 text-left group"
         aria-expanded={open}
       >
-        <span className="font-mono text-[10px] text-slate-600 group-hover:text-amber-500 transition-colors w-5">
+        <span className="font-mono text-[0.625rem] text-slate-600 group-hover:text-amber-500 transition-colors w-5">
           {String(index + 1).padStart(2, '0')}
         </span>
-        <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-slate-300 group-hover:text-paper transition-colors flex-1">
+        <span className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-slate-300 group-hover:text-paper transition-colors flex-1">
           {section.title}
         </span>
         <span className="relative w-2.5 h-2.5" aria-hidden>
@@ -119,18 +120,19 @@ const SidebarSection: React.FC<{ section: SidebarSection; index: number; default
       </button>
       <div
         className={
-          'overflow-hidden transition-all duration-200 ' +
-          (open ? 'max-h-96 opacity-100 pb-3' : 'max-h-0 opacity-0')
+          'grid transition-[grid-template-rows,opacity] duration-200 ' +
+          (open ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0')
         }
       >
-        <nav className="ml-8 border-l border-slate-800">
+        <div className="min-h-0 overflow-hidden">
+        <nav className="ml-8 mb-3 border-l border-slate-800">
           {section.items.map((item) => (
             <NavLink
               key={item.to}
               to={item.to}
               end
               className={({ isActive }) =>
-                'block -ml-px pl-4 py-1.5 text-[13.5px] border-l transition-colors duration-150 ' +
+                'block -ml-px pl-4 py-1.5 text-[0.84375rem] border-l transition-colors duration-150 ' +
                 (isActive
                   ? 'border-amber-500 text-paper font-medium'
                   : 'border-transparent text-slate-400 hover:text-paper hover:border-slate-500')
@@ -140,6 +142,7 @@ const SidebarSection: React.FC<{ section: SidebarSection; index: number; default
             </NavLink>
           ))}
         </nav>
+        </div>
       </div>
     </div>
   );
@@ -269,7 +272,7 @@ export const DocsLayout: React.FC<{ children: React.ReactNode }> = ({ children }
   useEffect(() => {
     if (location.hash) {
       const target = document.getElementById(location.hash.slice(1));
-      target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      target?.scrollIntoView({ behavior: scrollBehavior(), block: 'start' });
     }
   }, [location.pathname, location.hash]);
 
@@ -280,7 +283,7 @@ export const DocsLayout: React.FC<{ children: React.ReactNode }> = ({ children }
       <aside className="hidden lg:block sticky top-28 max-h-[calc(100vh-8rem)] overflow-y-auto pr-2 -mr-2">
         <div className="space-y-5">
           <div className="space-y-3">
-            <p className="eyebrow text-[10px]">
+            <p className="eyebrow text-[0.625rem]">
               Field manual
             </p>
             <DocsSearch />
@@ -303,11 +306,11 @@ export const DocsLayout: React.FC<{ children: React.ReactNode }> = ({ children }
         <DocsSearch hotkey={false} />
         <details className="group border border-slate-800">
           <summary className="faq-summary flex items-center justify-between gap-3 px-4 py-3 cursor-pointer">
-            <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-slate-400">
+            <span className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-slate-400">
               Docs / <span className="text-paper">{current?.label ?? 'Menu'}</span>
             </span>
-            <span className="font-mono text-[11px] text-amber-500 group-open:hidden">Open</span>
-            <span className="font-mono text-[11px] text-amber-500 hidden group-open:inline">Close</span>
+            <span className="font-mono text-[0.6875rem] text-amber-500 group-open:hidden">Open</span>
+            <span className="font-mono text-[0.6875rem] text-amber-500 hidden group-open:inline">Close</span>
           </summary>
           <div className="px-4 border-t border-slate-800">
             {sections.map((section, i) => (

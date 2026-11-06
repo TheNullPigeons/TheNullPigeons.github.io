@@ -55,21 +55,21 @@ export const PricingPage: React.FC = () => {
               <div className="w-full p-3 md:p-5 space-y-6">
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink/50">{tier.subtitle}</p>
+                    <p className="font-mono text-[0.625rem] uppercase tracking-[0.18em] text-ink/50">{tier.subtitle}</p>
                     <h2 className="text-3xl md:text-4xl font-bold display leading-tight">{tier.name}</h2>
                   </div>
                   <p className="text-5xl md:text-6xl font-bold display leading-none">{tier.price}</p>
                 </div>
-                <p className="text-[15px] leading-relaxed text-ink/75">{tier.description}</p>
+                <p className="text-[0.9375rem] leading-relaxed text-ink/75">{tier.description}</p>
                 <ul className="border-t border-ink/20">
                   {tier.features.map((f) => (
-                    <li key={f} className="flex items-center gap-3 py-2.5 border-b border-ink/20 text-[15px]">
+                    <li key={f} className="flex items-center gap-3 py-2.5 border-b border-ink/20 text-[0.9375rem]">
                       <span className="font-mono text-amber-600">✓</span>
                       {f}
                     </li>
                   ))}
                 </ul>
-                <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink/60">
+                <p className="font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-ink/60">
                   No checkout. Just <span className="text-ink font-semibold normal-case tracking-normal">git clone</span>.
                 </p>
               </div>

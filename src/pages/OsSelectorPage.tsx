@@ -54,7 +54,7 @@ export const OsSelectorPage: React.FC = () => {
             <>
               <div className="flex items-start justify-between gap-4">
                 <div className="space-y-1">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink/50">Deliver to</p>
+                  <p className="font-mono text-[0.625rem] uppercase tracking-[0.18em] text-ink/50">Deliver to</p>
                   <p className="text-4xl font-bold display">{label}</p>
                 </div>
                 <Stamp tone="ink" className="w-20 h-24 shrink-0 rotate-[4deg]">
@@ -69,7 +69,7 @@ export const OsSelectorPage: React.FC = () => {
               <div className="mt-6 flex items-center justify-between">
                 <span
                   className={
-                    'font-mono text-[10.5px] uppercase tracking-[0.16em] px-2 py-1 border ' +
+                    'font-mono text-[0.65625rem] uppercase tracking-[0.16em] px-2 py-1 border ' +
                     (available ? 'border-amber-600 text-amber-600' : 'border-ink/40 text-ink/50 -rotate-2')
                   }
                 >

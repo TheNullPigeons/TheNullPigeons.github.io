@@ -233,7 +233,7 @@ nihil tools blueteam --category blueteam`}
                 </p>
                 <div className="flex flex-wrap gap-1.5 mt-3">
                   {(toolsData.modules.full as string[]).map((m) => (
-                    <span key={m} className="text-[10px] px-2 py-0.5 rounded-full bg-amber-400/10 text-amber-400/70 border border-amber-500/15 font-mono">{m}</span>
+                    <span key={m} className="text-[0.625rem] px-2 py-0.5 rounded-full bg-amber-400/10 text-amber-400/70 border border-amber-500/15 font-mono">{m}</span>
                   ))}
                 </div>
               </div>
@@ -270,7 +270,7 @@ nihil tools blueteam --category blueteam`}
                   </p>
                   <div className="flex flex-wrap gap-1.5 mt-3">
                     {(toolsData.modules.ad as string[]).map((m) => (
-                      <span key={m} className="text-[10px] px-2 py-0.5 rounded-full bg-cyan-400/10 text-cyan-300/80 border border-cyan-500/15 font-mono">{m}</span>
+                      <span key={m} className="text-[0.625rem] px-2 py-0.5 rounded-full bg-cyan-400/10 text-cyan-300/80 border border-cyan-500/15 font-mono">{m}</span>
                     ))}
                   </div>
                 </div>
@@ -333,7 +333,7 @@ nihil tools blueteam --category blueteam`}
                   </p>
                   <div className="flex flex-wrap gap-1.5 mt-3">
                     {(toolsData.modules.web as string[]).map((m) => (
-                      <span key={m} className="text-[10px] px-2 py-0.5 rounded-full bg-purple-400/10 text-purple-300/80 border border-purple-500/15 font-mono">{m}</span>
+                      <span key={m} className="text-[0.625rem] px-2 py-0.5 rounded-full bg-purple-400/10 text-purple-300/80 border border-purple-500/15 font-mono">{m}</span>
                     ))}
                   </div>
                 </div>
@@ -385,7 +385,7 @@ nihil tools blueteam --category blueteam`}
                   </p>
                   <div className="flex flex-wrap gap-1.5 mt-3">
                     {(toolsData.modules.blueteam as string[]).map((m) => (
-                      <span key={m} className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-400/10 text-emerald-300/80 border border-emerald-500/15 font-mono">{m}</span>
+                      <span key={m} className="text-[0.625rem] px-2 py-0.5 rounded-full bg-emerald-400/10 text-emerald-300/80 border border-emerald-500/15 font-mono">{m}</span>
                     ))}
                   </div>
                 </div>
@@ -432,7 +432,7 @@ nihil tools blueteam --category blueteam`}
         ) : (
           <aside className="sticky top-24 hidden sm:block">
             <div className="rounded-xl border border-slate-800/70 bg-slate-900/40 p-3 backdrop-blur-sm">
-              <p className="text-[11px] uppercase tracking-widest text-slate-500 font-semibold">On this page</p>
+              <p className="text-[0.6875rem] uppercase tracking-widest text-slate-500 font-semibold">On this page</p>
               <p className="mt-3 text-xs text-slate-500">Scroll to browse all tools in this image.</p>
             </div>
           </aside>

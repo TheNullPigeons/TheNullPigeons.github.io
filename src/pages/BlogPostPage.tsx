@@ -13,7 +13,7 @@ export const BlogPostPage: React.FC = () => {
       {/* Back */}
       <Link
         to="/blog"
-        className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-slate-400 hover:text-amber-500 transition-colors"
+        className="inline-flex items-center gap-1.5 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-slate-400 hover:text-amber-500 transition-colors"
       >
         <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
@@ -28,7 +28,7 @@ export const BlogPostPage: React.FC = () => {
           {post.tags.map((tag) => (
             <span
               key={tag}
-              className="font-mono text-[10.5px] uppercase tracking-[0.14em] px-2 py-0.5 border border-slate-700 text-slate-400"
+              className="font-mono text-[0.65625rem] uppercase tracking-[0.14em] px-2 py-0.5 border border-slate-700 text-slate-400"
             >
               {tag}
             </span>

@@ -17,7 +17,7 @@ export const NihilHistoryPage: React.FC = () => {
         </p>
         <div className="flex flex-wrap gap-2 pt-1">
           {['TUI first', 'Engagements', 'Creds x Hosts', 'AD targets', 'Sync NXC', 'Export'].map((badge) => (
-            <span key={badge} className="text-[10px] px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300/90 font-semibold tracking-wide">
+            <span key={badge} className="text-[0.625rem] px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300/90 font-semibold tracking-wide">
               {badge}
             </span>
           ))}

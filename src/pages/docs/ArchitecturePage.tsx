@@ -359,7 +359,7 @@ const ZoomableDiagram: React.FC<{ children: React.ReactNode; label: string }> = 
         className="group relative block w-full cursor-zoom-in text-left"
       >
         {children}
-        <span className="pointer-events-none absolute right-3 top-3 flex items-center gap-1.5 bg-ink/80 border border-slate-700 px-2 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-slate-400 group-hover:border-amber-500 group-hover:text-amber-500 transition-colors">
+        <span className="pointer-events-none absolute right-3 top-3 flex items-center gap-1.5 bg-ink/80 border border-slate-700 px-2 py-1 font-mono text-[0.625rem] uppercase tracking-[0.14em] text-slate-400 group-hover:border-amber-500 group-hover:text-amber-500 transition-colors">
           <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
             <path strokeLinecap="square" d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
           </svg>
@@ -376,13 +376,13 @@ const ZoomableDiagram: React.FC<{ children: React.ReactNode; label: string }> = 
           aria-label={`${label} diagram`}
         >
           <div className="flex items-center justify-between gap-4 mb-3 shrink-0">
-            <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-slate-400">
+            <span className="font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-slate-400">
               <span className="text-amber-500">N°</span> {label}
             </span>
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="flex items-center gap-2 h-8 px-3 border border-slate-700 font-mono text-[11px] uppercase tracking-[0.14em] text-slate-300 hover:bg-paper hover:text-ink transition-colors"
+              className="flex items-center gap-2 h-8 px-3 border border-slate-700 font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-slate-300 hover:bg-paper hover:text-ink transition-colors"
             >
               Esc · Close
             </button>
@@ -504,7 +504,7 @@ export const ArchitecturePage: React.FC = () => {
                 return (
                   <div key={m.dir} className={`p-3 rounded-xl bg-slate-900/40 border ${borderColor[m.color]} transition-colors`}>
                     <p className={`text-sm font-bold font-mono ${titleColor[m.color]}`}>{m.dir}</p>
-                    <p className="text-[11px] text-slate-500 font-mono mt-0.5">{m.files}</p>
+                    <p className="text-[0.6875rem] text-slate-500 font-mono mt-0.5">{m.files}</p>
                     <p className="text-xs text-slate-400 mt-1">{m.desc}</p>
                   </div>
                 );
@@ -549,9 +549,9 @@ export const ArchitecturePage: React.FC = () => {
                   <div className="min-w-0">
                     <div className="flex items-baseline gap-2">
                       <span className="text-xs font-bold text-white">{r.name}</span>
-                      <code className="text-[10px] text-slate-500 font-mono truncate">{r.fn}</code>
+                      <code className="text-[0.625rem] text-slate-500 font-mono truncate">{r.fn}</code>
                     </div>
-                    <p className="text-[11px] text-slate-500">{r.desc}</p>
+                    <p className="text-[0.6875rem] text-slate-500">{r.desc}</p>
                   </div>
                 </div>
               ))}
@@ -573,7 +573,7 @@ export const ArchitecturePage: React.FC = () => {
               ].map((b) => (
                 <div key={b.img} className={`flex-1 min-w-[140px] p-3 rounded-xl border ${b.color} text-center`}>
                   <p className={`text-sm font-bold font-mono ${b.text}`}>{b.img}</p>
-                  <p className="text-[10px] text-slate-500 font-mono mt-1">:latest &middot; {b.tag}</p>
+                  <p className="text-[0.625rem] text-slate-500 font-mono mt-1">:latest &middot; {b.tag}</p>
                 </div>
               ))}
             </div>

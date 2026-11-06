@@ -29,7 +29,7 @@ export const Stamp: React.FC<{
     <div className={`relative border h-full flex flex-col ${tone === 'paper' ? 'border-ink/80' : 'border-paper/50'}`}>
       <div className="flex-1 flex items-center justify-center p-3">{children}</div>
       {(denomination || caption) && (
-        <div className="flex items-end justify-between px-2 pb-1.5 font-mono text-[9px] uppercase tracking-[0.18em]">
+        <div className="flex items-end justify-between px-2 pb-1.5 font-mono text-[0.625rem] uppercase tracking-[0.18em]">
           <span>{caption}</span>
           <span className="display text-lg leading-none">{denomination}</span>
         </div>

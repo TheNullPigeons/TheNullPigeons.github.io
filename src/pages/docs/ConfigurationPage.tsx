@@ -17,7 +17,7 @@ export const ConfigurationPage: React.FC = () => {
         </p>
         <div className="flex flex-wrap gap-2 pt-1">
           {['config.yml', 'image sources', 'display', 'resources'].map((badge) => (
-            <span key={badge} className="text-[10px] px-2.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-300/90 font-semibold tracking-wide">
+            <span key={badge} className="text-[0.625rem] px-2.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-300/90 font-semibold tracking-wide">
               {badge}
             </span>
           ))}

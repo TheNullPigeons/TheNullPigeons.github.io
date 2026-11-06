@@ -174,29 +174,29 @@ export const ResourcesCatalogPage: React.FC = () => {
                     </a>
                   ) : r.name}
                   {!r.enabled && (
-                    <span className="ml-2 text-[10px] px-1.5 py-0.5 rounded bg-slate-700/60 text-slate-500 font-mono">
+                    <span className="ml-2 text-[0.625rem] px-1.5 py-0.5 rounded bg-slate-700/60 text-slate-500 font-mono">
                       disabled
                     </span>
                   )}
                 </td>
-                <td className="py-2.5 px-4 font-mono text-amber-300 text-[11px] max-w-[240px]">
+                <td className="py-2.5 px-4 font-mono text-amber-300 text-[0.6875rem] max-w-[240px]">
                   <span className="block truncate" title={r.target}>{r.target}</span>
                 </td>
                 <td className="py-2.5 px-4 text-slate-400 text-xs max-w-[260px]">{r.notes}</td>
                 <td className="py-2.5 px-4 whitespace-nowrap">
-                  <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${CATEGORY_COLORS[r.category]}`}>
+                  <span className={`text-[0.625rem] px-2 py-0.5 rounded-full font-medium ${CATEGORY_COLORS[r.category]}`}>
                     {r.category}
                   </span>
                 </td>
                 <td className="py-2.5 px-4 whitespace-nowrap">
-                  <span className={`text-[10px] px-2 py-0.5 rounded-full font-mono ${KIND_COLORS[r.kind]}`}>
+                  <span className={`text-[0.625rem] px-2 py-0.5 rounded-full font-mono ${KIND_COLORS[r.kind]}`}>
                     {KIND_LABELS[r.kind]}
                   </span>
                 </td>
                 <td className="py-2.5 px-4">
                   <div className="flex flex-wrap gap-1">
                     {r.profiles.map((p) => (
-                      <span key={p} className={`text-[10px] px-1.5 py-0.5 rounded border font-mono ${PROFILE_COLORS[p]}`}>
+                      <span key={p} className={`text-[0.625rem] px-1.5 py-0.5 rounded border font-mono ${PROFILE_COLORS[p]}`}>
                         {p}
                       </span>
                     ))}

@@ -198,11 +198,14 @@
     font-weight: 500;
     font-size: 0.925rem;
     border-radius: 2px;
-    transition: border-color 0.15s ease, background 0.15s ease;
+    transition: border-color 0.15s ease, background 0.15s ease, transform 0.1s ease-out;
   }
   .btn-ghost:hover {
     border-color: var(--color-paper);
     background: rgb(243 238 229 / 0.05);
+  }
+  .btn-ghost:active {
+    transform: scale(0.97);
   }
 
   .rule {
@@ -260,27 +263,30 @@
   }
 }
 
-.animate-out-chooser {
-  animation: fadeSlideOut 0.35s ease-in forwards;
-}
-
-@keyframes fadeSlideOut {
-  from {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(-8px) scale(0.98);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
   .animate-stamp,
   .animate-rise,
   .animate-in-docs,
   .animate-\[marquee_60s_linear_infinite\] {
     animation: none !important;
+  }
+}
+
+/* Frostier, solid chrome when the user asks for less transparency */
+@media (prefers-reduced-transparency: reduce) {
+  [class*='backdrop-blur'] {
+    backdrop-filter: none !important;
+    background-color: var(--color-ink) !important;
+  }
+}
+
+/* Lift muted text and hairlines when the user asks for more contrast */
+@media (prefers-contrast: more) {
+  :root {
+    --color-slate-500: #c7c3bf;
+    --color-slate-600: #aaa6a3;
+    --color-slate-700: #918d8c;
   }
 }
 
@@ -357,7 +363,11 @@
     border-radius: 2px;
     padding: 0.2rem 0.55rem;
     cursor: pointer;
-    transition: all 0.15s ease;
+    transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease-out;
+  }
+
+  .docs-content .code-shell-copy:active {
+    transform: scale(0.95);
   }
 
   .docs-content .code-shell-copy:hover {

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { prefersReducedMotion } from './motion';
 
 export interface Demo {
   id: string;
@@ -19,14 +20,12 @@ export const DemoReel: React.FC<{ demos: Demo[] }> = ({ demos }) => {
   const [progress, setProgress] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [inView, setInView] = useState(false);
-  const [userPaused, setUserPaused] = useState(false);
+  // Reduced motion: no autoplay, the user starts playback.
+  const [userPaused, setUserPaused] = useState(prefersReducedMotion);
   const [expanded, setExpanded] = useState(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const rootRef = useRef<HTMLDivElement>(null);
-  const clickTimer = useRef<number | undefined>(undefined);
-
-  useEffect(() => () => window.clearTimeout(clickTimer.current), [active]);
 
   useEffect(() => {
     const el = rootRef.current;
@@ -104,7 +103,7 @@ export const DemoReel: React.FC<{ demos: Demo[] }> = ({ demos }) => {
                 type="button"
                 onClick={() => select(i)}
                 className={
-                  'group w-full text-left py-4 pr-2 grid grid-cols-[7.5rem_1fr] gap-x-4 transition-colors ' +
+                  'group w-full text-left py-4 pr-2 grid grid-cols-[7.5rem_1fr] gap-x-4 transition active:scale-[0.99] ' +
                   (isActive ? '' : 'opacity-70 hover:opacity-100')
                 }
                 aria-current={isActive}
@@ -118,7 +117,7 @@ export const DemoReel: React.FC<{ demos: Demo[] }> = ({ demos }) => {
                   <img src={d.poster} alt="" className="w-full h-full object-cover" loading="lazy" />
                   <span
                     className={
-                      'absolute left-0 top-0 px-1.5 py-0.5 font-mono text-[10px] ' +
+                      'absolute left-0 top-0 px-1.5 py-0.5 font-mono text-[0.625rem] ' +
                       (isActive ? 'bg-amber-500 text-ink' : 'bg-ink/80 text-slate-300')
                     }
                   >
@@ -127,7 +126,7 @@ export const DemoReel: React.FC<{ demos: Demo[] }> = ({ demos }) => {
                 </span>
                 <span className="space-y-1.5 min-w-0">
                   <span className="block display text-2xl text-paper leading-none">{d.title}</span>
-                  <code className="block font-mono text-[11.5px] text-cyan-300 truncate">{d.command}</code>
+                  <code className="block font-mono text-[0.71875rem] text-cyan-300 truncate">{d.command}</code>
                   <span
                     className={
                       'block text-sm text-slate-400 leading-relaxed overflow-hidden transition-all duration-300 ' +
@@ -166,9 +165,9 @@ export const DemoReel: React.FC<{ demos: Demo[] }> = ({ demos }) => {
           }}
           className="relative m-0 block w-full max-w-none border-0 bg-black p-0 text-inherit group open:fixed open:m-auto open:w-[min(92vw,1200px)] open:max-h-[88dvh] open:overflow-hidden open:shadow-2xl backdrop:bg-black/80"
         >
-          <div className="flex items-center justify-between px-3 py-2 border-b border-slate-800 bg-ink font-mono text-[10.5px] uppercase tracking-[0.16em] text-slate-500">
+          <div className="flex items-center justify-between px-3 py-2 border-b border-slate-800 bg-ink font-mono text-[0.65625rem] uppercase tracking-[0.16em] text-slate-500">
             <span className="flex items-center gap-2">
-              <span className={'h-1.5 w-1.5 rounded-full ' + (playing ? 'bg-amber-500 animate-pulse' : 'bg-slate-600')} />
+              <span className={'h-1.5 w-1.5 rounded-full ' + (playing ? 'bg-amber-500 motion-safe:animate-pulse' : 'bg-slate-600')} />
               {playing ? 'Transmitting' : 'Standby'}
             </span>
             <span className="truncate pl-4">
@@ -177,15 +176,7 @@ export const DemoReel: React.FC<{ demos: Demo[] }> = ({ demos }) => {
           </div>
           <button
             type="button"
-            onClick={(e) => {
-              window.clearTimeout(clickTimer.current);
-              if (e.detail === 0) toggle();
-              else if (e.detail === 1) clickTimer.current = window.setTimeout(toggle, 300);
-            }}
-            onDoubleClick={() => {
-              window.clearTimeout(clickTimer.current);
-              toggleExpanded();
-            }}
+            onClick={toggle}
             className="relative block w-full min-h-0"
             aria-label={playing ? 'Pause demo' : 'Play demo'}
           >

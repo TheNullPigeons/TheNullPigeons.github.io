@@ -140,7 +140,7 @@ export const CommunityPage: React.FC = () => {
                 </div>
                 <div className="mt-16">
                   <p className="text-4xl md:text-6xl font-bold display">{title}</p>
-                  <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.16em] opacity-60">{sub}</p>
+                  <p className="mt-2 font-mono text-[0.6875rem] uppercase tracking-[0.16em] opacity-60">{sub}</p>
                 </div>
               </>
             );
@@ -215,7 +215,7 @@ export const CommunityPage: React.FC = () => {
                       )}
                     </Stamp>
                     <div className="min-w-0 space-y-3 pt-1">
-                      <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink/50">
+                      <p className="font-mono text-[0.625rem] uppercase tracking-[0.18em] text-ink/50">
                         Agent {String(i + 1).padStart(3, '0')} · {member.role}
                       </p>
                       <h3 className="text-2xl md:text-3xl font-bold display leading-tight">{member.name}</h3>
@@ -225,7 +225,7 @@ export const CommunityPage: React.FC = () => {
                           href={member.github}
                           target="_blank"
                           rel="noreferrer"
-                          className="inline-flex items-center gap-2 h-9 px-3 border border-ink/30 font-mono text-[11px] uppercase tracking-[0.12em] hover:bg-ink hover:text-paper transition-colors"
+                          className="inline-flex items-center gap-2 h-9 px-3 border border-ink/30 font-mono text-[0.6875rem] uppercase tracking-[0.12em] hover:bg-ink hover:text-paper transition-colors"
                           aria-label={`${member.name} on GitHub`}
                         >
                           <GithubIcon className="w-3.5 h-3.5" /> GitHub
@@ -234,7 +234,7 @@ export const CommunityPage: React.FC = () => {
                           href={member.linkedin}
                           target="_blank"
                           rel="noreferrer"
-                          className="inline-flex items-center gap-2 h-9 px-3 border border-ink/30 font-mono text-[11px] uppercase tracking-[0.12em] hover:bg-ink hover:text-paper transition-colors"
+                          className="inline-flex items-center gap-2 h-9 px-3 border border-ink/30 font-mono text-[0.6875rem] uppercase tracking-[0.12em] hover:bg-ink hover:text-paper transition-colors"
                           aria-label={`${member.name} on LinkedIn`}
                         >
                           <LinkedinIcon className="w-3.5 h-3.5" /> LinkedIn
@@ -288,17 +288,17 @@ export const CommunityPage: React.FC = () => {
           <div className="bg-paper text-ink">
             <div className="flex items-baseline justify-between gap-4 px-5 md:px-7 pt-5 pb-4 border-b-2 border-ink">
               <p className="display text-2xl md:text-3xl leading-none">Customs declaration</p>
-              <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink/55 whitespace-nowrap">Form TNP-01</p>
+              <p className="font-mono text-[0.625rem] uppercase tracking-[0.16em] text-ink/55 whitespace-nowrap">Form TNP-01</p>
             </div>
 
             <div className="px-5 md:px-7 py-4 border-b border-ink/25">
-              <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink/55 mb-3">Permitted uses</p>
+              <p className="font-mono text-[0.625rem] uppercase tracking-[0.16em] text-ink/55 mb-3">Permitted uses</p>
               <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-2.5">
                 {declaration.map((d) => (
-                  <li key={d.label} className="flex items-start gap-3 text-[14px] leading-snug">
+                  <li key={d.label} className="flex items-start gap-3 text-[0.875rem] leading-snug">
                     <span
                       className={
-                        'mt-[1px] w-4 h-4 shrink-0 border-[1.5px] border-ink flex items-center justify-center font-mono text-[11px] leading-none font-bold ' +
+                        'mt-[1px] w-4 h-4 shrink-0 border-[1.5px] border-ink flex items-center justify-center font-mono text-[0.6875rem] leading-none font-bold ' +
                         (d.allowed ? 'text-amber-600' : 'text-ink/30')
                       }
                       aria-hidden
@@ -316,7 +316,7 @@ export const CommunityPage: React.FC = () => {
 
             <table className="w-full text-left">
               <thead>
-                <tr className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink/55">
+                <tr className="font-mono text-[0.625rem] uppercase tracking-[0.16em] text-ink/55">
                   <th className="font-normal px-5 md:px-7 pt-4 pb-2">Contents</th>
                   <th className="font-normal px-5 md:px-7 pt-4 pb-2 text-right">Licence</th>
                 </tr>
@@ -329,16 +329,16 @@ export const CommunityPage: React.FC = () => {
                         href={`https://github.com/TheNullPigeons/${r.name}`}
                         target="_blank"
                         rel="noreferrer"
-                        className="font-mono text-[13.5px] hover:text-amber-600 transition-colors"
+                        className="font-mono text-[0.84375rem] hover:text-amber-600 transition-colors"
                       >
                         {r.name}
                       </a>
                     </td>
                     <td className="px-5 md:px-7 py-2.5 text-right">
                       {r.licence ? (
-                        <span className="font-mono text-[11px] font-semibold px-1.5 py-0.5 border border-ink">{r.licence}</span>
+                        <span className="font-mono text-[0.6875rem] font-semibold px-1.5 py-0.5 border border-ink">{r.licence}</span>
                       ) : (
-                        <span className="font-mono text-[11px] text-ink/50">licence pending</span>
+                        <span className="font-mono text-[0.6875rem] text-ink/50">licence pending</span>
                       )}
                     </td>
                   </tr>
@@ -347,7 +347,7 @@ export const CommunityPage: React.FC = () => {
             </table>
 
             <div className="flex items-center justify-between gap-4 px-5 md:px-7 py-4 mt-1 border-t-2 border-ink">
-              <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink/55">Value declared</p>
+              <p className="font-mono text-[0.625rem] uppercase tracking-[0.16em] text-ink/55">Value declared</p>
               <p className="display text-3xl leading-none">0.00</p>
             </div>
           </div>
@@ -355,7 +355,7 @@ export const CommunityPage: React.FC = () => {
       </section>
 
       <section className="border border-dashed border-slate-700 p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-4 md:gap-10">
-        <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-amber-500 shrink-0">P.S.</p>
+        <p className="font-mono text-[0.6875rem] uppercase tracking-[0.18em] text-amber-500 shrink-0">P.S.</p>
         <p className="text-slate-300 leading-relaxed">
           Found a bug or have an idea? Open an issue or a PR. If TheNullPigeons helped on an engagement,
           we&apos;d love to hear it, especially if something broke in a fun way.

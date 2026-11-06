@@ -167,14 +167,14 @@ export const ToolsPage: React.FC = () => {
                 <td className="py-2.5 px-4 font-mono text-amber-300 text-xs">{tool.cmd}</td>
                 <td className="py-2.5 px-4 text-slate-400 text-xs">{tool.desc}</td>
                 <td className="py-2.5 px-4">
-                  <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${CATEGORY_COLORS[tool.category]}`}>
+                  <span className={`text-[0.625rem] px-2 py-0.5 rounded-full font-medium ${CATEGORY_COLORS[tool.category]}`}>
                     {tool.category}
                   </span>
                 </td>
                 <td className="py-2.5 px-4">
                   <div className="flex flex-wrap gap-1">
                     {tool.images.map((img) => (
-                      <span key={img} className={`text-[10px] px-1.5 py-0.5 rounded border font-mono ${IMAGE_COLORS[img]}`}>
+                      <span key={img} className={`text-[0.625rem] px-1.5 py-0.5 rounded border font-mono ${IMAGE_COLORS[img]}`}>
                         {img}
                       </span>
                     ))}

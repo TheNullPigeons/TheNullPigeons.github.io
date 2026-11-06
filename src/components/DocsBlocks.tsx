@@ -17,7 +17,7 @@ const labelStyles: Record<CalloutVariant, string> = {
 export const TldrBlock: React.FC<{ items: string[] }> = ({ items }) => (
   <section className="relative border border-slate-800 bg-slate-950 p-5 pl-6">
     <span className="airmail absolute left-0 top-0 bottom-0 w-1" aria-hidden />
-    <p className="font-mono text-[10.5px] font-semibold uppercase tracking-[0.18em] text-paper">TL;DR</p>
+    <p className="font-mono text-[0.65625rem] font-semibold uppercase tracking-[0.18em] text-paper">TL;DR</p>
     <ul className="mt-3 space-y-1.5 text-sm text-slate-300">
       {items.map((item) => (
         <li key={item} className="flex gap-3">
@@ -35,7 +35,7 @@ export const Callout: React.FC<{
   children: React.ReactNode;
 }> = ({ variant, title, children }) => (
   <section className={`border-l-2 px-5 py-4 ${calloutStyles[variant]}`}>
-    <p className={`font-mono text-[10.5px] font-semibold uppercase tracking-[0.16em] ${labelStyles[variant]}`}>{title}</p>
+    <p className={`font-mono text-[0.65625rem] font-semibold uppercase tracking-[0.16em] ${labelStyles[variant]}`}>{title}</p>
     <div className="mt-2 text-sm leading-relaxed">{children}</div>
   </section>
 );
