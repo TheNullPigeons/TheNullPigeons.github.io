@@ -38,6 +38,9 @@ export const ServicePage: React.FC = () => {
               when you request it.
             </p>
             <p className="text-slate-400 text-sm">
+              Browser UI includes Noto CJK fonts so Japanese, Chinese, and Korean text can render correctly.
+            </p>
+            <p className="text-slate-400 text-sm">
               Typical usage: <code>nihil start &lt;name&gt; --browser-ui</code>. Use{' '}
               <code>--browser-ui-port</code> if you want a stable port.
             </p>
