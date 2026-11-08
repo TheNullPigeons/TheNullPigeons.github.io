@@ -166,8 +166,17 @@ nihil start vpn-lab --vpn ~/vpn/client.ovpn
 nihil start vpn-lab --vpn
 
 # Disable the VPN even if a profile would enable it
-nihil start vpn-lab --no-vpn`}
+nihil start vpn-lab --no-vpn
+
+# Profile that asks for a username and password (auth-user-pass)
+nihil start vpn-lab --vpn ~/vpn/client.ovpn --vpn-user alice`}
             </pre>
+            <p className="text-slate-400 text-sm">
+              If your profile uses <code>auth-user-pass</code>, pass <code>--vpn-user</code>: nihil prompts for the
+              password without echoing it and hands both to OpenVPN. <code>--vpn-pass</code> sets the password on the
+              command line instead, but it then shows up in your shell history and in <code>ps</code>, so prefer the
+              prompt. Credentials are not saved: pass <code>--vpn-user</code> again each time the VPN starts.
+            </p>
             <Callout variant="warning" title="VPN can't run on host networking">
               OpenVPN needs to rewrite the container&apos;s routes, which is impossible on the shared host network. If you
               don&apos;t pass <code>--network</code>, nihil switches to <code>docker</code> for you. If you explicitly ask

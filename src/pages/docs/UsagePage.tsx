@@ -63,7 +63,7 @@ nihil stop my-pentest`}
               If one container fails, the remaining containers are still processed; the command returns an error and opens no shell.
             </p>
             <Callout variant="tip" title="Most useful flags">
-              <code>--image</code>, <code>--workspace</code>, <code>--workspace-here</code>, <code>--network</code>, <code>--privileged</code>, <code>--vpn</code>, <code>--env</code>, <code>--tmux</code>.
+              <code>--image</code>, <code>--workspace</code>, <code>--workspace-here</code>, <code>--network</code>, <code>--privileged</code>, <code>--vpn</code>, <code>--vpn-user</code>, <code>--env</code>, <code>--tmux</code>.
             </Callout>
             <Callout variant="note" title="Interactive and automated execution">
               <code>nihil exec</code> allocates a terminal for an interactive shell and automatically runs without one in scripts, CI, and headless agents. Quoted arguments and <code>bash -c</code> scripts are passed unchanged to the container.

@@ -23,7 +23,7 @@ export const HistoryPage: React.FC = () => {
             <TldrBlock
               items={[
                 'Nihil logs every nihil command you run to ~/.config/nihil/history.log.',
-                'Sensitive values (--env, --vpn, --workspace, --browser-ui-password) are masked as ***.',
+                'Sensitive values (--env, --vpn, --vpn-pass, --workspace, --browser-ui-password) are masked as ***.',
                 'The file is never purged automatically, not even by nihil remove.',
                 'Use grep/fzf to recover previous workflows quickly.',
               ]}
@@ -53,7 +53,7 @@ nihil start vpn-lab --vpn *** --network docker
 nihil remove my-pentest --force`}
             </pre>
             <Callout variant="note" title="Secrets are masked, and nothing is auto-deleted">
-              The values of <code>--env</code>, <code>--vpn</code>, <code>--workspace</code> and
+              The values of <code>--env</code>, <code>--vpn</code>, <code>--vpn-pass</code>, <code>--workspace</code> and
               <code>--browser-ui-password</code> are written as <code>***</code>, so client paths and secrets never land
               in the log. The file is never purged automatically, not even by <code>nihil remove</code>: delete it
               yourself when an engagement ends.

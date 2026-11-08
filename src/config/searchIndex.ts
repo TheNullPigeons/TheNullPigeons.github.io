@@ -51,7 +51,7 @@ export const searchIndex: SearchEntry[] = [
   { page: 'Network & VPN', path: '/docs/network-vpn#modes', label: 'Network modes (host, docker, nat, disabled)', keywords: ['nat', 'bridge', 'host networking'] },
   { page: 'Network & VPN', path: '/docs/network-vpn#basics', label: 'What --network and --privileged do (beginners)', keywords: ['docker', 'privileged', 'network', 'beginner', 'sandbox', 'container', 'explained'] },
   { page: 'Network & VPN', path: '/docs/network-vpn#recipes', label: 'Which network / privileged option should I pick?', keywords: ['recipe', 'which', 'privileged', 'network', 'host', 'docker', 'htb', 'wifi'] },
-  { page: 'Network & VPN', path: '/docs/network-vpn#vpn', label: 'VPN (--vpn, --no-vpn)', keywords: ['vpn', 'openvpn', 'ovpn'] },
+  { page: 'Network & VPN', path: '/docs/network-vpn#vpn', label: 'VPN (--vpn, --no-vpn, --vpn-user)', keywords: ['vpn', 'openvpn', 'ovpn', 'username', 'password', 'auth-user-pass'] },
   { page: 'Network & VPN', path: '/docs/network-vpn#privileged', label: 'Privileged mode', keywords: ['privileged', 'standard', 'capabilities'] },
   { page: 'Shell Completion', path: '/docs/completion', label: 'Enable shell autocompletion for nihil commands.' },
   { page: 'Shell Completion', path: '/docs/completion#bash', label: 'Bash' },
