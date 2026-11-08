@@ -140,8 +140,22 @@ export const ConfigurationPage: React.FC = () => {
 nihil config
 
 # Open the file in $EDITOR
-nihil config --edit`}
+nihil config --edit
+
+# Save and list named snapshots
+nihil config profile save vpn-lab
+nihil config profile list
+
+# Use one while creating a container (omit the name to choose interactively)
+nihil start vpn-lab --config-profile vpn-lab
+nihil start web-lab --config-profile`}
             </pre>
+            <p className="text-slate-400 text-sm">
+              Profiles are stored under <code>~/.nihil/config-profiles/</code>. They snapshot the full config
+              and apply its container startup defaults only to the new container; the active
+              <code> config.yml</code> is not changed. Use <code>nihil config profile save NAME --force</code>
+              to replace a snapshot, or <code>nihil config profile delete NAME</code> to remove one.
+            </p>
             <p className="text-slate-400 text-sm">
               The file is created on first run with inline comments. Every key below shows its default:
             </p>
@@ -266,6 +280,10 @@ nihil start no-wayland --disable-wayland`}
             </div>
             <Callout variant="tip" title="Team productivity">
               Share a baseline <code>my-resources</code> profile across team members to standardize aliases and tooling behavior.
+            </Callout>
+            <Callout variant="note" title="Expand variables in the current command">
+              In Nihil's Zsh shell, press <code>ctrl-x</code> then <code>ctrl-e</code> (or <code>ctrl-x-e</code>) to expand variables and shell
+              substitutions in the command line without executing it. Press <code>Ctrl-C</code> to discard the result.
             </Callout>
           </section>
 

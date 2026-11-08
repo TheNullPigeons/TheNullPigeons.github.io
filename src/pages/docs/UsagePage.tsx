@@ -48,6 +48,7 @@ nihil start web-pentest --workspace ~/projects/web
 nihil start vpn-lab --vpn ~/vpn/client.ovpn --network docker
 nihil start re --image full --tmux
 nihil start ad-lab --image ad --env TARGET=10.10.10.1 --env PROXY --log
+nihil start lab --script
 # Exec / inspect
 nihil exec my-pentest
 nihil exec my-pentest nmap -V
@@ -79,6 +80,13 @@ nihil stop my-pentest`}
               Older containers keep their entrypoint-managed VPN; Nihil waits for it before replacing it with a session VPN.
               If that startup times out, retry after it completes.
             </Callout>
+            <Callout variant="note" title="Startup scripts">
+              <code>nihil start lab --script</code> opens an inline selector using about 70% of the terminal height. Use Space to select one
+              or more scripts, then Enter; the default <code> load_user_setup.sh</code> and shell scripts from
+              <code> ~/.nihil/my-resources/setup/scripts/</code> are available. Nihil runs the selection after
+              starting the container, including when it is already running. The description comes from the
+              script's first non-empty comment line.
+            </Callout>
           </section>
 
           <section id="env-logging" className="space-y-4">
@@ -101,6 +109,9 @@ nihil upgrade lab -e TARGET=10.10.10.2
 # Record the shell session with asciinema
 nihil start lab --log`}
             </pre>
+            <p className="text-slate-400 text-sm">
+              While recording, the Zsh prompt starts with a red <code>⏺</code> recording symbol.
+            </p>
             <Callout variant="note" title="Routing and VPN live on their own page">
               Network modes, the <code>--vpn</code> workflow and privileged mode are covered in
               <a href="/docs/network-vpn" className="text-amber-400 hover:underline"> Network &amp; VPN</a>.
@@ -308,11 +319,17 @@ nihil image channel main`}
           <section id="display" className="space-y-4">
             <h2 className="text-xl font-semibold text-white">X11 / Wayland GUI support</h2>
             <p className="text-slate-400 text-sm">
-              X11 and Wayland socket forwarding are <strong>enabled by default</strong>. GUI applications such as Burp Suite, Wireshark, Ghidra, IDA, browser tooling, and clipboard helpers can use the host display when the container is created with those mounts.
+              X11 and Wayland socket forwarding are <strong>enabled by default</strong>. GUI applications such as Burp Suite, Wireshark, Ghidra, IDA, browser tooling, and clipboard helpers can use the host display when the container is created with those mounts. Browser UI automatically resizes the remote desktop to match the browser viewport, keeping the desktop proportional without empty side margins. The selected resolution sets its initial size.
             </p>
             <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
 {`# Just start -- X11 and Wayland are on by default
 nihil start gui-pentest
+
+# Browser desktop at a higher resolution
+nihil start web-lab --browser-ui --browser-ui-resolution 1920x1080
+
+# Change the resolution of an existing Browser UI container
+nihil restart web-lab --browser-ui-resolution 1920x1080
 
 # Disable one display bridge for this container
 nihil start gui-pentest --disable-x11
