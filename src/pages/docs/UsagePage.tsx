@@ -144,6 +144,9 @@ nihil uninstall 2-10,12-14
 nihil uninstall full:dev-a1b2c3d4e5f6
 nihil uninstall --unused`}
             </pre>
+            <p className="text-slate-300">
+              <code>nihil upgrade --network NAME</code> accepts <code>host</code>, <code>docker</code>, <code>nat</code>, <code>disabled</code>, or the name of an existing Docker network.
+            </p>
             <Callout variant="note" title="Container state after upgrade">
               <code>nihil upgrade</code>, including <code>--all</code>, preserves each container's running or stopped state. Stopped containers may start temporarily to restore saved files, then stop again. Use <code>--start</code> with one container to leave it running and open a shell.
             </Callout>
