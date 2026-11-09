@@ -67,6 +67,10 @@ nihil stop my-pentest`}
               Stopped containers are started directly and configured VPN connections are started as needed.
               If one container fails, the remaining containers are still processed; the command returns an error and opens no shell.
             </p>
+            <p className="text-slate-400 text-sm">
+              Use <code>nihil start my-pentest --preset NAME</code> to create a container with saved settings,
+              or omit NAME to choose interactively. See <a href="/docs/configuration#presets" className="text-sky-400 hover:underline">configuration presets</a> to create and manage them.
+            </p>
             <Callout variant="tip" title="Most useful flags">
               <code>--image</code>, <code>--workspace</code>, <code>--workspace-here</code>, <code>--network</code>, <code>--privileged</code>, <code>--vpn</code>, <code>--vpn-user</code>, <code>--env</code>, <code>--tmux</code>.
             </Callout>

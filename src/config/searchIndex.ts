@@ -41,6 +41,7 @@ export const searchIndex: SearchEntry[] = [
   { page: 'Configuration', path: '/docs/configuration', label: 'Configure nihil paths, resources, env variables, and command history.' },
   { page: 'Configuration', path: '/docs/configuration#nihil-home', label: 'The ~/.nihil directory', keywords: ['.nihil', 'nihil home', 'workspaces', 'vpn', 'state', 'xauth', 'permissions', 'chown'] },
   { page: 'Configuration', path: '/docs/configuration#config-file', label: 'Config file' },
+  { page: 'Configuration', path: '/docs/configuration#presets', label: 'Configuration presets', keywords: ['preset', 'presets', 'préset', '--preset', 'nihil config preset', 'create', 'save', 'list', 'edit', 'delete'] },
   { page: 'Configuration', path: '/docs/configuration#image-sources', label: 'Image sources' },
   { page: 'Configuration', path: '/docs/configuration#display', label: 'Display' },
   { page: 'Configuration', path: '/docs/configuration#my-resources', label: 'My Resources' },

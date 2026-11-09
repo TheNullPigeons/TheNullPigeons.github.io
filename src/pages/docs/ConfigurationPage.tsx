@@ -29,7 +29,7 @@ export const ConfigurationPage: React.FC = () => {
           <section id="tldr">
             <TldrBlock
               items={[
-                'Everything nihil keeps on your host lives in ~/.nihil.',
+                '~/.nihil holds the default host configuration, resources, presets, and container workspaces.',
                 'config.yml controls wrapper behavior.',
                 'my-resources is mounted in every container.',
                 'X11 and Wayland forwarding are enabled by default for new containers.',
@@ -43,13 +43,21 @@ export const ConfigurationPage: React.FC = () => {
           <section id="nihil-home" className="space-y-4">
             <h2 className="text-xl font-semibold text-white">The ~/.nihil directory</h2>
             <p className="text-slate-400 text-sm">
-              Everything nihil keeps on your host lives in <code>~/.nihil</code>. It is created the first time you run
-              a command, and other folders appear as you use the related features.
+              Nihil stores its configuration and default host data in <code>~/.nihil</code>. It is created on first use;
+              other folders appear as you use the related features. Resource paths and workspaces can be customized in
+              <code>config.yml</code> or with command-line options. Container files remain in Docker unless they are mounted or explicitly backed up.
             </p>
             <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
 {`~/.nihil/
-├── config.yml                  # wrapper settings
-├── my-resources/               # your dotfiles and setup, mounted in every container
+├── config.yml                  # CLI defaults
+├── presets/<name>.yml          # reusable config and container options
+├── my-resources/               # personal resources (mounted when enabled)
+│   └── setup/
+│       ├── load_user_setup.sh   # setup run once for a new container
+│       ├── scripts/*.sh        # scripts selected with --script / --startup-script
+│       ├── zsh/                # zshrc, aliases, and history
+│       ├── nvim/init.vim       # Neovim configuration
+│       └── tmux/tmux.conf      # tmux configuration
 ├── nihil-resources/            # shared catalog (nihil resources install)
 ├── vpn/                        # .ovpn files used by --vpn
 ├── workspaces/<name>/          # default /workspace of each container
@@ -74,8 +82,13 @@ export const ConfigurationPage: React.FC = () => {
                     <td className="py-1.5 text-slate-500">Reset to defaults</td>
                   </tr>
                   <tr className="border-b border-slate-800/40 align-top">
+                    <td className="py-1.5 pr-3 text-amber-300 font-mono whitespace-nowrap">{'presets/<name>.yml'}</td>
+                    <td className="py-1.5 pr-3 text-slate-400">Reusable config snapshots and container options managed with nihil config preset, selected with nihil start --preset.</td>
+                    <td className="py-1.5 text-slate-500">Saved presets are lost; existing containers are unaffected</td>
+                  </tr>
+                  <tr className="border-b border-slate-800/40 align-top">
                     <td className="py-1.5 pr-3 text-amber-300 font-mono whitespace-nowrap">{'my-resources/'}</td>
-                    <td className="py-1.5 pr-3 text-slate-400">Your personal config, mounted read-write at /opt/my-resources in every container. Its setup/ files are applied on the first start of each container.</td>
+                    <td className="py-1.5 pr-3 text-slate-400">Your personal config, mounted read-write at /opt/my-resources in every container. Its setup/ directory contains shell/editor settings and load_user_setup.sh for initial setup. Additional setup/scripts/*.sh files are selected with --script or --startup-script.</td>
                     <td className="py-1.5 text-slate-500">Your dotfiles are lost</td>
                   </tr>
                   <tr className="border-b border-slate-800/40 align-top">
@@ -116,6 +129,12 @@ export const ConfigurationPage: React.FC = () => {
                 </tbody>
               </table>
             </div>
+            <p className="text-slate-400 text-sm">
+              The host CLI command history is stored separately at <code>~/.config/nihil/history.log</code>.
+              Shell recordings are stored in the container workspace under <code>logs/</code>.
+              Back up <code>config.yml</code>, <code>presets/</code>, personal resources, VPN files, and workspaces
+              to keep your settings and engagement data.
+            </p>
             <Callout variant="warning" title="Removing a container keeps its workspace">
               <code>nihil remove</code> deletes <code>state/&lt;name&gt;</code> but never <code>workspaces/&lt;name&gt;</code>.
               Your loot stays on disk until you delete the folder yourself.
@@ -140,44 +159,8 @@ export const ConfigurationPage: React.FC = () => {
 nihil config
 
 # Open the file in $EDITOR
-nihil config --edit
-
-# Create a preset and choose which config sections it uses
-nihil config preset create vpn-lab
-
-# Create one without prompts, keeping the current config and setting container options
-nihil config preset create ad-lab --privileged --host
-nihil config preset create corp-lab --image web --network corp-net \\
-  --workspace ~/work/corp --disable-x11 --no-nihil-resources -e DOMAIN=corp.local
-nihil config preset create codex --startup-script install-codex.sh
-
-# Save and list the current config
-nihil config preset save current-config
-nihil config preset list
-
-# Use one while creating a container (omit the name to choose interactively)
-nihil start vpn-lab --preset vpn-lab
-nihil start web-lab --preset`}
+nihil config --edit`}
             </pre>
-            <p className="text-slate-400 text-sm">
-              With no start options, <code>nihil config preset create NAME</code> opens an editor whose section names
-              match the top-level keys in <code>config.yml</code>; start-only options use the preset's <code>container</code> section.
-              Select a row to see its current value, description,
-              and accepted values; those values are also shown while editing. Press <code>/</code> to filter settings by
-              section, name, CLI option, value, or description; press Escape to clear the filter. It does not change
-              <code>~/.nihil/config.yml</code>. Use arrows or <code>j</code>/<code>k</code> to move, <code>gg</code>/<code>G</code> for first/last,
-              <code>e</code> to edit a
-              value, Enter to apply it, Space to cycle built-in values, <code>e</code> to enter custom values, and Ctrl+S to save. The command accepts the
-              same container and session options as <code>nihil start</code>. Passing options uses the current config plus
-              those overrides without opening the config editor. Command-line options to <code>nihil start</code> override
-              saved values. Use repeatable <code>--startup-script NAME</code> to save scripts without prompts, or
-              <code>--script</code> to choose them interactively.
-              Presets live in <code>~/.nihil/config-presets/</code> and apply container startup defaults only
-              when creating a new container. Existing files in <code>~/.nihil/config-templates/</code> and
-              <code>~/.nihil/config-profiles/</code> remain available. Use <code>nihil config preset edit NAME</code> to edit one later,
-              <code>nihil config preset save NAME --force</code> to replace it with the current config, or
-              <code>nihil config preset delete NAME</code> to remove it.
-            </p>
             <p className="text-slate-400 text-sm">
               The file is created on first run with inline comments. New settings are added to existing config files
               without replacing their current values. Every key below shows its default:
@@ -224,6 +207,50 @@ image_sources:
   personal_repo: null          # GitHub fork used for customized images
   personal_branch: null        # branch used for customized images`}
             </pre>
+          </section>
+
+          <section id="presets" className="space-y-4">
+            <h2 className="text-xl font-semibold text-white">Configuration presets</h2>
+            <p className="text-slate-400 text-sm">
+              Save reusable settings for new containers without changing your main config.yml.
+            </p>
+            <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
+{`# Create a preset in the interactive editor
+nihil config preset create vpn-lab
+
+# Create one without prompts, keeping the current config and setting container options
+nihil config preset create ad-lab --privileged --host
+nihil config preset create corp-lab --image web --network corp-net \\
+  --workspace ~/work/corp --disable-x11 --no-nihil-resources -e DOMAIN=corp.local
+nihil config preset create codex --startup-script install-codex.sh
+
+# Save and list the current config
+nihil config preset save current-config
+nihil config preset list
+
+# Use one while creating a container (omit the name to choose interactively)
+nihil start vpn-lab --preset vpn-lab
+nihil start web-lab --preset`}
+            </pre>
+            <p className="text-slate-400 text-sm">
+              With no start options, <code>nihil config preset create NAME</code> opens an editor whose section names
+              match the top-level keys in <code>config.yml</code>; start-only options use the preset's <code>container</code> section.
+              Select a row to see its current value, description,
+              and accepted values; those values are also shown while editing. Press <code>/</code> to filter settings by
+              section, name, CLI option, value, or description; press Escape to clear the filter. It does not change
+              <code>~/.nihil/config.yml</code>. Use arrows or <code>j</code>/<code>k</code> to move, <code>gg</code>/<code>G</code> for first/last,
+              <code>e</code> to edit a
+              value, Enter to apply it, Space to cycle built-in values, <code>e</code> to enter custom values, and Ctrl+S to save. The command accepts the
+              same container and session options as <code>nihil start</code>. Passing options uses the current config plus
+              those overrides without opening the config editor. Command-line options to <code>nihil start</code> override
+              saved values. Use repeatable <code>--startup-script NAME</code> to save scripts without prompts, or
+              <code>--script</code> to choose them interactively.
+              Presets live in <code>~/.nihil/presets/</code> and apply container startup defaults only
+              when creating a new container. Existing files in <code>~/.nihil/config-presets/</code>, <code>~/.nihil/config-templates/</code> and
+              <code>~/.nihil/config-profiles/</code> remain available. Use <code>nihil config preset edit NAME</code> to edit one later,
+              <code>nihil config preset save NAME --force</code> to replace it with the current config, or
+              <code>nihil config preset delete NAME</code> to remove it.
+            </p>
           </section>
 
           <section id="image-sources" className="space-y-4">
@@ -377,6 +404,7 @@ nihil exec pentest`}
             { id: 'tldr', label: 'TL;DR' },
             { id: 'nihil-home', label: '~/.nihil' },
             { id: 'config-file', label: 'Config file' },
+            { id: 'presets', label: 'Configuration presets' },
             { id: 'image-sources', label: 'Image sources' },
             { id: 'display', label: 'Display' },
             { id: 'firefox', label: 'Firefox' },
