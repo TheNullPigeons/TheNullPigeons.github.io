@@ -38,6 +38,11 @@ export const ServicePage: React.FC = () => {
               when you request it.
             </p>
             <p className="text-slate-400 text-sm">
+              On first use, the container installs the desktop packages at runtime; this can take a few minutes.
+              Nihil shows the current setup stage in the terminal while it installs packages, downloads noVNC, and
+              starts the desktop.
+            </p>
+            <p className="text-slate-400 text-sm">
               Browser UI includes Noto CJK fonts so Japanese, Chinese, and Korean text can render correctly.
             </p>
             <p className="text-slate-400 text-sm">
