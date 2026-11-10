@@ -235,6 +235,18 @@ nihil image build full --allow-tool-failures --wait`}
 gh auth status`}</pre>
             </Callout>
             <p className="text-slate-400 text-sm">
+              <code>nihil image customize --branch BRANCH</code> chooses the upstream branch used to create
+              your personal customization branch. If that personal branch already exists, Nihil merges the selected
+              upstream branch into it. Without <code>--branch</code>, it uses the repository's default branch,
+              independently of the configured image channel. The personal branch stays named <code>nihil/&lt;variant&gt;-custom</code>.
+            </p>
+            <p className="text-slate-400 text-sm">
+              Add <code>--keep-tools</code> to reuse <code>build/config/tool-selection.json</code> unchanged
+              without opening the terminal or browser selector. A saved selection is required; this option cannot
+              be combined with <code>--web</code>. The usual push confirmation remains; use <code>--no-push</code>
+              to keep changes local. New optional tools are not added to an existing enabled-tools list.
+            </p>
+            <p className="text-slate-400 text-sm">
               Saved selections use the tool names from the image catalogue. Shared tools are installed together:
               selecting <code>zip2john</code> also installs John, and selecting <code>rockyou</code> installs
               SecLists. Required dependencies and core tools remain installed. Invalid saved selections stop
@@ -246,6 +258,15 @@ nihil image status
 nihil image customize full
 nihil image customize full --web
 
+# Customize from the upstream dev branch
+nihil image customize full --branch dev
+
+# Keep the saved tools without opening the selector
+nihil image customize full --branch dev --keep-tools
+# Add --no-push to keep the update local
+nihil image customize full --branch dev --keep-tools --no-push
+
+# --branch also accepts other upstream branch names
 # Delete local clone, remote branch/packages, or both before setup
 nihil image customize full --git-del local
 nihil image customize full --git-del distant
