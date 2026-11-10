@@ -212,8 +212,21 @@ nihil image build
 nihil image build blueteam --web --wait
 
 # Show the local build and live output in a browser
-nihil build blueteam --source nihil-images --web`}
+nihil build blueteam --source nihil-images --web
+
+# Keep building when non-core tools fail
+nihil build full --source nihil-images --allow-tool-failures
+nihil image build full --allow-tool-failures --wait`}
             </pre>
+            <Callout variant="note" title="Allowing tool failures">
+              Builds stop on errors by default. With <code>--allow-tool-failures</code>, a failed non-core
+              installer stops and the next tool is attempted. Failed installers and missing tools appear in
+              the build output and in <code>/opt/nihil/build/config/build-failures.log</code> inside the image.
+              Base setup, core tools, invalid configuration, and final cleanup still stop the build.
+              GitHub Actions exposes the same option as <code>allow_tool_failures</code> for manual builds.
+              A present command does not guarantee that its installation is complete; check the report
+              before using an image built with this option.
+            </Callout>
             <Callout variant="note" title="GitHub CLI for browser customization builds">
               The browser selector's <strong>Apply &amp; build</strong> action uses the GitHub CLI (<code>gh</code>) to
               push the personal branch and dispatch its GitHub Actions build. <code>nihil image build</code> also uses
