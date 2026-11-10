@@ -3458,6 +3458,158 @@
         "web",
         "blueteam"
       ]
+    },
+    {
+      "name": "bloodhound-quickwin",
+      "cmd": "bhqc",
+      "desc": "BloodHound quick win queries",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "krb5",
+      "cmd": "kinit",
+      "desc": "Kerberos client utilities",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "odat",
+      "cmd": "odat",
+      "desc": "Oracle Database Attacking Tool",
+      "module": "mod_web",
+      "category": "Web",
+      "images": [
+        "full",
+        "web"
+      ]
+    },
+    {
+      "name": "ropper",
+      "cmd": "ropper",
+      "desc": "ROP gadget search",
+      "module": "mod_pwn",
+      "category": "Pwn",
+      "images": [
+        "full"
+      ]
+    },
+    {
+      "name": "glibc-all-in-one",
+      "cmd": "glibc-aio",
+      "desc": "Download and manage glibc versions",
+      "module": "mod_pwn",
+      "category": "Pwn",
+      "images": [
+        "full"
+      ]
+    },
+    {
+      "name": "qemu-user",
+      "cmd": "qemu-aarch64-static",
+      "desc": "User mode emulation",
+      "module": "mod_pwn",
+      "category": "Pwn",
+      "images": [
+        "full"
+      ]
+    },
+    {
+      "name": "cross-binutils",
+      "cmd": "aarch64-linux-gnu-as",
+      "desc": "Cross architecture assemblers",
+      "module": "mod_pwn",
+      "category": "Pwn",
+      "images": [
+        "full"
+      ]
+    },
+    {
+      "name": "chrony",
+      "cmd": "chronyc",
+      "desc": "NTP client utilities",
+      "module": "mod_misc",
+      "category": "Misc",
+      "images": [
+        "full",
+        "ad",
+        "web"
+      ]
+    },
+    {
+      "name": "rdate",
+      "cmd": "rdate",
+      "desc": "Query remote time",
+      "module": "mod_misc",
+      "category": "Misc",
+      "images": [
+        "full",
+        "ad",
+        "web"
+      ]
+    },
+    {
+      "name": "mongosh",
+      "cmd": "mongosh",
+      "desc": "MongoDB shell",
+      "module": "mod_misc",
+      "category": "Misc",
+      "images": [
+        "full",
+        "ad",
+        "web"
+      ]
+    },
+    {
+      "name": "wabt",
+      "cmd": "wat2wasm",
+      "desc": "WebAssembly Binary Toolkit",
+      "module": "mod_reverse",
+      "category": "Reverse Engineering",
+      "images": [
+        "full"
+      ]
+    },
+    {
+      "name": "vt",
+      "cmd": "vt",
+      "desc": "VirusTotal CLI",
+      "module": "mod_reverse",
+      "category": "Reverse Engineering",
+      "images": [
+        "full"
+      ]
+    },
+    {
+      "name": "jd-gui",
+      "cmd": "jd-gui",
+      "desc": "Java decompiler GUI",
+      "module": "mod_reverse",
+      "category": "Reverse Engineering",
+      "images": [
+        "full"
+      ]
+    },
+    {
+      "name": "fuzz.txt",
+      "cmd": "",
+      "desc": "Web content discovery wordlist",
+      "module": "mod_wordlists",
+      "category": "Wordlists",
+      "images": [
+        "full",
+        "ad",
+        "web",
+        "blueteam"
+      ]
     }
   ]
 }

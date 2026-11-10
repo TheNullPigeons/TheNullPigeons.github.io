@@ -221,6 +221,12 @@ nihil build blueteam --source nihil-images --web`}
               <pre className="mt-2 text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">{`gh auth login
 gh auth status`}</pre>
             </Callout>
+            <p className="text-slate-400 text-sm">
+              Saved selections use the tool names from the image catalogue. Shared tools are installed together:
+              selecting <code>zip2john</code> also installs John, and selecting <code>rockyou</code> installs
+              SecLists. Required dependencies and core tools remain installed. Invalid saved selections stop
+              the build with an error before tool installation.
+            </p>
             <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
 {`# Inspect and select a personal image source
 nihil image status
