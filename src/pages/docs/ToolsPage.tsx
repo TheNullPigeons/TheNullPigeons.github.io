@@ -16,7 +16,7 @@ type Category =
   | 'C2'
   | 'Misc'
   | 'Wordlists'
-  | 'Blue Team'
+  | 'Defender'
   | 'Mobile';
 
 interface Tool {
@@ -35,7 +35,7 @@ const ALL: Tool[] = (toolsData.tools as Array<{ name: string; cmd: string; desc:
 
 const CATEGORIES: Category[] = [
   'Core', 'Active Directory', 'Web', 'OSINT', 'Network', 'Credential',
-  'Pwn', 'Reverse Engineering', 'Crypto', 'Forensics', 'C2', 'Misc', 'Wordlists', 'Blue Team', 'Mobile',
+  'Pwn', 'Reverse Engineering', 'Crypto', 'Forensics', 'C2', 'Misc', 'Wordlists', 'Defender', 'Mobile',
 ];
 
 const IMAGE_COLORS: Record<ImageTag, string> = {
@@ -60,7 +60,7 @@ const CATEGORY_COLORS: Record<Category, string> = {
   'C2':                 'bg-rose-500/15 text-rose-300',
   'Misc':               'bg-slate-500/15 text-slate-400',
   'Wordlists':          'bg-lime-500/15 text-lime-300',
-  'Blue Team':          'bg-emerald-500/15 text-emerald-300',
+  'Defender':           'bg-emerald-500/15 text-emerald-300',
   'Mobile':             'bg-pink-500/15 text-pink-300',
 };
 

@@ -34,8 +34,8 @@ const MODULE_CATEGORY = {
   mod_c2: 'C2',
   mod_misc: 'Misc',
   mod_wordlists: 'Wordlists',
-  mod_dfir: 'Blue Team',
-  mod_hunt: 'Blue Team',
+  mod_dfir: 'Defender',
+  mod_hunt: 'Defender',
   mod_mobile: 'Mobile',
 };
 

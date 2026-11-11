@@ -3544,7 +3544,7 @@
       "cmd": "chainsaw",
       "desc": "Windows event log threat hunting",
       "module": "mod_hunt",
-      "category": "Blue Team",
+      "category": "Defender",
       "images": [
         "full",
         "defender"
@@ -3555,7 +3555,7 @@
       "cmd": "hayabusa",
       "desc": "Windows DFIR timeline generator",
       "module": "mod_hunt",
-      "category": "Blue Team",
+      "category": "Defender",
       "images": [
         "full",
         "defender"
@@ -3566,7 +3566,7 @@
       "cmd": "sigma",
       "desc": "Sigma detection rule CLI",
       "module": "mod_hunt",
-      "category": "Blue Team",
+      "category": "Defender",
       "images": [
         "full",
         "defender"
@@ -3577,7 +3577,7 @@
       "cmd": "wazuh-cli",
       "desc": "Wazuh SIEM/XDR management CLI",
       "module": "mod_hunt",
-      "category": "Blue Team",
+      "category": "Defender",
       "images": [
         "full",
         "defender"
@@ -3588,7 +3588,7 @@
       "cmd": "yara",
       "desc": "Malware pattern matching",
       "module": "mod_dfir",
-      "category": "Blue Team",
+      "category": "Defender",
       "images": [
         "full",
         "defender"
@@ -3599,7 +3599,7 @@
       "cmd": "capa",
       "desc": "Malware capability detection",
       "module": "mod_dfir",
-      "category": "Blue Team",
+      "category": "Defender",
       "images": [
         "full",
         "defender"
@@ -3610,7 +3610,7 @@
       "cmd": "loki",
       "desc": "IOC scanner",
       "module": "mod_dfir",
-      "category": "Blue Team",
+      "category": "Defender",
       "images": [
         "full",
         "defender"
@@ -3621,7 +3621,7 @@
       "cmd": "fls",
       "desc": "Disk forensics toolkit (The Sleuth Kit)",
       "module": "mod_dfir",
-      "category": "Blue Team",
+      "category": "Defender",
       "images": [
         "full",
         "defender"

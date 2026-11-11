@@ -11,7 +11,7 @@ const tabConfig: Record<Tab, { label: string; color: string; border: string; bg:
   full: { label: 'Full', color: 'text-amber-300', border: 'border-amber-500/40', bg: 'bg-amber-400/15', glow: 'shadow-amber-500/10' },
   ad: { label: 'AD', color: 'text-cyan-300', border: 'border-cyan-500/40', bg: 'bg-cyan-400/15', glow: 'shadow-cyan-500/10' },
   web: { label: 'Web', color: 'text-purple-300', border: 'border-purple-500/40', bg: 'bg-purple-400/15', glow: 'shadow-purple-500/10' },
-  defender: { label: 'Blue Team', color: 'text-emerald-300', border: 'border-emerald-500/40', bg: 'bg-emerald-400/15', glow: 'shadow-emerald-500/10' },
+  defender: { label: 'Defender', color: 'text-emerald-300', border: 'border-emerald-500/40', bg: 'bg-emerald-400/15', glow: 'shadow-emerald-500/10' },
   mobile: { label: 'Mobile', color: 'text-pink-300', border: 'border-pink-500/40', bg: 'bg-pink-400/15', glow: 'shadow-pink-500/10' },
 };
 
@@ -118,7 +118,7 @@ nihil image list`}
                         ['Reverse tools (ghidra, ida, binaryninja, VSCodium...)', true, false, false],
                         ['Crypto tools (RsaCtfTool, hashid...)', true, false, false],
                         ['Forensics tools (volatility3, stegseek...)', true, false, false],
-                        ['Blue team tools (chainsaw, yara, capa...)', true, false, false],
+                        ['Defender tools (chainsaw, yara, capa...)', true, false, false],
                         ['C2 frameworks (metasploit, sliver)', true, true, false],
                         ['Network tools (nmap, naabu, socat, tshark...)', true, true, true],
                         ['Credential tools (hashcat, john, patator)', true, true, true],
@@ -142,9 +142,9 @@ nihil image list`}
                   </table>
                 </div>
 
-                <Callout variant="note" title="Blue Team is specialized (not a simple intersection)">
+                <Callout variant="note" title="Defender is specialized (not a simple intersection)">
                   Use the dedicated <code>defender</code> image when you want a defensive DFIR and threat-hunting toolkit.
-                  The comparison above stays focused on Full/AD/Web; Blue Team gets its own tab with the practical toolset.
+                  The comparison above stays focused on Full/AD/Web; Defender gets its own tab with the practical toolset.
                 </Callout>
               </section>
 
@@ -161,7 +161,7 @@ nihil image list`}
                     { name: 'Full', tag: 'ghcr.io/thenullpigeons/full:latest', alt: ':flock', desc: 'The whole flock', border: 'border-amber-500/20 hover:border-amber-500/40', bg: 'bg-gradient-to-r from-amber-500/5 to-transparent', accent: 'text-amber-300', dot: 'bg-amber-400' },
                     { name: 'AD', tag: 'ghcr.io/thenullpigeons/ad:latest', alt: ':nest', desc: 'Nest in their Active Directory', border: 'border-cyan-500/20 hover:border-cyan-500/40', bg: 'bg-gradient-to-r from-cyan-500/5 to-transparent', accent: 'text-cyan-300', dot: 'bg-cyan-400' },
                     { name: 'Web', tag: 'ghcr.io/thenullpigeons/web:latest', alt: ':beak', desc: 'Beak through their web apps', border: 'border-purple-500/20 hover:border-purple-500/40', bg: 'bg-gradient-to-r from-purple-500/5 to-transparent', accent: 'text-purple-300', dot: 'bg-purple-400' },
-                    { name: 'Blue Team', tag: 'ghcr.io/thenullpigeons/defender:latest', alt: ':coo', desc: 'Listen before you hunt', border: 'border-emerald-500/20 hover:border-emerald-500/40', bg: 'bg-gradient-to-r from-emerald-500/5 to-transparent', accent: 'text-emerald-300', dot: 'bg-emerald-400' },
+                    { name: 'Defender', tag: 'ghcr.io/thenullpigeons/defender:latest', alt: ':coo', desc: 'Listen before you hunt', border: 'border-emerald-500/20 hover:border-emerald-500/40', bg: 'bg-gradient-to-r from-emerald-500/5 to-transparent', accent: 'text-emerald-300', dot: 'bg-emerald-400' },
                     { name: 'Mobile', tag: 'ghcr.io/thenullpigeons/mobile:latest', alt: ':carrier', desc: 'Carry it into their pocket', border: 'border-pink-500/20 hover:border-pink-500/40', bg: 'bg-gradient-to-r from-pink-500/5 to-transparent', accent: 'text-pink-300', dot: 'bg-pink-400' },
                   ].map((img) => (
                     <div key={img.name} className={`flex items-start gap-3 p-4 rounded-xl border ${img.border} ${img.bg} transition-colors`}>
@@ -182,7 +182,7 @@ nihil image list`}
                   {[
                     { q: 'Internal pentest / AD audit', a: 'ad', reason: 'Impacket, BloodHound, NetExec, Responder, ADCheck, Tombstone, CoercedPotato, and the full AD kill chain.', color: 'cyan', border: 'border-cyan-500/20 hover:border-cyan-500/40', bg: 'from-cyan-500/5' },
                     { q: 'Web application pentest', a: 'web', reason: 'SQLMap, Nuclei, Burp helpers, ffuf, webfuzz, MailScout, and web/API tooling.', color: 'purple', border: 'border-purple-500/20 hover:border-purple-500/40', bg: 'from-purple-500/5' },
-                    { q: 'DFIR / blue team / threat hunting', a: 'defender', reason: 'Chainsaw, hayabusa, yara, capa, loki, sleuthkit, and forensics essentials.', color: 'emerald', border: 'border-emerald-500/20 hover:border-emerald-500/40', bg: 'from-emerald-500/5' },
+                    { q: 'DFIR / threat hunting / forensics', a: 'defender', reason: 'Chainsaw, hayabusa, yara, capa, loki, sleuthkit, and forensics essentials.', color: 'emerald', border: 'border-emerald-500/20 hover:border-emerald-500/40', bg: 'from-emerald-500/5' },
                     { q: 'Mobile app pentest (Android / iOS)', a: 'mobile', reason: 'Frida, objection, jadx, apktool, androguard, libimobiledevice, and adb/scrcpy.', color: 'pink', border: 'border-pink-500/20 hover:border-pink-500/40', bg: 'from-pink-500/5' },
                     { q: 'Not sure / want everything', a: 'full', reason: 'All modules combined, offensive and defensive. Larger download, but nothing missing.', color: 'amber', border: 'border-amber-500/20 hover:border-amber-500/40', bg: 'from-amber-500/5' },
                   ].map((item) => {
@@ -214,7 +214,7 @@ nihil tools ad --category redteam_ad
 # Web tools only
 nihil tools web --category redteam_web
 
-# Blue team focused categories
+# Defender focused categories
 nihil tools defender --category defender`}
                 </pre>
               </section>
@@ -248,7 +248,7 @@ nihil tools defender --category defender`}
               <ToolTable title="Reverse tools" tools={reverseTools} />
               <ToolTable title="Crypto tools" tools={cryptoTools} />
               <ToolTable title="Forensics tools" tools={forensicsTools} />
-              <ToolTable title="Blue team tools" tools={defenderTools} />
+              <ToolTable title="Defender tools" tools={defenderTools} />
               <ToolTable title="Network tools" tools={networkTools} />
               <ToolTable title="Credential tools" tools={credentialTools} />
               <ToolTable title="C2 frameworks" tools={c2Tools} />
@@ -372,14 +372,14 @@ nihil tools defender --category defender`}
             </div>
           )}
 
-          {/* Blue Team image tab */}
+          {/* Defender image tab */}
           {activeTab === 'defender' && (
             <div className="space-y-8">
               <section className="space-y-3">
                 <div className="p-5 rounded-2xl bg-gradient-to-br from-emerald-500/10 via-emerald-500/5 to-transparent border border-emerald-500/20">
                   <div className="flex items-center gap-3 mb-2">
                     <div className="w-3 h-3 rounded-full bg-emerald-400 shadow-lg shadow-emerald-400/30" />
-                    <h2 className="text-xl font-bold text-emerald-300">Blue Team image</h2>
+                    <h2 className="text-xl font-bold text-emerald-300">Defender image</h2>
                     <span className="text-xs text-emerald-700 italic">Listen before you hunt</span>
                   </div>
                   <code className="text-xs text-slate-300 font-mono block mb-2">ghcr.io/thenullpigeons/defender:latest</code>
@@ -411,7 +411,7 @@ nihil tools defender --category defender`}
                 </div>
               </section>
 
-              <ToolTable title="Blue team tools" tools={defenderTools} />
+              <ToolTable title="Defender tools" tools={defenderTools} />
               <ToolTable title="Core tools" tools={coreTools} />
               <ToolTable title="Forensics tools" tools={forensicsTools} />
               <ToolTable title="Network tools" tools={networkTools} />
@@ -545,5 +545,5 @@ const forensicsTools = byCategory('Forensics');
 const c2Tools = byCategory('C2');
 const miscTools = byCategory('Misc');
 const wordlistsTools = byCategory('Wordlists');
-const defenderTools = byCategory('Blue Team');
+const defenderTools = byCategory('Defender');
 const mobileTools = byCategory('Mobile');
