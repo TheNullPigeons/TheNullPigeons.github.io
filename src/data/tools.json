@@ -2090,6 +2090,19 @@
       ]
     },
     {
+      "name": "zrok",
+      "cmd": "zrok2",
+      "desc": "Zero-trust sharing and network tunneling",
+      "module": "mod_network",
+      "category": "Network",
+      "images": [
+        "full",
+        "ad",
+        "web",
+        "blueteam"
+      ]
+    },
+    {
       "name": "udpx",
       "cmd": "udpx",
       "desc": "Fast UDP port scanner",
