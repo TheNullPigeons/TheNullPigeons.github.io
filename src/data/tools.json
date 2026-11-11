@@ -2248,6 +2248,19 @@
       ]
     },
     {
+      "name": "snmpcheck",
+      "cmd": "snmpcheck",
+      "desc": "SNMP device enumerator",
+      "module": "mod_network",
+      "category": "Network",
+      "images": [
+        "full",
+        "ad",
+        "web",
+        "blueteam"
+      ]
+    },
+    {
       "name": "onesixtyone",
       "cmd": "onesixtyone",
       "desc": "SNMP community string scanner",
