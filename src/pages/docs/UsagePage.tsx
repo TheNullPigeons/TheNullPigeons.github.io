@@ -247,6 +247,12 @@ gh auth status`}</pre>
               to keep changes local. New optional tools are not added to an existing enabled-tools list.
             </p>
             <p className="text-slate-400 text-sm">
+              The selectors show each tool's GitHub About description when its repository is listed in the image catalogue.
+              If GitHub is unavailable or the repository has no description, Nihil uses the catalogue description.
+              Read it in the terminal table’s DESCRIPTION column or on the tool’s browser card.
+              Both selectors can search descriptions.
+            </p>
+            <p className="text-slate-400 text-sm">
               Saved selections use the tool names from the image catalogue. Shared tools are installed together:
               selecting <code>zip2john</code> also installs John, and selecting <code>rockyou</code> installs
               SecLists. Required dependencies and core tools remain installed. Invalid saved selections stop
