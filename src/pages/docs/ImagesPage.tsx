@@ -114,7 +114,7 @@ nihil image list`}
                         ['Web tools (sqlmap, nuclei...)', true, false, true],
                         ['OSINT tools (amass, theHarvester...)', true, false, true],
                         ['Pwn tools (radare2, pwntools...)', true, false, false],
-                        ['Reverse tools (ghidra, ida, binaryninja...)', true, false, false],
+                        ['Reverse tools (ghidra, ida, binaryninja, VSCodium...)', true, false, false],
                         ['Crypto tools (RsaCtfTool, hashid...)', true, false, false],
                         ['Forensics tools (volatility3, stegseek...)', true, false, false],
                         ['Blue team tools (chainsaw, yara, capa...)', true, false, false],

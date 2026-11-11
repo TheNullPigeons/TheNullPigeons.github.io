@@ -290,7 +290,7 @@ nhi engagement set-workspace corp_local`}
             </p>
             <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
 {`nhi hosts add --ip 10.10.10.1 --hostname DC01 --domain corp.local --role DC
-nhi hosts add --ip 10.10.10.20 --hostname CA01 --domain corp.local --role DC,ADCS
+nhi hosts add --ip 10.10.10.20 --hostname CA01 --domain corp.local --role ADCS --ca-name CORP-CA
 nhi hosts list
 nhi hosts set --id 1
 
@@ -303,6 +303,7 @@ nhi hosts import-nmap -f scan.xml`}
               Selecting a host with one or more known roles records role-specific variables separately from the current target host:
               <code>DC_IP</code>/<code>DC_HOST</code>, <code>ADCS_IP</code>/<code>ADCS_HOST</code>,
               <code>WSUS_IP</code>/<code>WSUS_HOST</code>, and <code>SCCM_IP</code>/<code>SCCM_HOST</code>.
+              An ADCS host&apos;s optional CA common name is exported as <code>CA_NAME</code>.
             </p>
           </section>
 

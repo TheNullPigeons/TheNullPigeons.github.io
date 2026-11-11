@@ -2981,6 +2981,16 @@
       ]
     },
     {
+      "name": "vscodium",
+      "cmd": "codium",
+      "desc": "Open-source graphical code editor",
+      "module": "mod_reverse",
+      "category": "Reverse Engineering",
+      "images": [
+        "full"
+      ]
+    },
+    {
       "name": "ghidra",
       "cmd": "ghidra",
       "desc": "Reverse engineering suite",

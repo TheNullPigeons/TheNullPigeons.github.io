@@ -89,6 +89,9 @@ export const ToolsPage: React.FC = () => {
         <p className="text-slate-400 text-sm max-w-2xl">
           For Kerbrute output, run <code>kerbrute_users_dump kerbrute.log valid_users.txt</code> to extract unique usernames without their domain.
         </p>
+        <p className="text-slate-400 text-sm max-w-2xl">
+          For GLPI, use <code>glpwnme -t "$TARGET" --check-all</code>; inspect an exploit with <code>--infos</code> and review <code>log.glpwnme</code> after checks.
+        </p>
       </header>
 
       {/* Filters */}
