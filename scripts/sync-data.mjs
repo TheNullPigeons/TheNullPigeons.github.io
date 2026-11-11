@@ -16,7 +16,8 @@ const VARIANTS = {
   full: 'Dockerfile',
   ad: 'Dockerfile.ad',
   web: 'Dockerfile.web',
-  blueteam: 'Dockerfile.blueteam',
+  defender: 'Dockerfile.defender',
+  mobile: 'Dockerfile.mobile',
 };
 
 const MODULE_CATEGORY = {
@@ -35,6 +36,7 @@ const MODULE_CATEGORY = {
   mod_wordlists: 'Wordlists',
   mod_dfir: 'Blue Team',
   mod_hunt: 'Blue Team',
+  mod_mobile: 'Mobile',
 };
 
 // The site only names TheNullPigeons: vendor and organisation names that the

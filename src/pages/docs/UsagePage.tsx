@@ -138,7 +138,7 @@ nihil start lab --log`}
             <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
 {`nihil install
 nihil install ad
-nihil install blueteam
+nihil install defender
 nihil image list
 nihil update
 nihil update web
@@ -209,10 +209,10 @@ nihil build --log build.log`}
 nihil image build
 
 # Build one variant, open Actions in a browser, and/or wait for completion
-nihil image build blueteam --web --wait
+nihil image build defender --web --wait
 
 # Show the local build and live output in a browser
-nihil build blueteam --source nihil-images --web
+nihil build defender --source nihil-images --web
 
 # Keep building when non-core tools fail
 nihil build full --source nihil-images --allow-tool-failures

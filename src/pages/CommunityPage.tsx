@@ -35,7 +35,7 @@ const audiences = [
   },
   {
     title: 'Investigators',
-    desc: 'Hunt threats, triage malware, and investigate incidents with a purpose-built image. Chainsaw, hayabusa, capa, sleuthkit: just nihil start blueteam.',
+    desc: 'Hunt threats, triage malware, and investigate incidents with a purpose-built image. Chainsaw, hayabusa, capa, sleuthkit: just nihil start defender.',
   },
   {
     title: 'Security Students',

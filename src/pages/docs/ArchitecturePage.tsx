@@ -260,21 +260,22 @@ const BuildDiagram: React.FC = () => {
   const modules = [
     'base.sh', 'core_tools.sh', 'mod_ad.sh', 'mod_c2.sh', 'mod_credential.sh', 'mod_crypto.sh',
     'mod_dfir.sh', 'mod_forensics.sh', 'mod_hunt.sh', 'mod_misc.sh', 'mod_network.sh',
-    'mod_osint.sh', 'mod_pwn.sh', 'mod_reverse.sh', 'mod_web.sh', 'mod_wordlists.sh',
+    'mod_mobile.sh', 'mod_osint.sh', 'mod_pwn.sh', 'mod_reverse.sh', 'mod_web.sh', 'mod_wordlists.sh',
   ];
   const registries = ['pacman', 'AUR', 'pipx', 'pipx-git', 'go', 'cargo', 'gem', 'git / curl'];
   const variants = [
     { y: 50, file: 'Dockerfile', out: 'full:latest', tag: ':flock', accent: AX.red },
     { y: 112, file: 'Dockerfile.ad', out: 'ad:latest', tag: ':nest', accent: AX.blue },
     { y: 174, file: 'Dockerfile.web', out: 'web:latest', tag: ':beak', accent: AX.paper },
-    { y: 236, file: 'Dockerfile.blueteam', out: 'blueteam:latest', tag: ':coo', accent: AX.paper },
+    { y: 236, file: 'Dockerfile.defender', out: 'defender:latest', tag: ':coo', accent: AX.paper },
+    { y: 298, file: 'Dockerfile.mobile', out: 'mobile:latest', tag: ':carrier', accent: AX.paper },
   ];
   const head = (x: number, label: string) => (
     <text x={x} y="34" textAnchor="middle" fill={AX.red} fontSize="10" fontWeight="700" fontFamily={MONO} letterSpacing="2">{label}</text>
   );
   return (
     <div className="relative overflow-x-auto py-2">
-      <svg viewBox="0 0 820 390" className="w-full min-w-[620px]" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 820 452" className="w-full min-w-[620px]" xmlns="http://www.w3.org/2000/svg">
         <defs>{arrowDefs}</defs>
         <rect x="0" y="0" width="820" height="390" fill={INK} />
         <EnvelopeFrame w={820} h={390} label="N° IMG · BUILD PIPELINE" />
@@ -425,7 +426,7 @@ export const ArchitecturePage: React.FC = () => {
                 'CLI parses args and dispatches command handlers.',
                 'Manager orchestrates Docker lifecycle and mounts.',
                 'Images are built from modular install scripts.',
-                'CI publishes full/ad/web/blueteam variants to GHCR.',
+                'CI publishes full/ad/web/defender/mobile variants to GHCR.',
               ]}
             />
           </section>
@@ -562,14 +563,15 @@ export const ArchitecturePage: React.FC = () => {
           <section id="ci" className="space-y-4">
             <h2 className="text-xl font-semibold text-white">CI/CD</h2>
             <p className="text-slate-400 text-sm">
-              GitHub Actions builds and publishes all four images in parallel.
+              GitHub Actions builds and publishes all five images in parallel.
             </p>
             <div className="flex flex-wrap gap-3">
               {[
                 { img: 'full', tag: ':flock', color: 'border-amber-500/30 bg-amber-500/5', text: 'text-amber-300' },
                 { img: 'ad', tag: ':nest', color: 'border-cyan-500/30 bg-cyan-500/5', text: 'text-cyan-300' },
                 { img: 'web', tag: ':beak', color: 'border-slate-600/40 bg-slate-500/[0.07]', text: 'text-slate-200' },
-                { img: 'blueteam', tag: ':coo', color: 'border-slate-600/40 bg-slate-500/[0.07]', text: 'text-slate-200' },
+                { img: 'defender', tag: ':coo', color: 'border-slate-600/40 bg-slate-500/[0.07]', text: 'text-slate-200' },
+                { img: 'mobile', tag: ':carrier', color: 'border-pink-500/30 bg-pink-500/5', text: 'text-pink-300' },
               ].map((b) => (
                 <div key={b.img} className={`flex-1 min-w-[140px] p-3 rounded-xl border ${b.color} text-center`}>
                   <p className={`text-sm font-bold font-mono ${b.text}`}>{b.img}</p>

@@ -1,8 +1,8 @@
 {
   "source": {
     "repo": "nihil-images",
-    "sha": "b512f57",
-    "date": "2026-10-13"
+    "sha": "6f44ecd",
+    "date": "2026-11-11"
   },
   "modules": {
     "full": [
@@ -20,6 +20,7 @@
       "mod_forensics",
       "mod_hunt",
       "mod_dfir",
+      "mod_mobile",
       "mod_wordlists"
     ],
     "ad": [
@@ -40,12 +41,18 @@
       "mod_misc",
       "mod_wordlists"
     ],
-    "blueteam": [
+    "defender": [
       "core_tools",
       "mod_forensics",
       "mod_network",
       "mod_hunt",
       "mod_dfir",
+      "mod_wordlists"
+    ],
+    "mobile": [
+      "core_tools",
+      "mod_mobile",
+      "mod_network",
       "mod_wordlists"
     ]
   },
@@ -60,7 +67,8 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -73,7 +81,8 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -86,7 +95,8 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -99,7 +109,8 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -112,7 +123,8 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -125,7 +137,8 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -138,7 +151,8 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -151,7 +165,8 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -164,7 +179,8 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -177,7 +193,8 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -190,7 +207,8 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -203,7 +221,8 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -216,7 +235,8 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -234,39 +254,6 @@
       "name": "bloodhound-ce-python",
       "cmd": "bloodhound-ce-python",
       "desc": "BloodHound CE Python ingestor",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "bloodhound-ce",
-      "cmd": "bloodhound-ce",
-      "desc": "BloodHound CE desktop client",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "bloodhound-legacy",
-      "cmd": "bloodhound-legacy",
-      "desc": "BloodHound legacy (4.x) desktop client",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "bloodhound-import",
-      "cmd": "bloodhound-import",
-      "desc": "Import BloodHound JSON/ZIP data into Neo4j",
       "module": "mod_ad",
       "category": "Active Directory",
       "images": [
@@ -330,6 +317,28 @@
       ]
     },
     {
+      "name": "bloodhound-import",
+      "cmd": "bloodhound-import",
+      "desc": "Import BloodHound JSON/ZIP data into Neo4j",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "bloodhound-quickwin",
+      "cmd": "bhqc",
+      "desc": "BloodHound quick win queries",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
       "name": "evil-winrm-py",
       "cmd": "evil-winrm-py",
       "desc": "WinRM shell (Python)",
@@ -344,6 +353,17 @@
       "name": "evil-winrm",
       "cmd": "evil-winrm",
       "desc": "WinRM shell (Ruby, original)",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "gpp-decrypt",
+      "cmd": "gpp-decrypt",
+      "desc": "Decrypt GPP passwords",
       "module": "mod_ad",
       "category": "Active Directory",
       "images": [
@@ -377,6 +397,94 @@
       "name": "Get-GPPPassword",
       "cmd": "Get-GPPPassword.py",
       "desc": "Extract plaintext credentials from GPP (impacket)",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "bloodbash",
+      "cmd": "bloodbash",
+      "desc": "BloodHound-based offensive automation",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "adwsdomaindump",
+      "cmd": "adwsdomaindump",
+      "desc": "Dump Active Directory data through AD Web Services",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "EVENmonitor",
+      "cmd": "EVENmonitor",
+      "desc": "Monitor and filter remote Windows event logs",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "gpoParser",
+      "cmd": "gpoParser",
+      "desc": "Extract and analyze Active Directory Group Policy Objects",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "pyGoldenGMSA",
+      "cmd": "pyGoldenGMSA",
+      "desc": "GoldenGMSA attack implementation for gMSA accounts",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "RelayInformer",
+      "cmd": "relayinformer",
+      "desc": "Identify EPA enforcement on NTLM relay targets",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "snaffler-ng",
+      "cmd": "snaffler",
+      "desc": "Find credentials and sensitive files on SMB shares",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "SOAPy",
+      "cmd": "SOAPy",
+      "desc": "Interact offensively with AD Web Services through SOCKS5",
       "module": "mod_ad",
       "category": "Active Directory",
       "images": [
@@ -528,28 +636,6 @@
       ]
     },
     {
-      "name": "powerview.py",
-      "cmd": "powerview",
-      "desc": "Interactive PowerView for Linux (LDAP enum/abuse)",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "tdo-dump",
-      "cmd": "tdo-dump",
-      "desc": "Dump trusted domain objects and secrets via DRS replication",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
       "name": "masky",
       "cmd": "masky",
       "desc": "ADCS-based credential extraction",
@@ -572,9 +658,295 @@
       ]
     },
     {
+      "name": "smtp-user-enum",
+      "cmd": "smtp-user-enum",
+      "desc": "SMTP user enumeration via VRFY, EXPN and RCPT",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "autobloody",
+      "cmd": "autobloody",
+      "desc": "BloodyAD automation wrapper",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "certsync",
+      "cmd": "certsync",
+      "desc": "Sync ADCS certs for PKINIT",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "goldencopy",
+      "cmd": "goldencopy",
+      "desc": "Copy/forge Kerberos tickets",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "keepwn",
+      "cmd": "KeePwn",
+      "desc": "KeePass trigger attack",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "ldeep",
+      "cmd": "ldeep",
+      "desc": "Deep LDAP enumeration",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "GPOddity",
+      "cmd": "gpoddity",
+      "desc": "GPO abuse automation",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "asrepcatcher",
+      "cmd": "ASRepCatcher",
+      "desc": "AS-REP Roasting listener",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "ldaprelayscan",
+      "cmd": "ldaprelayscan",
+      "desc": "LDAP relay attack scanner",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "LDAPWordlistHarvester",
+      "cmd": "LDAPWordlistHarvester",
+      "desc": "Build wordlists from LDAP",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "PassTheCert",
+      "cmd": "passthecert",
+      "desc": "Pass-the-cert LDAP/LDAPS auth",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "PCredz",
+      "cmd": "Pcredz",
+      "desc": "Network credential capture",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "pygpoabuse",
+      "cmd": "pygpoabuse",
+      "desc": "GPO immediate task abuse",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "sccmhunter",
+      "cmd": "sccmhunter",
+      "desc": "SCCM attack framework",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "teamsphisher",
+      "cmd": "teamsphisher",
+      "desc": "Teams external phishing",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "crackhound",
+      "cmd": "crackhound",
+      "desc": "BloodHound + hashcat path cracking",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
       "name": "pre2k",
       "cmd": "pre2k",
       "desc": "Pre-Windows 2000 computer account exploitation",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "powerview.py",
+      "cmd": "powerview",
+      "desc": "Interactive PowerView for Linux (LDAP enum/abuse)",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "tdo-dump",
+      "cmd": "tdo-dump",
+      "desc": "Dump trusted domain objects and secrets via DRS replication",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "tombstone",
+      "cmd": "tombstone",
+      "desc": "Query and restore deleted Active Directory objects",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "krb5",
+      "cmd": "kinit",
+      "desc": "Kerberos client utilities",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "openldap",
+      "cmd": "ldapsearch",
+      "desc": "LDAP command-line utilities",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "smbclient",
+      "cmd": "smbclient",
+      "desc": "SMB command-line client",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "rpcclient",
+      "cmd": "rpcclient",
+      "desc": "Samba MS-RPC command-line client",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "nbtscan",
+      "cmd": "nbtscan",
+      "desc": "NBT-NS scanner",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "bloodhound-ce",
+      "cmd": "bloodhound-ce",
+      "desc": "BloodHound CE desktop client",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "bloodhound-legacy",
+      "cmd": "bloodhound-legacy",
+      "desc": "BloodHound legacy (4.x) desktop client",
       "module": "mod_ad",
       "category": "Active Directory",
       "images": [
@@ -660,94 +1032,6 @@
       ]
     },
     {
-      "name": "bloodbash",
-      "cmd": "bloodbash",
-      "desc": "BloodHound-based offensive automation",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "adwsdomaindump",
-      "cmd": "adwsdomaindump",
-      "desc": "Dump Active Directory data through AD Web Services",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "EVENmonitor",
-      "cmd": "EVENmonitor",
-      "desc": "Monitor and filter remote Windows event logs",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "gpoParser",
-      "cmd": "gpoParser",
-      "desc": "Extract and analyze Active Directory Group Policy Objects",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "pyGoldenGMSA",
-      "cmd": "pyGoldenGMSA",
-      "desc": "GoldenGMSA attack implementation for gMSA accounts",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "RelayInformer",
-      "cmd": "relayinformer",
-      "desc": "Identify EPA enforcement on NTLM relay targets",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "snaffler-ng",
-      "cmd": "snaffler",
-      "desc": "Find credentials and sensitive files on SMB shares",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "SOAPy",
-      "cmd": "SOAPy",
-      "desc": "Interact offensively with AD Web Services through SOCKS5",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
       "name": "kerbrute",
       "cmd": "kerbrute",
       "desc": "Kerberos brute-force / user enumeration",
@@ -759,9 +1043,64 @@
       ]
     },
     {
+      "name": "gofenrir",
+      "cmd": "gf",
+      "desc": "Fast AD user/group enumeration (Go)",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
       "name": "windapsearch",
       "cmd": "windapsearch",
       "desc": "LDAP enumeration (Go)",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "godap",
+      "cmd": "godap",
+      "desc": "Interactive LDAP client (TUI)",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "goexec",
+      "cmd": "goexec",
+      "desc": "Remote code execution via SMB/WMI",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "gosecretsdump",
+      "cmd": "gosecretsdump",
+      "desc": "Pure Go secretsdump",
+      "module": "mod_ad",
+      "category": "Active Directory",
+      "images": [
+        "full",
+        "ad"
+      ]
+    },
+    {
+      "name": "krbjack",
+      "cmd": "krbjack",
+      "desc": "Kerberos pre-auth hijack",
       "module": "mod_ad",
       "category": "Active Directory",
       "images": [
@@ -880,50 +1219,6 @@
       ]
     },
     {
-      "name": "openldap",
-      "cmd": "ldapsearch",
-      "desc": "LDAP command-line utilities",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "smbclient",
-      "cmd": "smbclient",
-      "desc": "SMB command-line client",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "rpcclient",
-      "cmd": "rpcclient",
-      "desc": "Samba MS-RPC command-line client",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "powershell",
-      "cmd": "pwsh",
-      "desc": "PowerShell 7",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
       "name": "ntlm_theft",
       "cmd": "ntlm_theft",
       "desc": "Generate files to steal NTLM hashes via UNC paths",
@@ -935,9 +1230,9 @@
       ]
     },
     {
-      "name": "smtp-user-enum",
-      "cmd": "smtp-user-enum",
-      "desc": "SMTP user enumeration via VRFY, EXPN and RCPT",
+      "name": "powershell",
+      "cmd": "pwsh",
+      "desc": "PowerShell 7",
       "module": "mod_ad",
       "category": "Active Directory",
       "images": [
@@ -960,259 +1255,6 @@
       "name": "cypher-shell",
       "cmd": "cypher-shell",
       "desc": "Neo4j Cypher query shell",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "gofenrir",
-      "cmd": "gf",
-      "desc": "Fast AD user/group enumeration (Go)",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "asrepcatcher",
-      "cmd": "ASRepCatcher",
-      "desc": "AS-REP Roasting listener",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "autobloody",
-      "cmd": "autobloody",
-      "desc": "BloodyAD automation wrapper",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "certsync",
-      "cmd": "certsync",
-      "desc": "Sync ADCS certs for PKINIT",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "crackhound",
-      "cmd": "crackhound",
-      "desc": "BloodHound + hashcat path cracking",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "godap",
-      "cmd": "godap",
-      "desc": "Interactive LDAP client (TUI)",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "goexec",
-      "cmd": "goexec",
-      "desc": "Remote code execution via SMB/WMI",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "goldencopy",
-      "cmd": "goldencopy",
-      "desc": "Copy/forge Kerberos tickets",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "gosecretsdump",
-      "cmd": "gosecretsdump",
-      "desc": "Pure Go secretsdump",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "GPOddity",
-      "cmd": "gpoddity",
-      "desc": "GPO abuse automation",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "gpp-decrypt",
-      "cmd": "gpp-decrypt",
-      "desc": "Decrypt GPP passwords",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "keepwn",
-      "cmd": "KeePwn",
-      "desc": "KeePass trigger attack",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "krbjack",
-      "cmd": "krbjack",
-      "desc": "Kerberos pre-auth hijack",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "ldaprelayscan",
-      "cmd": "ldaprelayscan",
-      "desc": "LDAP relay attack scanner",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "ldeep",
-      "cmd": "ldeep",
-      "desc": "Deep LDAP enumeration",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "LDAPWordlistHarvester",
-      "cmd": "LDAPWordlistHarvester",
-      "desc": "Build wordlists from LDAP",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "nbtscan",
-      "cmd": "nbtscan",
-      "desc": "NBT-NS scanner",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "PassTheCert",
-      "cmd": "passthecert",
-      "desc": "Pass-the-cert LDAP/LDAPS auth",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "PCredz",
-      "cmd": "Pcredz",
-      "desc": "Network credential capture",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "pygpoabuse",
-      "cmd": "pygpoabuse",
-      "desc": "GPO immediate task abuse",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "sccmhunter",
-      "cmd": "sccmhunter",
-      "desc": "SCCM attack framework",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "teamsphisher",
-      "cmd": "teamsphisher",
-      "desc": "Teams external phishing",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "tombstone",
-      "cmd": "tombstone",
-      "desc": "Query and restore deleted Active Directory objects",
       "module": "mod_ad",
       "category": "Active Directory",
       "images": [
@@ -1246,6 +1288,50 @@
       "name": "nikto",
       "cmd": "nikto",
       "desc": "Web server vulnerability scanner",
+      "module": "mod_web",
+      "category": "Web",
+      "images": [
+        "full",
+        "web"
+      ]
+    },
+    {
+      "name": "httpie",
+      "cmd": "http",
+      "desc": "User-friendly HTTP client",
+      "module": "mod_web",
+      "category": "Web",
+      "images": [
+        "full",
+        "web"
+      ]
+    },
+    {
+      "name": "swaks",
+      "cmd": "swaks",
+      "desc": "SMTP test tool (Swiss Army Knife for SMTP)",
+      "module": "mod_web",
+      "category": "Web",
+      "images": [
+        "full",
+        "web"
+      ]
+    },
+    {
+      "name": "mail",
+      "cmd": "mail",
+      "desc": "Command-line email client (mailutils + msmtp)",
+      "module": "mod_web",
+      "category": "Web",
+      "images": [
+        "full",
+        "web"
+      ]
+    },
+    {
+      "name": "sslscan",
+      "cmd": "sslscan",
+      "desc": "SSL/TLS configuration scanner",
       "module": "mod_web",
       "category": "Web",
       "images": [
@@ -1353,9 +1439,9 @@
       ]
     },
     {
-      "name": "ssrfmap",
-      "cmd": "ssrfmap",
-      "desc": "SSRF exploitation framework",
+      "name": "dirsearch",
+      "cmd": "dirsearch",
+      "desc": "Directory brute-force",
       "module": "mod_web",
       "category": "Web",
       "images": [
@@ -1364,9 +1450,9 @@
       ]
     },
     {
-      "name": "jwt-tool",
-      "cmd": "jwt-tool",
-      "desc": "JWT manipulation and attacks",
+      "name": "commix",
+      "cmd": "commix",
+      "desc": "OS command injection exploitation",
       "module": "mod_web",
       "category": "Web",
       "images": [
@@ -1375,9 +1461,9 @@
       ]
     },
     {
-      "name": "xsstrike",
-      "cmd": "xsstrike",
-      "desc": "XSS detection and exploitation",
+      "name": "glpwnme",
+      "cmd": "glpwnme",
+      "desc": "GLPI exploitation helper",
       "module": "mod_web",
       "category": "Web",
       "images": [
@@ -1386,9 +1472,9 @@
       ]
     },
     {
-      "name": "feroxbuster",
-      "cmd": "feroxbuster",
-      "desc": "Fast content discovery (Rust)",
+      "name": "mitmproxy",
+      "cmd": "mitmproxy",
+      "desc": "HTTP/HTTPS interception proxy",
       "module": "mod_web",
       "category": "Web",
       "images": [
@@ -1397,9 +1483,97 @@
       ]
     },
     {
-      "name": "testssl.sh",
-      "cmd": "testssl.sh",
-      "desc": "TLS/SSL configuration testing",
+      "name": "bbot",
+      "cmd": "bbot",
+      "desc": "Automated recon and subdomain OSINT",
+      "module": "mod_web",
+      "category": "Web",
+      "images": [
+        "full",
+        "web"
+      ]
+    },
+    {
+      "name": "git-dumper",
+      "cmd": "git-dumper",
+      "desc": "Dump exposed .git directories",
+      "module": "mod_web",
+      "category": "Web",
+      "images": [
+        "full",
+        "web"
+      ]
+    },
+    {
+      "name": "httpmethods",
+      "cmd": "httpmethods",
+      "desc": "HTTP method enumeration",
+      "module": "mod_web",
+      "category": "Web",
+      "images": [
+        "full",
+        "web"
+      ]
+    },
+    {
+      "name": "linkfinder",
+      "cmd": "linkfinder",
+      "desc": "Endpoint discovery in JS files",
+      "module": "mod_web",
+      "category": "Web",
+      "images": [
+        "full",
+        "web"
+      ]
+    },
+    {
+      "name": "updog",
+      "cmd": "updog",
+      "desc": "HTTP file server with upload (SimpleHTTPServer replacement)",
+      "module": "mod_web",
+      "category": "Web",
+      "images": [
+        "full",
+        "web"
+      ]
+    },
+    {
+      "name": "wsgidav",
+      "cmd": "wsgidav",
+      "desc": "WebDAV server (serve files over WebDAV, e.g. for WebClient-based coercion/exfil)",
+      "module": "mod_web",
+      "category": "Web",
+      "images": [
+        "full",
+        "web"
+      ]
+    },
+    {
+      "name": "graphqlmap",
+      "cmd": "graphqlmap",
+      "desc": "GraphQL exploitation",
+      "module": "mod_web",
+      "category": "Web",
+      "images": [
+        "full",
+        "web"
+      ]
+    },
+    {
+      "name": "graphw00f",
+      "cmd": "graphw00f",
+      "desc": "GraphQL server fingerprinting",
+      "module": "mod_web",
+      "category": "Web",
+      "images": [
+        "full",
+        "web"
+      ]
+    },
+    {
+      "name": "graphql-cop",
+      "cmd": "graphql-cop",
+      "desc": "GraphQL security auditing",
       "module": "mod_web",
       "category": "Web",
       "images": [
@@ -1485,28 +1659,6 @@
       ]
     },
     {
-      "name": "dirsearch",
-      "cmd": "dirsearch",
-      "desc": "Directory brute-force",
-      "module": "mod_web",
-      "category": "Web",
-      "images": [
-        "full",
-        "web"
-      ]
-    },
-    {
-      "name": "whatweb",
-      "cmd": "whatweb",
-      "desc": "Web technology fingerprinting",
-      "module": "mod_web",
-      "category": "Web",
-      "images": [
-        "full",
-        "web"
-      ]
-    },
-    {
       "name": "hakrawler",
       "cmd": "hakrawler",
       "desc": "Web crawler for endpoint discovery",
@@ -1540,94 +1692,6 @@
       ]
     },
     {
-      "name": "commix",
-      "cmd": "commix",
-      "desc": "OS command injection exploitation",
-      "module": "mod_web",
-      "category": "Web",
-      "images": [
-        "full",
-        "web"
-      ]
-    },
-    {
-      "name": "glpwnme",
-      "cmd": "glpwnme",
-      "desc": "GLPI exploitation helper",
-      "module": "mod_web",
-      "category": "Web",
-      "images": [
-        "full",
-        "web"
-      ]
-    },
-    {
-      "name": "tplmap",
-      "cmd": "tplmap",
-      "desc": "Server-Side Template Injection",
-      "module": "mod_web",
-      "category": "Web",
-      "images": [
-        "full",
-        "web"
-      ]
-    },
-    {
-      "name": "nosqlmap",
-      "cmd": "nosqlmap",
-      "desc": "NoSQL injection exploitation",
-      "module": "mod_web",
-      "category": "Web",
-      "images": [
-        "full",
-        "web"
-      ]
-    },
-    {
-      "name": "graphqlmap",
-      "cmd": "graphqlmap",
-      "desc": "GraphQL exploitation",
-      "module": "mod_web",
-      "category": "Web",
-      "images": [
-        "full",
-        "web"
-      ]
-    },
-    {
-      "name": "graphw00f",
-      "cmd": "graphw00f",
-      "desc": "GraphQL server fingerprinting",
-      "module": "mod_web",
-      "category": "Web",
-      "images": [
-        "full",
-        "web"
-      ]
-    },
-    {
-      "name": "graphql-cop",
-      "cmd": "graphql-cop",
-      "desc": "GraphQL security auditing",
-      "module": "mod_web",
-      "category": "Web",
-      "images": [
-        "full",
-        "web"
-      ]
-    },
-    {
-      "name": "corsy",
-      "cmd": "corsy",
-      "desc": "CORS misconfiguration scanner",
-      "module": "mod_web",
-      "category": "Web",
-      "images": [
-        "full",
-        "web"
-      ]
-    },
-    {
       "name": "crlfuzz",
       "cmd": "crlfuzz",
       "desc": "CRLF injection testing",
@@ -1639,9 +1703,9 @@
       ]
     },
     {
-      "name": "mitmproxy",
-      "cmd": "mitmproxy",
-      "desc": "HTTP/HTTPS interception proxy",
+      "name": "byp4xx",
+      "cmd": "byp4xx",
+      "desc": "HTTP 40x bypass",
       "module": "mod_web",
       "category": "Web",
       "images": [
@@ -1650,86 +1714,9 @@
       ]
     },
     {
-      "name": "kiterunner",
-      "cmd": "kr",
-      "desc": "API endpoint discovery",
-      "module": "mod_web",
-      "category": "Web",
-      "images": [
-        "full",
-        "web"
-      ]
-    },
-    {
-      "name": "httpie",
-      "cmd": "http",
-      "desc": "User-friendly HTTP client",
-      "module": "mod_web",
-      "category": "Web",
-      "images": [
-        "full",
-        "web"
-      ]
-    },
-    {
-      "name": "caido",
-      "cmd": "caido",
-      "desc": "Web security desktop toolkit",
-      "module": "mod_web",
-      "category": "Web",
-      "images": [
-        "full",
-        "web"
-      ]
-    },
-    {
-      "name": "caido-cli",
-      "cmd": "caido-cli",
-      "desc": "Caido command-line interface",
-      "module": "mod_web",
-      "category": "Web",
-      "images": [
-        "full",
-        "web"
-      ]
-    },
-    {
-      "name": "swaks",
-      "cmd": "swaks",
-      "desc": "SMTP test tool (Swiss Army Knife for SMTP)",
-      "module": "mod_web",
-      "category": "Web",
-      "images": [
-        "full",
-        "web"
-      ]
-    },
-    {
-      "name": "mail",
-      "cmd": "mail",
-      "desc": "Command-line email client (mailutils + msmtp)",
-      "module": "mod_web",
-      "category": "Web",
-      "images": [
-        "full",
-        "web"
-      ]
-    },
-    {
-      "name": "burpsuite",
-      "cmd": "burpsuite",
-      "desc": "Web application security testing platform",
-      "module": "mod_web",
-      "category": "Web",
-      "images": [
-        "full",
-        "web"
-      ]
-    },
-    {
-      "name": "EyeWitness",
-      "cmd": "EyeWitness",
-      "desc": "Web screenshot and service enumeration tool",
+      "name": "gowitness",
+      "cmd": "gowitness",
+      "desc": "Web screenshot tool (Go)",
       "module": "mod_web",
       "category": "Web",
       "images": [
@@ -1760,9 +1747,9 @@
       ]
     },
     {
-      "name": "bbot",
-      "cmd": "bbot",
-      "desc": "Automated recon and subdomain OSINT",
+      "name": "ssrfmap",
+      "cmd": "ssrfmap",
+      "desc": "SSRF exploitation framework",
       "module": "mod_web",
       "category": "Web",
       "images": [
@@ -1771,9 +1758,9 @@
       ]
     },
     {
-      "name": "byp4xx",
-      "cmd": "byp4xx",
-      "desc": "HTTP 40x bypass",
+      "name": "jwt-tool",
+      "cmd": "jwt-tool",
+      "desc": "JWT manipulation and attacks",
       "module": "mod_web",
       "category": "Web",
       "images": [
@@ -1782,9 +1769,9 @@
       ]
     },
     {
-      "name": "git-dumper",
-      "cmd": "git-dumper",
-      "desc": "Dump exposed .git directories",
+      "name": "xsstrike",
+      "cmd": "xsstrike",
+      "desc": "XSS detection and exploitation",
       "module": "mod_web",
       "category": "Web",
       "images": [
@@ -1793,9 +1780,9 @@
       ]
     },
     {
-      "name": "gowitness",
-      "cmd": "gowitness",
-      "desc": "Web screenshot tool (Go)",
+      "name": "tplmap",
+      "cmd": "tplmap",
+      "desc": "Server-Side Template Injection",
       "module": "mod_web",
       "category": "Web",
       "images": [
@@ -1804,9 +1791,53 @@
       ]
     },
     {
-      "name": "httpmethods",
-      "cmd": "httpmethods",
-      "desc": "HTTP method enumeration",
+      "name": "nosqlmap",
+      "cmd": "nosqlmap",
+      "desc": "NoSQL injection exploitation",
+      "module": "mod_web",
+      "category": "Web",
+      "images": [
+        "full",
+        "web"
+      ]
+    },
+    {
+      "name": "odat",
+      "cmd": "odat",
+      "desc": "Oracle Database Attacking Tool",
+      "module": "mod_web",
+      "category": "Web",
+      "images": [
+        "full",
+        "web"
+      ]
+    },
+    {
+      "name": "corsy",
+      "cmd": "corsy",
+      "desc": "CORS misconfiguration scanner",
+      "module": "mod_web",
+      "category": "Web",
+      "images": [
+        "full",
+        "web"
+      ]
+    },
+    {
+      "name": "whatweb",
+      "cmd": "whatweb",
+      "desc": "Web technology fingerprinting",
+      "module": "mod_web",
+      "category": "Web",
+      "images": [
+        "full",
+        "web"
+      ]
+    },
+    {
+      "name": "EyeWitness",
+      "cmd": "EyeWitness",
+      "desc": "Web screenshot and service enumeration tool",
       "module": "mod_web",
       "category": "Web",
       "images": [
@@ -1818,64 +1849,6 @@
       "name": "joomscan",
       "cmd": "joomscan",
       "desc": "Joomla vulnerability scanner",
-      "module": "mod_web",
-      "category": "Web",
-      "images": [
-        "full",
-        "web"
-      ]
-    },
-    {
-      "name": "linkfinder",
-      "cmd": "linkfinder",
-      "desc": "Endpoint discovery in JS files",
-      "module": "mod_web",
-      "category": "Web",
-      "images": [
-        "full",
-        "web"
-      ]
-    },
-    {
-      "name": "naabu",
-      "cmd": "naabu",
-      "desc": "Fast port scanner",
-      "module": "mod_network",
-      "category": "Network",
-      "images": [
-        "full",
-        "ad",
-        "web",
-        "blueteam"
-      ]
-    },
-    {
-      "name": "patator",
-      "cmd": "patator",
-      "desc": "Multi-purpose brute-forcer",
-      "module": "mod_credential",
-      "category": "Credential",
-      "images": [
-        "full",
-        "ad",
-        "web"
-      ]
-    },
-    {
-      "name": "updog",
-      "cmd": "updog",
-      "desc": "HTTP file server with upload (SimpleHTTPServer replacement)",
-      "module": "mod_web",
-      "category": "Web",
-      "images": [
-        "full",
-        "web"
-      ]
-    },
-    {
-      "name": "wsgidav",
-      "cmd": "wsgidav",
-      "desc": "WebDAV server (serve files over WebDAV, e.g. for WebClient-based coercion/exfil)",
       "module": "mod_web",
       "category": "Web",
       "images": [
@@ -1906,9 +1879,9 @@
       ]
     },
     {
-      "name": "sslscan",
-      "cmd": "sslscan",
-      "desc": "SSL/TLS configuration scanner",
+      "name": "xxeinjector",
+      "cmd": "xxeinjector",
+      "desc": "XXE injection automation",
       "module": "mod_web",
       "category": "Web",
       "images": [
@@ -1917,9 +1890,64 @@
       ]
     },
     {
-      "name": "xxeinjector",
-      "cmd": "xxeinjector",
-      "desc": "XXE injection automation",
+      "name": "feroxbuster",
+      "cmd": "feroxbuster",
+      "desc": "Fast content discovery (Rust)",
+      "module": "mod_web",
+      "category": "Web",
+      "images": [
+        "full",
+        "web"
+      ]
+    },
+    {
+      "name": "testssl.sh",
+      "cmd": "testssl.sh",
+      "desc": "TLS/SSL configuration testing",
+      "module": "mod_web",
+      "category": "Web",
+      "images": [
+        "full",
+        "web"
+      ]
+    },
+    {
+      "name": "kiterunner",
+      "cmd": "kr",
+      "desc": "API endpoint discovery",
+      "module": "mod_web",
+      "category": "Web",
+      "images": [
+        "full",
+        "web"
+      ]
+    },
+    {
+      "name": "caido",
+      "cmd": "caido",
+      "desc": "Web security desktop toolkit",
+      "module": "mod_web",
+      "category": "Web",
+      "images": [
+        "full",
+        "web"
+      ]
+    },
+    {
+      "name": "caido-cli",
+      "cmd": "caido-cli",
+      "desc": "Caido command-line interface",
+      "module": "mod_web",
+      "category": "Web",
+      "images": [
+        "full",
+        "web"
+      ]
+    },
+    {
+      "name": "burpsuite",
+      "cmd": "burpsuite",
+      "desc": "Web application security testing platform",
       "module": "mod_web",
       "category": "Web",
       "images": [
@@ -1939,6 +1967,20 @@
       ]
     },
     {
+      "name": "naabu",
+      "cmd": "naabu",
+      "desc": "Fast port scanner",
+      "module": "mod_network",
+      "category": "Network",
+      "images": [
+        "full",
+        "ad",
+        "web",
+        "defender",
+        "mobile"
+      ]
+    },
+    {
       "name": "nmap",
       "cmd": "nmap",
       "desc": "Network scanner",
@@ -1948,7 +1990,8 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -1961,7 +2004,8 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -1974,7 +2018,8 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -1987,7 +2032,8 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -2000,111 +2046,8 @@
         "full",
         "ad",
         "web",
-        "blueteam"
-      ]
-    },
-    {
-      "name": "fping",
-      "cmd": "fping",
-      "desc": "Fast ICMP host discovery",
-      "module": "mod_network",
-      "category": "Network",
-      "images": [
-        "full",
-        "ad",
-        "web",
-        "blueteam"
-      ]
-    },
-    {
-      "name": "netdiscover",
-      "cmd": "netdiscover",
-      "desc": "Active/passive network address discovery",
-      "module": "mod_network",
-      "category": "Network",
-      "images": [
-        "full",
-        "ad",
-        "web",
-        "blueteam"
-      ]
-    },
-    {
-      "name": "zone-dnsenum",
-      "cmd": "zone-dnsenum",
-      "desc": "DNS zone enumeration and transfer",
-      "module": "mod_network",
-      "category": "Network",
-      "images": [
-        "full",
-        "ad",
-        "web",
-        "blueteam"
-      ]
-    },
-    {
-      "name": "dnsrecon",
-      "cmd": "dnsrecon",
-      "desc": "DNS enumeration and zone transfer testing",
-      "module": "mod_network",
-      "category": "Network",
-      "images": [
-        "full",
-        "ad",
-        "web",
-        "blueteam"
-      ]
-    },
-    {
-      "name": "dnsenum",
-      "cmd": "dnsenum",
-      "desc": "DNS enumeration script",
-      "module": "mod_network",
-      "category": "Network",
-      "images": [
-        "full",
-        "ad",
-        "web",
-        "blueteam"
-      ]
-    },
-    {
-      "name": "ngrok",
-      "cmd": "ngrok",
-      "desc": "Reverse tunnel for exposing local ports",
-      "module": "mod_network",
-      "category": "Network",
-      "images": [
-        "full",
-        "ad",
-        "web",
-        "blueteam"
-      ]
-    },
-    {
-      "name": "zrok",
-      "cmd": "zrok2",
-      "desc": "Zero-trust sharing and network tunneling",
-      "module": "mod_network",
-      "category": "Network",
-      "images": [
-        "full",
-        "ad",
-        "web",
-        "blueteam"
-      ]
-    },
-    {
-      "name": "udpx",
-      "cmd": "udpx",
-      "desc": "Fast UDP port scanner",
-      "module": "mod_network",
-      "category": "Network",
-      "images": [
-        "full",
-        "ad",
-        "web",
-        "blueteam"
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -2117,7 +2060,64 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
+      ]
+    },
+    {
+      "name": "fping",
+      "cmd": "fping",
+      "desc": "Fast ICMP host discovery",
+      "module": "mod_network",
+      "category": "Network",
+      "images": [
+        "full",
+        "ad",
+        "web",
+        "defender",
+        "mobile"
+      ]
+    },
+    {
+      "name": "udpx",
+      "cmd": "udpx",
+      "desc": "Fast UDP port scanner",
+      "module": "mod_network",
+      "category": "Network",
+      "images": [
+        "full",
+        "ad",
+        "web",
+        "defender",
+        "mobile"
+      ]
+    },
+    {
+      "name": "zone-dnsenum",
+      "cmd": "zone-dnsenum",
+      "desc": "DNS zone enumeration and transfer",
+      "module": "mod_network",
+      "category": "Network",
+      "images": [
+        "full",
+        "ad",
+        "web",
+        "defender",
+        "mobile"
+      ]
+    },
+    {
+      "name": "dnsrecon",
+      "cmd": "dnsrecon",
+      "desc": "DNS enumeration and zone transfer testing",
+      "module": "mod_network",
+      "category": "Network",
+      "images": [
+        "full",
+        "ad",
+        "web",
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -2130,7 +2130,22 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
+      ]
+    },
+    {
+      "name": "ngrok",
+      "cmd": "ngrok",
+      "desc": "Reverse tunnel for exposing local ports",
+      "module": "mod_network",
+      "category": "Network",
+      "images": [
+        "full",
+        "ad",
+        "web",
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -2143,7 +2158,22 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
+      ]
+    },
+    {
+      "name": "zrok",
+      "cmd": "zrok2",
+      "desc": "Zero-trust sharing and network tunneling",
+      "module": "mod_network",
+      "category": "Network",
+      "images": [
+        "full",
+        "ad",
+        "web",
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -2156,7 +2186,22 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
+      ]
+    },
+    {
+      "name": "netdiscover",
+      "cmd": "netdiscover",
+      "desc": "Active/passive network address discovery",
+      "module": "mod_network",
+      "category": "Network",
+      "images": [
+        "full",
+        "ad",
+        "web",
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -2169,7 +2214,8 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -2182,7 +2228,8 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -2195,7 +2242,8 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -2208,7 +2256,8 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -2221,7 +2270,8 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -2234,46 +2284,50 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
       ]
     },
     {
-      "name": "snmpwalk",
-      "cmd": "snmpwalk",
-      "desc": "SNMP tree walker",
+      "name": "seth",
+      "cmd": "seth",
+      "desc": "RDP downgrade and credential interception",
       "module": "mod_network",
       "category": "Network",
       "images": [
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
       ]
     },
     {
-      "name": "snmpcheck",
-      "cmd": "snmpcheck",
-      "desc": "SNMP device enumerator",
+      "name": "wifite2",
+      "cmd": "wifite",
+      "desc": "Automated wireless network auditor",
       "module": "mod_network",
       "category": "Network",
       "images": [
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
       ]
     },
     {
-      "name": "onesixtyone",
-      "cmd": "onesixtyone",
-      "desc": "SNMP community string scanner",
+      "name": "wifit3",
+      "cmd": "wifit3",
+      "desc": "USB wireless network auditor",
       "module": "mod_network",
       "category": "Network",
       "images": [
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -2286,7 +2340,8 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -2299,7 +2354,8 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -2312,7 +2368,64 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
+      ]
+    },
+    {
+      "name": "dnsenum",
+      "cmd": "dnsenum",
+      "desc": "DNS enumeration script",
+      "module": "mod_network",
+      "category": "Network",
+      "images": [
+        "full",
+        "ad",
+        "web",
+        "defender",
+        "mobile"
+      ]
+    },
+    {
+      "name": "snmpwalk",
+      "cmd": "snmpwalk",
+      "desc": "SNMP tree walker",
+      "module": "mod_network",
+      "category": "Network",
+      "images": [
+        "full",
+        "ad",
+        "web",
+        "defender",
+        "mobile"
+      ]
+    },
+    {
+      "name": "snmpcheck",
+      "cmd": "snmpcheck",
+      "desc": "SNMP device enumerator",
+      "module": "mod_network",
+      "category": "Network",
+      "images": [
+        "full",
+        "ad",
+        "web",
+        "defender",
+        "mobile"
+      ]
+    },
+    {
+      "name": "onesixtyone",
+      "cmd": "onesixtyone",
+      "desc": "SNMP community string scanner",
+      "module": "mod_network",
+      "category": "Network",
+      "images": [
+        "full",
+        "ad",
+        "web",
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -2325,7 +2438,8 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -2338,7 +2452,8 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -2366,9 +2481,57 @@
       ]
     },
     {
+      "name": "name-that-hash",
+      "cmd": "nth",
+      "desc": "Hash identifier",
+      "module": "mod_credential",
+      "category": "Credential",
+      "images": [
+        "full",
+        "ad",
+        "web"
+      ]
+    },
+    {
+      "name": "xortool",
+      "cmd": "xortool",
+      "desc": "Analyze repeating-key XOR ciphers",
+      "module": "mod_credential",
+      "category": "Credential",
+      "images": [
+        "full",
+        "ad",
+        "web"
+      ]
+    },
+    {
+      "name": "xortool-xor",
+      "cmd": "xortool-xor",
+      "desc": "Apply XOR with a supplied key",
+      "module": "mod_credential",
+      "category": "Credential",
+      "images": [
+        "full",
+        "ad",
+        "web"
+      ]
+    },
+    {
       "name": "trufflehog",
       "cmd": "trufflehog",
       "desc": "Scan Git repositories and files for secrets",
+      "module": "mod_credential",
+      "category": "Credential",
+      "images": [
+        "full",
+        "ad",
+        "web"
+      ]
+    },
+    {
+      "name": "haiti",
+      "cmd": "haiti",
+      "desc": "Hash type identifier",
       "module": "mod_credential",
       "category": "Credential",
       "images": [
@@ -2510,45 +2673,9 @@
       ]
     },
     {
-      "name": "xortool",
-      "cmd": "xortool",
-      "desc": "Analyze repeating-key XOR ciphers",
-      "module": "mod_credential",
-      "category": "Credential",
-      "images": [
-        "full",
-        "ad",
-        "web"
-      ]
-    },
-    {
-      "name": "xortool-xor",
-      "cmd": "xortool-xor",
-      "desc": "Apply XOR with a supplied key",
-      "module": "mod_credential",
-      "category": "Credential",
-      "images": [
-        "full",
-        "ad",
-        "web"
-      ]
-    },
-    {
       "name": "hashcat",
       "cmd": "hashcat",
       "desc": "GPU password cracker",
-      "module": "mod_credential",
-      "category": "Credential",
-      "images": [
-        "full",
-        "ad",
-        "web"
-      ]
-    },
-    {
-      "name": "haiti",
-      "cmd": "haiti",
-      "desc": "Hash type identifier",
       "module": "mod_credential",
       "category": "Credential",
       "images": [
@@ -2582,9 +2709,9 @@
       ]
     },
     {
-      "name": "name-that-hash",
-      "cmd": "nth",
-      "desc": "Hash identifier",
+      "name": "patator",
+      "cmd": "patator",
+      "desc": "Multi-purpose brute-forcer",
       "module": "mod_credential",
       "category": "Credential",
       "images": [
@@ -2646,19 +2773,9 @@
       ]
     },
     {
-      "name": "pwntools",
-      "cmd": "pwn",
-      "desc": "CTF/exploit development library",
-      "module": "mod_pwn",
-      "category": "Pwn",
-      "images": [
-        "full"
-      ]
-    },
-    {
-      "name": "ROPgadget",
-      "cmd": "ROPgadget",
-      "desc": "ROP gadget finder",
+      "name": "checksec",
+      "cmd": "checksec",
+      "desc": "Binary security property checker",
       "module": "mod_pwn",
       "category": "Pwn",
       "images": [
@@ -2696,6 +2813,76 @@
       ]
     },
     {
+      "name": "pwntools",
+      "cmd": "pwn",
+      "desc": "CTF/exploit development library",
+      "module": "mod_pwn",
+      "category": "Pwn",
+      "images": [
+        "full"
+      ]
+    },
+    {
+      "name": "ROPgadget",
+      "cmd": "ROPgadget",
+      "desc": "ROP gadget finder",
+      "module": "mod_pwn",
+      "category": "Pwn",
+      "images": [
+        "full"
+      ]
+    },
+    {
+      "name": "ropper",
+      "cmd": "ropper",
+      "desc": "ROP gadget search",
+      "module": "mod_pwn",
+      "category": "Pwn",
+      "images": [
+        "full"
+      ]
+    },
+    {
+      "name": "glibc-all-in-one",
+      "cmd": "glibc-aio",
+      "desc": "Download and manage glibc versions",
+      "module": "mod_pwn",
+      "category": "Pwn",
+      "images": [
+        "full"
+      ]
+    },
+    {
+      "name": "qemu-user",
+      "cmd": "qemu-aarch64-static",
+      "desc": "User mode emulation",
+      "module": "mod_pwn",
+      "category": "Pwn",
+      "images": [
+        "full"
+      ]
+    },
+    {
+      "name": "cross-binutils",
+      "cmd": "aarch64-linux-gnu-as",
+      "desc": "Cross architecture assemblers",
+      "module": "mod_pwn",
+      "category": "Pwn",
+      "images": [
+        "full"
+      ]
+    },
+    {
+      "name": "pwninit",
+      "cmd": "pwninit",
+      "desc": "Initialize pwn challenges with matching libc/ld",
+      "module": "mod_pwn",
+      "category": "Pwn",
+      "images": [
+        "full"
+      ]
+    },
+    {
       "name": "one_gadget",
       "cmd": "one_gadget",
       "desc": "One-gadget RCE finder for libc",
@@ -2716,29 +2903,9 @@
       ]
     },
     {
-      "name": "checksec",
-      "cmd": "checksec",
-      "desc": "Binary security property checker",
-      "module": "mod_pwn",
-      "category": "Pwn",
-      "images": [
-        "full"
-      ]
-    },
-    {
       "name": "patchelf",
       "cmd": "patchelf",
       "desc": "Patch ELF interpreters, rpaths and dependencies",
-      "module": "mod_pwn",
-      "category": "Pwn",
-      "images": [
-        "full"
-      ]
-    },
-    {
-      "name": "pwninit",
-      "cmd": "pwninit",
-      "desc": "Initialize pwn challenges with matching libc/ld",
       "module": "mod_pwn",
       "category": "Pwn",
       "images": [
@@ -2798,18 +2965,6 @@
       "images": [
         "full",
         "ad"
-      ]
-    },
-    {
-      "name": "tvmux",
-      "cmd": "tvmux",
-      "desc": "Record tmux sessions with asciinema",
-      "module": "mod_misc",
-      "category": "Misc",
-      "images": [
-        "full",
-        "ad",
-        "web"
       ]
     },
     {
@@ -2873,6 +3028,30 @@
       ]
     },
     {
+      "name": "chrony",
+      "cmd": "chronyc",
+      "desc": "NTP client utilities",
+      "module": "mod_misc",
+      "category": "Misc",
+      "images": [
+        "full",
+        "ad",
+        "web"
+      ]
+    },
+    {
+      "name": "rdate",
+      "cmd": "rdate",
+      "desc": "Query remote time",
+      "module": "mod_misc",
+      "category": "Misc",
+      "images": [
+        "full",
+        "ad",
+        "web"
+      ]
+    },
+    {
       "name": "grc",
       "cmd": "grc",
       "desc": "Generic log colorizer",
@@ -2900,6 +3079,18 @@
       "name": "sqlite3",
       "cmd": "sqlite3",
       "desc": "SQLite command-line client",
+      "module": "mod_misc",
+      "category": "Misc",
+      "images": [
+        "full",
+        "ad",
+        "web"
+      ]
+    },
+    {
+      "name": "mongosh",
+      "cmd": "mongosh",
+      "desc": "MongoDB shell",
       "module": "mod_misc",
       "category": "Misc",
       "images": [
@@ -2981,6 +3172,48 @@
       ]
     },
     {
+      "name": "tvmux",
+      "cmd": "tvmux",
+      "desc": "Record tmux sessions with asciinema",
+      "module": "mod_misc",
+      "category": "Misc",
+      "images": [
+        "full",
+        "ad",
+        "web"
+      ]
+    },
+    {
+      "name": "ghidra",
+      "cmd": "ghidra",
+      "desc": "Reverse engineering suite",
+      "module": "mod_reverse",
+      "category": "Reverse Engineering",
+      "images": [
+        "full"
+      ]
+    },
+    {
+      "name": "nasm",
+      "cmd": "nasm",
+      "desc": "X86/x64 assembler",
+      "module": "mod_reverse",
+      "category": "Reverse Engineering",
+      "images": [
+        "full"
+      ]
+    },
+    {
+      "name": "wabt",
+      "cmd": "wat2wasm",
+      "desc": "WebAssembly Binary Toolkit",
+      "module": "mod_reverse",
+      "category": "Reverse Engineering",
+      "images": [
+        "full"
+      ]
+    },
+    {
       "name": "vscodium",
       "cmd": "codium",
       "desc": "Open-source graphical code editor",
@@ -2991,9 +3224,59 @@
       ]
     },
     {
-      "name": "ghidra",
-      "cmd": "ghidra",
-      "desc": "Reverse engineering suite",
+      "name": "angr",
+      "cmd": "angr",
+      "desc": "Symbolic execution and binary analysis",
+      "module": "mod_reverse",
+      "category": "Reverse Engineering",
+      "images": [
+        "full"
+      ]
+    },
+    {
+      "name": "uncompyle6",
+      "cmd": "uncompyle6",
+      "desc": "Python 2/3 bytecode decompiler",
+      "module": "mod_reverse",
+      "category": "Reverse Engineering",
+      "images": [
+        "full"
+      ]
+    },
+    {
+      "name": "pycdc",
+      "cmd": "pycdc",
+      "desc": "Python bytecode decompiler",
+      "module": "mod_reverse",
+      "category": "Reverse Engineering",
+      "images": [
+        "full"
+      ]
+    },
+    {
+      "name": "pycdas",
+      "cmd": "pycdas",
+      "desc": "Python bytecode disassembler",
+      "module": "mod_reverse",
+      "category": "Reverse Engineering",
+      "images": [
+        "full"
+      ]
+    },
+    {
+      "name": "vt",
+      "cmd": "vt",
+      "desc": "VirusTotal CLI",
+      "module": "mod_reverse",
+      "category": "Reverse Engineering",
+      "images": [
+        "full"
+      ]
+    },
+    {
+      "name": "jd-gui",
+      "cmd": "jd-gui",
+      "desc": "Java decompiler GUI",
       "module": "mod_reverse",
       "category": "Reverse Engineering",
       "images": [
@@ -3021,56 +3304,6 @@
       ]
     },
     {
-      "name": "angr",
-      "cmd": "angr",
-      "desc": "Symbolic execution and binary analysis",
-      "module": "mod_reverse",
-      "category": "Reverse Engineering",
-      "images": [
-        "full"
-      ]
-    },
-    {
-      "name": "pycdc",
-      "cmd": "pycdc",
-      "desc": "Python bytecode decompiler",
-      "module": "mod_reverse",
-      "category": "Reverse Engineering",
-      "images": [
-        "full"
-      ]
-    },
-    {
-      "name": "uncompyle6",
-      "cmd": "uncompyle6",
-      "desc": "Python 2/3 bytecode decompiler",
-      "module": "mod_reverse",
-      "category": "Reverse Engineering",
-      "images": [
-        "full"
-      ]
-    },
-    {
-      "name": "pycdas",
-      "cmd": "pycdas",
-      "desc": "Python bytecode disassembler",
-      "module": "mod_reverse",
-      "category": "Reverse Engineering",
-      "images": [
-        "full"
-      ]
-    },
-    {
-      "name": "nasm",
-      "cmd": "nasm",
-      "desc": "X86/x64 assembler",
-      "module": "mod_reverse",
-      "category": "Reverse Engineering",
-      "images": [
-        "full"
-      ]
-    },
-    {
       "name": "RsaCtfTool",
       "cmd": "RsaCtfTool",
       "desc": "RSA attack automation",
@@ -3084,6 +3317,16 @@
       "name": "xortool",
       "cmd": "xortool",
       "desc": "XOR cipher analysis",
+      "module": "mod_crypto",
+      "category": "Crypto",
+      "images": [
+        "full"
+      ]
+    },
+    {
+      "name": "hashid",
+      "cmd": "hashid",
+      "desc": "Hash type identifier",
       "module": "mod_crypto",
       "category": "Crypto",
       "images": [
@@ -3111,16 +3354,6 @@
       ]
     },
     {
-      "name": "hashid",
-      "cmd": "hashid",
-      "desc": "Hash type identifier",
-      "module": "mod_crypto",
-      "category": "Crypto",
-      "images": [
-        "full"
-      ]
-    },
-    {
       "name": "volatility3",
       "cmd": "vol",
       "desc": "Memory forensics framework",
@@ -3128,18 +3361,7 @@
       "category": "Forensics",
       "images": [
         "full",
-        "blueteam"
-      ]
-    },
-    {
-      "name": "foremost",
-      "cmd": "foremost",
-      "desc": "File carving tool",
-      "module": "mod_forensics",
-      "category": "Forensics",
-      "images": [
-        "full",
-        "blueteam"
+        "defender"
       ]
     },
     {
@@ -3150,7 +3372,18 @@
       "category": "Forensics",
       "images": [
         "full",
-        "blueteam"
+        "defender"
+      ]
+    },
+    {
+      "name": "foremost",
+      "cmd": "foremost",
+      "desc": "File carving tool",
+      "module": "mod_forensics",
+      "category": "Forensics",
+      "images": [
+        "full",
+        "defender"
       ]
     },
     {
@@ -3161,29 +3394,7 @@
       "category": "Forensics",
       "images": [
         "full",
-        "blueteam"
-      ]
-    },
-    {
-      "name": "zsteg",
-      "cmd": "zsteg",
-      "desc": "PNG/BMP steganography detector",
-      "module": "mod_forensics",
-      "category": "Forensics",
-      "images": [
-        "full",
-        "blueteam"
-      ]
-    },
-    {
-      "name": "stegseek",
-      "cmd": "stegseek",
-      "desc": "Steghide brute-forcer",
-      "module": "mod_forensics",
-      "category": "Forensics",
-      "images": [
-        "full",
-        "blueteam"
+        "defender"
       ]
     },
     {
@@ -3194,7 +3405,7 @@
       "category": "Forensics",
       "images": [
         "full",
-        "blueteam"
+        "defender"
       ]
     },
     {
@@ -3205,7 +3416,29 @@
       "category": "Forensics",
       "images": [
         "full",
-        "blueteam"
+        "defender"
+      ]
+    },
+    {
+      "name": "zsteg",
+      "cmd": "zsteg",
+      "desc": "PNG/BMP steganography detector",
+      "module": "mod_forensics",
+      "category": "Forensics",
+      "images": [
+        "full",
+        "defender"
+      ]
+    },
+    {
+      "name": "stegseek",
+      "cmd": "stegseek",
+      "desc": "Steghide brute-forcer",
+      "module": "mod_forensics",
+      "category": "Forensics",
+      "images": [
+        "full",
+        "defender"
       ]
     },
     {
@@ -3218,7 +3451,8 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -3231,7 +3465,22 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
+      ]
+    },
+    {
+      "name": "fuzz.txt",
+      "cmd": "",
+      "desc": "Web content discovery wordlist",
+      "module": "mod_wordlists",
+      "category": "Wordlists",
+      "images": [
+        "full",
+        "ad",
+        "web",
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -3244,7 +3493,8 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -3257,7 +3507,8 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -3270,7 +3521,8 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -3283,7 +3535,8 @@
         "full",
         "ad",
         "web",
-        "blueteam"
+        "defender",
+        "mobile"
       ]
     },
     {
@@ -3294,7 +3547,7 @@
       "category": "Blue Team",
       "images": [
         "full",
-        "blueteam"
+        "defender"
       ]
     },
     {
@@ -3305,7 +3558,7 @@
       "category": "Blue Team",
       "images": [
         "full",
-        "blueteam"
+        "defender"
       ]
     },
     {
@@ -3316,7 +3569,7 @@
       "category": "Blue Team",
       "images": [
         "full",
-        "blueteam"
+        "defender"
       ]
     },
     {
@@ -3327,7 +3580,7 @@
       "category": "Blue Team",
       "images": [
         "full",
-        "blueteam"
+        "defender"
       ]
     },
     {
@@ -3338,7 +3591,7 @@
       "category": "Blue Team",
       "images": [
         "full",
-        "blueteam"
+        "defender"
       ]
     },
     {
@@ -3349,7 +3602,7 @@
       "category": "Blue Team",
       "images": [
         "full",
-        "blueteam"
+        "defender"
       ]
     },
     {
@@ -3360,7 +3613,7 @@
       "category": "Blue Team",
       "images": [
         "full",
-        "blueteam"
+        "defender"
       ]
     },
     {
@@ -3371,7 +3624,150 @@
       "category": "Blue Team",
       "images": [
         "full",
-        "blueteam"
+        "defender"
+      ]
+    },
+    {
+      "name": "android-tools",
+      "cmd": "adb",
+      "desc": "Android Debug Bridge (adb/fastboot)",
+      "module": "mod_mobile",
+      "category": "Mobile",
+      "images": [
+        "full",
+        "mobile"
+      ]
+    },
+    {
+      "name": "scrcpy",
+      "cmd": "scrcpy",
+      "desc": "Display and control Android devices",
+      "module": "mod_mobile",
+      "category": "Mobile",
+      "images": [
+        "full",
+        "mobile"
+      ]
+    },
+    {
+      "name": "jadx",
+      "cmd": "jadx",
+      "desc": "Dex to Java decompiler",
+      "module": "mod_mobile",
+      "category": "Mobile",
+      "images": [
+        "full",
+        "mobile"
+      ]
+    },
+    {
+      "name": "apktool",
+      "cmd": "apktool",
+      "desc": "Reverse engineer Android APK files",
+      "module": "mod_mobile",
+      "category": "Mobile",
+      "images": [
+        "full",
+        "mobile"
+      ]
+    },
+    {
+      "name": "dex2jar",
+      "cmd": "d2j-dex2jar",
+      "desc": "Convert Android .dex to Java .jar",
+      "module": "mod_mobile",
+      "category": "Mobile",
+      "images": [
+        "full",
+        "mobile"
+      ]
+    },
+    {
+      "name": "apkleaks",
+      "cmd": "apkleaks",
+      "desc": "Scan APKs for URIs, endpoints and secrets",
+      "module": "mod_mobile",
+      "category": "Mobile",
+      "images": [
+        "full",
+        "mobile"
+      ]
+    },
+    {
+      "name": "androguard",
+      "cmd": "androguard",
+      "desc": "Android app analysis framework",
+      "module": "mod_mobile",
+      "category": "Mobile",
+      "images": [
+        "full",
+        "mobile"
+      ]
+    },
+    {
+      "name": "apkeep",
+      "cmd": "apkeep",
+      "desc": "Download APKs from several stores",
+      "module": "mod_mobile",
+      "category": "Mobile",
+      "images": [
+        "full",
+        "mobile"
+      ]
+    },
+    {
+      "name": "frida-tools",
+      "cmd": "frida",
+      "desc": "Dynamic instrumentation toolkit (Android/iOS)",
+      "module": "mod_mobile",
+      "category": "Mobile",
+      "images": [
+        "full",
+        "mobile"
+      ]
+    },
+    {
+      "name": "objection",
+      "cmd": "objection",
+      "desc": "Runtime mobile exploration (Frida)",
+      "module": "mod_mobile",
+      "category": "Mobile",
+      "images": [
+        "full",
+        "mobile"
+      ]
+    },
+    {
+      "name": "libimobiledevice",
+      "cmd": "ideviceinfo",
+      "desc": "Talk to iOS devices (ideviceinfo, idevicebackup2...)",
+      "module": "mod_mobile",
+      "category": "Mobile",
+      "images": [
+        "full",
+        "mobile"
+      ]
+    },
+    {
+      "name": "ideviceinstaller",
+      "cmd": "ideviceinstaller",
+      "desc": "Manage apps on iOS devices",
+      "module": "mod_mobile",
+      "category": "Mobile",
+      "images": [
+        "full",
+        "mobile"
+      ]
+    },
+    {
+      "name": "libplist",
+      "cmd": "plistutil",
+      "desc": "Handle Apple property list files (plistutil)",
+      "module": "mod_mobile",
+      "category": "Mobile",
+      "images": [
+        "full",
+        "mobile"
       ]
     },
     {
@@ -3449,194 +3845,6 @@
       "images": [
         "full",
         "web"
-      ]
-    },
-    {
-      "name": "seth",
-      "cmd": "seth",
-      "desc": "RDP downgrade and credential interception",
-      "category": "Network",
-      "images": [
-        "full",
-        "ad",
-        "web",
-        "blueteam"
-      ]
-    },
-    {
-      "name": "wifit3",
-      "cmd": "wifit3",
-      "desc": "USB wireless network auditor",
-      "category": "Network",
-      "images": [
-        "full",
-        "ad",
-        "web",
-        "blueteam"
-      ]
-    },
-    {
-      "name": "wifite2",
-      "cmd": "wifite",
-      "desc": "Automated wireless network auditor",
-      "category": "Network",
-      "images": [
-        "full",
-        "ad",
-        "web",
-        "blueteam"
-      ]
-    },
-    {
-      "name": "bloodhound-quickwin",
-      "cmd": "bhqc",
-      "desc": "BloodHound quick win queries",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "krb5",
-      "cmd": "kinit",
-      "desc": "Kerberos client utilities",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
-      "name": "odat",
-      "cmd": "odat",
-      "desc": "Oracle Database Attacking Tool",
-      "module": "mod_web",
-      "category": "Web",
-      "images": [
-        "full",
-        "web"
-      ]
-    },
-    {
-      "name": "ropper",
-      "cmd": "ropper",
-      "desc": "ROP gadget search",
-      "module": "mod_pwn",
-      "category": "Pwn",
-      "images": [
-        "full"
-      ]
-    },
-    {
-      "name": "glibc-all-in-one",
-      "cmd": "glibc-aio",
-      "desc": "Download and manage glibc versions",
-      "module": "mod_pwn",
-      "category": "Pwn",
-      "images": [
-        "full"
-      ]
-    },
-    {
-      "name": "qemu-user",
-      "cmd": "qemu-aarch64-static",
-      "desc": "User mode emulation",
-      "module": "mod_pwn",
-      "category": "Pwn",
-      "images": [
-        "full"
-      ]
-    },
-    {
-      "name": "cross-binutils",
-      "cmd": "aarch64-linux-gnu-as",
-      "desc": "Cross architecture assemblers",
-      "module": "mod_pwn",
-      "category": "Pwn",
-      "images": [
-        "full"
-      ]
-    },
-    {
-      "name": "chrony",
-      "cmd": "chronyc",
-      "desc": "NTP client utilities",
-      "module": "mod_misc",
-      "category": "Misc",
-      "images": [
-        "full",
-        "ad",
-        "web"
-      ]
-    },
-    {
-      "name": "rdate",
-      "cmd": "rdate",
-      "desc": "Query remote time",
-      "module": "mod_misc",
-      "category": "Misc",
-      "images": [
-        "full",
-        "ad",
-        "web"
-      ]
-    },
-    {
-      "name": "mongosh",
-      "cmd": "mongosh",
-      "desc": "MongoDB shell",
-      "module": "mod_misc",
-      "category": "Misc",
-      "images": [
-        "full",
-        "ad",
-        "web"
-      ]
-    },
-    {
-      "name": "wabt",
-      "cmd": "wat2wasm",
-      "desc": "WebAssembly Binary Toolkit",
-      "module": "mod_reverse",
-      "category": "Reverse Engineering",
-      "images": [
-        "full"
-      ]
-    },
-    {
-      "name": "vt",
-      "cmd": "vt",
-      "desc": "VirusTotal CLI",
-      "module": "mod_reverse",
-      "category": "Reverse Engineering",
-      "images": [
-        "full"
-      ]
-    },
-    {
-      "name": "jd-gui",
-      "cmd": "jd-gui",
-      "desc": "Java decompiler GUI",
-      "module": "mod_reverse",
-      "category": "Reverse Engineering",
-      "images": [
-        "full"
-      ]
-    },
-    {
-      "name": "fuzz.txt",
-      "cmd": "",
-      "desc": "Web content discovery wordlist",
-      "module": "mod_wordlists",
-      "category": "Wordlists",
-      "images": [
-        "full",
-        "ad",
-        "web",
-        "blueteam"
       ]
     }
   ]

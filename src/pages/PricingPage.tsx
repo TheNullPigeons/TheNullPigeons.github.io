@@ -23,7 +23,7 @@ const tiers = [
 ];
 
 const rates = [
-  ['Docker images (full, ad, web, blueteam)', '0.00'],
+  ['Docker images (full, ad, web, defender, mobile)', '0.00'],
   ['Nihil CLI', '0.00'],
   ['nihil-history, nihil-resources, nihil-mcp, nihil-ntp', '0.00'],
   ['Pull from ghcr.io', '0.00'],

@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import toolsData from '../../data/tools.json';
 
-type ImageTag = 'full' | 'ad' | 'web' | 'blueteam';
+type ImageTag = 'full' | 'ad' | 'web' | 'defender' | 'mobile';
 type Category =
   | 'Core'
   | 'Active Directory'
@@ -16,7 +16,8 @@ type Category =
   | 'C2'
   | 'Misc'
   | 'Wordlists'
-  | 'Blue Team';
+  | 'Blue Team'
+  | 'Mobile';
 
 interface Tool {
   name: string;
@@ -34,14 +35,15 @@ const ALL: Tool[] = (toolsData.tools as Array<{ name: string; cmd: string; desc:
 
 const CATEGORIES: Category[] = [
   'Core', 'Active Directory', 'Web', 'OSINT', 'Network', 'Credential',
-  'Pwn', 'Reverse Engineering', 'Crypto', 'Forensics', 'C2', 'Misc', 'Wordlists', 'Blue Team',
+  'Pwn', 'Reverse Engineering', 'Crypto', 'Forensics', 'C2', 'Misc', 'Wordlists', 'Blue Team', 'Mobile',
 ];
 
 const IMAGE_COLORS: Record<ImageTag, string> = {
   full:     'bg-amber-500/15 text-amber-300 border-amber-500/30',
   ad:       'bg-cyan-500/15 text-cyan-300 border-cyan-500/30',
   web:      'bg-purple-500/15 text-purple-300 border-purple-500/30',
-  blueteam: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30',
+  defender: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30',
+  mobile:   'bg-pink-500/15 text-pink-300 border-pink-500/30',
 };
 
 const CATEGORY_COLORS: Record<Category, string> = {
@@ -59,6 +61,7 @@ const CATEGORY_COLORS: Record<Category, string> = {
   'Misc':               'bg-slate-500/15 text-slate-400',
   'Wordlists':          'bg-lime-500/15 text-lime-300',
   'Blue Team':          'bg-emerald-500/15 text-emerald-300',
+  'Mobile':             'bg-pink-500/15 text-pink-300',
 };
 
 export const ToolsPage: React.FC = () => {
@@ -105,7 +108,7 @@ export const ToolsPage: React.FC = () => {
         />
 
         <div className="flex flex-wrap gap-2">
-          {(['full','ad','web','blueteam'] as ImageTag[]).map((img) => (
+          {(['full','ad','web','defender','mobile'] as ImageTag[]).map((img) => (
             <button
               key={img}
               onClick={() => setActiveImage(activeImage === img ? null : img)}

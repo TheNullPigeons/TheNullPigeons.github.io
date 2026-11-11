@@ -59,7 +59,7 @@ export const AboutPage: React.FC = () => {
               {[
                 {
                   name: 'Docker images',
-                  desc: 'Arch-based containers pre-loaded with offensive tools. Four variants: full, ad (Active Directory), web, and blueteam (SOC/DFIR). Built from public Dockerfiles, no mystery layers.',
+                  desc: 'Arch-based containers pre-loaded with offensive tools. Five variants: full, ad (Active Directory), web, defender (SOC/DFIR), and mobile (Android/iOS). Built from public Dockerfiles, no mystery layers.',
                 },
                 {
                   name: 'Python wrapper (nihil CLI)',

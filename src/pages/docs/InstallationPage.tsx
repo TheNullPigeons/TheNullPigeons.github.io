@@ -24,7 +24,7 @@ export const InstallationPage: React.FC = () => {
               items={[
                 'Use pipx for a clean install.',
                 'Run nihil doctor before first use.',
-                'Pull image with nihil install (full/ad/web/blueteam).',
+                'Pull image with nihil install (full/ad/web/defender/mobile).',
                 'Use nh as the short alias installed with nihil.',
                 'Start with nihil start <name> --workspace <path>.',
               ]}
@@ -94,7 +94,7 @@ nihil image channel dev
 nihil image channel main`}
             </pre>
             <Callout variant="note" title="Saved in your config">
-              The choice is stored in your nihil config and applies to every upstream variant (full, ad, web, blueteam).
+              The choice is stored in your nihil config and applies to every upstream variant (full, ad, web, defender, mobile).
               If you already have images installed, run <code>nihil update</code> after switching to pull them from the
               new channel. The channel is ignored while a personal image source is active.
             </Callout>
@@ -116,7 +116,8 @@ nihil install
 nihil install full
 nihil install ad
 nihil install web
-nihil install blueteam`}
+nihil install defender
+nihil install mobile`}
             </pre>
           </section>
 

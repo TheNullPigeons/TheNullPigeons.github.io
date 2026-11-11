@@ -44,7 +44,8 @@ const images = [
   { name: 'full', alias: ':flock', tagline: 'The whole flock, every tool, every module.', tone: 'bg-amber-500' },
   { name: 'ad', alias: ':nest', tagline: 'Nest in their Active Directory.', tone: 'bg-cyan-500' },
   { name: 'web', alias: ':beak', tagline: 'Beak through their web apps.', tone: 'bg-paper' },
-  { name: 'blueteam', alias: ':coo', tagline: 'Listen before you hunt. DFIR & threat hunting.', tone: 'bg-slate-400' },
+  { name: 'defender', alias: ':coo', tagline: 'Listen before you hunt. DFIR & threat hunting.', tone: 'bg-slate-400' },
+  { name: 'mobile', alias: ':carrier', tagline: 'Carry the engagement into their pocket. Android & iOS.', tone: 'bg-pink-500' },
 ];
 
 const fleet = [
@@ -54,8 +55,8 @@ const fleet = [
     drawing: <><rect x="8" y="13" width="80" height="62" rx="4" /><path d="M8 28h80M20 20h1m7 0h1m7 0h1M24 42l12 10-12 10m23 0h19" /></>,
   },
   {
-    name: 'nihil-images', role: 'Arch-based images', desc: 'Four variants, every Dockerfile public. Fork them, trim them, rebuild them.', to: '/docs/images',
-    detail: 'full / ad / web / blueteam',
+    name: 'nihil-images', role: 'Arch-based images', desc: 'Five variants, every Dockerfile public. Fork them, trim them, rebuild them.', to: '/docs/images',
+    detail: 'full / ad / web / defender / mobile',
     drawing: <><path d="M48 8L88 28 48 48 8 28 48 8zm-40 36 40 20 40-20M8 60l40 20 40-20" /><path d="M48 48v32" strokeDasharray="3 5" /></>,
   },
   {
@@ -235,7 +236,7 @@ export const HomePage: React.FC = () => {
           <dl className="max-w-[88rem] mx-auto px-5 md:px-8 grid grid-cols-2 md:grid-cols-4">
             {[
               ['Base', 'Arch Linux, rolling'],
-              ['Images', 'full · ad · web · blueteam'],
+              ['Images', 'full · ad · web · defender · mobile'],
               ['Registry', 'ghcr.io, no pull limit'],
               ['Telemetry', 'None. Ever.'],
             ].map(([k, v], i) => (
@@ -306,7 +307,7 @@ export const HomePage: React.FC = () => {
             <div className="space-y-5">
               <SectionLabel index="02">The stamp sheet</SectionLabel>
               <h2 className="text-4xl md:text-6xl font-bold display text-paper leading-[0.95]">
-                Four images. <br />
+                Five images. <br />
                 <span className="stencil logo-blue-text">One flock.</span>
               </h2>
             </div>
@@ -358,7 +359,8 @@ export const HomePage: React.FC = () => {
           <p className="font-mono text-xs text-slate-500">
             <span className="text-amber-500">$</span> nihil install{' '}
             <span className="text-slate-300">full</span> | <span className="text-slate-300">ad</span> |{' '}
-            <span className="text-slate-300">web</span> | <span className="text-slate-300">blueteam</span>
+            <span className="text-slate-300">web</span> | <span className="text-slate-300">defender</span> |{' '}
+            <span className="text-slate-300">mobile</span>
           </p>
         </section>
 

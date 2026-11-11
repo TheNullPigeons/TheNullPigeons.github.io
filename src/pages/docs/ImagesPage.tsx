@@ -3,7 +3,7 @@ import { SectionToc } from '../../components/SectionToc';
 import { Callout, StepList, TldrBlock } from '../../components/DocsBlocks';
 import toolsData from '../../data/tools.json';
 
-const tabs = ['overview', 'full', 'ad', 'web', 'blueteam'] as const;
+const tabs = ['overview', 'full', 'ad', 'web', 'defender', 'mobile'] as const;
 type Tab = typeof tabs[number];
 
 const tabConfig: Record<Tab, { label: string; color: string; border: string; bg: string; glow: string }> = {
@@ -11,7 +11,8 @@ const tabConfig: Record<Tab, { label: string; color: string; border: string; bg:
   full: { label: 'Full', color: 'text-amber-300', border: 'border-amber-500/40', bg: 'bg-amber-400/15', glow: 'shadow-amber-500/10' },
   ad: { label: 'AD', color: 'text-cyan-300', border: 'border-cyan-500/40', bg: 'bg-cyan-400/15', glow: 'shadow-cyan-500/10' },
   web: { label: 'Web', color: 'text-purple-300', border: 'border-purple-500/40', bg: 'bg-purple-400/15', glow: 'shadow-purple-500/10' },
-  blueteam: { label: 'Blue Team', color: 'text-emerald-300', border: 'border-emerald-500/40', bg: 'bg-emerald-400/15', glow: 'shadow-emerald-500/10' },
+  defender: { label: 'Blue Team', color: 'text-emerald-300', border: 'border-emerald-500/40', bg: 'bg-emerald-400/15', glow: 'shadow-emerald-500/10' },
+  mobile: { label: 'Mobile', color: 'text-pink-300', border: 'border-pink-500/40', bg: 'bg-pink-400/15', glow: 'shadow-pink-500/10' },
 };
 
 export const ImagesPage: React.FC = () => {
@@ -63,7 +64,7 @@ export const ImagesPage: React.FC = () => {
                   items={[
                     'Use ad for internal AD assessments.',
                     'Use web for web/API engagements.',
-                    'Use blueteam for DFIR, threat hunting, and forensics.',
+                    'Use defender for DFIR, threat hunting, and forensics.',
                     'Use full when you need everything in one image.',
                     'Use nihil image list to see remote availability and update status before pulling.',
                     'Run nihil tools <image> to inspect available tools.',
@@ -76,7 +77,7 @@ export const ImagesPage: React.FC = () => {
                 <StepList
                   steps={[
                     { title: 'Start with interactive mode', detail: 'Run nihil install and pick the image you want.' },
-                    { title: 'Pin explicit image in scripts', detail: 'Use nihil install ad/web/blueteam/full for reproducible setup.' },
+                    { title: 'Pin explicit image in scripts', detail: 'Use nihil install ad/web/defender/full for reproducible setup.' },
                   ]}
                 />
                 <pre className="text-xs bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-x-auto text-slate-200 font-mono">
@@ -87,7 +88,7 @@ nihil install
 nihil install full
 nihil install ad
 nihil install web
-nihil install blueteam
+nihil install defender
 
 # Check local and remote status
 nihil image list`}
@@ -142,7 +143,7 @@ nihil image list`}
                 </div>
 
                 <Callout variant="note" title="Blue Team is specialized (not a simple intersection)">
-                  Use the dedicated <code>blueteam</code> image when you want a defensive DFIR and threat-hunting toolkit.
+                  Use the dedicated <code>defender</code> image when you want a defensive DFIR and threat-hunting toolkit.
                   The comparison above stays focused on Full/AD/Web; Blue Team gets its own tab with the practical toolset.
                 </Callout>
               </section>
@@ -160,7 +161,8 @@ nihil image list`}
                     { name: 'Full', tag: 'ghcr.io/thenullpigeons/full:latest', alt: ':flock', desc: 'The whole flock', border: 'border-amber-500/20 hover:border-amber-500/40', bg: 'bg-gradient-to-r from-amber-500/5 to-transparent', accent: 'text-amber-300', dot: 'bg-amber-400' },
                     { name: 'AD', tag: 'ghcr.io/thenullpigeons/ad:latest', alt: ':nest', desc: 'Nest in their Active Directory', border: 'border-cyan-500/20 hover:border-cyan-500/40', bg: 'bg-gradient-to-r from-cyan-500/5 to-transparent', accent: 'text-cyan-300', dot: 'bg-cyan-400' },
                     { name: 'Web', tag: 'ghcr.io/thenullpigeons/web:latest', alt: ':beak', desc: 'Beak through their web apps', border: 'border-purple-500/20 hover:border-purple-500/40', bg: 'bg-gradient-to-r from-purple-500/5 to-transparent', accent: 'text-purple-300', dot: 'bg-purple-400' },
-                    { name: 'Blue Team', tag: 'ghcr.io/thenullpigeons/blueteam:latest', alt: ':coo', desc: 'Listen before you hunt', border: 'border-emerald-500/20 hover:border-emerald-500/40', bg: 'bg-gradient-to-r from-emerald-500/5 to-transparent', accent: 'text-emerald-300', dot: 'bg-emerald-400' },
+                    { name: 'Blue Team', tag: 'ghcr.io/thenullpigeons/defender:latest', alt: ':coo', desc: 'Listen before you hunt', border: 'border-emerald-500/20 hover:border-emerald-500/40', bg: 'bg-gradient-to-r from-emerald-500/5 to-transparent', accent: 'text-emerald-300', dot: 'bg-emerald-400' },
+                    { name: 'Mobile', tag: 'ghcr.io/thenullpigeons/mobile:latest', alt: ':carrier', desc: 'Carry it into their pocket', border: 'border-pink-500/20 hover:border-pink-500/40', bg: 'bg-gradient-to-r from-pink-500/5 to-transparent', accent: 'text-pink-300', dot: 'bg-pink-400' },
                   ].map((img) => (
                     <div key={img.name} className={`flex items-start gap-3 p-4 rounded-xl border ${img.border} ${img.bg} transition-colors`}>
                       <div className={`w-2.5 h-2.5 rounded-full ${img.dot} mt-1 shrink-0 opacity-80`} />
@@ -180,10 +182,11 @@ nihil image list`}
                   {[
                     { q: 'Internal pentest / AD audit', a: 'ad', reason: 'Impacket, BloodHound, NetExec, Responder, ADCheck, Tombstone, CoercedPotato, and the full AD kill chain.', color: 'cyan', border: 'border-cyan-500/20 hover:border-cyan-500/40', bg: 'from-cyan-500/5' },
                     { q: 'Web application pentest', a: 'web', reason: 'SQLMap, Nuclei, Burp helpers, ffuf, webfuzz, MailScout, and web/API tooling.', color: 'purple', border: 'border-purple-500/20 hover:border-purple-500/40', bg: 'from-purple-500/5' },
-                    { q: 'DFIR / blue team / threat hunting', a: 'blueteam', reason: 'Chainsaw, hayabusa, yara, capa, loki, sleuthkit, and forensics essentials.', color: 'emerald', border: 'border-emerald-500/20 hover:border-emerald-500/40', bg: 'from-emerald-500/5' },
+                    { q: 'DFIR / blue team / threat hunting', a: 'defender', reason: 'Chainsaw, hayabusa, yara, capa, loki, sleuthkit, and forensics essentials.', color: 'emerald', border: 'border-emerald-500/20 hover:border-emerald-500/40', bg: 'from-emerald-500/5' },
+                    { q: 'Mobile app pentest (Android / iOS)', a: 'mobile', reason: 'Frida, objection, jadx, apktool, androguard, libimobiledevice, and adb/scrcpy.', color: 'pink', border: 'border-pink-500/20 hover:border-pink-500/40', bg: 'from-pink-500/5' },
                     { q: 'Not sure / want everything', a: 'full', reason: 'All modules combined, offensive and defensive. Larger download, but nothing missing.', color: 'amber', border: 'border-amber-500/20 hover:border-amber-500/40', bg: 'from-amber-500/5' },
                   ].map((item) => {
-                    const accent: Record<string, string> = { cyan: 'text-cyan-300', purple: 'text-purple-300', blue: 'text-emerald-300', amber: 'text-amber-300' };
+                    const accent: Record<string, string> = { cyan: 'text-cyan-300', purple: 'text-purple-300', blue: 'text-emerald-300', amber: 'text-amber-300', pink: 'text-pink-300' };
                     return (
                       <div key={item.a} className={`p-4 rounded-xl border ${item.border} bg-gradient-to-r ${item.bg} to-transparent transition-colors space-y-1`}>
                         <p className="text-sm font-medium text-white">{item.q}</p>
@@ -195,7 +198,7 @@ nihil image list`}
                   })}
                 </div>
                 <Callout variant="tip" title="Simple decision rule">
-                  If you spend most time on Windows internals choose <code>ad</code>, on HTTP/API choose <code>web</code>, on defensive DFIR work choose <code>blueteam</code>, and for mixed offensive engagements choose <code>full</code>.
+                  If you spend most time on Windows internals choose <code>ad</code>, on HTTP/API choose <code>web</code>, on defensive DFIR work choose <code>defender</code>, on Android/iOS apps choose <code>mobile</code>, and for mixed offensive engagements choose <code>full</code>.
                 </Callout>
               </section>
 
@@ -212,7 +215,7 @@ nihil tools ad --category redteam_ad
 nihil tools web --category redteam_web
 
 # Blue team focused categories
-nihil tools blueteam --category blueteam`}
+nihil tools defender --category defender`}
                 </pre>
               </section>
             </div>
@@ -245,7 +248,7 @@ nihil tools blueteam --category blueteam`}
               <ToolTable title="Reverse tools" tools={reverseTools} />
               <ToolTable title="Crypto tools" tools={cryptoTools} />
               <ToolTable title="Forensics tools" tools={forensicsTools} />
-              <ToolTable title="Blue team tools" tools={blueteamTools} />
+              <ToolTable title="Blue team tools" tools={defenderTools} />
               <ToolTable title="Network tools" tools={networkTools} />
               <ToolTable title="Credential tools" tools={credentialTools} />
               <ToolTable title="C2 frameworks" tools={c2Tools} />
@@ -370,7 +373,7 @@ nihil tools blueteam --category blueteam`}
           )}
 
           {/* Blue Team image tab */}
-          {activeTab === 'blueteam' && (
+          {activeTab === 'defender' && (
             <div className="space-y-8">
               <section className="space-y-3">
                 <div className="p-5 rounded-2xl bg-gradient-to-br from-emerald-500/10 via-emerald-500/5 to-transparent border border-emerald-500/20">
@@ -379,12 +382,12 @@ nihil tools blueteam --category blueteam`}
                     <h2 className="text-xl font-bold text-emerald-300">Blue Team image</h2>
                     <span className="text-xs text-emerald-700 italic">Listen before you hunt</span>
                   </div>
-                  <code className="text-xs text-slate-300 font-mono block mb-2">ghcr.io/thenullpigeons/blueteam:latest</code>
+                  <code className="text-xs text-slate-300 font-mono block mb-2">ghcr.io/thenullpigeons/defender:latest</code>
                   <p className="text-slate-400 text-sm">
                     Purpose-built for defensive work: DFIR, log and event-log threat hunting, malware triage, and disk/memory forensics.
                   </p>
                   <div className="flex flex-wrap gap-1.5 mt-3">
-                    {(toolsData.modules.blueteam as string[]).map((m) => (
+                    {(toolsData.modules.defender as string[]).map((m) => (
                       <span key={m} className="text-[0.625rem] px-2 py-0.5 rounded-full bg-emerald-400/10 text-emerald-300/80 border border-emerald-500/15 font-mono">{m}</span>
                     ))}
                   </div>
@@ -408,9 +411,55 @@ nihil tools blueteam --category blueteam`}
                 </div>
               </section>
 
-              <ToolTable title="Blue team tools" tools={blueteamTools} />
+              <ToolTable title="Blue team tools" tools={defenderTools} />
               <ToolTable title="Core tools" tools={coreTools} />
               <ToolTable title="Forensics tools" tools={forensicsTools} />
+              <ToolTable title="Network tools" tools={networkTools} />
+              <ToolTable title="Wordlists" tools={wordlistsTools} />
+            </div>
+          )}
+
+          {/* Mobile image tab */}
+          {activeTab === 'mobile' && (
+            <div className="space-y-8">
+              <section className="space-y-3">
+                <div className="p-5 rounded-2xl bg-gradient-to-br from-pink-500/10 via-pink-500/5 to-transparent border border-pink-500/20">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-3 h-3 rounded-full bg-pink-400 shadow-lg shadow-pink-400/30" />
+                    <h2 className="text-xl font-bold text-pink-300">Mobile image</h2>
+                    <span className="text-xs text-pink-700 italic">Carry it into their pocket</span>
+                  </div>
+                  <code className="text-xs text-slate-300 font-mono block mb-2">ghcr.io/thenullpigeons/mobile:latest</code>
+                  <p className="text-slate-400 text-sm">
+                    Purpose-built for mobile application pentest: Android and iOS static analysis, dynamic instrumentation with Frida, and on-device tooling.
+                  </p>
+                  <div className="flex flex-wrap gap-1.5 mt-3">
+                    {(toolsData.modules.mobile as string[]).map((m) => (
+                      <span key={m} className="text-[0.625rem] px-2 py-0.5 rounded-full bg-pink-400/10 text-pink-300/80 border border-pink-500/15 font-mono">{m}</span>
+                    ))}
+                  </div>
+                </div>
+              </section>
+
+              <section className="space-y-3">
+                <h3 className="text-lg font-medium text-white">Key tools by category</h3>
+                <div className="space-y-4">
+                  {[
+                    { cat: 'Android static', tools: 'jadx, apktool, dex2jar, androguard, apkleaks, apkeep' },
+                    { cat: 'Dynamic instrumentation', tools: 'frida, objection' },
+                    { cat: 'iOS', tools: 'libimobiledevice, ideviceinstaller, libplist' },
+                    { cat: 'Device', tools: 'android-tools (adb), scrcpy' },
+                  ].map((row) => (
+                    <div key={row.cat} className="p-3 rounded-xl bg-gradient-to-r from-pink-500/5 to-transparent border border-pink-500/20">
+                      <p className="text-sm font-medium text-pink-300">{row.cat}</p>
+                      <p className="text-xs text-slate-400 mt-1 font-mono">{row.tools}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              <ToolTable title="Mobile tools" tools={mobileTools} />
+              <ToolTable title="Core tools" tools={coreTools} />
               <ToolTable title="Network tools" tools={networkTools} />
               <ToolTable title="Wordlists" tools={wordlistsTools} />
             </div>
@@ -496,4 +545,5 @@ const forensicsTools = byCategory('Forensics');
 const c2Tools = byCategory('C2');
 const miscTools = byCategory('Misc');
 const wordlistsTools = byCategory('Wordlists');
-const blueteamTools = byCategory('Blue Team');
+const defenderTools = byCategory('Blue Team');
+const mobileTools = byCategory('Mobile');
