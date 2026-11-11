@@ -76,10 +76,10 @@ const declaration = [
 const parcels = [
   { name: 'nihil', licence: 'MIT' },
   { name: 'nihil-images', licence: 'MIT' },
-  { name: 'nihil-history', licence: null },
-  { name: 'nihil-resources', licence: null },
-  { name: 'nihil-mcp', licence: null },
-  { name: 'nihil-ntp', licence: null },
+  { name: 'nihil-history', licence: 'MIT' },
+  { name: 'nihil-resources', licence: 'MIT' },
+  { name: 'nihil-mcp', licence: 'MIT' },
+  { name: 'nihil-ntp', licence: 'MIT' },
 ];
 
 async function fetchGitHubAvatar(username: string): Promise<string | null> {
