@@ -319,17 +319,6 @@
       ]
     },
     {
-      "name": "certipy-ad",
-      "cmd": "certipy",
-      "desc": "Compatibility alias for Certipy ADCS enumeration and exploitation",
-      "module": "mod_ad",
-      "category": "Active Directory",
-      "images": [
-        "full",
-        "ad"
-      ]
-    },
-    {
       "name": "bloodyad",
       "cmd": "bloodyAD",
       "desc": "AD privilege escalation framework",
