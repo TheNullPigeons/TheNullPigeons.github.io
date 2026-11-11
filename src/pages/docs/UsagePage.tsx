@@ -219,6 +219,9 @@ nihil build full --source nihil-images --allow-tool-failures
 nihil image build full --allow-tool-failures --wait`}
             </pre>
             <Callout variant="note" title="Allowing tool failures">
+              With <code>--web</code>, use the <strong>Allow tool failures</strong> checkbox before
+              pressing <strong>Start build</strong> or <strong>Apply &amp; build</strong>. The CLI flag
+              preselects the checkbox; your choice in the page controls that build.
               Builds stop on errors by default. With <code>--allow-tool-failures</code>, a failed non-core
               installer stops and the next tool is attempted. Failed installers and missing tools appear in
               the build output and in <code>/opt/nihil/build/config/build-failures.log</code> inside the image.
