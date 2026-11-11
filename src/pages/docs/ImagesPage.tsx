@@ -119,8 +119,8 @@ nihil image list`}
                         ['Forensics tools (volatility3, stegseek...)', true, false, false],
                         ['Blue team tools (chainsaw, yara, capa...)', true, false, false],
                         ['C2 frameworks (metasploit, sliver)', true, true, false],
-                        ['Network tools (nmap, socat, tshark...)', true, true, true],
-                        ['Credential tools (hashcat, john)', true, true, true],
+                        ['Network tools (nmap, naabu, socat, tshark...)', true, true, true],
+                        ['Credential tools (hashcat, john, patator)', true, true, true],
                         ['Misc tools (searchsploit, CyberChef)', true, true, true],
                         ['Wordlists (SecLists, rockyou)', true, true, true],
                       ].map(([feature, full, ad, web], i) => (
@@ -398,7 +398,7 @@ nihil tools blueteam --category blueteam`}
                     { cat: 'Threat hunting', tools: 'chainsaw, hayabusa, sigma-cli, loki' },
                     { cat: 'Malware analysis', tools: 'yara, capa, jadx' },
                     { cat: 'Forensics', tools: 'sleuthkit, volatility3, foremost, exiftool, steghide, zsteg, stegseek' },
-                    { cat: 'Network', tools: 'nmap, tcpdump, wireshark, tshark, seth, wifite2, wifit3, snmpwalk, snmpcheck, onesixtyone, netdiscover, zrok' },
+                    { cat: 'Network', tools: 'nmap, naabu, tcpdump, wireshark, tshark, seth, wifite2, wifit3, snmpwalk, snmpcheck, onesixtyone, netdiscover, zrok' },
                   ].map((row) => (
                     <div key={row.cat} className="p-3 rounded-xl bg-gradient-to-r from-emerald-500/5 to-transparent border border-emerald-500/20">
                       <p className="text-sm font-medium text-emerald-300">{row.cat}</p>

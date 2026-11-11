@@ -1840,21 +1840,24 @@
       "name": "naabu",
       "cmd": "naabu",
       "desc": "Fast port scanner",
-      "module": "mod_web",
-      "category": "Web",
+      "module": "mod_network",
+      "category": "Network",
       "images": [
         "full",
-        "web"
+        "ad",
+        "web",
+        "blueteam"
       ]
     },
     {
       "name": "patator",
       "cmd": "patator",
       "desc": "Multi-purpose brute-forcer",
-      "module": "mod_web",
-      "category": "Web",
+      "module": "mod_credential",
+      "category": "Credential",
       "images": [
         "full",
+        "ad",
         "web"
       ]
     },
